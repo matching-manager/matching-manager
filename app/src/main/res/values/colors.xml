@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- common -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="common_point_green">#53C28D</color>
+    <color name="common_point_grey">#3F3F3F</color>
+    <color name="common_transparent">#00ff0000</color>
+
+    <!-- tab -->
+    <color name="tab_btn_green">#53C28D</color>
+    <color name="tab_btn_grey">#3F3F3F</color>
+
+    <!-- calender -->
+    <color name="calendar_deep_green">#219653</color>
+
+    <!-- signup -->
+    <color name="signup_exception_red">#BA2930</color>
+
+    <!-- match -->
+    <color name="match_mercenary_pink">#E18585</color>
+
+
+    <color name="team_request_yellow">#D9D68D</color>
+    <color name="team_recruit_blue">#859FE1</color>
+
+</resources>
