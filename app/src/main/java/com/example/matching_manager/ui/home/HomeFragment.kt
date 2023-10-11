@@ -13,7 +13,7 @@ class HomeFragment : Fragment() {
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
-    //test
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
