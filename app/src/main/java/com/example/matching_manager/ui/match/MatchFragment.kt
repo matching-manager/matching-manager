@@ -8,10 +8,15 @@ import android.view.ViewGroup
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchFragmentBinding
 import com.example.matching_manager.databinding.SignInFragmentBinding
+import com.example.matching_manager.ui.home.HomeFragment
 
 class MatchFragment : Fragment() {
     private var _binding: MatchFragmentBinding? = null
     private val binding get() = _binding!!
+
+    companion object {
+        fun newInstance() = MatchFragment()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,6 +25,7 @@ class MatchFragment : Fragment() {
         _binding = MatchFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

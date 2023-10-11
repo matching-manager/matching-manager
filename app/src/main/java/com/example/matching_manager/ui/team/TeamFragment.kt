@@ -8,10 +8,16 @@ import android.view.ViewGroup
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.SignInFragmentBinding
 import com.example.matching_manager.databinding.TeamFragmentBinding
+import com.example.matching_manager.ui.my.MyFragment
 
 class TeamFragment : Fragment() {
     private var _binding: TeamFragmentBinding? = null
     private val binding get() = _binding!!
+
+    companion object {
+        fun newInstance() = TeamFragment()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
