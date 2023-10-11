@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.HomeFragmentBinding
 import com.example.matching_manager.databinding.SignInFragmentBinding
+import com.example.matching_manager.ui.calender.CalendarFragment
 
 class HomeFragment : Fragment() {
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
-
+    companion object {
+        fun newInstance() = HomeFragment()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,6 +25,7 @@ class HomeFragment : Fragment() {
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

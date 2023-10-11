@@ -13,6 +13,10 @@ class CalendarFragment : Fragment() {
     private var _binding: CalendarFragmentBinding? = null
     private val binding get() = _binding!!
 
+    companion object {
+        fun newInstance() = CalendarFragment()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -20,6 +24,7 @@ class CalendarFragment : Fragment() {
         _binding = CalendarFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
