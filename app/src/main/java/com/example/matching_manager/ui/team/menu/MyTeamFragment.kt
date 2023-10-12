@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.matching_manager.databinding.MyTeamFragmentBinding
-import com.example.matching_manager.databinding.TeamFragmentBinding
+import com.example.matching_manager.databinding.TeamMyteamFragmentBinding
 
 class MyTeamFragment : Fragment() {
-    private var _binding: MyTeamFragmentBinding? = null
+    private var _binding: TeamMyteamFragmentBinding? = null
     private val binding get() = _binding!!
 
     companion object {
@@ -21,7 +20,7 @@ class MyTeamFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = MyTeamFragmentBinding.inflate(inflater, container, false)
+        _binding = TeamMyteamFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
