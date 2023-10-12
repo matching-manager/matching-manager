@@ -8,7 +8,6 @@ data class ArenaResponse(
 )
 
 data class MetaResponse(
-
     // 검색어에 검색된 문서 수
     @SerializedName("total_count") val totalCount: Int?,
     // total_count 중 노출 가능 문서 수 (최대: 45)
@@ -17,7 +16,6 @@ data class MetaResponse(
     @SerializedName("is_end") val isEnd: Boolean?,
     // 질의어의 지역 및 키워드 분석 정보
     @SerializedName("same_name") val sameName: SameNameResponse?
-
 )
 
 data class SameNameResponse(

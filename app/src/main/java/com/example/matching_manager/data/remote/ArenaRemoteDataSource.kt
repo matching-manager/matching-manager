@@ -5,7 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ArenaRemoteDataSource {
-
     @GET("/v2/local/search/keyword")
     suspend fun getArenaInfo(
         @Query("query") query: String,
