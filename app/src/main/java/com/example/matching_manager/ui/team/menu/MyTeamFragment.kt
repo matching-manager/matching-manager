@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.matching_manager.databinding.TeamMyteamFragmentBinding
+import com.example.matching_manager.ui.team.TeamListAdapter
+import com.example.matching_manager.ui.team.TeamModel
 
 class MyTeamFragment : Fragment() {
     private var _binding: TeamMyteamFragmentBinding? = null
@@ -15,10 +17,15 @@ class MyTeamFragment : Fragment() {
         fun newInstance() = MyTeamFragment()
     }
 
+    //어댑터 연결
+    private val listAdapter by lazy {
+        TeamListAdapter()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = TeamMyteamFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -31,6 +38,8 @@ class MyTeamFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
+        //listview Adapter
+        recyclerview.adapter = listAdapter
 
     }
 

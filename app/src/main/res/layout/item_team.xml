@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:text="전남"
-                android:textSize="15dp"
+                android:textSize="13dp"
                 app:layout_constraintStart_toStartOf="@+id/tv_team_name"
                 app:layout_constraintTop_toBottomOf="@+id/tv_team_name" />
 
@@ -60,18 +60,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="광양시"
-                android:textSize="15dp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_manner"
+                android:textSize="13dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_area"
                 app:layout_constraintStart_toEndOf="@+id/tv_area"
-                app:layout_constraintTop_toBottomOf="@+id/tv_team_name" />
+                app:layout_constraintTop_toTopOf="@+id/tv_area" />
 
             <TextView
                 android:id="@+id/tv_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:text="남성팀"
-                android:textSize="15dp"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_location"
                 app:layout_constraintStart_toEndOf="@+id/tv_location"
                 app:layout_constraintTop_toTopOf="@+id/tv_location" />
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="20-30대"
-                android:textSize="15dp"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_gender"
                 app:layout_constraintStart_toEndOf="@+id/tv_gender"
                 app:layout_constraintTop_toTopOf="@+id/tv_gender" />
@@ -91,9 +91,9 @@
                 android:id="@+id/tv_manner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="1dp"
                 android:text="매너점수"
-                android:textSize="15dp"
+                android:textSize="13dp"
                 app:layout_constraintStart_toStartOf="@+id/tv_area"
                 app:layout_constraintTop_toBottomOf="@+id/tv_area" />
 
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="4.5"
-                android:textSize="15dp"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_manner"
                 app:layout_constraintStart_toEndOf="@+id/tv_manner"
                 app:layout_constraintTop_toTopOf="@+id/tv_manner" />
@@ -112,9 +112,9 @@
                 android:id="@+id/tv_team"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:text="선수"
-                android:textSize="15dp"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_manner_score"
                 app:layout_constraintStart_toEndOf="@+id/tv_manner_score"
                 app:layout_constraintTop_toTopOf="@+id/tv_manner_score" />
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="28명"
-                android:textSize="15dp"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_team"
                 app:layout_constraintStart_toEndOf="@+id/tv_team"
                 app:layout_constraintTop_toTopOf="@+id/tv_team" />
@@ -134,9 +134,9 @@
                 android:id="@+id/tv_president"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:text="회장"
-                android:textSize="15dp"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_team_members"
                 app:layout_constraintStart_toEndOf="@+id/tv_team_members"
                 app:layout_constraintTop_toTopOf="@+id/tv_team_members" />
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="추민수"
-                android:textSize="15dp"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_president"
                 app:layout_constraintStart_toEndOf="@+id/tv_president"
                 app:layout_constraintTop_toTopOf="@+id/tv_president" />

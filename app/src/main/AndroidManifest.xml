@@ -15,6 +15,12 @@
         android:theme="@style/Theme.Matchingmanager"
         tools:targetApi="31">
         <activity
+            android:name=".ui.team.menu.TeamViewModel"
+            android:exported="false" />
+        <activity
+            android:name=".ui.team.TeamListAdapter"
+            android:exported="false" />
+        <activity
             android:name=".ui.team.TeamDetailActivity"
             android:exported="false" />
         <activity
