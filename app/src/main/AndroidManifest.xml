@@ -24,6 +24,9 @@
             android:name=".ui.team.TeamDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.home.arena.ArenaActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.signin.SignInActivity"
             android:exported="false" />
         <activity
