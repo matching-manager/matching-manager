@@ -2,7 +2,7 @@ package com.example.matching_manager.domain.model
 
 data class ArenaEntity(
     val meta: MetaEntity?,
-    val documents: DocumentsEntity?
+    val documents: List<DocumentsEntity>?
 )
 
 data class MetaEntity(
