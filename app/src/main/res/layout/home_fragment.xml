@@ -18,7 +18,7 @@
             android:id="@+id/iv_runner"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/ic_exercise"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_notification"
+            android:src="@drawable/ic_bell"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -72,7 +72,8 @@
             android:id="@+id/tv_home_weekrank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="금주의 랭킹"
+            android:layout_marginTop="40dp"
+            android:text="추천 매치"
             android:textColor="@color/black"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/home_cl2"
@@ -85,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="110dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/home_cl2">
@@ -213,13 +214,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_home1"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="160dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/common_gradient_background">
 
@@ -227,36 +227,24 @@
             android:id="@+id/rv_home_rank"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_home_match"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="추천매치"
+            android:layout_marginStart="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="더보기"
+            android:layout_marginStart="340dp"
+            android:textColor="#D6AEAEAE"
+            />
     </androidx.cardview.widget.CardView>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/home_cl4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="280dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="추천 매치"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_home_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:text="더보기"
-            android:textColor="#D6AEAEAE"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <androidx.cardview.widget.CardView
@@ -264,7 +252,7 @@
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="310dp"
+        android:layout_marginTop="350dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/common_gradient_background">
 
@@ -272,6 +260,21 @@
             android:id="@+id/rv_home_match"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인기글"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="더보기"
+            android:textColor="#D6AEAEAE"
+            android:layout_marginStart="340dp"
+            />
 
     </androidx.cardview.widget.CardView>
 
