@@ -42,8 +42,9 @@ class ArenaListAdapter(
         private val binding: ArenaRecyclerviewItemBinding,
         private val onClick: (ArenaModel) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(item: ArenaModel) = with(binding) {
+            tvArenaTitle.text = item.placeName
+            tvArenaAddress.text = item.roadAddressName
 
         }
     }
