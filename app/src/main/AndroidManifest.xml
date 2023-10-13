@@ -27,13 +27,13 @@
             android:name=".ui.team.TeamDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.home.arena.ArenaActivity"
             android:exported="false" />
         <activity
             android:name=".ui.signin.SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.arena.ArenaActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
