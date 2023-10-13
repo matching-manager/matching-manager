@@ -3,11 +3,8 @@ package com.example.matching_manager.ui.team
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.matching_manager.databinding.MainActivityBinding
-import com.example.matching_manager.databinding.MatchDetailActivityBinding
 import com.example.matching_manager.databinding.TeamDetailActivityBinding
-import com.example.matching_manager.ui.match.MatchData
-import com.example.matching_manager.ui.match.MatchFragment
+import com.example.matching_manager.ui.team.mdoel.TeamModel
 
 class TeamDetailActivity : AppCompatActivity() {
     private lateinit var binding: TeamDetailActivityBinding

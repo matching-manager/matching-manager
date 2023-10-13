@@ -1,4 +1,4 @@
-package com.example.matching_manager.ui.team
+package com.example.matching_manager.ui.team.mdoel
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

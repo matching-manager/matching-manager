@@ -23,6 +23,16 @@ class TeamAddCategory : BottomSheetDialogFragment() {
         _binding = TeamAddCategoryBinding.inflate(inflater, container, false)
 
         return binding.root
+        initView()
+    }
+
+    private fun initView()= with(binding) {
+        btnApplication.setOnClickListener {
+        //용병신청 동작추가
+        }
+        btnRecruitment.setOnClickListener {
+        //용병모집 동작추가
+        }
     }
 
     override fun onDestroyView() {

@@ -23,7 +23,7 @@ class TeamFragment : Fragment() {
     private val listAdapter by lazy {
         TeamListAdapter { item ->
             val intent = Intent(requireContext(), TeamDetailActivity::class.java)
-            intent.putExtra(TeamFragment.OBJECT_DATA, item)
+            intent.putExtra(OBJECT_DATA, item)
             startActivity(intent)
         }
     }
@@ -58,12 +58,19 @@ class TeamFragment : Fragment() {
 
         //add btn
         fabAdd.setOnClickListener {
-            val matchCategory = TeamAddCategory()
+            val teamAddCategory = TeamAddCategory()
 
             val fragmentManager = requireActivity().supportFragmentManager
-            matchCategory.show(fragmentManager, matchCategory.tag)
+            teamAddCategory.show(fragmentManager, teamAddCategory.tag)
         }
+        //filtr btn
+        btnFilter.setOnClickListener {
+            val teamFilterCategory = TeamFilterCategory()
 
+            val fragmentManager = requireActivity().supportFragmentManager
+            teamFilterCategory.show(fragmentManager, teamFilterCategory.tag)
+
+        }
 
     }
 

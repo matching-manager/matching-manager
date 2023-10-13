@@ -1,12 +1,10 @@
 package com.example.matching_manager.ui.team.view
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.matching_manager.R
-import com.example.matching_manager.ui.team.TeamModel
+import com.example.matching_manager.ui.team.mdoel.TeamModel
 
 class TeamViewModel : ViewModel() {
 

@@ -5,9 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.matching_manager.databinding.MatchItemBinding
 import com.example.matching_manager.databinding.TeamItemBinding
-import com.example.matching_manager.ui.team.TeamModel
+import com.example.matching_manager.ui.team.mdoel.TeamModel
 
 class TeamListAdapter(private val onItemClick: (TeamModel) -> Unit) :
     ListAdapter<TeamModel, TeamListAdapter.ViewHolder>(
