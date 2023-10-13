@@ -2,25 +2,18 @@ package com.example.matching_manager.ui.team
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.TeamFragmentBinding
-import com.example.matching_manager.databinding.TeamMyteamFragmentBinding
-import com.example.matching_manager.ui.main.MainActivity
-import com.example.matching_manager.ui.match.MatchCategory
-import com.example.matching_manager.ui.match.MatchDetailActivity
-import com.example.matching_manager.ui.match.MatchFragment
 import com.example.matching_manager.ui.match.TeamListAdapter
 import com.example.matching_manager.ui.team.view.TeamViewModel
-import com.google.android.material.tabs.TabLayoutMediator
 
 class TeamFragment : Fragment() {
-    private var _binding: TeamMyteamFragmentBinding? = null
+    private var _binding: TeamFragmentBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: TeamViewModel by lazy {
@@ -30,7 +23,7 @@ class TeamFragment : Fragment() {
     private val listAdapter by lazy {
         TeamListAdapter { item ->
             val intent = Intent(requireContext(), TeamDetailActivity::class.java)
-            intent.putExtra(MatchFragment.OBJECT_DATA, item)
+            intent.putExtra(TeamFragment.OBJECT_DATA, item)
             startActivity(intent)
         }
     }
@@ -46,7 +39,7 @@ class TeamFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        _binding = TeamMyteamFragmentBinding.inflate(inflater, container, false)
+        _binding = TeamFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -65,7 +58,7 @@ class TeamFragment : Fragment() {
 
         //add btn
         fabAdd.setOnClickListener {
-            val matchCategory = MatchCategory()
+            val matchCategory = TeamAddCategory()
 
             val fragmentManager = requireActivity().supportFragmentManager
             matchCategory.show(fragmentManager, matchCategory.tag)
