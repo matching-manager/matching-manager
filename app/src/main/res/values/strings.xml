@@ -46,5 +46,8 @@
     <string name="match_detail_description">글 내용</string>
     <string name="match_detail_stadium">경기 구장</string>
 
+    <string name="team_myteam">팀</string>
+    <string name="team_recruitment">모집</string>
+    <string name="team_search_description">매칭할 팀을 검색해보세요.</string>
 
 </resources>

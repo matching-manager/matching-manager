@@ -18,6 +18,18 @@
             android:name=".ui.match.MatchDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.team.menu.TeamViewModel"
+            android:exported="false" />
+        <activity
+            android:name=".ui.team.TeamListAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".ui.team.TeamDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.arena.ArenaActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.signin.SignInActivity"
             android:exported="false" />
         <activity
