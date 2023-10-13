@@ -55,7 +55,7 @@
     <string name="team_item_place">광주광역시 동구 지산동 조선대학교 운동장</string>
 
     <!-- team_fragment.xml -->
-    <string name="team_fragment_title">모집</string>
+    <string name="team_fragment_title">모집/신청</string>
     <string name="team_fragment_mercenary">용병신청</string>
     <string name="team_fragment_team_matching">용병모집</string>
     <string name="team_fragment_filter">필터</string>
