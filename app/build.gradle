@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     // firebase
-    id("com.google.gms.google-services")
+    id 'com.google.gms.google-services'
     // parcelize
     id 'kotlin-parcelize'
     id 'kotlin-android'
