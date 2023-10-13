@@ -7,7 +7,7 @@ import com.example.matching_manager.domain.repository.ArenaRepository
 import com.example.matching_manager.domain.usecase.GetArenaInfoUseCase
 import com.example.matching_manager.retrofit.RetrofitClient
 
-class ArenaViewModelFactory : ViewModelProvider.Factory{
+class ArenaViewModelFactory : ViewModelProvider.Factory {
 
     private val repository: ArenaRepository = ArenaRepositoryImpl(
         RetrofitClient.search
