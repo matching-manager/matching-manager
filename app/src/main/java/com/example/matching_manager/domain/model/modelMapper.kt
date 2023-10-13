@@ -7,7 +7,9 @@ import com.example.matching_manager.data.model.SameNameResponse
 
 fun ArenaResponse.toArenaEntity() = ArenaEntity(
     meta = meta?.toEntity(),
-    documents = documents?.toEntity()
+    documents = documents?.map { response ->
+        response.toEntity()
+    }
 )
 
 fun MetaResponse.toEntity() = MetaEntity(
