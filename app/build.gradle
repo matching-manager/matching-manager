@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     // firebase
-    id("com.google.gms.google-services")
+    id 'com.google.gms.google-services'
     // parcelize
     id 'kotlin-parcelize'
     id 'kotlin-android'
@@ -72,5 +72,8 @@ dependencies {
 
     //CardView
     implementation 'androidx.cardview:cardview:1.0.0'
+
+    // interceptor
+    implementation 'com.squareup.okhttp3:logging-interceptor'
 
 }

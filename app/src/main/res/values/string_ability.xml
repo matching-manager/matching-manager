@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ability_array">
+        <item>레벨을 선택해주세요</item>
+        <item>하(Lv1-3)</item>
+        <item>중(Lv4-6)</item>
+        <item>상(Lv7-10)</item>
+    </string-array>
+</resources>

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ArenaResponse(
     @SerializedName("meta") val meta: MetaResponse?,
-    @SerializedName("documents") val documents: DocumentsResponse?
+    @SerializedName("documents") val documents: List<DocumentsResponse>?
 )
 
 data class MetaResponse(
@@ -20,7 +20,7 @@ data class MetaResponse(
 
 data class SameNameResponse(
     // 질의어에서 인식된 지역의 리스트 ( 예: '중앙로 맛집' 에서 중앙로에 해당하는 지역 리스트 )
-    @SerializedName("region") val region: String?,
+    @SerializedName("region") val region: Array<String>?,
     // 질의어에서 지역 정보를 제외한 키워드 ( 예: '중앙로 맛집' 에서 '맛집' )
     @SerializedName("keyword") val keyword: String?,
     // 인식된 지역 리스트 중, 현재 검색에 사용된 지역 정보
