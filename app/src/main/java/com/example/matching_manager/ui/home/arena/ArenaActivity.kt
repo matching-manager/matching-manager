@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.ArenaActivityBinding
 
 class ArenaActivity : AppCompatActivity() {

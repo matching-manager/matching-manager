@@ -10,7 +10,7 @@ class GetArenaInfoUseCase(
         query: String,
         x: String,
         y: String,
-        radius: Int = 1000,
+        radius: Int = 10000,
         page: Int =  1,
         size: Int =  10,
         sort: String = "distance"
