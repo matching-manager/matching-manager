@@ -9,11 +9,11 @@ class GetArenaInfoUseCase(
     suspend operator fun invoke(
         query: String,
         x: String,
-        y: Int,
+        y: String,
         radius: Int,
         page: Int,
         size: Int,
-        sort: Int,
+        sort: String,
     ): ArenaEntity = repository.getArenaInfo(
         query,
         x,

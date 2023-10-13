@@ -19,11 +19,11 @@ class ArenaViewModel(
     fun getArenaInfo(
         query: String,
         x: String,
-        y: Int,
+        y: String,
         radius: Int,
         page: Int,
         size: Int,
-        sort: Int,
+        sort: String,
     ) {
         viewModelScope.launch {
             kotlin.runCatching {
