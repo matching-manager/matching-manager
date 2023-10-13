@@ -6,13 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchFragmentBinding
-import com.example.matching_manager.databinding.SignInFragmentBinding
-import com.example.matching_manager.ui.home.HomeFragment
 
 class MatchFragment : Fragment() {
     private var _binding: MatchFragmentBinding? = null
@@ -58,7 +55,7 @@ class MatchFragment : Fragment() {
         dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
 
 
-        val adapter = MatchAdapter {item ->
+        val adapter = MatchListAdapter { item ->
             val intent = Intent(requireContext(), MatchDetailActivity::class.java)
             intent.putExtra(OBJECT_DATA, item)
             startActivity(intent)

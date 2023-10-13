@@ -18,7 +18,7 @@
             android:name=".ui.match.MatchDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.team.menu.TeamViewModel"
+            android:name=".ui.team.view.TeamViewModel"
             android:exported="false" />
         <activity
             android:name=".ui.team.TeamListAdapter"
