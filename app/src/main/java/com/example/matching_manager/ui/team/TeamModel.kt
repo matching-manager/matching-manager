@@ -11,5 +11,5 @@ data class TeamModel(
     var viewCount: Int,
     var chatCount: Int,
     val schedule: String,
-    val place: String
+    val place: String,
 ) : Parcelable

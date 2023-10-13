@@ -23,11 +23,12 @@ class TeamFragment : Fragment() {
     private var _binding: TeamMyteamFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: TeamViewModel by lazy { ViewModelProvider(this)[TeamViewModel::class.java]
+    private val viewModel: TeamViewModel by lazy {
+        ViewModelProvider(this)[TeamViewModel::class.java]
     }
 
     private val listAdapter by lazy {
-        TeamListAdapter{ item ->
+        TeamListAdapter { item ->
             val intent = Intent(requireContext(), TeamDetailActivity::class.java)
             intent.putExtra(MatchFragment.OBJECT_DATA, item)
             startActivity(intent)
@@ -43,7 +44,7 @@ class TeamFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = TeamMyteamFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -74,8 +75,8 @@ class TeamFragment : Fragment() {
     }
 
     //viewmodel init
-    private fun initViewModel()= with(viewModel) {
-        list.observe(viewLifecycleOwner){
+    private fun initViewModel() = with(viewModel) {
+        list.observe(viewLifecycleOwner) {
             listAdapter.submitList(it)
         }
     }

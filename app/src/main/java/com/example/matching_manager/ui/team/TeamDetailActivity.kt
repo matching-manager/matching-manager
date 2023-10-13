@@ -10,13 +10,12 @@ import com.example.matching_manager.ui.match.MatchData
 import com.example.matching_manager.ui.match.MatchFragment
 
 class TeamDetailActivity : AppCompatActivity() {
-    private lateinit var binding : TeamDetailActivityBinding
+    private lateinit var binding: TeamDetailActivityBinding
 
     private val data: TeamModel? by lazy {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(TeamFragment.OBJECT_DATA, TeamModel::class.java)
-        }
-        else {
+        } else {
             intent.getParcelableExtra<TeamModel>(TeamFragment.OBJECT_DATA)
         }
     }
@@ -32,5 +31,9 @@ class TeamDetailActivity : AppCompatActivity() {
     private fun initView() = with(binding) {
         ivTeam.setImageResource(data!!.teamProfile)
 
+        //back button
+        btnCancel.setOnClickListener {
+            finish() // 현재 Activity 종료
+        }
     }
 }
