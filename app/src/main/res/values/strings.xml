@@ -8,8 +8,43 @@
     <string name="main_team">Team</string>
     <string name="main_mypage">MyPage</string>
 
+    <!-- match_item.xml -->
+    <string name="match_item_type">팀 매칭</string>
+    <string name="match_item_detail">11:11 남성</string>
+    <string name="match_item_view_count">1</string>
+    <string name="match_item_chat_count">0</string>
+    <string name="match_item_schedule">11/2 (목) 오후 8시</string>
+    <string name="match_item_place">광주광역시 동구 지산동 조선대학교 운동장</string>
 
+    <!-- match_fragment.xml -->
+    <string name="match_fragment_mercenary">용병</string>
+    <string name="match_fragment_team_matching">팀 매칭</string>
+    <string name="match_fragment_filter">필터</string>
+    <string name="match_fragment_category">카테고리</string>
 
+    <!-- match_detail.xml -->
+    <string name="match_detail_title">매치 제목</string>
+    <string name="match_detail_team">팀 이름</string>
+    <string name="match_detail_time">5시간 전</string>
+    <string name="match_detail_slash">/</string>
+    <string name="match_detail_view_count">조회 5</string>
+    <string name="match_detail_manner_score_title">매너점수</string>
+    <string name="match_detail_manner_score">5.0</string>
+    <string name="match_detail_information">정보</string>
+    <string name="match_detail_match_title">경기 매치</string>
+    <string name="match_detail_match">무슨 정보일까</string>
+    <string name="match_detail_people_number_title">인원</string>
+    <string name="match_detail_people_number">11 VS 11</string>
+    <string name="match_detail_gender_title">성별</string>
+    <string name="match_detail_gender">남성</string>
+    <string name="match_detail_skill_title">실력</string>
+    <string name="match_detail_skill">중</string>
+    <string name="match_detail_entry_fee_title">참가비</string>
+    <string name="match_detail_entry_fee">5만원</string>
+    <string name="match_detail_team_name_title">팀 이름</string>
+    <string name="match_detail_team_name">맨시티</string>
+    <string name="match_detail_description">글 내용</string>
+    <string name="match_detail_stadium">경기 구장</string>
 
 
 </resources>
