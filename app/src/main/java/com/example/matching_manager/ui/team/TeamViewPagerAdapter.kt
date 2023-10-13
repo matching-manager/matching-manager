@@ -10,16 +10,11 @@ import com.example.matching_manager.ui.team.menu.RecruitmentFragment
 
 class TeamViewPagerAdapter(private val activity: FragmentActivity) :
     FragmentStateAdapter(activity) {
-    private val fragments = ArrayList<TeamTab>()
 
-    init {
-        fragments.add(
-            TeamTab(MyTeamFragment.newInstance(), R.string.team_myteam)
-        )
-        fragments.add(
-            TeamTab(RecruitmentFragment.newInstance(), R.string.team_recruitment)
-        )
-    }
+    private val fragments = listOf(
+        TeamTab(MyTeamFragment.newInstance(), R.string.team_myteam),
+        TeamTab(RecruitmentFragment.newInstance(), R.string.team_recruitment)
+    )
 
     fun getTitle(position: Int): Int {
         return fragments[position].title
