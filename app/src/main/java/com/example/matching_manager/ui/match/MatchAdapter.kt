@@ -31,7 +31,7 @@ class MatchAdapter (private val onItemClick: (MatchData) -> Unit) : ListAdapter<
     class ViewHolder(private val binding: MatchItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item : MatchData, onItemClick: (MatchData) -> Unit) = with(binding) {
-            ivTeam.setImageResource(item.teamImage)
+            ivProfile.setImageResource(item.teamImage)
             tvType.text = item.type
             tvDetail.text = item.detail
             tvViewCount.text = item.viewCount.toString()

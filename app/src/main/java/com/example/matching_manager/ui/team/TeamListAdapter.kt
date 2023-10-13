@@ -1,14 +1,11 @@
 package com.example.matching_manager.ui.team
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.matching_manager.R
-import com.example.matching_manager.databinding.ItemTeamBinding
+import com.example.matching_manager.databinding.TeamItemBinding
 
 class TeamListAdapter() : ListAdapter<TeamModel, TeamListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<TeamModel>() {
@@ -29,7 +26,7 @@ class TeamListAdapter() : ListAdapter<TeamModel, TeamListAdapter.ViewHolder>(
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemTeamBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            TeamItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         )
     }
 
@@ -38,7 +35,7 @@ class TeamListAdapter() : ListAdapter<TeamModel, TeamListAdapter.ViewHolder>(
         holder.bind(item)
     }
     class ViewHolder(
-        private val binding: ItemTeamBinding,
+        private val binding: TeamItemBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: TeamModel) = with(binding) {
