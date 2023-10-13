@@ -45,7 +45,6 @@ class ArenaListAdapter(
         fun bind(item: ArenaModel) = with(binding) {
             tvArenaTitle.text = item.placeName
             tvArenaAddress.text = item.roadAddressName
-
         }
     }
 

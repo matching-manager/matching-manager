@@ -46,18 +46,16 @@ class ArenaViewModel(
     ) {
         Log.d("test", "getArenaInfo")
         viewModelScope.launch {
-            val result = kotlin.runCatching {
-                Log.d("test", "query = ${query} x = ${x} y = ${y}")
-                _list.value = createItem(
-                    arenaInfo(query, x, y)
-                )
-            }.onFailure {
-                Log.d("test", "fail")
-                // Internet error ...
-                // 동작 추가 예정
-            }
-            Log.d("test", "result = ${result.exceptionOrNull()}")
-
+//            kotlin.runCatching {
+//                Log.d("test", "query = ${query} x = ${x} y = ${y}")
+//                _list.value = createItem(arenaInfo(query, x, y))
+//            }.onFailure {
+//                Log.d("test", "fail")
+//                // Internet error ...
+//                // 동작 추가 예정
+//            }
+            Log.d("test","list = ${createItem(arenaInfo(query,x,y))}")
+            _list.value = createItem(arenaInfo(query, x, y))
 
         }
     }
