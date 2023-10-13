@@ -25,4 +25,8 @@
     <color name="team_request_yellow">#D9D68D</color>
     <color name="team_recruit_blue">#859FE1</color>
 
+    <!--home -->
+
+    <!--myPage -->
+    <color name="common_gray">#BDBDBD</color>
 </resources>
