@@ -8,6 +8,19 @@
     <string name="main_team">Team</string>
     <string name="main_mypage">MyPage</string>
 
+
+
+    <!-- arena -->
+    <string name="arena_title">추천 경기장</string>
+    <string name="arena_filter">필터</string>
+    <string name="arena_futsal">풋살</string>
+    <string name="arena_soccer">축구</string>
+    <string name="arena_bowling">볼링</string>
+    <string name="arena_basketball">농구</string>
+    <string name="arena_badminton">배드민턴</string>
+    <string name="arena_name">경기장 이름</string>
+    <string name="arena_adress">경기 안양 동안구 관평로 149</string>
+
     <!-- match_item.xml -->
     <string name="match_item_type">팀 매칭</string>
     <string name="match_item_detail">11:11 남성</string>
