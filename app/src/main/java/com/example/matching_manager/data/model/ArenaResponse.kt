@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ArenaResponse(
     @SerializedName("meta") val meta: MetaResponse?,
-    @SerializedName("documents") val documents: DocumentsResponse?
+    @SerializedName("documents") val documents: List<DocumentsResponse>?
 )
 
 data class MetaResponse(

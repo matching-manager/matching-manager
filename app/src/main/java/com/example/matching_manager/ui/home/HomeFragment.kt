@@ -9,6 +9,7 @@ import com.example.matching_manager.R
 import com.example.matching_manager.databinding.HomeFragmentBinding
 import com.example.matching_manager.databinding.SignInFragmentBinding
 import com.example.matching_manager.ui.calender.CalendarFragment
+import com.example.matching_manager.ui.home.arena.ArenaViewModel
 
 class HomeFragment : Fragment() {
     private var _binding: HomeFragmentBinding? = null

@@ -10,10 +10,10 @@ class GetArenaInfoUseCase(
         query: String,
         x: String,
         y: String,
-        radius: Int,
-        page: Int,
-        size: Int,
-        sort: String,
+        radius: Int = 1000,
+        page: Int =  1,
+        size: Int =  10,
+        sort: String = "distance"
     ): ArenaEntity = repository.getArenaInfo(
         query,
         x,
