@@ -56,6 +56,15 @@ class TeamAddActivity : AppCompatActivity() {
         levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         levelSpinner.adapter = levelAdapter
 
+        //실력 스피너
+        val timeAdapter = ArrayAdapter.createFromResource(
+            this@TeamAddActivity,
+            R.array.time_array,
+            android.R.layout.simple_spinner_item
+        )
+        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        timeSpinner.adapter = timeAdapter
+
     }
 
     private fun initView() = with(binding) {
