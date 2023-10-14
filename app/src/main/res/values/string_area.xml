@@ -2,10 +2,11 @@
 <resources>
     <string-array name="area_array">
         <item>지역을 선택해주세요</item>
-        <item>풋살</item>
-        <item>축구</item>
-        <item>농구</item>
-        <item>배드민턴</item>
-        <item>볼링</item>
+        <item>지</item>
+        <item>역</item>
+        <item>가</item>
+        <item>해</item>
+        <item>야</item>
+        <item>함</item>
     </string-array>
 </resources>

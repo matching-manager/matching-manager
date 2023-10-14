@@ -10,8 +10,8 @@
         android:id="@+id/btn_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,8 +22,8 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="모집/신청 글쓰기"
+        android:layout_marginStart="10dp"
+        android:text="@string/team_add_activity_title"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
@@ -42,34 +42,14 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardview1"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_margin="10dp"
-                android:background="@color/common_point_green"
-                app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/game_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/spinner_selector"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
                 android:id="@+id/cardview2"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
                 android:background="@color/common_point_green"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/cardview1"
-                app:layout_constraintStart_toStartOf="@+id/cardview1"
-                app:layout_constraintTop_toBottomOf="@+id/cardview1">
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -79,18 +59,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="종목"
-                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="20dp"
-                        android:textStyle="bold"
-                        android:textSize="20dp"/>
+                        android:layout_marginTop="3dp"
+                        android:text="종목"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/addtype_spinner"
-                        android:layout_marginLeft="20dp"
+                        android:id="@+id/game_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/spinner_selector"/>
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/spinner_selector" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -114,18 +94,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="위치"
-                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="20dp"
-                        android:textStyle="bold"
-                        android:textSize="20dp"/>
+                        android:layout_marginTop="3dp"
+                        android:text="위치"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/area_spinner"
-                        android:layout_marginLeft="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/spinner_selector"/>
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/spinner_selector" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -149,15 +129,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="시간"
-                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="20dp"
-                        android:textStyle="bold"
-                        android:textSize="20dp"/>
+                        android:layout_marginTop="15dp"
+                        android:text="시간"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
 
                 </LinearLayout>
-
 
 
             </androidx.cardview.widget.CardView>
@@ -181,18 +160,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="인원"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginTop="15dp"
-                        android:layout_marginLeft="20dp"
-                        android:textStyle="bold"
-                        android:textSize="20dp"/>
+                        android:text="인원"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:layout_marginLeft="20dp"
-                        android:id="@+id/team_number_spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/spinner_selector"/>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -216,18 +189,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="나이"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginTop="15dp"
-                        android:layout_marginLeft="20dp"
-                        android:textStyle="bold"
-                        android:textSize="20dp"/>
+                        android:text="나이"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:layout_marginLeft="20dp"
-                        android:id="@+id/age_spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/spinner_selector"/>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -251,18 +218,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="성별"
-                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="20dp"
-                        android:textStyle="bold"
-                        android:textSize="20dp"/>
+                        android:layout_marginTop="3dp"
+                        android:text="성별"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
-                        android:layout_marginLeft="20dp"
                         android:id="@+id/gender_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/spinner_selector"/>
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/spinner_selector" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -286,18 +254,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="실력"
-                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="20dp"
-                        android:textStyle="bold"
-                        android:textSize="20dp"/>
+                        android:layout_marginTop="3dp"
+                        android:text="실력"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
-                        android:layout_marginLeft="20dp"
                         android:id="@+id/level_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/spinner_selector"/>
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/spinner_selector" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -321,17 +289,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="내용"
                         android:layout_marginLeft="20dp"
-                        android:textStyle="bold"
-                        android:textSize="20dp"/>
+                        android:text="내용"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/et_content"
-                        android:hint="내용을 입력해 주세요."
-                        android:layout_marginLeft="20dp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:hint="내용을 입력해 주세요." />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -346,6 +314,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/cardview9"
                 app:layout_constraintStart_toStartOf="@+id/cardview9"
                 app:layout_constraintTop_toBottomOf="@+id/cardview9">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -401,8 +370,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
