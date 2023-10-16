@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.MatchFragmentBinding
@@ -15,8 +16,12 @@ class MatchFragment : Fragment() {
     private var _binding: MatchFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MatchViewModel by lazy {
-        ViewModelProvider(this)[MatchViewModel::class.java]
+//    private val viewModel: MatchViewModel by lazy {
+//        ViewModelProvider(this)[MatchViewModel::class.java]
+//    }
+
+    private val viewModel : MatchViewModel by viewModels {
+        MatchViewModelFactory()
     }
 
     private val adapter by lazy {
