@@ -20,7 +20,13 @@ class MatchAdapter (private val onItemClick: (MatchDataModel) -> Unit) : ListAda
         ){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(MatchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            MatchItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -28,7 +34,8 @@ class MatchAdapter (private val onItemClick: (MatchDataModel) -> Unit) : ListAda
         holder.bind(item, onItemClick)
     }
 
-    class ViewHolder(private val binding: MatchItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: MatchItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item : MatchDataModel, onItemClick: (MatchDataModel) -> Unit) = with(binding) {
             ivTeam.setImageResource(item.userImg)

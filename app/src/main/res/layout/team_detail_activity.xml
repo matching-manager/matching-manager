@@ -6,286 +6,138 @@
     android:layout_height="match_parent"
     android:background="@drawable/common_gradient_background">
 
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/team_detail_title"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
+        app:layout_constraintStart_toEndOf="@+id/btn_cancel"
+        app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_cancel"
+        app:srcCompat="@drawable/ic_share" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/btn_cancel">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/btn_back"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_team"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/common_point_grey"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_team_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/RoundedShape" />
+
+            <TextView
+                android:id="@+id/tv_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/ic_back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/team_detail_team"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_team"
+                app:layout_constraintStart_toEndOf="@+id/iv_team"
+                app:layout_constraintTop_toTopOf="@+id/iv_team" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_team"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="10dp"
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="@string/team_detail_time"
+                app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                app:layout_constraintEnd_toStartOf="@+id/textView5"
+                app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="@string/match_detail_slash"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_view_count"
+                app:layout_constraintEnd_toStartOf="@+id/tv_view_count"
+                app:layout_constraintTop_toTopOf="@+id/tv_view_count" />
+
+            <TextView
+                android:id="@+id/tv_view_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="@string/team_detail_view_count"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_team"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_team" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_back">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/iv_team"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_marginStart="20dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_team_name" />
-
-                    <TextView
-                        android:id="@+id/tv_team_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:text="팀 이름"
-                        android:textSize="23dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/iv_team"
-                        app:layout_constraintStart_toEndOf="@+id/iv_team"
-                        app:layout_constraintTop_toTopOf="@+id/iv_team"
-                        tools:textStyle="bold" />
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/iv_profile"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_marginEnd="20dp"
-                        android:background="@color/common_point_grey"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_team_name"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_team_name"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_team_name"
-                        app:shapeAppearanceOverlay="@style/RoundedShape" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+                app:layout_constraintTop_toBottomOf="@+id/iv_team" />
 
             <TextView
-                android:id="@+id/tv_price"
+                android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10,000"
-                android:textSize="17dp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_fee"
-                app:layout_constraintStart_toStartOf="@+id/tv_fee"
-                app:layout_constraintTop_toBottomOf="@+id/tv_fee"
-                tools:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_interval"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="전남"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_price"
-                app:layout_constraintHorizontal_bias="0.444"
-                app:layout_constraintStart_toStartOf="@+id/tv_price"
-                app:layout_constraintTop_toBottomOf="@+id/tv_price" />
-
-            <View
-                android:id="@+id/view6"
-                android:layout_width="2dp"
-                android:layout_height="30dp"
                 android:layout_marginStart="20dp"
-                android:background="@color/common_point_grey"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_interval"
-                app:layout_constraintStart_toEndOf="@+id/tv_price"
-                app:layout_constraintTop_toTopOf="@+id/tv_fee" />
-
-            <TextView
-                android:id="@+id/tv_fee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:text="회비"
-                android:textSize="15dp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_location"
-                app:layout_constraintStart_toEndOf="@+id/view2"
-                app:layout_constraintTop_toTopOf="@+id/tv_day" />
-
-            <TextView
-                android:id="@+id/tv_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="16dp"
-                android:text="남성팀"
-                android:textSize="15dp"
+                android:layout_marginTop="10dp"
+                android:text="정보"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_team" />
-
-            <TextView
-                android:id="@+id/tv_team_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23명"
-                android:textSize="17dp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_gender"
-                app:layout_constraintStart_toStartOf="@+id/tv_gender"
-                app:layout_constraintTop_toBottomOf="@+id/tv_gender"
-                tools:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20대"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_team_number"
-                app:layout_constraintStart_toStartOf="@+id/tv_team_number"
-                app:layout_constraintTop_toBottomOf="@+id/tv_team_number" />
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="2dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="20dp"
-                android:background="@color/common_point_grey"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_age"
-                app:layout_constraintStart_toEndOf="@+id/tv_gender"
-                app:layout_constraintTop_toTopOf="@+id/tv_gender" />
-
-            <TextView
-                android:id="@+id/tv_area"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="전남"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_location"
-                app:layout_constraintStart_toStartOf="@+id/tv_location"
-                app:layout_constraintTop_toBottomOf="@+id/tv_location" />
-
-            <TextView
-                android:id="@+id/tv_day"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="평일/야간"
-                android:textSize="15dp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_team_number"
-                app:layout_constraintStart_toEndOf="@+id/view"
-                app:layout_constraintTop_toTopOf="@+id/tv_gender" />
-
-            <TextView
-                android:id="@+id/tv_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="광양시"
-                android:textSize="17dp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_day"
-                app:layout_constraintStart_toStartOf="@+id/tv_day"
-                app:layout_constraintTop_toBottomOf="@+id/tv_day"
-                tools:textStyle="bold" />
-
-            <View
-                android:id="@+id/view2"
-                android:layout_width="2dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="20dp"
-                android:background="@color/common_point_grey"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_age"
-                app:layout_constraintStart_toEndOf="@+id/tv_day"
-                app:layout_constraintTop_toTopOf="@+id/tv_day" />
-
-            <TextView
-                android:id="@+id/tv_maner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="매너/실력"
-                app:layout_constraintBottom_toTopOf="@+id/tv_price"
-                app:layout_constraintStart_toEndOf="@+id/view6"
-                app:layout_constraintTop_toTopOf="@+id/tv_fee" />
-
-            <TextView
-                android:id="@+id/tv_score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4.5"
-                android:textSize="17dp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_maner"
-                app:layout_constraintStart_toStartOf="@+id/tv_maner"
-                app:layout_constraintTop_toBottomOf="@+id/tv_maner"
-                tools:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_avg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="선수평균"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_score"
-                app:layout_constraintStart_toStartOf="@+id/tv_score"
-                app:layout_constraintTop_toBottomOf="@+id/tv_score" />
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cv_recoder"
-                android:layout_width="193dp"
+                android:id="@+id/cardview1"
+                android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/common_point_green"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:text="전적"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_record"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="10승 5패 (66%)"
-                        android:textSize="18dp"
-                        app:layout_constraintEnd_toEndOf="@+id/textView9"
-                        app:layout_constraintStart_toStartOf="@+id/textView9"
-                        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_hope_for_a_rematch"
-                android:layout_width="193dp"
-                android:layout_height="100dp"
-                android:layout_marginHorizontal="10dp"
-                app:cardCornerRadius="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/cv_recoder"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/cv_recoder">
+                app:layout_constraintTop_toBottomOf="@+id/textView9">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -295,389 +147,265 @@
                         android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:text="재경기 희망률"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/team_detail_match_title"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+
                     <TextView
-                        android:id="@+id/tv_percent"
+                        android:id="@+id/tv_match"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:text="100%"
-                        android:textSize="20dp"
+                        android:text="@string/team_detail_match"
                         app:layout_constraintEnd_toEndOf="@+id/textView10"
                         app:layout_constraintStart_toStartOf="@+id/textView10"
                         app:layout_constraintTop_toBottomOf="@+id/textView10" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="팀평가"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/cv_recoder"
-                app:layout_constraintTop_toBottomOf="@+id/cv_recoder" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cv_review"
-                android:layout_width="0dp"
-                android:layout_height="600dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
+                android:id="@+id/cardview2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/common_point_green"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12">
+                app:layout_constraintBottom_toBottomOf="@+id/cardview1"
+                app:layout_constraintEnd_toStartOf="@+id/cardView3"
+                app:layout_constraintStart_toEndOf="@+id/cardview1"
+                app:layout_constraintTop_toTopOf="@+id/cardview1">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/tv_good_review1"
+                        android:id="@+id/textView12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="16dp"
-                        android:text="리뷰 키워드 어쩌구...."
-                        android:textSize="17dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-                    <TextView
-                        android:id="@+id/tv_good_review2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="28dp"
-                        android:text="리뷰 키워드 어쩌구...."
-                        android:textSize="17dp"
-                        app:layout_constraintStart_toStartOf="@+id/tv_good_review1"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_good_review1" />
-
-                    <TextView
-                        android:id="@+id/tv_good_review3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="28dp"
-                        android:text="리뷰 키워드 어쩌구...."
-                        android:textSize="17dp"
-                        app:layout_constraintStart_toStartOf="@+id/tv_good_review2"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_good_review2" />
-
-                    <TextView
-                        android:id="@+id/tv_good_review4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="28dp"
-                        android:text="리뷰 키워드 어쩌구...."
-                        android:textSize="17dp"
-                        app:layout_constraintStart_toStartOf="@+id/tv_good_review3"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_good_review3" />
-
-                    <TextView
-                        android:id="@+id/tv_good_review5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="28dp"
-                        android:text="리뷰 키워드 어쩌구...."
-                        android:textSize="17dp"
-                        app:layout_constraintStart_toStartOf="@+id/tv_good_review4"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_good_review4" />
-
-                    <TextView
-                        android:id="@+id/tv_good_cont1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="24dp"
-                        android:text="5"
-                        android:textSize="17dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_good_review1"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/team_detail_people_number_title"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_good_review1"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_good_manner" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_good_manner"
+                        android:id="@+id/tv_people_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:text="받은 매너 칭찬"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
-                        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+                        android:text="@string/team_detail_people_number"
+                        app:layout_constraintEnd_toEndOf="@+id/textView12"
+                        app:layout_constraintStart_toStartOf="@+id/textView12"
+                        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
-                    <TextView
-                        android:id="@+id/tv_good_cont2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5"
-                        android:textSize="17dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_good_review2"
-                        app:layout_constraintStart_toStartOf="@+id/tv_good_cont1"
-                        app:layout_constraintTop_toTopOf="@+id/tv_good_review2" />
-
-                    <TextView
-                        android:id="@+id/tv_good_cont3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5"
-                        android:textSize="17dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_good_review3"
-                        app:layout_constraintStart_toStartOf="@+id/tv_good_cont2"
-                        app:layout_constraintTop_toTopOf="@+id/tv_good_review3" />
-
-                    <TextView
-                        android:id="@+id/tv_good_cont4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5"
-                        android:textSize="17dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_good_review4"
-                        app:layout_constraintStart_toStartOf="@+id/tv_good_cont3"
-                        app:layout_constraintTop_toTopOf="@+id/tv_good_review4" />
-
-                    <TextView
-                        android:id="@+id/tv_good_cont5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5"
-                        android:textSize="17dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_good_review5"
-                        app:layout_constraintStart_toStartOf="@+id/tv_good_cont4"
-                        app:layout_constraintTop_toTopOf="@+id/tv_good_review5" />
-
-                    <ImageView
-                        android:id="@+id/iv_people1"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_good_cont1"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_good_cont1"
-                        app:layout_constraintTop_toTopOf="@+id/tv_good_cont1"
-                        app:layout_constraintVertical_bias="1.0"
-                        app:srcCompat="@drawable/ic_people" />
-                    <ImageView
-                        android:id="@+id/iv_people2"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_good_cont2"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_good_cont2"
-                        app:layout_constraintTop_toTopOf="@+id/tv_good_cont2"
-                        app:layout_constraintVertical_bias="1.0"
-                        app:srcCompat="@drawable/ic_people" />
-                    <ImageView
-                        android:id="@+id/iv_people3"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_good_cont3"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_good_cont3"
-                        app:layout_constraintTop_toTopOf="@+id/tv_good_cont3"
-                        app:layout_constraintVertical_bias="1.0"
-                        app:srcCompat="@drawable/ic_people" />
-                    <ImageView
-                        android:id="@+id/iv_people4"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_good_cont4"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_good_cont4"
-                        app:layout_constraintTop_toTopOf="@+id/tv_good_cont4"
-                        app:layout_constraintVertical_bias="1.0"
-                        app:srcCompat="@drawable/ic_people" />
-                    <ImageView
-                        android:id="@+id/iv_people5"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_good_cont5"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_good_cont5"
-                        app:layout_constraintTop_toTopOf="@+id/tv_good_cont5"
-                        app:layout_constraintVertical_bias="1.0"
-                        app:srcCompat="@drawable/ic_people" />
-
-                    <View
-                        android:id="@+id/view7"
-                        android:layout_width="350dp"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="30dp"
-                        android:background="@color/common_point_grey"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.619"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_good_review5" />
-
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="30dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view7"
-                        app:srcCompat="@drawable/ic_bad_manner" />
-
-                    <TextView
-                        android:id="@+id/tv_bad_manner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:text="받은 비매너"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                        app:layout_constraintStart_toEndOf="@+id/imageView3"
-                        app:layout_constraintTop_toTopOf="@+id/imageView3" />
-
-                    <TextView
-                        android:id="@+id/tv_bad_review1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="16dp"
-                        android:text="리뷰 키워드 어쩌구...."
-                        android:textSize="17dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-                    <TextView
-                        android:id="@+id/tv_bad_review2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="28dp"
-                        android:text="리뷰 키워드 어쩌구...."
-                        android:textSize="17dp"
-                        app:layout_constraintStart_toStartOf="@+id/tv_bad_review1"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_bad_review1" />
-
-                    <TextView
-                        android:id="@+id/tv_bad_review3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="28dp"
-                        android:text="리뷰 키워드 어쩌구...."
-                        android:textSize="17dp"
-                        app:layout_constraintStart_toStartOf="@+id/tv_bad_review2"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_bad_review2" />
-
-                    <TextView
-                        android:id="@+id/tv_bad_cont1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="24dp"
-                        android:text="5"
-                        android:textSize="17dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_bad_review1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_bad_review1"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <ImageView
-                        android:id="@+id/iv_people6"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_bad_cont1"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_bad_cont1"
-                        app:layout_constraintTop_toTopOf="@+id/tv_bad_cont1"
-                        app:layout_constraintVertical_bias="1.0"
-                        app:srcCompat="@drawable/ic_people" />
-
-                    <TextView
-                        android:id="@+id/tv_bad_cont2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="24dp"
-                        android:text="5"
-                        android:textSize="17dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_bad_review2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_bad_review2"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <ImageView
-                        android:id="@+id/iv_people7"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_bad_cont2"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_bad_cont2"
-                        app:layout_constraintTop_toTopOf="@+id/tv_bad_cont2"
-                        app:layout_constraintVertical_bias="1.0"
-                        app:srcCompat="@drawable/ic_people" />
-
-                    <TextView
-                        android:id="@+id/tv_bad_cont3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="24dp"
-                        android:text="5"
-                        android:textSize="17dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_bad_review3"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_bad_review3"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <ImageView
-                        android:id="@+id/iv_people8"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_bad_cont3"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_bad_cont3"
-                        app:layout_constraintTop_toTopOf="@+id/tv_bad_cont3"
-                        app:layout_constraintVertical_bias="1.0"
-                        app:srcCompat="@drawable/ic_people" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/btn_apply"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="팀원 신청하기"
-                android:textStyle="bold"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/common_point_green"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardview2"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cardview2">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/team_detail_gender_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/team_detail_gender"
+                        app:layout_constraintEnd_toEndOf="@+id/textView14"
+                        app:layout_constraintStart_toStartOf="@+id/textView14"
+                        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/common_point_green"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardview1"
+                app:layout_constraintStart_toStartOf="@+id/cardview1"
+                app:layout_constraintTop_toBottomOf="@+id/cardview1">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/team_detail_skill_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_skill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/team_detail_skill"
+                        app:layout_constraintEnd_toEndOf="@+id/textView16"
+                        app:layout_constraintStart_toStartOf="@+id/textView16"
+                        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview5"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/common_point_green"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardview2"
+                app:layout_constraintStart_toStartOf="@+id/cardview2"
+                app:layout_constraintTop_toBottomOf="@+id/cardview2">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/team_detail_age1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_entry_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/team_detail_age2"
+                        app:layout_constraintEnd_toEndOf="@+id/textView18"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview6"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/common_point_green"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardView3"
+                app:layout_constraintStart_toStartOf="@+id/cardView3"
+                app:layout_constraintTop_toBottomOf="@+id/cardView3">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/team_detail_team_name_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_team_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/team_detail_team_name"
+                        app:layout_constraintEnd_toEndOf="@+id/textView20"
+                        app:layout_constraintStart_toStartOf="@+id/textView20"
+                        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/match_detail_description"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cv_review" />
+                app:layout_constraintTop_toBottomOf="@+id/cardview4" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_photo1"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_description"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_photo2"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cv_photo1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cv_photo1" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_marginTop="40dp"
+                android:text="용병 신청하기/용병 초대하기"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/cv_photo1"
+                tools:layout_editor_absoluteX="10dp" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,17 @@
     <string name="main_team">Team</string>
     <string name="main_mypage">MyPage</string>
 
+    <!-- arena -->
+    <string name="arena_title">추천 경기장</string>
+    <string name="arena_filter">필터</string>
+    <string name="arena_futsal">풋살</string>
+    <string name="arena_soccer">축구</string>
+    <string name="arena_bowling">볼링</string>
+    <string name="arena_basketball">농구</string>
+    <string name="arena_badminton">배드민턴</string>
+    <string name="arena_name">경기장 이름</string>
+    <string name="arena_adress">경기 안양 동안구 관평로 149</string>
+
     <!-- match_item.xml -->
     <string name="match_item_type">팀 매칭</string>
     <string name="match_item_detail">11:11 남성</string>
@@ -46,8 +57,55 @@
     <string name="match_detail_description">글 내용</string>
     <string name="match_detail_stadium">경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n</string>
 
+    <!-- team_item.xml -->
+    <string name="team_item_type">용병모집</string>
+    <string name="team_item_detail">1 남성</string>
+    <string name="team_item_view_count">1</string>
+    <string name="team_item_chat_count">0</string>
+    <string name="team_item_schedule">10/11일(수)오전 10시</string>
+    <string name="team_item_place">광주광역시 동구 지산동 조선대학교 운동장</string>
+
+    <!-- team_fragment.xml -->
+    <string name="team_fragment_title">모집/신청</string>
+    <string name="team_fragment_mercenary">용병신청</string>
+    <string name="team_fragment_team_matching">용병모집</string>
+    <string name="team_fragment_filter">필터</string>
+
+    <!-- team_detail.xml -->
+    <string name="team_detail_title">용병 신청/용병 모집</string>
+    <string name="team_detail_team">작성자</string>
+    <string name="team_detail_time">5시간 전</string>
+    <string name="team_detail_slash">/</string>
+    <string name="team_detail_view_count">조회 5</string>
+    <string name="team_detail_information">정보</string>
+    <string name="team_detail_match_title">용병 신청</string>
+    <string name="team_detail_match">이미지</string>
+    <string name="team_detail_people_number_title">인원</string>
+    <string name="team_detail_people_number">2명</string>
+    <string name="team_detail_gender_title">성별</string>
+    <string name="team_detail_gender">남성</string>
+    <string name="team_detail_skill_title">실력</string>
+    <string name="team_detail_skill">중</string>
+    <string name="team_detail_age1">나이</string>
+    <string name="team_detail_age2">20살</string>
+    <string name="team_detail_team_name_title">가능 시간</string>
+    <string name="team_detail_team_name">평일</string>
+    <string name="team_detail_description">글 내용</string>
+    <string name="team_detail_img">사진</string>
+
+    <!-- team_add_activity_btton.xml -->
+    <string name="team_add_activity_title">모집/신청 글쓰기</string>
+    <string name="team_add_activity_male">남성</string>
+    <string name="team_add_activity_female">여성</string>
+    <string name="team_add_activity_mix">혼성</string>
+
+    <!-- team_add_cartegory.xml -->
+    <string name="team_category_recruitment">용병 모집해요</string>
+    <string name="team_category_application">용병 신청해요</string>
+
     <string name="team_myteam">팀</string>
     <string name="team_recruitment">모집</string>
-    <string name="team_search_description">매칭할 팀을 검색해보세요.</string>
+
+
 
 </resources>

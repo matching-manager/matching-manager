@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/common_gradient_background">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -277,6 +278,7 @@
                 app:layout_constraintStart_toStartOf="@+id/view5"
                 app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
+    </androidx.cardview.widget.CardView>
 
             <View
                 android:id="@+id/view6"

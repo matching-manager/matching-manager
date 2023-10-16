@@ -18,10 +18,13 @@
             android:name=".ui.match.MatchWritingActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.team.TeamAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.match.MatchDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.team.menu.TeamViewModel"
+            android:name=".ui.team.view.TeamViewModel"
             android:exported="false" />
         <activity
             android:name=".ui.team.TeamListAdapter"
