@@ -105,7 +105,14 @@
 
     <string name="team_myteam">팀</string>
     <string name="team_recruitment">모집</string>
-
+    <string name="arena_dialog_info">경기장 정보</string>
+    <string name="arena_dialog_title">평촌중앙공원 농구장</string>
+    <string name="arena_dialog_location">장소</string>
+    <string name="arena_dialog_call">전화번호</string>
+    <string name="arena_dialog_location_text">경기도 안양시 평촌중앙공원 경기도 안양시 평촌중앙공원 경기도 안양시 평촌중앙공원</string>
+    <string name="arena_dialog_call_text">010-0000-0000</string>
+    <string name="arena_dialog_btn_cancel">CANCEL</string>
+    <string name="arena_dialog_btn_call">CALL</string>
 
 
 </resources>
