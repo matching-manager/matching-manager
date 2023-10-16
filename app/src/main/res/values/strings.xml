@@ -55,7 +55,7 @@
     <string name="match_detail_team_name_title">팀 이름</string>
     <string name="match_detail_team_name">맨시티</string>
     <string name="match_detail_description">글 내용</string>
-    <string name="match_detail_stadium">경기 구장</string>
+    <string name="match_detail_stadium">경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n경기 구장\n\n\n\n\n\n\n\n\n</string>
 
     <!-- team_item.xml -->
     <string name="team_item_type">용병모집</string>

@@ -7,18 +7,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.matching_manager.databinding.MatchItemBinding
 
-class MatchListAdapter(private val onItemClick: (MatchData) -> Unit) :
-    ListAdapter<MatchData, MatchListAdapter.ViewHolder>(
-        object : DiffUtil.ItemCallback<MatchData>() {
-            override fun areItemsTheSame(oldItem: MatchData, newItem: MatchData): Boolean {
-                return oldItem == newItem
-            }
-
-            override fun areContentsTheSame(oldItem: MatchData, newItem: MatchData): Boolean {
-                return oldItem == newItem
-            }
+class MatchAdapter (private val onItemClick: (MatchDataModel) -> Unit) : ListAdapter<MatchDataModel, MatchAdapter.ViewHolder> (
+    object :DiffUtil.ItemCallback<MatchDataModel>() {
+        override fun areItemsTheSame(oldItem: MatchDataModel, newItem: MatchDataModel): Boolean {
+            return oldItem == newItem
         }
-    ) {
+
+        override fun areContentsTheSame(oldItem: MatchDataModel, newItem: MatchDataModel): Boolean {
+            return oldItem == newItem
+        }
+    }
+        ){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -38,14 +37,14 @@ class MatchListAdapter(private val onItemClick: (MatchData) -> Unit) :
     class ViewHolder(private val binding: MatchItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: MatchData, onItemClick: (MatchData) -> Unit) = with(binding) {
-            ivProfile.setImageResource(item.teamImage)
-            tvType.text = item.type
-            tvDetail.text = item.detail
+        fun bind(item : MatchDataModel, onItemClick: (MatchDataModel) -> Unit) = with(binding) {
+            ivTeam.setImageResource(item.userImg)
+            tvType.text = "팀 매칭"
+            tvDetail.text = "${item.playerNum} : ${item.playerNum} ${item.gender}"
             tvViewCount.text = item.viewCount.toString()
-            tvChatCount.text = item.chatCount.toString()
-            tvSchedule.text = item.schedule
-            tvPlace.text = item.place
+            tvChatCount.text = item.applyCount.toString()
+            tvSchedule.text = item.dateTime
+            tvPlace.text = item.matchPlace
 
             itemView.setOnClickListener {
                 onItemClick(item)

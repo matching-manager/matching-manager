@@ -38,21 +38,20 @@ class MatchFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
-        val dummyData = mutableListOf<MatchData>()
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
-        dummyData.add(MatchData(R.drawable.sonny, "팀 매칭", "11:11 남성", 1, 0, "11/2 (목) 오후 8시", "경기도 안양시 평촌중앙공원 축구장"))
+        val dummyData = mutableListOf<MatchDataModel>()
+        dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
+        dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
+        dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
+        dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
+        dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
+        dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
+        dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
+        dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
+        dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
+        dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
+        dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
+        dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
+        dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
 
 
         val adapter = MatchListAdapter { item ->
