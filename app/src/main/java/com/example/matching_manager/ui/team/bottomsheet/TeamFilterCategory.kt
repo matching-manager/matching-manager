@@ -1,4 +1,4 @@
-package com.example.matching_manager.ui.team
+package com.example.matching_manager.ui.team.bottomsheet
 
 import android.os.Bundle
 import android.view.LayoutInflater
