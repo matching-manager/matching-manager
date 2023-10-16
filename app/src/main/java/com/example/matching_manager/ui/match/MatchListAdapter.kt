@@ -10,7 +10,7 @@ import com.example.matching_manager.databinding.MatchItemBinding
 class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : ListAdapter<MatchDataModel, MatchListAdapter.ViewHolder> (
     object :DiffUtil.ItemCallback<MatchDataModel>() {
         override fun areItemsTheSame(oldItem: MatchDataModel, newItem: MatchDataModel): Boolean {
-            return oldItem == newItem
+            return oldItem.matchId == newItem.matchId
         }
 
         override fun areContentsTheSame(oldItem: MatchDataModel, newItem: MatchDataModel): Boolean {
