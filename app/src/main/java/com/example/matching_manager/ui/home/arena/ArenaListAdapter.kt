@@ -45,7 +45,10 @@ class ArenaListAdapter(
         fun bind(item: ArenaModel) = with(binding) {
             tvArenaTitle.text = item.placeName
             tvArenaAddress.text = item.addressName
+
+            itemView.setOnClickListener {
+                onClick(item)
+            }
         }
     }
-
 }
