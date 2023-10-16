@@ -38,7 +38,7 @@ class MatchAdapter (private val onItemClick: (MatchDataModel) -> Unit) : ListAda
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item : MatchDataModel, onItemClick: (MatchDataModel) -> Unit) = with(binding) {
-            ivTeam.setImageResource(item.userImg)
+            ivProfile.setImageResource(item.userImg)
             tvType.text = "팀 매칭"
             tvDetail.text = "${item.playerNum} : ${item.playerNum} ${item.gender}"
             tvViewCount.text = item.viewCount.toString()

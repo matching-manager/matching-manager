@@ -32,38 +32,38 @@
             android:layout_marginEnd="150dp"
             android:background="@color/black" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
 
 
-            <CalendarView
-                android:id="@+id/calendar_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:connectedDayIconPosition="top"
-                app:currentDayIconRes="@drawable/ic_select"
-                app:currentDaySelectedIconRes="@drawable/ic_select"
-                app:currentDayTextColor="@color/calendar_deep_green"
-                app:firstDayOfTheWeek="sunday"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:orientation="horizontal"
-                app:selectedDayBackgroundColor="#FFEACA"
-                app:selectedDayBackgroundEndColor="#f79256"
-                app:selectedDayBackgroundStartColor="#f79256"
-                app:selectedDayTextColor="#FFFFFF"
-                app:selectionType="range"
-                app:weekendDayTextColor="#ef4550" />
+<!--            <CalendarView-->
+<!--                android:id="@+id/calendar_view"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:connectedDayIconPosition="top"-->
+<!--                app:currentDayIconRes="@drawable/ic_select"-->
+<!--                app:currentDaySelectedIconRes="@drawable/ic_select"-->
+<!--                app:currentDayTextColor="@color/calendar_deep_green"-->
+<!--                app:firstDayOfTheWeek="sunday"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:orientation="horizontal"-->
+<!--                app:selectedDayBackgroundColor="#FFEACA"-->
+<!--                app:selectedDayBackgroundEndColor="#f79256"-->
+<!--                app:selectedDayBackgroundStartColor="#f79256"-->
+<!--                app:selectedDayTextColor="#FFFFFF"-->
+<!--                app:selectionType="range"-->
+<!--                app:weekendDayTextColor="#ef4550" />-->
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     </LinearLayout>
 

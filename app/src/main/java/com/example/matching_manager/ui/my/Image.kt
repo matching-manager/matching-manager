@@ -11,5 +11,4 @@ data class Image(
     val date: String,
     val channelName: String,
     val description: String
-
 ) : Parcelable

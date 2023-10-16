@@ -76,7 +76,5 @@ dependencies {
     // interceptor
     implementation 'com.squareup.okhttp3:logging-interceptor'
 
-    //calendar
-    implementation 'com.github.applikeysolutions:cosmocalendar:1.0.4'
 
 }
