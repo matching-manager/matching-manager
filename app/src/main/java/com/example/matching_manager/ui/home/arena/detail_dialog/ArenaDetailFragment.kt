@@ -1,5 +1,7 @@
 package com.example.matching_manager.ui.home.arena.detail_dialog
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -60,6 +62,11 @@ class ArenaDetailFragment : DialogFragment() {
     }
 
     private fun initView() = with(binding){
+
+        // Dialog의 배경을 투명으로 설정
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+
         btnShare.setOnClickListener {
             Utils.shareUrl(requireContext(),viewModel.getPlaceUrl())
         }

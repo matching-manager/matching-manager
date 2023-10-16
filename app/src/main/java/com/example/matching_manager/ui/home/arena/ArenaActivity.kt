@@ -1,5 +1,7 @@
 package com.example.matching_manager.ui.home.arena
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -24,6 +26,12 @@ class ArenaActivity : AppCompatActivity() {
         )
     }
 
+    companion object{
+        fun newIntent(
+            context: Context
+        ) = Intent(context,ArenaActivity::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -36,6 +44,7 @@ class ArenaActivity : AppCompatActivity() {
         searchArena("풋살")
 
         btnBack.setOnClickListener {
+            onBackPressed()
         }
         btnFutsal.setOnClickListener {
             searchArena("풋살")
