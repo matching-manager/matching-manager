@@ -53,7 +53,7 @@ class MatchFragment : Fragment() {
         dummyData.add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
 
         
-        val adapter = MatchAdapter { item ->
+        val adapter = MatchListAdapter { item ->
             val intent = Intent(requireContext(), MatchDetailActivity::class.java)
             intent.putExtra(OBJECT_DATA, item)
             startActivity(intent)

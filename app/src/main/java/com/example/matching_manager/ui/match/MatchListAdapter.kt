@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.matching_manager.databinding.MatchItemBinding
 
-class MatchAdapter (private val onItemClick: (MatchDataModel) -> Unit) : ListAdapter<MatchDataModel, MatchAdapter.ViewHolder> (
+class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : ListAdapter<MatchDataModel, MatchListAdapter.ViewHolder> (
     object :DiffUtil.ItemCallback<MatchDataModel>() {
         override fun areItemsTheSame(oldItem: MatchDataModel, newItem: MatchDataModel): Boolean {
             return oldItem == newItem
