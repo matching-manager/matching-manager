@@ -23,9 +23,13 @@ class TeamFilterCategory : BottomSheetDialogFragment() {
 
         _binding = TeamFilterCategoryBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setUpSpinner()
         initView()
-        return binding.root
     }
 
     private fun setUpSpinner()= with(binding) {
@@ -46,8 +50,6 @@ class TeamFilterCategory : BottomSheetDialogFragment() {
         )
         areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         citySpinner.adapter = areaAdapter
-
-
 
     }
 

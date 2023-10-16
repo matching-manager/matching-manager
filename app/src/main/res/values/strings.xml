@@ -59,7 +59,8 @@
 
     <!-- team_item.xml -->
     <string name="team_item_type">용병모집</string>
-    <string name="team_item_detail">1 남성</string>
+    <string name="team_item_number">2명</string>
+    <string name="team_item_gender">남성</string>
     <string name="team_item_view_count">1</string>
     <string name="team_item_chat_count">0</string>
     <string name="team_item_schedule">10/11일(수)오전 10시</string>

@@ -20,10 +20,14 @@ class TeamAddCategory : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?,
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-
         _binding = TeamAddCategoryBinding.inflate(inflater, container, false)
-        initView()
+
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
     }
 
     private fun initView()= with(binding) {
