@@ -3,7 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="true" />
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
 
@@ -30,19 +38,16 @@
             android:name=".ui.team.view.TeamViewModel"
             android:exported="false" />
         <activity
-            android:name=".ui.team.TeamListAdapter"
-            android:exported="false" />
-        <activity
             android:name=".ui.team.TeamDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.arena.ArenaActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="false" />
         <activity
             android:name=".ui.signin.SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.home.arena.ArenaActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

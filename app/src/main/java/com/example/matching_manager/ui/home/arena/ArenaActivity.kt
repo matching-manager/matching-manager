@@ -2,7 +2,6 @@ package com.example.matching_manager.ui.home.arena
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.matching_manager.databinding.ArenaActivityBinding
@@ -14,11 +13,10 @@ class ArenaActivity : AppCompatActivity() {
 
     private val viewModel: ArenaViewModel by viewModels { ArenaViewModelFactory() }
 
-    private val listAdapter : ArenaListAdapter by lazy {
+    private val listAdapter: ArenaListAdapter by lazy {
         ArenaListAdapter(
-            onClick = { item ->
-                // Click Evnet
-                Toast.makeText(this,"dialog",Toast.LENGTH_SHORT).show()
+            onClick = { arenaModel ->
+                viewModel.updateItem(item = arenaModel)
                 ArenaDetailFragment().show(
                     supportFragmentManager, "SampleDialog"
                 )
@@ -33,7 +31,7 @@ class ArenaActivity : AppCompatActivity() {
         initModel()
     }
 
-    private fun initView() = with(binding){
+    private fun initView() = with(binding) {
         rvArena.adapter = listAdapter
         searchArena("풋살")
 
@@ -55,11 +53,12 @@ class ArenaActivity : AppCompatActivity() {
             searchArena("배드민턴장")
         }
     }
-    private fun searchArena(text: String){
+
+    private fun searchArena(text: String) {
         viewModel.searchArena(text, this)
     }
 
-    private fun initModel() = with(viewModel){
+    private fun initModel() = with(viewModel) {
         list.observe(this@ArenaActivity, Observer {
             listAdapter.submitList(it)
         })
