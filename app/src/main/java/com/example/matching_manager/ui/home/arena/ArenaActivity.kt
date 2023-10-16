@@ -2,12 +2,11 @@ package com.example.matching_manager.ui.home.arena
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.ArenaActivityBinding
+import com.example.matching_manager.ui.home.arena.detail_dialog.ArenaDetailFragment
 
 class ArenaActivity : AppCompatActivity() {
 
@@ -19,6 +18,10 @@ class ArenaActivity : AppCompatActivity() {
         ArenaListAdapter(
             onClick = { item ->
                 // Click Evnet
+                Toast.makeText(this,"dialog",Toast.LENGTH_SHORT).show()
+                ArenaDetailFragment().show(
+                    supportFragmentManager, "SampleDialog"
+                )
             }
         )
     }
