@@ -10,7 +10,7 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
     val list : MutableLiveData<MutableList<MatchDataModel>>
         get() =  _list
 
-    suspend fun updateList() {
+    fun updateList() {
         _list.value = repository.getList()
     }
 
