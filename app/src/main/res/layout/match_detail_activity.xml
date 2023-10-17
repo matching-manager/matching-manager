@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/iv_cancel" />
 
             <ImageView
-                android:id="@+id/iv_team"
+                android:id="@+id/iv_profile"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="20dp"
@@ -52,9 +52,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@string/match_detail_team"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_team"
-                app:layout_constraintStart_toEndOf="@+id/iv_team"
-                app:layout_constraintTop_toTopOf="@+id/iv_team" />
+                app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+                app:layout_constraintStart_toEndOf="@+id/iv_profile"
+                app:layout_constraintTop_toTopOf="@+id/iv_profile" />
 
             <TextView
                 android:id="@+id/tv_time"
@@ -83,7 +83,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
                 android:text="@string/match_detail_view_count"
-                app:layout_constraintBottom_toTopOf="@+id/iv_team"
+                app:layout_constraintBottom_toTopOf="@+id/iv_profile"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
@@ -112,9 +112,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_team"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/iv_team"
+                app:layout_constraintTop_toTopOf="@+id/iv_profile"
                 app:srcCompat="@drawable/ic_face" />
 
             <View
@@ -127,7 +127,7 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_team" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
 
             <TextView
                 android:id="@+id/textView9"

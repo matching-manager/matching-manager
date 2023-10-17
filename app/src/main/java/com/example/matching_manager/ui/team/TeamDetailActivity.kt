@@ -6,14 +6,16 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
+import coil.load
 import com.example.matching_manager.databinding.TeamDetailActivityBinding
-import com.example.matching_manager.ui.team.TeamFragment.Companion.OBJECT_DATA
 
+@Suppress("IMPLICIT_CAST_TO_ANY")
 class TeamDetailActivity : AppCompatActivity() {
     private lateinit var binding: TeamDetailActivityBinding
 
     companion object {
-        fun newIntent(
+        private const val OBJECT_DATA = "item_object"
+        fun newIntent (
             item: TeamItem,
             context: Context,
         ): Intent {
@@ -40,7 +42,38 @@ class TeamDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
-//        ivTeam.setImageResource(data.teamProfile)
+
+//        val item: TeamItem? by lazy {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                intent.getParcelableExtra(OBJECT_DATA, TeamItem::class.java)
+//            } else {
+//                intent.getParcelableExtra<TeamItem>(OBJECT_DATA)
+//            }
+//        }
+
+        if(1 ==1){
+            val item: TeamItem.RecruitmentItem? by lazy {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    intent.getParcelableExtra(OBJECT_DATA, TeamItem.RecruitmentItem::class.java)
+                } else {
+                    intent.getParcelableExtra<TeamItem.RecruitmentItem>(OBJECT_DATA)
+                }
+            }
+            ivProfile.load(item?.teamProfile)
+
+        }
+        else if(2==2){
+            val item: TeamItem.ApplicationItem? by lazy {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    intent.getParcelableExtra(OBJECT_DATA, TeamItem.ApplicationItem::class.java)
+                } else {
+                    intent.getParcelableExtra<TeamItem.ApplicationItem>(OBJECT_DATA)
+                }
+            }
+
+
+        }
+
 
         //back button
         btnCancel.setOnClickListener {

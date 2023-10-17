@@ -54,16 +54,15 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_team"
+                android:id="@+id/iv_profile"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/common_point_grey"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_team_name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_game"
+                app:layout_constraintTop_toBottomOf="@+id/tv_game"
                 app:shapeAppearanceOverlay="@style/RoundedShape" />
 
             <TextView
@@ -72,9 +71,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@string/team_detail_team"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_team"
-                app:layout_constraintStart_toEndOf="@+id/iv_team"
-                app:layout_constraintTop_toTopOf="@+id/iv_team" />
+                app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+                app:layout_constraintStart_toEndOf="@+id/iv_profile"
+                app:layout_constraintTop_toTopOf="@+id/iv_profile" />
 
             <TextView
                 android:id="@+id/tv_time"
@@ -116,7 +115,7 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_team" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -305,7 +304,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/team_detail_age1"
+                        android:text="@string/team_detail_pay"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -314,7 +313,7 @@
                         android:id="@+id/tv_entry_fee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/team_detail_age2"
+                        android:text="@string/team_detail_price"
                         app:layout_constraintEnd_toEndOf="@+id/textView18"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textView18" />
@@ -402,6 +401,41 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/cv_photo1"
                 tools:layout_editor_absoluteX="10dp" />
+
+            <TextView
+                android:id="@+id/tv_game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="[풋살]"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="[경기/하남시]"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_game"
+                app:layout_constraintStart_toEndOf="@+id/tv_game"
+                app:layout_constraintTop_toTopOf="@+id/tv_game" />
+
+            <TextView
+                android:id="@+id/tv_schedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="10/11일(수) 오전 10시"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_area"
+                app:layout_constraintStart_toEndOf="@+id/tv_area"
+                app:layout_constraintTop_toTopOf="@+id/tv_area" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

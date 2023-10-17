@@ -43,18 +43,7 @@
                 app:layout_constraintTop_toTopOf="@+id/iv_profile" />
 
             <TextView
-                android:id="@+id/tv_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/team_item_gender"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_type"
-                app:layout_constraintStart_toEndOf="@+id/tv_team_number"
-                app:layout_constraintTop_toTopOf="@+id/tv_type"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/tv_team_number"
+                android:id="@+id/tv_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -87,9 +76,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_gender"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_detail"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_gender"
+                app:layout_constraintTop_toTopOf="@+id/tv_detail"
                 app:srcCompat="@drawable/ic_chat" />
 
             <TextView

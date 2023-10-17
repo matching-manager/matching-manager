@@ -34,7 +34,6 @@ class TeamFragment : Fragment() {
 
     companion object {
         fun newInstance() = TeamFragment()
-        const val OBJECT_DATA = "item_object"
     }
 
 
