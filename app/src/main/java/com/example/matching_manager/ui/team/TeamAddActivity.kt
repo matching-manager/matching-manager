@@ -9,11 +9,14 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamAddActivityBinding
 import com.example.matching_manager.ui.team.bottomsheet.TeamAge
 import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
+import com.example.matching_manager.ui.team.view.TeamSharedViewModel
 
 class TeamAddActivity : AppCompatActivity() {
     private lateinit var binding: TeamAddActivityBinding
@@ -24,6 +27,8 @@ class TeamAddActivity : AppCompatActivity() {
     private var selectedTime: String? = null
     private var selectedAge: Int? = null
     private var selectedNumber: Int? = null
+
+    private val viewModel: TeamSharedViewModel by viewModels()
 
     //진입타입 설정을 위함
     companion object {
@@ -80,6 +85,20 @@ class TeamAddActivity : AppCompatActivity() {
         Log.d("TeamAddActivity", "in")
         setSpinner()
         initView()
+        initViewModel()
+    }
+
+    private fun initViewModel() {
+        with(viewModel) {
+            number.observe(this@TeamAddActivity, Observer {
+                Log.d("teamNumber","activity = $it")
+                binding.teamNumber.setText(it.toString())
+            })
+            age.observe(this@TeamAddActivity, Observer {
+                Log.d("teamAge","activity = $it")
+                binding.teamAge.setText(it.toString())
+            })
+        }
     }
 
     private fun setSpinner() = with(binding) {
@@ -206,7 +225,7 @@ class TeamAddActivity : AppCompatActivity() {
             showNumberPicker()
         }
         //age
-        ageNumber.setOnClickListener {
+        teamAge.setOnClickListener {
             showAgePicker()
         }
 
@@ -235,14 +254,6 @@ class TeamAddActivity : AppCompatActivity() {
             val selectedGender = genderSpinner.selectedItem.toString()
             val selectedLevel = levelSpinner.selectedItem.toString()
             val selectedTime = timeSpinner.selectedItem.toString()
-
-            val intent = Intent().apply {
-                putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType?.name)
-                putExtra(EXTRA_TEAM_POSITION, position)
-                putExtra(EXTRA_TEAM_MODEL, teamItem)
-            }
-            setResult(Activity.RESULT_OK, intent)
-            finish()
 
 
             val teamItem = when (entryType) {
@@ -289,6 +300,14 @@ class TeamAddActivity : AppCompatActivity() {
 
                 else -> null
             }
+
+            val intent = Intent().apply {
+                putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType?.name)
+                putExtra(EXTRA_TEAM_POSITION, position)
+                putExtra(EXTRA_TEAM_MODEL, teamItem)
+            }
+            setResult(Activity.RESULT_OK, intent)
+            finish()
 
         }
 

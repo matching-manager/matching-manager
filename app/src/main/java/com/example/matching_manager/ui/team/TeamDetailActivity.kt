@@ -9,7 +9,6 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import coil.load
 import com.example.matching_manager.databinding.TeamDetailActivityBinding
 
-@Suppress("IMPLICIT_CAST_TO_ANY")
 class TeamDetailActivity : AppCompatActivity() {
     private lateinit var binding: TeamDetailActivityBinding
 
@@ -82,7 +81,6 @@ class TeamDetailActivity : AppCompatActivity() {
 
 
         }
-
 
         //back button
         btnCancel.setOnClickListener {

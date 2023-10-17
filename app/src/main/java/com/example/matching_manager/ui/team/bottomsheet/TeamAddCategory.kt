@@ -33,15 +33,15 @@ class TeamAddCategory : BottomSheetDialogFragment() {
     private fun initView()= with(binding) {
         btnRecruitment.setOnClickListener {
             //용병 모집
-            val intent = TeamAddActivity.newIntentForAddRecruit(requireActivity())
-            requireActivity().startActivity(intent)
+            val intent = TeamAddActivity.newIntentForAddRecruit(requireContext())
+            startActivity(intent)
             dismiss()
         }
 
         btnApplication.setOnClickListener {
             //용병 신청
-            val intent = TeamAddActivity.newIntentForAddApplication(requireActivity())
-            requireActivity().startActivity(intent)
+            val intent = TeamAddActivity.newIntentForAddApplication(requireContext())
+            startActivity(intent)
             dismiss()
         }
     }
