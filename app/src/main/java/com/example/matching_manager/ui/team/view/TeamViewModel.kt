@@ -1,11 +1,14 @@
 package com.example.matching_manager.ui.team.view
 
 import android.os.Parcelable
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.matching_manager.R
 import com.example.matching_manager.ui.team.TeamItem
+import kotlinx.coroutines.launch
 
 class TeamViewModel : ViewModel() {
 
@@ -110,7 +113,6 @@ class TeamViewModel : ViewModel() {
 
         return items
     }
-
 
 
 }

@@ -45,6 +45,4 @@ sealed class TeamItem(
         val level:String//수준
     ) : TeamItem(), Parcelable
 
-
-
 }

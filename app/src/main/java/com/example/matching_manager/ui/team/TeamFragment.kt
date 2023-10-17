@@ -25,12 +25,10 @@ class TeamFragment : Fragment() {
 
     private val listAdapter by lazy {
         TeamListAdapter { item ->
-            val intent = TeamDetailActivity.newIntent(item,requireContext())
+            val intent = TeamDetailActivity.newIntent(item, requireContext())
             startActivity(intent)
         }
     }
-
-
 
     companion object {
         fun newInstance() = TeamFragment()

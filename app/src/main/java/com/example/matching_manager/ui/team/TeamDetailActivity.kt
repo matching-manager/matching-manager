@@ -15,7 +15,7 @@ class TeamDetailActivity : AppCompatActivity() {
 
     companion object {
         private const val OBJECT_DATA = "item_object"
-        fun newIntent (
+        fun newIntent(
             item: TeamItem,
             context: Context,
         ): Intent {
@@ -24,14 +24,6 @@ class TeamDetailActivity : AppCompatActivity() {
             return intent
         }
     }
-
-//    private val data: TeamItem? by lazy {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//            intent.getParcelableExtra(TeamFragment.OBJECT_DATA, TeamItem::class.java)
-//        } else {
-//            intent.getParcelableExtra<TeamItem>(TeamFragment.OBJECT_DATA)
-//        }
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,33 +35,48 @@ class TeamDetailActivity : AppCompatActivity() {
 
     private fun initView() = with(binding) {
 
-//        val item: TeamItem? by lazy {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//                intent.getParcelableExtra(OBJECT_DATA, TeamItem::class.java)
-//            } else {
-//                intent.getParcelableExtra<TeamItem>(OBJECT_DATA)
-//            }
-//        }
+        //진입타입 설정하기
+        val item: TeamItem? = intent.getParcelableExtra(OBJECT_DATA)
 
-        if(1 ==1){
-            val item: TeamItem.RecruitmentItem? by lazy {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    intent.getParcelableExtra(OBJECT_DATA, TeamItem.RecruitmentItem::class.java)
-                } else {
-                    intent.getParcelableExtra<TeamItem.RecruitmentItem>(OBJECT_DATA)
-                }
-            }
-            ivProfile.load(item?.teamProfile)
+        if (item is TeamItem.RecruitmentItem) {
+            // 용병모집 아이템인 경우
+            tvType.text = item.type
+            tvTitle.text = item.type
+            tvGame.text = item.game
+            tvArea.text = item.area
+            tvSchedule.text = item.schedule
+            ivProfile.load(item.teamProfile)
+            tvPlayerNum.text = item.playerNum
+            tvPay.text = item.pay
+            tvTeamName.text = item.teamName
+            tvGender.text = item.gender
+            tvViewCount.text = item.viewCount.toString()
+            tvNicname.text = item.nicname
+            tvContent.text = item.content
+            tvTime.text = item.creationTime
+            tvLevel.text = item.level
+            //경기장위치 추가해야함
 
-        }
-        else if(2==2){
-            val item: TeamItem.ApplicationItem? by lazy {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    intent.getParcelableExtra(OBJECT_DATA, TeamItem.ApplicationItem::class.java)
-                } else {
-                    intent.getParcelableExtra<TeamItem.ApplicationItem>(OBJECT_DATA)
-                }
-            }
+
+        } else if (item is TeamItem.ApplicationItem) {
+            // 용병신청 아이템인 경우
+            tvType.text = item.type
+            tvTitle.text = item.type
+            tvGame.text = item.game
+            tvArea.text = item.area
+            tvSchedule.text = item.schedule//제목이 들어가야함
+            ivProfile.load(item.teamProfile)
+            tvPlayerNum.text = item.playerNum
+            tvFee.text = "나이"
+            tvPay.text = item.age//나이가 들어가야함
+            tvTeam.text = "가능 시간"
+            tvTeamName.text = item.schedule//가능시간이 들어가야함
+            tvGender.text = item.gender
+            tvViewCount.text = item.viewCount.toString()
+            tvNicname.text = item.nicname
+            tvContent.text = item.content
+            tvTime.text = item.creationTime
+            tvLevel.text = item.level
 
 
         }
