@@ -13,15 +13,13 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamDetailActivityBinding
-import com.example.matching_manager.ui.team.mdoel.TeamModel
-import coil.load
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 
-@Suppress("IMPLICIT_CAST_TO_ANY")
 class TeamDetailActivity : AppCompatActivity() {
     private lateinit var binding: TeamDetailActivityBinding
 
@@ -55,7 +53,7 @@ class TeamDetailActivity : AppCompatActivity() {
         if (item is TeamItem.RecruitmentItem) {
             // 용병모집 아이템인 경우
             tvType.text = item.type
-            tvTitle.text = item.type
+            tvDialogInfo.text = item.type
             tvGame.text = item.game
             tvArea.text = item.area
             tvSchedule.text = item.schedule
@@ -75,7 +73,7 @@ class TeamDetailActivity : AppCompatActivity() {
         } else if (item is TeamItem.ApplicationItem) {
             // 용병신청 아이템인 경우
             tvType.text = item.type
-            tvTitle.text = item.type
+            tvDialogInfo.text = item.type
             tvGame.text = item.game
             tvArea.text = item.area
             tvSchedule.text = item.schedule//제목이 들어가야함
@@ -105,7 +103,6 @@ class TeamDetailActivity : AppCompatActivity() {
         btnSubmit.setOnClickListener {
 
         }
-
     }
 
     private fun initFcm() {
@@ -199,5 +196,4 @@ class TeamDetailActivity : AppCompatActivity() {
             ).show()
         }
     }
-
 }
