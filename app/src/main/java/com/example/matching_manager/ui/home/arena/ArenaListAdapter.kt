@@ -15,14 +15,14 @@ class ArenaListAdapter(
             oldItem: ArenaModel,
             newItem: ArenaModel
         ): Boolean {
-            return oldItem == newItem
+            return oldItem.phone == newItem.phone
         }
 
         override fun areContentsTheSame(
             oldItem: ArenaModel,
             newItem: ArenaModel
         ): Boolean {
-            return oldItem.phone == newItem.phone
+            return oldItem == newItem
         }
     }
 ) {

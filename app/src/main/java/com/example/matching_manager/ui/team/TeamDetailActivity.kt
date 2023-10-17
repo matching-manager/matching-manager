@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamDetailActivityBinding
-import com.example.matching_manager.fcm.MyFirebaseMessagingService
 import com.example.matching_manager.ui.team.mdoel.TeamModel
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
