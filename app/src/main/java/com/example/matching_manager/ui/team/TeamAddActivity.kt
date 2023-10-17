@@ -77,12 +77,12 @@ class TeamAddActivity : AppCompatActivity() {
         binding = TeamAddActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.d("TeamAddActivity","in")
+        Log.d("TeamAddActivity", "in")
         setSpinner()
         initView()
     }
 
-    private fun setSpinner()= with(binding) {
+    private fun setSpinner() = with(binding) {
         // spinner adapter
         //종목 스피너
         val gameAdapter = ArrayAdapter.createFromResource(
@@ -236,6 +236,14 @@ class TeamAddActivity : AppCompatActivity() {
             val selectedLevel = levelSpinner.selectedItem.toString()
             val selectedTime = timeSpinner.selectedItem.toString()
 
+            val intent = Intent().apply {
+                putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType?.name)
+                putExtra(EXTRA_TEAM_POSITION, position)
+                putExtra(EXTRA_TEAM_MODEL, teamItem)
+            }
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+
 
             val teamItem = when (entryType) {
                 TeamAddType.RECRUIT -> {
@@ -284,13 +292,6 @@ class TeamAddActivity : AppCompatActivity() {
 
         }
 
-        val intent = Intent().apply {
-            putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType?.name)
-            putExtra(EXTRA_TEAM_POSITION, position)
-            putExtra(EXTRA_TEAM_MODEL, teamItem)
-        }
-        setResult(Activity.RESULT_OK, intent)
-        finish()
     }
 
 }
