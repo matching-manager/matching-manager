@@ -41,13 +41,15 @@ class TeamDetailActivity : AppCompatActivity() {
         if (item is TeamItem.RecruitmentItem) {
             // 용병모집 아이템인 경우
             tvType.text = item.type
-            tvTitle.text = item.type
+            tvDialogInfo.text = item.type
             tvGame.text = item.game
             tvArea.text = item.area
             tvSchedule.text = item.schedule
             ivProfile.load(item.teamProfile)
             tvPlayerNum.text = item.playerNum
+            tvFee.text = "회의비"
             tvPay.text = item.pay
+            tvTeam.text = "팀이름"
             tvTeamName.text = item.teamName
             tvGender.text = item.gender
             tvViewCount.text = item.viewCount.toString()
@@ -61,7 +63,7 @@ class TeamDetailActivity : AppCompatActivity() {
         } else if (item is TeamItem.ApplicationItem) {
             // 용병신청 아이템인 경우
             tvType.text = item.type
-            tvTitle.text = item.type
+            tvDialogInfo.text = item.type
             tvGame.text = item.game
             tvArea.text = item.area
             tvSchedule.text = item.schedule//제목이 들어가야함
