@@ -16,12 +16,14 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat.startActivityForResult
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.DialogEditBinding
 import com.example.matching_manager.databinding.MyFragmentBinding
 import com.example.matching_manager.databinding.SignInFragmentBinding
 import com.example.matching_manager.ui.home.HomeFragment
 import com.example.matching_manager.ui.match.MatchFragment
+import com.example.matching_manager.ui.my.MyFragment.Companion.PICK_IMAGE_REQUEST
 
 class MyFragment : Fragment() {
     private var _binding: MyFragmentBinding? = null
@@ -57,8 +59,9 @@ class MyFragment : Fragment() {
         initView()
     }
 
+
     private fun initView() = with(binding) {
-        ivMypageProfile.setOnClickListener {
+        btnEdit.setOnClickListener {
             dialogBinding = DialogEditBinding.inflate(layoutInflater)
             val dialogView = dialogBinding.root
             //val dialogView = layoutInflater.inflate(R.layout.dialog_edit, null)
@@ -75,18 +78,23 @@ class MyFragment : Fragment() {
             val iv_profile = dialogView.findViewById<ImageView>(R.id.iv_profile)
 
             btn_save.setOnClickListener {
-                val nickname = et_content_nickname.text.toString()
-                val location = et_content_location.text.toString()
-                val id = et_content_id.text.toString()
+                with(binding) {
+                    val nickname = et_content_nickname.text.toString()
+                    val location = et_content_location.text.toString()
+                    val id = et_content_id.text.toString()
 
-                selectedImageUri?.let { imageUri ->
-                    binding.ivMypageFace.setImageURI(imageUri)
+                    selectedImageUri?.let { imageUri ->
+                        ivMypageFace.setImageURI(imageUri)
+                    }
+
+                    btnMypageNickname.text = nickname
+                    btnMypageLocation.text = location
+                    btnMypageId.text = id
+
+                    dialog.dismiss()
                 }
+                    //setProfileImage(selectedImageUri)
 
-                binding.btnMypageNickname.text = nickname
-                binding.btnMypageLocation.text = location
-                binding.btnMypageId.text = id
-                //setProfileImage(selectedImageUri)
 
 //                if (et_content_nickname.text.isNullOrBlank() && et_content_location.text.isNullOrBlank() && et_content_id.text.isNullOrBlank()) {
 //                    Toast.makeText(context, "입력하십시요!", Toast.LENGTH_SHORT).show()
@@ -99,18 +107,19 @@ class MyFragment : Fragment() {
 //                    //okCallback(etContent.text.toString(), selectedImageUri)
 //                }
 
-                dialog.dismiss()
-
             }
 
             btn_cancle.setOnClickListener {
                 dialog.dismiss()
             }
 
+//            btnEdit.setOnClickListener{
+//                openGallery()
+//            }
+
             iv_profile.setOnClickListener {
                 openGallery()
             }
-
         }
     }
 
