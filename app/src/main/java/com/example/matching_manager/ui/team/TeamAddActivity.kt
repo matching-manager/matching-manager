@@ -248,6 +248,14 @@ class TeamAddActivity : AppCompatActivity() {
             finish() // 현재 Activity 종료
         }
 
+        //인포 이름 변경
+        tvDialogInfo.setText(
+            when (entryType) {
+                TeamAddType.RECRUIT -> R.string.team_add_activity_recruit
+                else -> R.string.team_add_activity_application
+            }
+        )
+
         btnSubmit.setOnClickListener {
             val selectedGame = gameSpinner.selectedItem.toString()
             val selectedArea = areaSpinner.selectedItem.toString()
@@ -297,6 +305,7 @@ class TeamAddActivity : AppCompatActivity() {
                         level = selectedLevel
                     )
                 }
+
 
                 else -> null
             }

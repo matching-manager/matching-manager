@@ -33,7 +33,6 @@ class TeamDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
-
         //진입타입 설정하기
         val item: TeamItem? = intent.getParcelableExtra(OBJECT_DATA)
 
