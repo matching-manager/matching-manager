@@ -44,10 +44,10 @@
             android:name=".ui.home.arena.ArenaActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.signin.SignInActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.signin.SignInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

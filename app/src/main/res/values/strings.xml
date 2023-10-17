@@ -114,5 +114,7 @@
     <string name="arena_dialog_btn_cancel">CANCEL</string>
     <string name="arena_dialog_btn_call">CALL</string>
 
+    <!-- signinfragment -->
+    <string name="default_web_client_id">YOUR_WEB_CLIENT_ID_HERE</string>
 
 </resources>

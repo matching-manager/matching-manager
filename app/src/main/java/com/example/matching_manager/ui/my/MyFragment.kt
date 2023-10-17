@@ -24,6 +24,7 @@ import com.example.matching_manager.databinding.SignInFragmentBinding
 import com.example.matching_manager.ui.home.HomeFragment
 import com.example.matching_manager.ui.match.MatchFragment
 import com.example.matching_manager.ui.my.MyFragment.Companion.PICK_IMAGE_REQUEST
+import com.example.matching_manager.ui.signin.SignInFragment
 
 class MyFragment : Fragment() {
     private var _binding: MyFragmentBinding? = null
@@ -120,7 +121,10 @@ class MyFragment : Fragment() {
             iv_profile.setOnClickListener {
                 openGallery()
             }
+
+
         }
+
     }
 
     private fun openGallery() {
