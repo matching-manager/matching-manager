@@ -59,7 +59,8 @@
 
     <!-- team_item.xml -->
     <string name="team_item_type">용병모집</string>
-    <string name="team_item_detail">1 남성</string>
+    <string name="team_item_number">2명</string>
+    <string name="team_item_gender">남성</string>
     <string name="team_item_view_count">1</string>
     <string name="team_item_chat_count">0</string>
     <string name="team_item_schedule">10/11일(수)오전 10시</string>
@@ -78,7 +79,7 @@
     <string name="team_detail_slash">/</string>
     <string name="team_detail_view_count">조회 5</string>
     <string name="team_detail_information">정보</string>
-    <string name="team_detail_match_title">용병 신청</string>
+    <string name="team_detail_match_title">용병 모집</string>
     <string name="team_detail_match">이미지</string>
     <string name="team_detail_people_number_title">인원</string>
     <string name="team_detail_people_number">2명</string>
@@ -88,8 +89,10 @@
     <string name="team_detail_skill">중</string>
     <string name="team_detail_age1">나이</string>
     <string name="team_detail_age2">20살</string>
-    <string name="team_detail_team_name_title">가능 시간</string>
-    <string name="team_detail_team_name">평일</string>
+    <string name="team_detail_pay">참가비</string>
+    <string name="team_detail_price">5,000원</string>
+    <string name="team_detail_team_name_title">팀이름</string>
+    <string name="team_detail_team_name">모집FC</string>
     <string name="team_detail_description">글 내용</string>
     <string name="team_detail_img">사진</string>
 
