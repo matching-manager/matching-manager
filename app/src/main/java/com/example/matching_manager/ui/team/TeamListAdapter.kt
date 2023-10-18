@@ -89,7 +89,7 @@ class TeamListAdapter(
                 tvViewCount.text = item.viewCount.toString()
                 tvChatCount.text = item.chatCount.toString()
                 tvSchedule.text = item.schedule
-                tvPlace.text = item.place
+                tvPlace.text = item.area//경기장으로 넣어야함 연결되는 값이 없어서 우선은 지역으로 넣어놓음
 
                 itemView.setOnClickListener {
                     onClick(item)
@@ -107,10 +107,11 @@ class TeamListAdapter(
             if (item is TeamItem.ApplicationItem) {
                 ivProfile.setImageResource(item.teamProfile)
                 tvType.text = "용병신청"
-                tvDetail.text = "${item.playerNum} : ${item.playerNum} ${item.gender}"
+                tvDetail.text = "${item.playerNum} ${item.gender}"
                 tvViewCount.text = item.viewCount.toString()
                 tvChatCount.text = item.chatCount.toString()
                 tvSchedule.text = item.schedule
+                tvPlace.text = item.area
                 //제목 넣어야함
 
                 itemView.setOnClickListener {

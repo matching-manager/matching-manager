@@ -273,19 +273,19 @@ class TeamAddActivity : AppCompatActivity() {
                         type = TeamAddType.RECRUIT.name, // 임의의 값으로 설정 (용병모집)
                         detail = "",
                         game = selectedGame,
-                        area = selectedArea,
-                        schedule = selectedTime,
+                        area = selectedArea,//지역 설정하기 스피너 추가해야함
+                        schedule = selectedTime,//경기일정으로 되어있음 -> 팀이름으로 변경해야함
                         teamProfile = 0,
                         playerNum = selectedNumber.toString(),
-                        pay = "",
-                        teamName = "",
+                        pay = "미정 참가비",//참가비 추가해야함
+                        teamName = "미정 팀이름",//설정 다시해야함 -> 스케쥴로 설정되어있음
                         gender = selectedGender,
                         viewCount = 0,
                         chatCount = 0,
-                        place = "",
-                        nicname = "",
+                        place = "미정 경기장소",//경기장 추가해야함
+                        nicname = "미정 닉네임",
                         content = etContent.text.toString(),
-                        creationTime = "",
+                        creationTime = "미정 작성시간",
                         level = selectedLevel
                     )
                 }
@@ -302,9 +302,9 @@ class TeamAddActivity : AppCompatActivity() {
                         gender = selectedGender,
                         viewCount = 0,
                         chatCount = 0,
-                        nicname = "",
+                        nicname = "미정 닉네임",
                         content = etContent.text.toString(),
-                        creationTime = "",
+                        creationTime = "미정 작성시간",
                         level = selectedLevel
                     )
                 }
