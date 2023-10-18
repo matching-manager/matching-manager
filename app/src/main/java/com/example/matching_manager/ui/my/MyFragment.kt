@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Nickname
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,19 +14,18 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.DialogEditBinding
 import com.example.matching_manager.databinding.MyFragmentBinding
-import com.example.matching_manager.databinding.SignInFragmentBinding
-import com.example.matching_manager.ui.home.HomeFragment
-import com.example.matching_manager.ui.match.MatchFragment
+import com.example.matching_manager.ui.match.MatchDataModel
 import com.example.matching_manager.ui.match.MatchViewModel
 import com.example.matching_manager.ui.match.MatchViewModelFactory
-import com.example.matching_manager.ui.my.MyFragment.Companion.PICK_IMAGE_REQUEST
+import kotlinx.coroutines.launch
 
 class MyFragment : Fragment() {
     private var _binding: MyFragmentBinding? = null
@@ -34,6 +33,12 @@ class MyFragment : Fragment() {
 
     private val viewModel: MatchViewModel by viewModels {
         MatchViewModelFactory()
+    }
+
+    private val adapter by lazy {
+        MyMatchListAdapter { item ->
+            startActivity(MyFragment.detailIntent(requireContext(), item))
+        }
     }
 
     private var context: Context? = null
@@ -45,6 +50,13 @@ class MyFragment : Fragment() {
         val MY_IMAGE_POSITION = "my_image_position"
         val MY_IMAGE_MODEL = "my_image_model"
         const val PICK_IMAGE_REQUEST = 1
+
+        const val OBJECT_DATA = "item_object"
+        fun detailIntent(context: Context, item: MatchDataModel): Intent {
+            val intent = Intent(context, MyMatchDetaillActivity::class.java)
+            intent.putExtra(OBJECT_DATA, item)
+            return intent
+        }
     }
 
 //    private val listAdapter by lazy {
@@ -65,10 +77,21 @@ class MyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initViewModel()
     }
 
 
     private fun initView() = with(binding) {
+        lifecycleScope.launch {
+            viewModel.fetchData()
+        }
+
+        rv.adapter = adapter
+        val manager = LinearLayoutManager(requireContext())
+        manager.reverseLayout = true
+        manager.stackFromEnd = true
+        rv.layoutManager = manager
+
         btnEdit.setOnClickListener {
             dialogBinding = DialogEditBinding.inflate(layoutInflater)
             val dialogView = dialogBinding.root
@@ -160,7 +183,10 @@ class MyFragment : Fragment() {
     }
 
     private fun initViewModel() = with(viewModel){
-
+        list.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it.toList())
+            Log.d("listData", "${it.size}")
+        })
     }
 
     override fun onDestroy() {

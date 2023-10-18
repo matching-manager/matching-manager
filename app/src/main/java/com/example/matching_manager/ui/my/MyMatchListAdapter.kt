@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.matching_manager.databinding.MatchItemBinding
+import com.example.matching_manager.databinding.MyItemBinding
 import com.example.matching_manager.ui.match.MatchDataModel
 
 class MyMatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : ListAdapter<MatchDataModel, MyMatchListAdapter.ViewHolder>(
@@ -22,7 +22,7 @@ class MyMatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : L
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            MatchItemBinding.inflate(
+            MyItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -35,7 +35,7 @@ class MyMatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : L
         holder.bind(item, onItemClick)
     }
 
-    class ViewHolder(private val binding: MatchItemBinding) :
+    class ViewHolder(private val binding: MyItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item : MatchDataModel, onItemClick: (MatchDataModel) -> Unit) = with(binding) {
