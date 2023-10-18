@@ -43,14 +43,15 @@
             android:layout_marginEnd="5dp"
             android:src="@drawable/ic_arena"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/iv_home_Noti"
+            app:layout_constraintEnd_toStartOf="@+id/btn_home_noti"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_home_Noti"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_home_noti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:background="@color/common_transparent"
             android:src="@drawable/ic_bell"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -232,19 +233,16 @@
             android:id="@+id/tv_home_match"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="추천매치"
             android:layout_marginStart="10dp"
-            />
+            android:text="추천매치" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="더보기"
             android:layout_marginStart="340dp"
-            android:textColor="#D6AEAEAE"
-            />
+            android:text="더보기"
+            android:textColor="#D6AEAEAE" />
     </androidx.cardview.widget.CardView>
-
 
 
     <androidx.cardview.widget.CardView
@@ -265,18 +263,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="인기글"
-            />
+            android:text="인기글" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="더보기"
-            android:textColor="#D6AEAEAE"
             android:layout_marginStart="340dp"
-            />
+            android:text="더보기"
+            android:textColor="#D6AEAEAE" />
 
     </androidx.cardview.widget.CardView>
 
 
-   </FrameLayout>
+</FrameLayout>
