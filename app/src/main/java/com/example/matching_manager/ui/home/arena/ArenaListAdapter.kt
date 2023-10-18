@@ -15,14 +15,14 @@ class ArenaListAdapter(
             oldItem: ArenaModel,
             newItem: ArenaModel
         ): Boolean {
-            return oldItem == newItem
+            return oldItem.phone == newItem.phone
         }
 
         override fun areContentsTheSame(
             oldItem: ArenaModel,
             newItem: ArenaModel
         ): Boolean {
-            return oldItem.phone == newItem.phone
+            return oldItem == newItem
         }
     }
 ) {
@@ -45,7 +45,10 @@ class ArenaListAdapter(
         fun bind(item: ArenaModel) = with(binding) {
             tvArenaTitle.text = item.placeName
             tvArenaAddress.text = item.addressName
+
+            itemView.setOnClickListener {
+                onClick(item)
+            }
         }
     }
-
 }

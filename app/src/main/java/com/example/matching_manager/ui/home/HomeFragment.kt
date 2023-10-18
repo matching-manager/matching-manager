@@ -1,5 +1,6 @@
 package com.example.matching_manager.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import com.example.matching_manager.R
 import com.example.matching_manager.databinding.HomeFragmentBinding
 import com.example.matching_manager.databinding.SignInFragmentBinding
 import com.example.matching_manager.ui.calender.CalendarFragment
+import com.example.matching_manager.ui.home.arena.ArenaActivity
 import com.example.matching_manager.ui.home.arena.ArenaViewModel
 
 class HomeFragment : Fragment() {
@@ -34,7 +36,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
-
+        btnArena.setOnClickListener {
+            val intent = ArenaActivity.newIntent(requireContext())
+            startActivity(intent)
+        }
     }
     override fun onDestroyView() {
         super.onDestroyView()

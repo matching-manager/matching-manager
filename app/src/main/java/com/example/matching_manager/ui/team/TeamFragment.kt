@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.TeamFragmentBinding
 import com.example.matching_manager.ui.match.TeamListAdapter
+import com.example.matching_manager.ui.team.bottomsheet.TeamAddCategory
+import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategory
 import com.example.matching_manager.ui.team.view.TeamViewModel
 
 class TeamFragment : Fragment() {
@@ -22,16 +25,13 @@ class TeamFragment : Fragment() {
 
     private val listAdapter by lazy {
         TeamListAdapter { item ->
-            val intent = Intent(requireContext(), TeamDetailActivity::class.java)
-            intent.putExtra(OBJECT_DATA, item)
+            val intent = TeamDetailActivity.newIntent(item, requireContext())
             startActivity(intent)
         }
     }
 
-
     companion object {
         fun newInstance() = TeamFragment()
-        const val OBJECT_DATA = "item_object"
     }
 
 

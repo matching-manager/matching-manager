@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.matching_manager.domain.model.ArenaEntity
-import com.example.matching_manager.domain.model.DocumentsEntity
 import com.example.matching_manager.domain.usecase.GetArenaInfoUseCase
 import com.example.matching_manager.util.Utils
 import kotlinx.coroutines.launch
@@ -18,6 +17,14 @@ class ArenaViewModel(
 
     private val _list: MutableLiveData<List<ArenaModel>> = MutableLiveData()
     val list: LiveData<List<ArenaModel>> get() = _list
+
+    private val _item: MutableLiveData<ArenaModel> = MutableLiveData()
+    val item :LiveData<ArenaModel> get() = _item
+
+    fun updateItem(item : ArenaModel){
+        _item.value = item
+    }
+
 
     fun searchArena(query: String, context: Context) {
         val latitude = Utils.geoCoding("서울특별시 마포구 성산동 515", context).latitude.toString()

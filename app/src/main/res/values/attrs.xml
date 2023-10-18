@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="CustomNumberPicker">
+        <attr name="firstDayOfTheWeek" format="integer" />
+        <attr name="connectedDayIconPosition" format="integer" />
+    </declare-styleable>
+</resources>

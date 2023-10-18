@@ -54,15 +54,15 @@ class MyFileDialog(
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         btnSave.setOnClickListener {
-            if (etContent.text.isNullOrBlank()) {
+            if (etContentNickname.text.isNullOrBlank()) {
                 Toast.makeText(context, "닉네임 입력하십시요!", Toast.LENGTH_SHORT).show()
             } else {
-                val newName = etContent.text.toString()
+                val newName = etContentNickname.text.toString()
                 val newImageUri = selectedImageUri
 
                 // 데이터 SharedPreferences에 저장
                 saveProfiledData(newName, newImageUri)
-                okCallback(etContent.text.toString(), selectedImageUri)
+                okCallback(etContentNickname.text.toString(), selectedImageUri)
                 dismiss()
             }
         }
@@ -72,7 +72,7 @@ class MyFileDialog(
         ivProfile.setOnClickListener {
             checkPermissionGalleryAndNavigateGallery()
         }
-        editName?.let { etContent.setText(it) }
+        editName?.let { etContentNickname.setText(it) }
         editImageUri?.let {
             selectedImageUri = it
             ivProfile.setImageURI(it)
@@ -116,7 +116,6 @@ class MyFileDialog(
             }
         }
     }
-
 
     private fun showPermissionContextPopup(){
         AlertDialog.Builder(requireContext())
