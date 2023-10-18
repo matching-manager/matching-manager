@@ -6,15 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.matching_manager.databinding.MyItemBinding
-import com.example.matching_manager.ui.match.MatchDataModel
 
-class MyMatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : ListAdapter<MatchDataModel, MyMatchListAdapter.ViewHolder>(
-    object : DiffUtil.ItemCallback<MatchDataModel>() {
-        override fun areItemsTheSame(oldItem: MatchDataModel, newItem: MatchDataModel): Boolean {
+class MyMatchListAdapter (private val onItemClick: (MyMatchDataModel) -> Unit) : ListAdapter<MyMatchDataModel, MyMatchListAdapter.ViewHolder>(
+    object : DiffUtil.ItemCallback<MyMatchDataModel>() {
+        override fun areItemsTheSame(oldItem: MyMatchDataModel, newItem: MyMatchDataModel): Boolean {
             return oldItem.matchId == newItem.matchId
         }
 
-        override fun areContentsTheSame(oldItem: MatchDataModel, newItem: MatchDataModel): Boolean {
+        override fun areContentsTheSame(oldItem: MyMatchDataModel, newItem: MyMatchDataModel): Boolean {
             return oldItem == newItem
         }
     }
@@ -38,7 +37,7 @@ class MyMatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : L
     class ViewHolder(private val binding: MyItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item : MatchDataModel, onItemClick: (MatchDataModel) -> Unit) = with(binding) {
+        fun bind(item : MyMatchDataModel, onItemClick: (MyMatchDataModel) -> Unit) = with(binding) {
             ivProfile.setImageResource(item.userImg)
             tvType.text = "팀 매칭"
             tvDetail.text = "${item.playerNum} : ${item.playerNum} ${item.gender}"

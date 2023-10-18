@@ -22,17 +22,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.DialogEditBinding
 import com.example.matching_manager.databinding.MyFragmentBinding
-import com.example.matching_manager.ui.match.MatchDataModel
-import com.example.matching_manager.ui.match.MatchViewModel
-import com.example.matching_manager.ui.match.MatchViewModelFactory
 import kotlinx.coroutines.launch
 
 class MyFragment : Fragment() {
     private var _binding: MyFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MatchViewModel by viewModels {
-        MatchViewModelFactory()
+    private val viewModel: MyViewModel by viewModels {
+        MyMatchViewModelFactory()
     }
 
     private val adapter by lazy {
@@ -52,7 +49,8 @@ class MyFragment : Fragment() {
         const val PICK_IMAGE_REQUEST = 1
 
         const val OBJECT_DATA = "item_object"
-        fun detailIntent(context: Context, item: MatchDataModel): Intent {
+        fun detailIntent(context: Context, item:
+                         MyMatchDataModel): Intent {
             val intent = Intent(context, MyMatchDetaillActivity::class.java)
             intent.putExtra(OBJECT_DATA, item)
             return intent
