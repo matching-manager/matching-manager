@@ -88,6 +88,12 @@ class MatchFragment : Fragment() {
         fabAdd.setOnClickListener {
             startActivity(writeIntent(requireContext(), "Test"))
         }
+        swipeRefreshLayout.setOnRefreshListener {
+            lifecycleScope.launch {
+                viewModel.fetchData()
+            }
+            swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     private fun initViewModel() = with(viewModel) {
