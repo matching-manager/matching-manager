@@ -99,6 +99,7 @@
     <!-- team_add_activity.xml -->
     <string name="team_add_activity_recruit">용병모집 글쓰기</string>
     <string name="team_add_activity_application">용병신청 글쓰기</string>
+    <string name="team_add_activity_team_name">팀이름</string>
     <string name="team_add_activity_male">남성</string>
     <string name="team_add_activity_female">여성</string>
     <string name="team_add_activity_mix">혼성</string>

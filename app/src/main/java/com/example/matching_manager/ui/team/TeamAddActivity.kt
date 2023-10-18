@@ -34,25 +34,22 @@ class TeamAddActivity : AppCompatActivity() {
     companion object {
 
         const val EXTRA_TEAM_ENTRY_TYPE = "extra_team_entry_type"
-        const val EXTRA_TEAM_POSITION = "extra_team_position"
         const val EXTRA_TEAM_MODEL = "extra_team_model"
 
         //용병모집
         fun newIntentForAddRecruit(
             context: Context,
+            entryType: String
         ) = Intent(context, TeamAddActivity::class.java).apply {
-            putExtra(EXTRA_TEAM_ENTRY_TYPE, TeamAddType.RECRUIT.name)
-//            putExtra(EXTRA_TEAM_POSITION, position)
-//            putExtra(EXTRA_TEAM_MODEL, teamItem)
+            putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType) // 타입을 전달
         }
 
         //용병신청
         fun newIntentForAddApplication(
             context: Context,
+            entryType: String
         ) = Intent(context, TeamAddActivity::class.java).apply {
-            putExtra(EXTRA_TEAM_ENTRY_TYPE, TeamAddType.APPLICATION.name)
-//            putExtra(EXTRA_TEAM_POSITION, position)
-//            putExtra(EXTRA_TEAM_MODEL, teamItem)
+            putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType) // 타입을 전달
         }
     }
 
@@ -60,22 +57,22 @@ class TeamAddActivity : AppCompatActivity() {
         TeamAddType.from(intent.getStringExtra(EXTRA_TEAM_ENTRY_TYPE))
     }
 
-    private val teamItem by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent?.getParcelableExtra(
-                EXTRA_TEAM_MODEL,
-                TeamItem::class.java
-            )
-        } else {
-            intent?.getParcelableExtra<TeamItem>(
-                EXTRA_TEAM_MODEL
-            )
-        }
-    }
+//    private val teamItem by lazy {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//            intent?.getParcelableExtra(
+//                EXTRA_TEAM_MODEL,
+//                TeamItem::class.java
+//            )
+//        } else {
+//            intent?.getParcelableExtra<TeamItem>(
+//                EXTRA_TEAM_MODEL
+//            )
+//        }
+//    }
 
-    private val position by lazy {
-        intent.getIntExtra(EXTRA_TEAM_POSITION, -1)
-    }
+//    private val position by lazy {
+//        intent.getIntExtra(EXTRA_TEAM_POSITION, -1)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,11 +89,11 @@ class TeamAddActivity : AppCompatActivity() {
         with(viewModel) {
             number.observe(this@TeamAddActivity, Observer {
                 Log.d("teamNumber","activity = $it")
-                binding.teamNumber.setText(it.toString())
+                binding.teamNumber.text = it.toString()
             })
             age.observe(this@TeamAddActivity, Observer {
                 Log.d("teamAge","activity = $it")
-                binding.teamAge.setText(it.toString())
+                binding.teamAge.text = it.toString()
             })
         }
     }
@@ -148,7 +145,6 @@ class TeamAddActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
-
 
         //성별 스피너
         val genderAdapter = ArrayAdapter.createFromResource(
@@ -251,10 +247,17 @@ class TeamAddActivity : AppCompatActivity() {
         //인포 이름 변경
         tvDialogInfo.setText(
             when (entryType) {
-                TeamAddType.RECRUIT -> R.string.team_add_activity_recruit
+                TeamAddType.RECRUIT -> {
+                    R.string.team_add_activity_recruit
+                }
                 else -> R.string.team_add_activity_application
             }
         )
+
+        // entryType이 RECRUIT일 때 tvTeam의 텍스트 변경
+        if (entryType == TeamAddType.RECRUIT) {
+            tvTeam.setText(R.string.team_add_activity_team_name)
+        }
 
         btnSubmit.setOnClickListener {
             val selectedGame = gameSpinner.selectedItem.toString()
@@ -306,13 +309,12 @@ class TeamAddActivity : AppCompatActivity() {
                     )
                 }
 
-
                 else -> null
             }
 
             val intent = Intent().apply {
                 putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType?.name)
-                putExtra(EXTRA_TEAM_POSITION, position)
+//                putExtra(EXTRA_TEAM_POSITION, position)
                 putExtra(EXTRA_TEAM_MODEL, teamItem)
             }
             setResult(Activity.RESULT_OK, intent)
