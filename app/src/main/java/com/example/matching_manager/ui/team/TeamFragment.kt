@@ -90,7 +90,7 @@ class TeamFragment : Fragment() {
         fabAdd.setOnClickListener {
             val teamAddCategory = TeamAddCategory()
             teamAddCategory.show(childFragmentManager, teamAddCategory.tag)
-            //같은 프래그먼트의 childFragmentManager를 쓰면 같은 라이프사이클을 사용 해야함
+            //프래그먼트의 childFragmentManager를 쓰면 같은 라이프사이클을 사용 해야함
             childFragmentManager.setFragmentResultListener(FRAGMENT_REQUEST_KEY,viewLifecycleOwner) { key, bundle ->
                 val result = bundle.getString(FRAGMENT_RETURN_TYPE)
 
@@ -113,12 +113,6 @@ class TeamFragment : Fragment() {
                 }
 
             }
-            //그럼 런치는 어떻게 작성해줘야하는지?
-            //1. fragment result 리스너 등록
-            //2. 바텀시트를 올린다
-            //3. 바텀시트에서 리저트로 클릭한 타입을 보낸다.
-            //4. 1번에서 등록한 리스너에서 3번에서 받은 타입을 받은후 등록 액티비티를 올린다.(레지스터포리절트 사용)
-            //값을 받은다음 올린는 흐름으로 !
         }
         //filtr btn
         btnFilter.setOnClickListener {

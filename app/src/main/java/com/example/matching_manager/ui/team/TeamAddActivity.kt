@@ -25,8 +25,6 @@ class TeamAddActivity : AppCompatActivity() {
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
     private var selectedTime: String? = null
-//    private var selectedAge: Int? = null
-//    private var selectedNumber: Int? = null
 
     private val viewModel: TeamSharedViewModel by viewModels()
 
@@ -56,23 +54,6 @@ class TeamAddActivity : AppCompatActivity() {
     private val entryType by lazy {
         TeamAddType.from(intent.getStringExtra(EXTRA_TEAM_ENTRY_TYPE))
     }
-
-//    private val teamItem by lazy {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//            intent?.getParcelableExtra(
-//                EXTRA_TEAM_MODEL,
-//                TeamItem::class.java
-//            )
-//        } else {
-//            intent?.getParcelableExtra<TeamItem>(
-//                EXTRA_TEAM_MODEL
-//            )
-//        }
-//    }
-
-//    private val position by lazy {
-//        intent.getIntExtra(EXTRA_TEAM_POSITION, -1)
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
