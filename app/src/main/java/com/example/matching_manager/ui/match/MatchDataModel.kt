@@ -1,7 +1,6 @@
 package com.example.matching_manager.ui.match
 
 import android.os.Parcelable
-import com.example.matching_manager.R
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
