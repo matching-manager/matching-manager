@@ -46,7 +46,6 @@ class TeamDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
-
         //진입타입 설정하기
         val item: TeamItem? = intent.getParcelableExtra(OBJECT_DATA)
 
@@ -59,7 +58,9 @@ class TeamDetailActivity : AppCompatActivity() {
             tvSchedule.text = item.schedule
             ivProfile.load(item.teamProfile)
             tvPlayerNum.text = item.playerNum
+            tvFee.text = "회의비"
             tvPay.text = item.pay
+            tvTeam.text = "팀이름"
             tvTeamName.text = item.teamName
             tvGender.text = item.gender
             tvViewCount.text = item.viewCount.toString()
@@ -92,7 +93,6 @@ class TeamDetailActivity : AppCompatActivity() {
 
 
         }
-
 
         //back button
         btnCancel.setOnClickListener {
