@@ -9,16 +9,22 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchWritingActivityBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MatchWritingActivity : AppCompatActivity() {
 
-    private lateinit var binding : MatchWritingActivityBinding
+    private lateinit var binding: MatchWritingActivityBinding
 
-    private val viewModel : MatchViewModel by viewModels {
+    private val viewModel: MatchViewModel by viewModels {
         MatchViewModelFactory()
     }
+
     companion object {
         const val ID_DATA = "item_userId"
     }
@@ -38,11 +44,18 @@ class MatchWritingActivity : AppCompatActivity() {
         Log.d("123", "${userId}")
 
         btnConfirm.setOnClickListener {
-            val match = MatchDataModel(matchId = viewModel.matchId)
-            viewModel.addMatch(match)
-            viewModel.fetchData()
-            viewModel.matchId++
-            finish()
+            val match = MatchDataModel(matchId = etTeam.text.toString().toInt())
+
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.addMatch(match)
+                viewModel.fetchData()
+
+                // UI 업데이트를 위해 메인 스레드로 스위칭
+                withContext(Dispatchers.Main) {
+                    viewModel.matchId++
+                    finish()
+                }
+            }
         }
 
 

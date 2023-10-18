@@ -10,14 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.MatchFragmentBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MatchFragment : Fragment() {
     private var _binding: MatchFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel : MatchViewModel by viewModels {
+    private val viewModel: MatchViewModel by viewModels {
         MatchViewModelFactory()
     }
 
@@ -36,7 +41,8 @@ class MatchFragment : Fragment() {
             intent.putExtra(OBJECT_DATA, item)
             return intent
         }
-        fun writeIntent(context: Context, userId : String): Intent {
+
+        fun writeIntent(context: Context, userId: String): Intent {
             val intent = Intent(context, MatchWritingActivity::class.java)
             intent.putExtra(ID_DATA, userId)
             return intent
@@ -60,7 +66,10 @@ class MatchFragment : Fragment() {
 
     private fun initView() = with(binding) {
 
-        viewModel.fetchData()
+
+        lifecycleScope.launch {
+            viewModel.fetchData()
+        }
 
         rv.adapter = adapter
         val manager = LinearLayoutManager(requireContext())
