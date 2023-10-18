@@ -17,17 +17,25 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.fragment.app.viewModels
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.DialogEditBinding
 import com.example.matching_manager.databinding.MyFragmentBinding
 import com.example.matching_manager.databinding.SignInFragmentBinding
 import com.example.matching_manager.ui.home.HomeFragment
 import com.example.matching_manager.ui.match.MatchFragment
+import com.example.matching_manager.ui.match.MatchViewModel
+import com.example.matching_manager.ui.match.MatchViewModelFactory
 import com.example.matching_manager.ui.my.MyFragment.Companion.PICK_IMAGE_REQUEST
 
 class MyFragment : Fragment() {
     private var _binding: MyFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: MatchViewModel by viewModels {
+        MatchViewModelFactory()
+    }
+
     private var context: Context? = null
     private lateinit var dialogBinding: DialogEditBinding
     private var selectedImageUri: Uri? = null
@@ -149,6 +157,10 @@ class MyFragment : Fragment() {
         //) { newName, newImageUri ->
         //viewModel.setProfile(newName, newImageUri)
         //}.show(parentFragmentManager, "MyFileDialog")
+    }
+
+    private fun initViewModel() = with(viewModel){
+
     }
 
     override fun onDestroy() {

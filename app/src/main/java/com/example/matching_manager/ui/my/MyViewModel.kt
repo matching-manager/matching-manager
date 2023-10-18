@@ -1,22 +1,28 @@
 package com.example.matching_manager.ui.my
 
-import android.media.Image
 import android.net.Uri
-import android.provider.MediaStore
-import android.provider.MediaStore.Video
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.concurrent.atomic.AtomicLong
 
-class MyViewModel : ViewModel() {
+class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
 
-    private val _list: MutableLiveData<ArrayList<MediaStore.Video>> = MutableLiveData()
+    private val _list: MutableLiveData<List<MyMatchDataModel>> = MutableLiveData()
+    val list: LiveData<List<MyMatchDataModel>> get() = _list
 
-    val list: LiveData<ArrayList<Video>> get() = _list
-    private val _profileName = MutableLiveData<String>()
 
-    val profileName: LiveData<String> get() = _profileName
+    suspend fun fetchData() {
+
+        val currentList = withContext(Dispatchers.IO) {
+            repository.getList()
+        }
+        _list.value = currentList
+
+    }
+
 
     private val _profileImageUri = MutableLiveData<Uri?>() // 프로필 이미지 Uri를 저장하는 LiveData
 
@@ -31,10 +37,10 @@ class MyViewModel : ViewModel() {
 //        _list.value = data
 //    }
 
-    fun setProfile(name: String, imageUri: Uri?){
-        _profileName.value = name
-        _profileImageUri.value = imageUri
-    }
+//    fun setProfile(name: String, imageUri: Uri?){
+//        _profileName.value = name
+//        _profileImageUri.value = imageUri
+//    }
 
 }
 
