@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchFragmentBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -94,6 +95,7 @@ class MatchFragment : Fragment() {
             }
             swipeRefreshLayout.isRefreshing = false
         }
+        swipeRefreshLayout.setColorSchemeResources(R.color.common_point_green)
     }
 
     private fun initViewModel() = with(viewModel) {
