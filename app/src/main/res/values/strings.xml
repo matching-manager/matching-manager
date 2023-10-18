@@ -118,6 +118,12 @@
     <string name="arena_dialog_btn_call">CALL</string>
 
 
+    <!-- Alarm -->
+    <string name="alarm">알림</string>
+    <string name="alarm_recyclerview_title">스파르타FC와 매칭이 성사되었습니다.</string>
+
+
+
     <!-- FCM -->
     <string name="quickstart_message">Click the SUBSCRIBE TO WEATHER button below to subscribe to the
         weather topic. Messages sent to the weather topic will be received. The LOG TOKEN button logs the
@@ -138,5 +144,6 @@
     <!-- [END fcm_default_icon_string] -->
     <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
     <string name="fcm_message">FCM Message</string>
+
 
 </resources>

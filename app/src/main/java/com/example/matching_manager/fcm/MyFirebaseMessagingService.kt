@@ -12,8 +12,7 @@ import androidx.core.app.NotificationCompat
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.example.matching_manager.R
-import com.example.matching_manager.ui.main.MainActivity
-import com.example.matching_manager.ui.team.TeamDetailActivity
+import com.example.matching_manager.ui.home.alarm.AlarmActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -65,8 +64,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // 또한, FCM 메시지를 수신한 결과로 알림을 생성하려면 여기에서 시작해야 합니다.
 
         //example : 키/값 이기 때문에 Key값을 받아와 알림센터에 띄워줌
-//        val title = remoteMessage.data["title"]
-//        val message = remoteMessage.data["message"]
+        val phoneNumber = remoteMessage.data["phone_number"]
+        val message = remoteMessage.data["message"]
+        val userId = remoteMessage.data["user_id"]
     }
     // [END receive_message]
 
@@ -126,7 +126,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      */
     private fun sendNotification(messageBody: String) {
         val requestCode = 0
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, AlarmActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(
             this,
