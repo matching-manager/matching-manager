@@ -12,7 +12,6 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
     private val _list: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
     val list: LiveData<List<MatchDataModel>> get() = _list
 
-    var matchId = 25
 
     suspend fun fetchData() {
 

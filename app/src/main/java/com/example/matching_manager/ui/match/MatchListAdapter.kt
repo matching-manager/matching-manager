@@ -42,8 +42,8 @@ class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : Lis
             tvType.text = "팀 매칭"
             tvDetail.text = "${item.playerNum} : ${item.playerNum} ${item.gender}"
             tvViewCount.text = item.viewCount.toString()
-            tvChatCount.text = item.applyCount.toString()
-            tvSchedule.text = item.dateTime
+            tvChatCount.text = item.chatCount.toString()
+            tvSchedule.text = item.schedule
             tvPlace.text = item.matchPlace
 
             itemView.setOnClickListener {
