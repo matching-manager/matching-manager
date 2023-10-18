@@ -25,7 +25,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      */
     // [START receive_message]
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        Log.d(TAG,"received!!!")
+        Log.d(TAG, "received!!!")
         // [START_EXCLUDE]
         // 데이터 메시지와 알림 메시지 두 가지 유형의 메시지가 있습니다.
         // 데이터 메시지는 앱이 포그라운드 또는 백그라운드에서 상관없이
@@ -45,28 +45,25 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         if (remoteMessage.data.isNotEmpty()) {
             Log.d(TAG, "메시지 데이터 페이로드: ${remoteMessage.data}")
 
-            // 데이터가 긴 작업으로 처리해야 하는지 확인합니다.
-            if (isLongRunningJob()) {
-                // 긴 작업 (10초 이상)의 경우 WorkManager를 사용합니다.
-                scheduleJob()
-            } else {
-                // 10초 내에 메시지 처리
-                handleNow()
-            }
+            handleNow()
+
+//            // 데이터가 긴 작업으로 처리해야 하는지 확인합니다.
+//            if (isLongRunningJob()) {
+//                // 긴 작업 (10초 이상)의 경우 WorkManager를 사용합니다.
+//                scheduleJob()
+//            } else {
+//                // 10초 내에 메시지 처리
+//                handleNow()
+//            }
         }
 
         // 메시지가 알림 페이로드를 포함하는지 확인합니다.
         remoteMessage.notification?.let {
             Log.d(TAG, "메시지 알림 본문: ${it.body}")
-            it.body?.let { body -> sendNotification(body) }
+            it.body?.let { body -> sendNotification(remoteMessage,body) }
         }
 
         // 또한, FCM 메시지를 수신한 결과로 알림을 생성하려면 여기에서 시작해야 합니다.
-
-        //example : 키/값 이기 때문에 Key값을 받아와 알림센터에 띄워줌
-        val phoneNumber = remoteMessage.data["phone_number"]
-        val message = remoteMessage.data["message"]
-        val userId = remoteMessage.data["user_id"]
     }
     // [END receive_message]
 
@@ -89,15 +86,17 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
     // [END on_new_token]
 
-    /**
-     * WorkManager를 사용하여 비동기 작업 예약
-     */
-    private fun scheduleJob() {
-        // [START dispatch_job]
-        val work = OneTimeWorkRequest.Builder(MyWorker::class.java).build()
-        WorkManager.getInstance(this).beginWith(work).enqueue()
-        // [END dispatch_job]
-    }
+
+//    /**
+//     * WorkManager를 사용하여 비동기 작업 예약
+//     */
+//    private fun scheduleJob() {
+//        // [START dispatch_job]
+//        val work = OneTimeWorkRequest.Builder(MyWorker::class.java).build()
+//        WorkManager.getInstance(this).beginWith(work).enqueue()
+//        // [END dispatch_job]
+//    }
+
 
     /**
      * BroadcastReceivers에 할당된 시간을 처리합니다.
@@ -124,10 +123,22 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      *
      * @param messageBody 수신한 FCM 메시지 본문입니다.
      */
-    private fun sendNotification(messageBody: String) {
+    private fun sendNotification(remoteMessage:RemoteMessage,messageBody: String) {
+
+        val phoneNumber = remoteMessage.data["phone_number"]
+        val userId = remoteMessage.data["user_id"]
+
+        Log.d(TAG, "send_notification_phone_number : $phoneNumber")
+        Log.d(TAG, "send_notification_user_id : $userId")
+
         val requestCode = 0
-        val intent = Intent(this, AlarmActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val intent = Intent(this, AlarmActivity::class.java).apply {
+            putExtra(RECEIVED_USER_PHONE_NUMBER, phoneNumber)
+            putExtra(RECEIVED_USER_ID, userId)
+            putExtra(RECEIVED_BODY, messageBody)
+//            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
         val pendingIntent = PendingIntent.getActivity(
             this,
             requestCode,
@@ -164,6 +175,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
         private const val TAG = "MyFirebaseMsgService"
+        const val RECEIVED_USER_ID = "received_user_id"
+        const val RECEIVED_USER_PHONE_NUMBER = "received_user_phone_number"
+        const val RECEIVED_BODY = "received_body"
     }
 }
 /**
