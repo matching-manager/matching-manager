@@ -25,8 +25,8 @@ class TeamAddActivity : AppCompatActivity() {
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
     private var selectedTime: String? = null
-    private var selectedAge: Int? = null
-    private var selectedNumber: Int? = null
+//    private var selectedAge: Int? = null
+//    private var selectedNumber: Int? = null
 
     private val viewModel: TeamSharedViewModel by viewModels()
 
@@ -265,6 +265,8 @@ class TeamAddActivity : AppCompatActivity() {
             val selectedGender = genderSpinner.selectedItem.toString()
             val selectedLevel = levelSpinner.selectedItem.toString()
             val selectedTime = timeSpinner.selectedItem.toString()
+            val selectedNumber = viewModel.number.value ?: 0 // 기본값을 0으로 설정
+            val selectedAge = viewModel.age.value ?: 0 // 기본값을 0으로 설정
 
 
             val teamItem = when (entryType) {
