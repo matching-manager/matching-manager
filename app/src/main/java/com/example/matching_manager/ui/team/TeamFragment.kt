@@ -90,8 +90,8 @@ class TeamFragment : Fragment() {
         fabAdd.setOnClickListener {
             val teamAddCategory = TeamAddCategory()
             teamAddCategory.show(childFragmentManager, teamAddCategory.tag)
-
-            setFragmentResultListener(FRAGMENT_REQUEST_KEY) { key, bundle ->
+            //같은 프래그먼트의 childFragmentManager를 쓰면 같은 라이프사이클을 사용 해야함
+            childFragmentManager.setFragmentResultListener(FRAGMENT_REQUEST_KEY,viewLifecycleOwner) { key, bundle ->
                 val result = bundle.getString(FRAGMENT_RETURN_TYPE)
 
                 when (result) {
