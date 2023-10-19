@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamAddActivityBinding
 import com.example.matching_manager.ui.team.bottomsheet.TeamAge
+import com.example.matching_manager.ui.team.bottomsheet.TeamCalender
 import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
 import com.example.matching_manager.ui.team.view.TeamSharedViewModel
 
@@ -36,6 +37,7 @@ class TeamAddActivity : AppCompatActivity() {
         const val EXTRA_TEAM_MODEL = "extra_team_model"
         const val TEAM_NUMBER_BOTTOM_SHEET = "team_number_bottom_sheet"
         const val TEAM_AGE_BOTTOM_SHEET = "team_age_bottom_sheet"
+        const val TEAM_CALENDER_BOTTOM_SHEET = "team_calender_bottom_sheet"
 
 
         //용병모집
@@ -201,6 +203,10 @@ class TeamAddActivity : AppCompatActivity() {
             }
         }
 
+        tvMonthDate.setOnClickListener {
+            showCalenderPicker()
+        }
+
         //number
         teamNumber.setOnClickListener {
             showNumberPicker()
@@ -210,6 +216,11 @@ class TeamAddActivity : AppCompatActivity() {
             showAgePicker()
         }
 
+    }
+
+    private fun showCalenderPicker() {
+        val bottomSheet = TeamCalender()
+        bottomSheet.show(supportFragmentManager, TEAM_CALENDER_BOTTOM_SHEET)
     }
 
     private fun showNumberPicker() {
