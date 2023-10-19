@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamItemBinding
 import com.example.matching_manager.databinding.TeamUnknownItemBinding
 import com.example.matching_manager.ui.team.TeamItem
@@ -84,7 +85,7 @@ class TeamListAdapter(
         override fun onBind(item: TeamItem) = with(binding) {
             if (item is TeamItem.RecruitmentItem) {
                 ivProfile.setImageResource(item.teamProfile)
-                tvType.text = "용병모집"
+                tvType.text = item.type
                 tvDetail.text = "${item.playerNum} ${item.gender}"
                 tvViewCount.text = item.viewCount.toString()
                 tvChatCount.text = item.chatCount.toString()
@@ -106,7 +107,7 @@ class TeamListAdapter(
         override fun onBind(item: TeamItem) = with(binding) {
             if (item is TeamItem.ApplicationItem) {
                 ivProfile.setImageResource(item.teamProfile)
-                tvType.text = "용병신청"
+                tvType.text = item.type
                 tvDetail.text = "${item.playerNum} ${item.gender}"
                 tvViewCount.text = item.viewCount.toString()
                 tvChatCount.text = item.chatCount.toString()

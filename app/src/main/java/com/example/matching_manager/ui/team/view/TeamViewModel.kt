@@ -13,7 +13,7 @@ class TeamViewModel : ViewModel() {
 
     init {
         _list.value = arrayListOf<TeamItem>().apply {
-            for (i in 0 until 2) {
+            for (i in 1 until 3) {
                 add(
                     TeamItem.RecruitmentItem(
                         "용병모집" +
@@ -40,7 +40,7 @@ class TeamViewModel : ViewModel() {
         }
     }
 
-    fun addContentItem(item: TeamItem, type: String?) {
+    fun addContentItem(item: TeamItem) {
         val currentList = list.value.orEmpty().toMutableList()
         currentList.add(item)
         _list.value = currentList

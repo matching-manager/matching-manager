@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.TeamFragmentBinding
@@ -46,15 +44,16 @@ class TeamFragment : Fragment() {
                     TeamAddActivity.EXTRA_TEAM_MODEL,
                 )
             }
-            val teamType = result.data?.getStringExtra(TeamAddActivity.EXTRA_TEAM_ENTRY_TYPE)
 
-            setAddContent(teamModel, teamType)
+
+            setAddContent(teamModel)
         }
 
-    private fun setAddContent(item: TeamItem?, type: String?) {
+
+    private fun setAddContent(item: TeamItem?) {
         if (item != null) {
             Log.d("test", "item value = $item")
-            viewModel.addContentItem(item, type)
+            viewModel.addContentItem(item)
         }
     }
 

@@ -37,6 +37,7 @@ class TeamAddActivity : AppCompatActivity() {
         const val TEAM_NUMBER_BOTTOM_SHEET ="team_number_bottom_sheet"
         const val TEAM_AGE_BOTTOM_SHEET="team_age_bottom_sheet"
 
+
         //용병모집
         fun newIntentForAddRecruit(
             context: Context,
@@ -249,36 +250,39 @@ class TeamAddActivity : AppCompatActivity() {
             val selectedGender = genderSpinner.selectedItem.toString()
             val selectedLevel = levelSpinner.selectedItem.toString()
             val selectedTime = timeSpinner.selectedItem.toString()
+            val setContent=etContent.text.toString()
             val selectedNumber = viewModel.number.value ?: 0 // 기본값을 0으로 설정
             val selectedAge = viewModel.age.value ?: 0 // 기본값을 0으로 설정
+            val recruitment  = getString(R.string.team_fragment_recruitment)
+            val application = getString(R.string.team_fragment_application)
+            val unfined= getString(R.string.undefined_test_value)
 
 
             val teamItem = when (entryType) {
                 TeamAddType.RECRUIT -> {
                     TeamItem.RecruitmentItem(
-                        type = TeamAddType.RECRUIT.name, // 임의의 값으로 설정 (용병모집)
-                        detail = "",
+                        type =recruitment, // 임의의 값으로 설정 (용병모집)
                         game = selectedGame,
                         area = selectedArea,//지역 설정하기 스피너 추가해야함
                         schedule = selectedTime,//경기일정으로 되어있음 -> 팀이름으로 변경해야함
                         teamProfile = 0,
                         playerNum = selectedNumber.toString(),
-                        pay = "미정 참가비",//참가비 추가해야함
-                        teamName = "미정 팀이름",//설정 다시해야함 -> 스케쥴로 설정되어있음
+                        pay = unfined,//참가비 추가해야함
+                        teamName = unfined,//설정 다시해야함 -> 스케쥴로 설정되어있음
                         gender = selectedGender,
                         viewCount = 0,
                         chatCount = 0,
-                        place = "미정 경기장소",//경기장 추가해야함
-                        nicname = "미정 닉네임",
-                        content = etContent.text.toString(),
-                        creationTime = "미정 작성시간",
+                        place = unfined,//경기장 추가해야함
+                        nicname = unfined,
+                        content = setContent,
+                        creationTime = unfined,
                         level = selectedLevel
                     )
                 }
 
                 TeamAddType.APPLICATION -> {
                     TeamItem.ApplicationItem(
-                        type = TeamAddType.APPLICATION.name, // 임의의 값으로 설정 (용병신청)
+                        type = application, // 임의의 값으로 설정 (용병신청)
                         game = selectedGame,
                         area = selectedArea,
                         schedule = selectedTime,
@@ -288,9 +292,9 @@ class TeamAddActivity : AppCompatActivity() {
                         gender = selectedGender,
                         viewCount = 0,
                         chatCount = 0,
-                        nicname = "미정 닉네임",
-                        content = etContent.text.toString(),
-                        creationTime = "미정 작성시간",
+                        nicname = unfined,
+                        content = setContent,
+                        creationTime = unfined,
                         level = selectedLevel
                     )
                 }
