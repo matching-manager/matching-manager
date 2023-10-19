@@ -39,24 +39,6 @@ class MainActivity : AppCompatActivity() {
         tabLayout.getTabAt(3)?.setIcon(R.drawable.ic_team_grey)
         tabLayout.getTabAt(4)?.setIcon(R.drawable.ic_my_grey)
 
-        // background -> Intent -> Alarm
-        intent?.let {
-            Log.d("MainActivity","${intent.extras}")
-            val userId = intent.extras?.getString("user_id")
-            val phoneNumber = intent.extras?.getString("phone_number")
-            val body = intent.extras?.getString("body")
-            Log.d("MainActivity","value : $userId, $phoneNumber $body")
-
-            val intent = Intent(this@MainActivity,AlarmActivity::class.java)
-            intent.apply {
-                intent.putExtra(MyFirebaseMessagingService.RECEIVED_USER_ID,userId)
-                intent.putExtra(MyFirebaseMessagingService.RECEIVED_USER_PHONE_NUMBER,phoneNumber)
-                intent.putExtra(MyFirebaseMessagingService.RECEIVED_BODY,phoneNumber)
-            }
-            if (userId != null){
-                startActivity(intent)
-            }
-        }
     }
 
 //    override fun onNewIntent(intent: Intent?) {
