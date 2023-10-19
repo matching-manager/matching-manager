@@ -9,10 +9,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkManager
 import com.example.matching_manager.R
-import com.example.matching_manager.ui.home.alarm.AlarmActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -132,7 +129,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.d(TAG, "send_notification_user_id : $userId")
 
         val requestCode = 0
-        val intent = Intent(this, AlarmActivity::class.java).apply {
+        val intent = Intent(this, FcmActivity::class.java).apply {
             putExtra(RECEIVED_USER_PHONE_NUMBER, phoneNumber)
             putExtra(RECEIVED_USER_ID, userId)
             putExtra(RECEIVED_BODY, messageBody)
@@ -175,9 +172,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
         private const val TAG = "MyFirebaseMsgService"
-        const val RECEIVED_USER_ID = "received_user_id"
-        const val RECEIVED_USER_PHONE_NUMBER = "received_user_phone_number"
-        const val RECEIVED_BODY = "received_body"
+        const val RECEIVED_USER_ID = "user_id"
+        const val RECEIVED_USER_PHONE_NUMBER = "phone_number"
+        const val RECEIVED_BODY = "body"
     }
 }
 /**
