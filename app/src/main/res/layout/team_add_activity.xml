@@ -101,11 +101,24 @@
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/area_spinner"
-                        android:layout_width="match_parent"
+                        android:id="@+id/city_spinner"
+                        android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/spinner_selector" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/sigungu_spinner"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/spinner_selector" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/dong_spinner"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/spinner_selector"
+                        android:visibility="visible"/>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

@@ -28,7 +28,6 @@ class TeamAddActivity : AppCompatActivity() {
     private var selectedLevel: String? = null
     private var selectedTime: String? = null
 
-
     private val viewModel: TeamSharedViewModel by viewModels()
 
     //진입타입 설정을 위함
@@ -110,15 +109,15 @@ class TeamAddActivity : AppCompatActivity() {
             }
         }
 
-        //위치 스피너
-        val areaAdapter = ArrayAdapter.createFromResource(
+        //지역선택 스피너
+        val arrayAdapter = ArrayAdapter.createFromResource(
             this@TeamAddActivity,
-            R.array.area_array,
+            R.array.spinner_region,
             android.R.layout.simple_spinner_item
         )
-        areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        areaSpinner.adapter = areaAdapter
-        areaSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        citySpinner.adapter = arrayAdapter
+        citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -126,10 +125,100 @@ class TeamAddActivity : AppCompatActivity() {
                 id: Long,
             ) {
                 selectedArea = parent?.getItemAtPosition(position).toString()
+
+                // 선택된 시/도에 따라 동작을 추가합니다.
+                when (position) {
+                    // 시/도 별로 동작을 구현합니다.
+                    0 -> sigunguSpinner.adapter = null
+                    1 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_seoul)
+                    2 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_busan)
+                    3 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_daegu)
+                    4 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_incheon)
+                    5 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gwangju)
+                    6 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_daejeon)
+                    7 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_ulsan)
+                    8 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_sejong)
+                    9 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeonggi)
+                    10 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gangwon)
+                    11 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_buk)
+                    12 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_nam)
+                    13 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_buk)
+                    14 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_nam)
+                    15 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_buk)
+                    16 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_nam)
+                    17 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_jeju)
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Do nothing
+            }
+
+            fun setSigunguSpinnerAdapterItem(arrayResource: Int) {
+                if (citySpinner.selectedItemPosition > 1) {
+                    dongSpinner.adapter = null
+                }
+                val arrayAdapter1 = ArrayAdapter(
+                    this@TeamAddActivity,
+                    android.R.layout.simple_spinner_item,
+                    resources.getStringArray(arrayResource)
+                )
+                arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                sigunguSpinner.adapter = arrayAdapter1
+            }
+        }
+
+        sigunguSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                // 서울특별시 선택시
+                if (citySpinner.selectedItemPosition == 1 && sigunguSpinner.selectedItemPosition > -1) {
+                    when (position) {
+                        0 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangnam)
+                        1 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangdong)
+                        2 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangbuk)
+                        3 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangseo)
+                        4 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gwanak)
+                        5 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gwangjin)
+                        6 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_guro)
+                        7 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_geumcheon)
+                        8 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_nowon)
+                        9 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_dobong)
+                        10 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_dongdaemun)
+                        11 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_dongjag)
+                        12 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_mapo)
+                        13 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_seodaemun)
+                        14 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_seocho)
+                        15 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_seongdong)
+                        16 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_seongbuk)
+                        17 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_songpa)
+                        18 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_yangcheon)
+                        19 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_yeongdeungpo)
+                        20 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_yongsan)
+                        21 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_eunpyeong)
+                        22 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_jongno)
+                        23 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_jung)
+                        24 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_jungnanggu)
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+
+            fun setDongSpinnerAdapterItem(arrayResource: Int) {
+                val arrayAdapter = ArrayAdapter(
+                    this@TeamAddActivity,
+                    android.R.layout.simple_spinner_item,
+                    resources.getStringArray(arrayResource)
+                )
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                dongSpinner.adapter = arrayAdapter
             }
         }
 
@@ -238,14 +327,14 @@ class TeamAddActivity : AppCompatActivity() {
         //모집/신청에 따른 view배치 설정
         when (entryType) {
             TeamAddType.RECRUIT -> {
-                cvRecruitTime.visibility=(View.VISIBLE)
-                cvFee.visibility=(View.VISIBLE)
-                cvTeamName.visibility=(View.VISIBLE)
+                cvRecruitTime.visibility = (View.VISIBLE)
+                cvFee.visibility = (View.VISIBLE)
+                cvTeamName.visibility = (View.VISIBLE)
             }
 
             else -> {
-                cvApplicationTime.visibility=(View.VISIBLE)
-                cvApplicationAge.visibility=(View.VISIBLE)
+                cvApplicationTime.visibility = (View.VISIBLE)
+                cvApplicationAge.visibility = (View.VISIBLE)
             }
         }
 
@@ -287,13 +376,14 @@ class TeamAddActivity : AppCompatActivity() {
         )
 
         btnSubmit.setOnClickListener {
-            val selectedGame = gameSpinner.selectedItem.toString()
-            val selectedArea = areaSpinner.selectedItem.toString()
+            val selectedGame = "[" +gameSpinner.selectedItem.toString()+ "]"
+            val selectedArea =
+                "[" + citySpinner.selectedItem.toString() + "/"  + sigunguSpinner.selectedItem.toString() + "]"
             val selectedGender = genderSpinner.selectedItem.toString()
             val selectedLevel = levelSpinner.selectedItem.toString()
             val selectedApplicationTime = timeSpinner.selectedItem.toString()
-            val selectedFee=tvFee.text.toString()
-            val selectedTeamName=tvTeamName.text.toString()
+            val selectedFee = tvFee.text.toString()
+            val selectedTeamName = tvTeamName.text.toString()
             val setContent = etContent.text.toString()
             val selectedNumber = viewModel.number.value ?: 0 // 기본값을 0으로 설정
             val selectedAge = viewModel.age.value ?: 0 // 기본값을 0으로 설정
@@ -310,7 +400,7 @@ class TeamAddActivity : AppCompatActivity() {
                         area = selectedArea,//지역 설정하기 스피너 추가해야함
                         schedule = unfined,//경기일정으로 되어있음 -> 달력바텀시트 만들어야함
                         teamProfile = 0,
-                        playerNum = selectedNumber.toString(),
+                        playerNum = selectedNumber.toString()+"명",
                         pay = selectedFee,
                         teamName = selectedTeamName,
                         gender = selectedGender,
@@ -331,7 +421,7 @@ class TeamAddActivity : AppCompatActivity() {
                         area = selectedArea,
                         schedule = selectedApplicationTime,
                         teamProfile = 0,
-                        playerNum = selectedNumber.toString(),
+                        playerNum = selectedNumber.toString()+"명",
                         age = selectedAge.toString(),
                         gender = selectedGender,
                         viewCount = 0,
