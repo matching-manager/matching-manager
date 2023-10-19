@@ -1,9 +1,13 @@
 package com.example.matching_manager.ui.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MainActivityBinding
+import com.example.matching_manager.fcm.MyFirebaseMessagingService
+import com.example.matching_manager.ui.home.alarm.AlarmActivity
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -36,4 +40,17 @@ class MainActivity : AppCompatActivity() {
         tabLayout.getTabAt(4)?.setIcon(R.drawable.ic_my_grey)
 
     }
+
+//    override fun onNewIntent(intent: Intent?) {
+//        super.onNewIntent(intent)
+//        Log.d("MainActivity","intent")
+//        intent?.let {
+//            Log.d("MainActivity","${intent.extras}")
+//
+//            val userId = intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_ID)
+//            val userPhoneNumber = intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_PHONE_NUMBER)
+//            val body = intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_BODY)
+//            Log.d("MainActivity","value $userId $userPhoneNumber $body")
+//        }
+//    }
 }
