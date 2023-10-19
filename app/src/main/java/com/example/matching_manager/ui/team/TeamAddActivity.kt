@@ -25,16 +25,18 @@ class TeamAddActivity : AppCompatActivity() {
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
     private var selectedTime: String? = null
-//    private var selectedAge: Int? = null
-//    private var selectedNumber: Int? = null
+
+
 
     private val viewModel: TeamSharedViewModel by viewModels()
 
     //진입타입 설정을 위함
     companion object {
-
         const val EXTRA_TEAM_ENTRY_TYPE = "extra_team_entry_type"
         const val EXTRA_TEAM_MODEL = "extra_team_model"
+        const val TEAM_NUMBER_BOTTOM_SHEET ="team_number_bottom_sheet"
+        const val TEAM_AGE_BOTTOM_SHEET="team_age_bottom_sheet"
+
 
         //용병모집
         fun newIntentForAddRecruit(
@@ -56,23 +58,6 @@ class TeamAddActivity : AppCompatActivity() {
     private val entryType by lazy {
         TeamAddType.from(intent.getStringExtra(EXTRA_TEAM_ENTRY_TYPE))
     }
-
-//    private val teamItem by lazy {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//            intent?.getParcelableExtra(
-//                EXTRA_TEAM_MODEL,
-//                TeamItem::class.java
-//            )
-//        } else {
-//            intent?.getParcelableExtra<TeamItem>(
-//                EXTRA_TEAM_MODEL
-//            )
-//        }
-//    }
-
-//    private val position by lazy {
-//        intent.getIntExtra(EXTRA_TEAM_POSITION, -1)
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -229,12 +214,12 @@ class TeamAddActivity : AppCompatActivity() {
 
     private fun showNumberPicker() {
         val bottomSheet = TeamNumber()
-        bottomSheet.show(supportFragmentManager, "TeamNumberBottomSheet")
+        bottomSheet.show(supportFragmentManager, TEAM_NUMBER_BOTTOM_SHEET)
     }
 
     private fun showAgePicker() {
         val bottomSheet = TeamAge()
-        bottomSheet.show(supportFragmentManager, "TeamAgeBottomSheet")
+        bottomSheet.show(supportFragmentManager, TEAM_AGE_BOTTOM_SHEET)
     }
 
 
@@ -265,36 +250,39 @@ class TeamAddActivity : AppCompatActivity() {
             val selectedGender = genderSpinner.selectedItem.toString()
             val selectedLevel = levelSpinner.selectedItem.toString()
             val selectedTime = timeSpinner.selectedItem.toString()
+            val setContent=etContent.text.toString()
             val selectedNumber = viewModel.number.value ?: 0 // 기본값을 0으로 설정
             val selectedAge = viewModel.age.value ?: 0 // 기본값을 0으로 설정
+            val recruitment  = getString(R.string.team_fragment_recruitment)
+            val application = getString(R.string.team_fragment_application)
+            val unfined= getString(R.string.undefined_test_value)
 
 
             val teamItem = when (entryType) {
                 TeamAddType.RECRUIT -> {
                     TeamItem.RecruitmentItem(
-                        type = TeamAddType.RECRUIT.name, // 임의의 값으로 설정 (용병모집)
-                        detail = "",
+                        type =recruitment, // 임의의 값으로 설정 (용병모집)
                         game = selectedGame,
                         area = selectedArea,//지역 설정하기 스피너 추가해야함
                         schedule = selectedTime,//경기일정으로 되어있음 -> 팀이름으로 변경해야함
                         teamProfile = 0,
                         playerNum = selectedNumber.toString(),
-                        pay = "미정 참가비",//참가비 추가해야함
-                        teamName = "미정 팀이름",//설정 다시해야함 -> 스케쥴로 설정되어있음
+                        pay = unfined,//참가비 추가해야함
+                        teamName = unfined,//설정 다시해야함 -> 스케쥴로 설정되어있음
                         gender = selectedGender,
                         viewCount = 0,
                         chatCount = 0,
-                        place = "미정 경기장소",//경기장 추가해야함
-                        nicname = "미정 닉네임",
-                        content = etContent.text.toString(),
-                        creationTime = "미정 작성시간",
+                        place = unfined,//경기장 추가해야함
+                        nicname = unfined,
+                        content = setContent,
+                        creationTime = unfined,
                         level = selectedLevel
                     )
                 }
 
                 TeamAddType.APPLICATION -> {
                     TeamItem.ApplicationItem(
-                        type = TeamAddType.APPLICATION.name, // 임의의 값으로 설정 (용병신청)
+                        type = application, // 임의의 값으로 설정 (용병신청)
                         game = selectedGame,
                         area = selectedArea,
                         schedule = selectedTime,
@@ -304,9 +292,9 @@ class TeamAddActivity : AppCompatActivity() {
                         gender = selectedGender,
                         viewCount = 0,
                         chatCount = 0,
-                        nicname = "미정 닉네임",
-                        content = etContent.text.toString(),
-                        creationTime = "미정 작성시간",
+                        nicname = unfined,
+                        content = setContent,
+                        creationTime = unfined,
                         level = selectedLevel
                     )
                 }
@@ -316,7 +304,6 @@ class TeamAddActivity : AppCompatActivity() {
 
             val intent = Intent().apply {
                 putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType?.name)
-//                putExtra(EXTRA_TEAM_POSITION, position)
                 putExtra(EXTRA_TEAM_MODEL, teamItem)
             }
             setResult(Activity.RESULT_OK, intent)

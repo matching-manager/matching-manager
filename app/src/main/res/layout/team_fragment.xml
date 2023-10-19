@@ -31,16 +31,16 @@
         app:layout_constraintTop_toBottomOf="@+id/team">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_mercenary"
+            android:id="@+id/btn_recruitment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/team_fragment_mercenary" />
+            android:text="@string/team_fragment_recruitment" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_team_matching"
+            android:id="@+id/btn_application"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/team_fragment_team_matching" />
+            android:text="@string/team_fragment_application" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_filter"

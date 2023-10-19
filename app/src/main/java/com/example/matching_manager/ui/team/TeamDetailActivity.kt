@@ -130,20 +130,6 @@ class TeamDetailActivity : AppCompatActivity() {
             }
         }
 
-//        binding.subscribeButton.setOnClickListener {
-//            Log.d(TAG, "날씨 주제에 가입 중")
-//            // 날씨 주제에 가입
-//            Firebase.messaging.subscribeToTopic("weather")
-//                .addOnCompleteListener { task ->
-//                    var msg = getString(R.string.msg_subscribed)
-//                    if (!task.isSuccessful) {
-//                        msg = getString(R.string.msg_subscribe_failed)
-//                    }
-//                    Log.d(TAG, msg)
-//                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-//                }
-//        }
-
         binding.btnSubmit.setOnClickListener {
             // 토큰 가져오기
             Firebase.messaging.token.addOnCompleteListener(

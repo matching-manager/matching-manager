@@ -9,7 +9,6 @@ sealed class TeamItem(
 ) : Parcelable {
     data class RecruitmentItem(
         val type: String,//용병모집
-        val detail:String,
         val game:String,//경기종목
         val area:String,//지역
         val schedule: String,//가능시간 월,일,시간
