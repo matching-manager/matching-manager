@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamItemBinding
 import com.example.matching_manager.databinding.TeamUnknownItemBinding
 import com.example.matching_manager.ui.team.TeamItem
@@ -84,12 +85,12 @@ class TeamListAdapter(
         override fun onBind(item: TeamItem) = with(binding) {
             if (item is TeamItem.RecruitmentItem) {
                 ivProfile.setImageResource(item.teamProfile)
-                tvType.text = "용병모집"
+                tvType.text = item.type
                 tvDetail.text = "${item.playerNum} ${item.gender}"
                 tvViewCount.text = item.viewCount.toString()
                 tvChatCount.text = item.chatCount.toString()
                 tvSchedule.text = item.schedule
-                tvPlace.text = item.place
+                tvPlace.text = item.area//경기장으로 넣어야함 연결되는 값이 없어서 우선은 지역으로 넣어놓음
 
                 itemView.setOnClickListener {
                     onClick(item)
@@ -106,11 +107,12 @@ class TeamListAdapter(
         override fun onBind(item: TeamItem) = with(binding) {
             if (item is TeamItem.ApplicationItem) {
                 ivProfile.setImageResource(item.teamProfile)
-                tvType.text = "용병신청"
-                tvDetail.text = "${item.playerNum} : ${item.playerNum} ${item.gender}"
+                tvType.text = item.type
+                tvDetail.text = "${item.playerNum} ${item.gender}"
                 tvViewCount.text = item.viewCount.toString()
                 tvChatCount.text = item.chatCount.toString()
                 tvSchedule.text = item.schedule
+                tvPlace.text = item.area
                 //제목 넣어야함
 
                 itemView.setOnClickListener {

@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.example.matching_manager.databinding.TeamAgeBinding
 import com.example.matching_manager.databinding.TeamCalenderBinding
 import com.example.matching_manager.ui.team.TeamAddActivity
+import com.example.matching_manager.ui.team.view.TeamSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
@@ -14,6 +16,8 @@ class TeamAge : BottomSheetDialogFragment() {
 
     private var _binding: TeamAgeBinding? = null
     private val binding get() = _binding!!
+
+    private val sharedViewModel : TeamSharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +40,8 @@ class TeamAge : BottomSheetDialogFragment() {
 
     private fun initView() = with(binding) {
         btnSave.setOnClickListener {
-            //선택 동작 추가하기
+            var age =pickerAge.value
+            sharedViewModel.updateTeamAge(age)
             dismiss() // BottomSheet 닫기
         }
         btnCancel.setOnClickListener {

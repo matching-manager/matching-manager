@@ -68,8 +68,8 @@
 
     <!-- team_fragment.xml -->
     <string name="team_fragment_title">모집/신청</string>
-    <string name="team_fragment_mercenary">용병신청</string>
-    <string name="team_fragment_team_matching">용병모집</string>
+    <string name="team_fragment_application">용병신청</string>
+    <string name="team_fragment_recruitment">용병모집</string>
     <string name="team_fragment_filter">필터</string>
 
     <!-- team_detail.xml -->
@@ -96,8 +96,10 @@
     <string name="team_detail_description">글 내용</string>
     <string name="team_detail_img">사진</string>
 
-    <!-- team_add_activity_btton.xml -->
-    <string name="team_add_activity_title">모집/신청 글쓰기</string>
+    <!-- team_add_activity.xml -->
+    <string name="team_add_activity_recruit">용병모집 글쓰기</string>
+    <string name="team_add_activity_application">용병신청 글쓰기</string>
+    <string name="team_add_activity_team_name">팀이름</string>
     <string name="team_add_activity_male">남성</string>
     <string name="team_add_activity_female">여성</string>
     <string name="team_add_activity_mix">혼성</string>
@@ -116,6 +118,8 @@
     <string name="arena_dialog_call_text">010-0000-0000</string>
     <string name="arena_dialog_btn_cancel">CANCEL</string>
     <string name="arena_dialog_btn_call">CALL</string>
+
+    <string name="undefined_test_value">미정 입니다.</string>
 
     <!-- signinfragment -->
     <string name="default_web_client_id">677718539523-47ds99rnc0eupphgjm4rnbmkojntg506.apps.googleusercontent.com</string>

@@ -46,7 +46,6 @@ class TeamDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
-
         //진입타입 설정하기
         val item: TeamItem? = intent.getParcelableExtra(OBJECT_DATA)
 
@@ -59,7 +58,9 @@ class TeamDetailActivity : AppCompatActivity() {
             tvSchedule.text = item.schedule
             ivProfile.load(item.teamProfile)
             tvPlayerNum.text = item.playerNum
+            tvFee.text = "회의비"
             tvPay.text = item.pay
+            tvTeam.text = "팀이름"
             tvTeamName.text = item.teamName
             tvGender.text = item.gender
             tvViewCount.text = item.viewCount.toString()
@@ -92,7 +93,6 @@ class TeamDetailActivity : AppCompatActivity() {
 
 
         }
-
 
         //back button
         btnCancel.setOnClickListener {
@@ -129,20 +129,6 @@ class TeamDetailActivity : AppCompatActivity() {
                 Log.d(TAG, "키: $key 값: $value")
             }
         }
-
-//        binding.subscribeButton.setOnClickListener {
-//            Log.d(TAG, "날씨 주제에 가입 중")
-//            // 날씨 주제에 가입
-//            Firebase.messaging.subscribeToTopic("weather")
-//                .addOnCompleteListener { task ->
-//                    var msg = getString(R.string.msg_subscribed)
-//                    if (!task.isSuccessful) {
-//                        msg = getString(R.string.msg_subscribe_failed)
-//                    }
-//                    Log.d(TAG, msg)
-//                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-//                }
-//        }
 
         binding.btnSubmit.setOnClickListener {
             // 토큰 가져오기

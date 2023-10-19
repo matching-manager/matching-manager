@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="@string/team_add_activity_title"
+        android:text=""
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
@@ -127,6 +127,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_team"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -168,21 +169,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="0dp"
                         android:text="인원"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
-                    <NumberPicker
+                    <TextView
                         android:id="@+id/team_number"
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dp"
+                        android:hint="0"
+                        android:textSize="18dp"
+                        android:gravity="center"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="13dp"
+                        android:layout_marginTop="0dp"
                         android:textSize="18dp"
                         android:text="명"/>
 
@@ -210,21 +214,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="0dp"
                         android:text="나이"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
-                    <NumberPicker
-                        android:id="@+id/age_number"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/team_age"
+                        android:layout_width="70dp"
+                        android:hint="0"
+                        android:textSize="18dp"
+                        android:gravity="center"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="13dp"
+                        android:layout_marginTop="0dp"
                         android:textSize="18dp"
                         android:text="살"/>
 
@@ -330,7 +337,7 @@
 
                     <EditText
                         android:id="@+id/et_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -390,6 +397,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
