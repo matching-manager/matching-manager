@@ -26,13 +26,16 @@ class TeamAddActivity : AppCompatActivity() {
     private var selectedLevel: String? = null
     private var selectedTime: String? = null
 
+
+
     private val viewModel: TeamSharedViewModel by viewModels()
 
     //진입타입 설정을 위함
     companion object {
-
         const val EXTRA_TEAM_ENTRY_TYPE = "extra_team_entry_type"
         const val EXTRA_TEAM_MODEL = "extra_team_model"
+        const val TEAM_NUMBER_BOTTOM_SHEET ="team_number_bottom_sheet"
+        const val TEAM_AGE_BOTTOM_SHEET="team_age_bottom_sheet"
 
         //용병모집
         fun newIntentForAddRecruit(
@@ -210,12 +213,12 @@ class TeamAddActivity : AppCompatActivity() {
 
     private fun showNumberPicker() {
         val bottomSheet = TeamNumber()
-        bottomSheet.show(supportFragmentManager, "TeamNumberBottomSheet")
+        bottomSheet.show(supportFragmentManager, TEAM_NUMBER_BOTTOM_SHEET)
     }
 
     private fun showAgePicker() {
         val bottomSheet = TeamAge()
-        bottomSheet.show(supportFragmentManager, "TeamAgeBottomSheet")
+        bottomSheet.show(supportFragmentManager, TEAM_AGE_BOTTOM_SHEET)
     }
 
 
@@ -297,7 +300,6 @@ class TeamAddActivity : AppCompatActivity() {
 
             val intent = Intent().apply {
                 putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType?.name)
-//                putExtra(EXTRA_TEAM_POSITION, position)
                 putExtra(EXTRA_TEAM_MODEL, teamItem)
             }
             setResult(Activity.RESULT_OK, intent)
