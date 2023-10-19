@@ -10,7 +10,7 @@ import com.example.matching_manager.databinding.AlarmRecyclerviewItemBinding
 
 
 class AlarmListAdapter(
-    private val onClick: (AlarmModel) -> Unit
+    private val onCallClick: (AlarmModel) -> Unit
 ) : ListAdapter<AlarmModel, AlarmListAdapter.ViewHolder>(
 
     object : DiffUtil.ItemCallback<AlarmModel>() {
@@ -18,7 +18,7 @@ class AlarmListAdapter(
             oldItem: AlarmModel,
             newItem: AlarmModel
         ): Boolean {
-            return oldItem .userId == newItem.userId
+            return oldItem.userId == newItem.userId
         }
 
         @SuppressLint("DiffUtilEquals")
@@ -40,7 +40,7 @@ class AlarmListAdapter(
                 parent,
                 false
             ),
-            onClick
+            onCallClick
         )
     }
 
@@ -54,15 +54,17 @@ class AlarmListAdapter(
 
     class ViewHolder(
         private val binding: AlarmRecyclerviewItemBinding,
-        private val onClick: (AlarmModel) -> Unit
+        private val onCallClick: (AlarmModel) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: AlarmModel) = with(binding) {
-
-            item.let { tvTitle.text = it.body }
-
-            itemView.setOnClickListener {
-                onClick
+            item.let {
+                tvTitle.text = it.body
+                tvUser.text = it.userId
+                tvPhoneNumber.text = it.phoneNumber
+            }
+            btnCall.setOnClickListener {
+                onCallClick
             }
         }
     }
