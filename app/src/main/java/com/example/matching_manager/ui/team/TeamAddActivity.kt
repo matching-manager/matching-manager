@@ -239,11 +239,6 @@ class TeamAddActivity : AppCompatActivity() {
             }
         )
 
-        // entryType이 RECRUIT일 때 tvTeam의 텍스트 변경
-        if (entryType == TeamAddType.RECRUIT) {
-            tvTeam.setText(R.string.team_add_activity_team_name)
-        }
-
         btnSubmit.setOnClickListener {
             val selectedGame = gameSpinner.selectedItem.toString()
             val selectedArea = areaSpinner.selectedItem.toString()
