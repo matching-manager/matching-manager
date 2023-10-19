@@ -18,7 +18,6 @@ class TeamViewModel : ViewModel() {
                     TeamItem.RecruitmentItem(
                         "용병모집" +
                                 "$i",
-                        "",
                         "[풋살]",
                         "[경기도/광주]",
                         "11/2 (목) 오후 8시",

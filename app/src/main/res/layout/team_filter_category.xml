@@ -84,7 +84,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_area" />
 
             <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/dong_spinner"
+                android:id="@+id/sigungu_spinner"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -94,14 +94,14 @@
                 app:layout_constraintTop_toTopOf="@+id/city_spinner" />
 
             <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/sigungu_spinner"
+                android:id="@+id/dong_spinner"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:background="@drawable/spinner_selector"
-                app:layout_constraintBottom_toBottomOf="@+id/dong_spinner"
-                app:layout_constraintStart_toEndOf="@+id/dong_spinner"
-                app:layout_constraintTop_toTopOf="@+id/dong_spinner" />
+                app:layout_constraintBottom_toBottomOf="@+id/sigungu_spinner"
+                app:layout_constraintStart_toEndOf="@+id/sigungu_spinner"
+                app:layout_constraintTop_toTopOf="@+id/sigungu_spinner" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

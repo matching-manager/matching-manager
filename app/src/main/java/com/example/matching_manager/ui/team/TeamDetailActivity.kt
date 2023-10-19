@@ -68,6 +68,7 @@ class TeamDetailActivity : AppCompatActivity() {
             tvContent.text = item.content
             tvTime.text = item.creationTime
             tvLevel.text = item.level
+            btnSubmit.setText(R.string.team_detail_recruitment)
             //경기장위치 추가해야함
 
 
@@ -90,6 +91,7 @@ class TeamDetailActivity : AppCompatActivity() {
             tvContent.text = item.content
             tvTime.text = item.creationTime
             tvLevel.text = item.level
+            btnSubmit.setText(R.string.team_detail_application)
 
 
         }

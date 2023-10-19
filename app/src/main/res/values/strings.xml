@@ -73,7 +73,9 @@
     <string name="team_fragment_filter">필터</string>
 
     <!-- team_detail.xml -->
-    <string name="team_detail_title">용병 신청/용병 모집</string>
+    <string name="team_detail_recruitment">용병 신청하기</string>
+    <string name="team_detail_application">용병 초대하기</string>
+    <string name="team_detail_title">모집/신청</string>
     <string name="team_detail_team">작성자</string>
     <string name="team_detail_time">5시간 전</string>
     <string name="team_detail_slash">/</string>

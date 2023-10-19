@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="gender_array">
-        <item>성별을 선택해주세요</item>
-        <item>남성</item>
-        <item>여성</item>
-        <item>혼합</item>
-    </string-array>
-</resources>
