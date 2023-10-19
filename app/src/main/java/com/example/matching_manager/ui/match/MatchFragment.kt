@@ -98,7 +98,6 @@ class MatchFragment : Fragment() {
     private fun initViewModel() = with(viewModel) {
         list.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it.toList())
-            Log.d("listData", "${it.size}")
         })
     }
 

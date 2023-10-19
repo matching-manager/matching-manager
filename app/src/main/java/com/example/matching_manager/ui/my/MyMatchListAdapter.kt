@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.matching_manager.databinding.MyItemBinding
 
-class MyMatchListAdapter (private val onItemClick: (MyMatchDataModel) -> Unit) : ListAdapter<MyMatchDataModel, MyMatchListAdapter.ViewHolder>(
+class MyMatchListAdapter (private val onItemClick: (MyMatchDataModel) -> Unit,
+                          private val onEditClick : (MyMatchDataModel, Int) -> Unit,
+                          private val onRemoveClick : (MyMatchDataModel, Int) -> Unit
+                          ) : ListAdapter<MyMatchDataModel, MyMatchListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<MyMatchDataModel>() {
         override fun areItemsTheSame(oldItem: MyMatchDataModel, newItem: MyMatchDataModel): Boolean {
             return oldItem.matchId == newItem.matchId
@@ -31,13 +34,14 @@ class MyMatchListAdapter (private val onItemClick: (MyMatchDataModel) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, onItemClick)
+        holder.bind(item, onItemClick, onEditClick, onRemoveClick)
     }
 
     class ViewHolder(private val binding: MyItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item : MyMatchDataModel, onItemClick: (MyMatchDataModel) -> Unit) = with(binding) {
+        fun bind(item : MyMatchDataModel, onItemClick: (MyMatchDataModel) -> Unit, onEditClick : (MyMatchDataModel, Int) -> Unit,
+                 onRemoveClick : (MyMatchDataModel, Int) -> Unit) = with(binding) {
             ivProfile.setImageResource(item.userImg)
             tvType.text = "팀 매칭"
             tvDetail.text = "${item.playerNum} : ${item.playerNum} ${item.gender}"
@@ -45,6 +49,14 @@ class MyMatchListAdapter (private val onItemClick: (MyMatchDataModel) -> Unit) :
             tvChatCount.text = item.chatCount.toString()
             tvSchedule.text = item.schedule
             tvPlace.text = item.matchPlace
+
+            btnEdit.setOnClickListener {
+                onEditClick(item, adapterPosition)
+            }
+
+            btnDelete.setOnClickListener {
+                onRemoveClick(item, adapterPosition)
+            }
 
             itemView.setOnClickListener {
                 onItemClick(item)

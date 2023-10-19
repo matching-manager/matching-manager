@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -33,9 +34,16 @@ class MyFragment : Fragment() {
     }
 
     private val adapter by lazy {
-        MyMatchListAdapter { item ->
-            startActivity(MyFragment.detailIntent(requireContext(), item))
-        }
+        MyMatchListAdapter(
+            onItemClick = {
+                startActivity(MyFragment.detailIntent(requireContext(), it))
+            },
+            onEditClick = { item, position ->
+                Toast.makeText(requireContext(), "edit", Toast.LENGTH_LONG).show()
+            },
+            onRemoveClick = { item, position ->
+                Toast.makeText(requireContext(), "delete", Toast.LENGTH_LONG).show()
+            })
     }
 
     private var context: Context? = null
@@ -49,8 +57,10 @@ class MyFragment : Fragment() {
         const val PICK_IMAGE_REQUEST = 1
 
         const val OBJECT_DATA = "item_object"
-        fun detailIntent(context: Context, item:
-                         MyMatchDataModel): Intent {
+        fun detailIntent(
+            context: Context, item:
+            MyMatchDataModel
+        ): Intent {
             val intent = Intent(context, MyMatchDetaillActivity::class.java)
             intent.putExtra(OBJECT_DATA, item)
             return intent
@@ -122,7 +132,7 @@ class MyFragment : Fragment() {
 
                     dialog.dismiss()
                 }
-                    //setProfileImage(selectedImageUri)
+                //setProfileImage(selectedImageUri)
 
 
 //                if (et_content_nickname.text.isNullOrBlank() && et_content_location.text.isNullOrBlank() && et_content_id.text.isNullOrBlank()) {
@@ -161,12 +171,13 @@ class MyFragment : Fragment() {
         dialogBinding.ivProfile.setImageURI(imageUri)
         binding.ivMypageFace.setImageURI(imageUri)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri = data.data
-                //dialogBinding.ivProfile.setImageURI(selectedImageUri)
-           //binding.ivMypageFace.setImageURI(selectedImageUri)
+            //dialogBinding.ivProfile.setImageURI(selectedImageUri)
+            //binding.ivMypageFace.setImageURI(selectedImageUri)
             setProfileImage(selectedImageUri)
         }
     }
@@ -180,7 +191,7 @@ class MyFragment : Fragment() {
         //}.show(parentFragmentManager, "MyFileDialog")
     }
 
-    private fun initViewModel() = with(viewModel){
+    private fun initViewModel() = with(viewModel) {
         list.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it.toList())
             Log.d("listData", "${it.size}")
