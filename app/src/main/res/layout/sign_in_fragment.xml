@@ -85,14 +85,26 @@
         android:background="@color/white"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:drawableLeft="@drawable/ic_google_logo"
         android:text="로그인"
         android:textSize="10sp"
         android:textColor="@color/common_point_green"
         android:layout_gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_signin_findpw"
+        />
+
+    <Button
+        android:id="@+id/btn_signout_google"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="로그아웃"
+        android:textSize="10sp"
+        android:textColor="@color/common_point_green"
+        android:layout_gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_singin_google"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,9 +5,13 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamAddActivityBinding
+import com.example.matching_manager.ui.team.bottomsheet.TeamAge
+import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategory
+import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
 
 class TeamAddActivity : AppCompatActivity() {
     private lateinit var binding: TeamAddActivityBinding
+    private var selectedAge: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +69,15 @@ class TeamAddActivity : AppCompatActivity() {
         timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         timeSpinner.adapter = timeAdapter
 
+        //number
+        teamNumber.setOnClickListener {
+            showNumberPicker()
+        }
+        //age
+        ageNumber.setOnClickListener {
+            showAgePicker()
+        }
+
     }
 
     private fun initView() = with(binding) {
@@ -73,5 +86,16 @@ class TeamAddActivity : AppCompatActivity() {
         btnCancel.setOnClickListener {
             finish() // 현재 Activity 종료
         }
+
+    }
+
+    private fun showNumberPicker() {
+        val bottomSheet = TeamNumber()
+        bottomSheet.show(supportFragmentManager, "TeamNumberBottomSheet")
+    }
+
+    private fun showAgePicker() {
+        val bottomSheet = TeamAge()
+        bottomSheet.show(supportFragmentManager, "TeamAgeBottomSheet")
     }
 }
