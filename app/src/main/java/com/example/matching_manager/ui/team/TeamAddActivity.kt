@@ -18,6 +18,7 @@ import com.example.matching_manager.ui.team.bottomsheet.TeamAge
 import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
 import com.example.matching_manager.ui.team.view.TeamSharedViewModel
 
+
 class TeamAddActivity : AppCompatActivity() {
     private lateinit var binding: TeamAddActivityBinding
     private var selectedGame: String? = null
@@ -27,21 +28,20 @@ class TeamAddActivity : AppCompatActivity() {
     private var selectedTime: String? = null
 
 
-
     private val viewModel: TeamSharedViewModel by viewModels()
 
     //진입타입 설정을 위함
     companion object {
         const val EXTRA_TEAM_ENTRY_TYPE = "extra_team_entry_type"
         const val EXTRA_TEAM_MODEL = "extra_team_model"
-        const val TEAM_NUMBER_BOTTOM_SHEET ="team_number_bottom_sheet"
-        const val TEAM_AGE_BOTTOM_SHEET="team_age_bottom_sheet"
+        const val TEAM_NUMBER_BOTTOM_SHEET = "team_number_bottom_sheet"
+        const val TEAM_AGE_BOTTOM_SHEET = "team_age_bottom_sheet"
 
 
         //용병모집
         fun newIntentForAddRecruit(
             context: Context,
-            entryType: String
+            entryType: String,
         ) = Intent(context, TeamAddActivity::class.java).apply {
             putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType) // 타입을 전달
         }
@@ -49,7 +49,7 @@ class TeamAddActivity : AppCompatActivity() {
         //용병신청
         fun newIntentForAddApplication(
             context: Context,
-            entryType: String
+            entryType: String,
         ) = Intent(context, TeamAddActivity::class.java).apply {
             putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType) // 타입을 전달
         }
@@ -73,11 +73,11 @@ class TeamAddActivity : AppCompatActivity() {
     private fun initViewModel() {
         with(viewModel) {
             number.observe(this@TeamAddActivity, Observer {
-                Log.d("teamNumber","activity = $it")
+                Log.d("teamNumber", "activity = $it")
                 binding.teamNumber.text = it.toString()
             })
             age.observe(this@TeamAddActivity, Observer {
-                Log.d("teamAge","activity = $it")
+                Log.d("teamAge", "activity = $it")
                 binding.teamAge.text = it.toString()
             })
         }
@@ -224,6 +224,41 @@ class TeamAddActivity : AppCompatActivity() {
 
 
     private fun initView() = with(binding) {
+        //모집/신청에 따른 view배치 설정
+        when (entryType) {
+            TeamAddType.RECRUIT -> {
+                cvRecruitTime.visibility=(View.VISIBLE)
+                cvFee.visibility=(View.VISIBLE)
+                cvTeamName.visibility=(View.VISIBLE)
+            }
+
+            else -> {
+                cvApplicationTime.visibility=(View.VISIBLE)
+                cvApplicationAge.visibility=(View.VISIBLE)
+            }
+        }
+
+        //인포 이름 변경
+        tvDialogInfo.setText(
+            when (entryType) {
+                TeamAddType.RECRUIT -> {
+                    R.string.team_add_activity_recruit
+                }
+
+                else -> R.string.team_add_activity_application
+            }
+        )
+        //인포 이름 변경
+        tvDialogInfo.setText(
+            when (entryType) {
+                TeamAddType.RECRUIT -> {
+                    R.string.team_add_activity_recruit
+                }
+
+                else -> R.string.team_add_activity_application
+            }
+        )
+
         //back button
         btnCancel.setOnClickListener {
             finish() // 현재 Activity 종료
@@ -235,6 +270,7 @@ class TeamAddActivity : AppCompatActivity() {
                 TeamAddType.RECRUIT -> {
                     R.string.team_add_activity_recruit
                 }
+
                 else -> R.string.team_add_activity_application
             }
         )
@@ -244,26 +280,28 @@ class TeamAddActivity : AppCompatActivity() {
             val selectedArea = areaSpinner.selectedItem.toString()
             val selectedGender = genderSpinner.selectedItem.toString()
             val selectedLevel = levelSpinner.selectedItem.toString()
-            val selectedTime = timeSpinner.selectedItem.toString()
-            val setContent=etContent.text.toString()
+            val selectedApplicationTime = timeSpinner.selectedItem.toString()
+            val selectedFee=tvFee.text.toString()
+            val selectedTeamName=tvTeamName.text.toString()
+            val setContent = etContent.text.toString()
             val selectedNumber = viewModel.number.value ?: 0 // 기본값을 0으로 설정
             val selectedAge = viewModel.age.value ?: 0 // 기본값을 0으로 설정
-            val recruitment  = getString(R.string.team_fragment_recruitment)
+            val recruitment = getString(R.string.team_fragment_recruitment)
             val application = getString(R.string.team_fragment_application)
-            val unfined= getString(R.string.undefined_test_value)
+            val unfined = getString(R.string.undefined_test_value)
 
 
             val teamItem = when (entryType) {
                 TeamAddType.RECRUIT -> {
                     TeamItem.RecruitmentItem(
-                        type =recruitment, // 임의의 값으로 설정 (용병모집)
+                        type = recruitment, // 임의의 값으로 설정 (용병모집)
                         game = selectedGame,
                         area = selectedArea,//지역 설정하기 스피너 추가해야함
-                        schedule = selectedTime,//경기일정으로 되어있음 -> 팀이름으로 변경해야함
+                        schedule = unfined,//경기일정으로 되어있음 -> 달력바텀시트 만들어야함
                         teamProfile = 0,
                         playerNum = selectedNumber.toString(),
-                        pay = unfined,//참가비 추가해야함
-                        teamName = unfined,//설정 다시해야함 -> 스케쥴로 설정되어있음
+                        pay = selectedFee,
+                        teamName = selectedTeamName,
                         gender = selectedGender,
                         viewCount = 0,
                         chatCount = 0,
@@ -280,7 +318,7 @@ class TeamAddActivity : AppCompatActivity() {
                         type = application, // 임의의 값으로 설정 (용병신청)
                         game = selectedGame,
                         area = selectedArea,
-                        schedule = selectedTime,
+                        schedule = selectedApplicationTime,
                         teamProfile = 0,
                         playerNum = selectedNumber.toString(),
                         age = selectedAge.toString(),
