@@ -108,7 +108,6 @@
     <string name="team_category_recruitment">용병 모집해요</string>
     <string name="team_category_application">용병 신청해요</string>
 
-
     <string name="team_myteam">팀</string>
     <string name="team_recruitment">모집</string>
     <string name="arena_dialog_info">경기장 정보</string>
@@ -122,6 +121,8 @@
 
     <string name="undefined_test_value">미정 입니다.</string>
 
+    <!-- signinfragment -->
+    <string name="default_web_client_id">677718539523-47ds99rnc0eupphgjm4rnbmkojntg506.apps.googleusercontent.com</string>
 
     <!-- FCM -->
     <string name="quickstart_message">Click the SUBSCRIBE TO WEATHER button below to subscribe to the
