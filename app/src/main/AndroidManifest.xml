@@ -24,7 +24,10 @@
         android:theme="@style/Theme.Matchingmanager"
         tools:targetApi="31">
         <activity
-            android:name=".ui.my.MyMatchDetaillActivity"
+            android:name=".ui.my.MyMatchEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.my.MyMatchDetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.home.alram.AlramActivity"
