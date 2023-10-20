@@ -12,7 +12,6 @@ import com.example.matching_manager.databinding.AlarmRecyclerviewItemBinding
 class AlarmListAdapter(
     private val onCallClick: (AlarmModel) -> Unit
 ) : ListAdapter<AlarmModel, AlarmListAdapter.ViewHolder>(
-
     object : DiffUtil.ItemCallback<AlarmModel>() {
         override fun areItemsTheSame(
             oldItem: AlarmModel,
