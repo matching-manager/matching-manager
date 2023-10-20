@@ -1,5 +1,6 @@
 package com.example.matching_manager.ui.match
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -29,6 +32,8 @@ class MatchFragment : Fragment() {
             startActivity(detailIntent(requireContext(), item))
         }
     }
+
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     companion object {
         fun newInstance() = MatchFragment()
@@ -64,10 +69,7 @@ class MatchFragment : Fragment() {
 
     private fun initView() = with(binding) {
 
-
-        lifecycleScope.launch {
-            viewModel.fetchData()
-        }
+        viewModel.fetchData()
 
         rv.adapter = adapter
         val manager = LinearLayoutManager(requireContext())
@@ -75,6 +77,11 @@ class MatchFragment : Fragment() {
         manager.stackFromEnd = true
         rv.layoutManager = manager
 
+        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+            if (result.resultCode == Activity.RESULT_OK){
+                viewModel.fetchData()
+            }
+        }
 
         btnCategory.setOnClickListener {
             val matchCategory = MatchCategory()
@@ -84,12 +91,11 @@ class MatchFragment : Fragment() {
         }
 
         fabAdd.setOnClickListener {
-            startActivity(writeIntent(requireContext(), "Test"))
+            resultLauncher.launch(writeIntent(requireContext(), ID_DATA))
         }
         swipeRefreshLayout.setOnRefreshListener {
-            lifecycleScope.launch {
-                viewModel.fetchData()
-            }
+
+            viewModel.fetchData()
             swipeRefreshLayout.isRefreshing = false
         }
         swipeRefreshLayout.setColorSchemeResources(R.color.common_point_green)
@@ -98,6 +104,7 @@ class MatchFragment : Fragment() {
     private fun initViewModel() = with(viewModel) {
         list.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it.toList())
+            binding.rv.smoothScrollToPosition(it.size - 1)
         })
     }
 

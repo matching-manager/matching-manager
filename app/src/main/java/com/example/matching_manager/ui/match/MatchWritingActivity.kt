@@ -1,5 +1,7 @@
 package com.example.matching_manager.ui.match
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -33,8 +35,16 @@ class MatchWritingActivity : AppCompatActivity() {
 
         initView()
 
+        viewModel.event.observe(this) {
+            when (it) {
+                is MatchEvent.Finish -> {
+                    finish()
+                }
+            }
+        }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun initView() = with(binding) {
 
         val userId = intent.getStringExtra(ID_DATA)
@@ -107,18 +117,11 @@ class MatchWritingActivity : AppCompatActivity() {
             val dummyMatch = MatchDataModel(matchId = etTeamName.text.toString().toInt(), schedule = etSchedule.text.toString())
             val match = MatchDataModel(teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0)
 
-            CoroutineScope(Dispatchers.IO).launch {
-                viewModel.addMatch(dummyMatch)  //더미데이터
-//                viewModel.addMatch(match)     //실제 데이터
-                viewModel.fetchData()
+            val intent = Intent(this@MatchWritingActivity, MatchFragment::class.java)
+            setResult(RESULT_OK, intent)
 
-                // UI 업데이트를 위해 메인 스레드로 스위칭
-                withContext(Dispatchers.Main) {
-                    finish()
-                }
-            }
+            viewModel.addMatch(dummyMatch)  //더미데이터
+//            viewModel.addMatch(match)     //실제 데이터
         }
-
-
     }
 }
