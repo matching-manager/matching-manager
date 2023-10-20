@@ -1,8 +1,10 @@
 package com.example.matching_manager.ui.team.view
 
+import android.icu.text.Transliterator.Position
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.matching_manager.ui.team.TeamItem
 
 class TeamSharedViewModel : ViewModel() {
     private val _number: MutableLiveData<Int> = MutableLiveData()

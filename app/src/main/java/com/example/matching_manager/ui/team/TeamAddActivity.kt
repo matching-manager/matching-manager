@@ -3,7 +3,6 @@ package com.example.matching_manager.ui.team
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -18,6 +17,8 @@ import com.example.matching_manager.ui.team.bottomsheet.TeamAge
 import com.example.matching_manager.ui.team.bottomsheet.TeamCalender
 import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
 import com.example.matching_manager.ui.team.view.TeamSharedViewModel
+import java.util.Calendar
+import java.util.Date
 
 
 class TeamAddActivity : AppCompatActivity() {
@@ -27,6 +28,7 @@ class TeamAddActivity : AppCompatActivity() {
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
     private var selectedTime: String? = null
+
 
     private val viewModel: TeamSharedViewModel by viewModels()
 
@@ -375,6 +377,13 @@ class TeamAddActivity : AppCompatActivity() {
             }
         )
 
+        fun formatTimeString(): String? {
+            val currentDate = java.text.SimpleDateFormat("yyyy.MM.dd", java.util.Locale.getDefault())
+                .format(java.util.Date())
+            return currentDate
+        }
+
+
         btnSubmit.setOnClickListener {
             val selectedGame = "[" +gameSpinner.selectedItem.toString()+ "]"
             val selectedArea =
@@ -387,6 +396,9 @@ class TeamAddActivity : AppCompatActivity() {
             val setContent = etContent.text.toString()
             val selectedNumber = viewModel.number.value ?: 0 // 기본값을 0으로 설정
             val selectedAge = viewModel.age.value ?: 0 // 기본값을 0으로 설정
+            // 시간 포맷 변경 시작
+            val formattedTime = formatTimeString().toString()
+
             val recruitment = getString(R.string.team_fragment_recruitment)
             val application = getString(R.string.team_fragment_application)
             val unfined = getString(R.string.undefined_test_value)
@@ -394,24 +406,26 @@ class TeamAddActivity : AppCompatActivity() {
 
             val teamItem = when (entryType) {
                 TeamAddType.RECRUIT -> {
-                    TeamItem.RecruitmentItem(
-                        type = recruitment, // 임의의 값으로 설정 (용병모집)
-                        game = selectedGame,
-                        area = selectedArea,//지역 설정하기 스피너 추가해야함
-                        schedule = unfined,//경기일정으로 되어있음 -> 달력바텀시트 만들어야함
-                        teamProfile = 0,
-                        playerNum = selectedNumber.toString()+"명",
-                        pay = selectedFee,
-                        teamName = selectedTeamName,
-                        gender = selectedGender,
-                        viewCount = 0,
-                        chatCount = 0,
-                        place = unfined,//경기장 추가해야함
-                        nicname = unfined,
-                        content = setContent,
-                        creationTime = unfined,
-                        level = selectedLevel
-                    )
+                    formattedTime?.let {
+                        TeamItem.RecruitmentItem(
+                            type = recruitment, // 임의의 값으로 설정 (용병모집)
+                            game = selectedGame,
+                            area = selectedArea,//지역 설정하기 스피너 추가해야함
+                            schedule = unfined,//경기일정으로 되어있음 -> 달력바텀시트 만들어야함
+                            teamProfile = 0,
+                            playerNum = selectedNumber.toString()+"명",
+                            pay = selectedFee,
+                            teamName = selectedTeamName,
+                            gender = selectedGender,
+                            viewCount = 0,
+                            chatCount = 0,
+                            place = unfined,//경기장 추가해야함
+                            nicname = unfined,
+                            content = setContent,
+                            creationTime = formattedTime,//시간
+                            level = selectedLevel
+                        )
+                    }
                 }
 
                 TeamAddType.APPLICATION -> {
@@ -428,7 +442,7 @@ class TeamAddActivity : AppCompatActivity() {
                         chatCount = 0,
                         nicname = unfined,
                         content = setContent,
-                        creationTime = unfined,
+                        creationTime = formattedTime,
                         level = selectedLevel
                     )
                 }

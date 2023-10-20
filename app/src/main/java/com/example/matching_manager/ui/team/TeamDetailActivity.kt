@@ -51,6 +51,7 @@ class TeamDetailActivity : AppCompatActivity() {
 
         if (item is TeamItem.RecruitmentItem) {
             // 용병모집 아이템인 경우
+            ivMatch.setImageResource(R.drawable.ic_recruitment)
             tvType.text = item.type
             tvDialogInfo.text = item.type
             tvGame.text = item.game
@@ -63,7 +64,7 @@ class TeamDetailActivity : AppCompatActivity() {
             tvTeam.text = "팀이름"
             tvTeamName.text = item.teamName
             tvGender.text = item.gender
-            tvViewCount.text = item.viewCount.toString()
+            tvViewCount.text = item.viewCount.toString() +1
             tvNicname.text = item.nicname
             tvContent.text = item.content
             tvTime.text = item.creationTime
@@ -106,6 +107,8 @@ class TeamDetailActivity : AppCompatActivity() {
 
         }
     }
+
+
 
     private fun initFcm() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
