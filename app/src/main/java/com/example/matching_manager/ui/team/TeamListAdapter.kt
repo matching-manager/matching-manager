@@ -3,6 +3,7 @@ package com.example.matching_manager.ui.match
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -84,14 +85,14 @@ class TeamListAdapter(
 
         override fun onBind(item: TeamItem) = with(binding) {
             if (item is TeamItem.RecruitmentItem) {
+                cvType.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.team_recruit_blue))
                 ivProfile.setImageResource(item.teamProfile)
                 tvType.text = item.type
-                tvDetail.text = "${item.playerNum} ${item.gender}"
+                tvDetail.text = "${item.gender} ${item.playerNum}"
                 tvViewCount.text = item.viewCount.toString()
                 tvChatCount.text = item.chatCount.toString()
                 tvSchedule.text = item.schedule
-                tvPlace.text = item.area//경기장으로 넣어야함 연결되는 값이 없어서 우선은 지역으로 넣어놓음
-
+                tvPlace.text = item.area
                 itemView.setOnClickListener {
                     onClick(item)
                 }
@@ -106,9 +107,10 @@ class TeamListAdapter(
 
         override fun onBind(item: TeamItem) = with(binding) {
             if (item is TeamItem.ApplicationItem) {
+                cvType.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.team_request_yellow))
                 ivProfile.setImageResource(item.teamProfile)
                 tvType.text = item.type
-                tvDetail.text = "${item.playerNum} ${item.gender}"
+                tvDetail.text = "${item.gender} ${item.playerNum}"
                 tvViewCount.text = item.viewCount.toString()
                 tvChatCount.text = item.chatCount.toString()
                 tvSchedule.text = item.schedule
@@ -123,7 +125,7 @@ class TeamListAdapter(
     }
 
     class UnknownViewHolder(
-        binding: TeamUnknownItemBinding
+        binding: TeamUnknownItemBinding,
     ) : ViewHolder(binding.root) {
 
         override fun onBind(item: TeamItem) = Unit
