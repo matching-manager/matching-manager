@@ -14,7 +14,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -33,16 +34,19 @@ class MyFragment : Fragment() {
         MyMatchViewModelFactory()
     }
 
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+
     private val adapter by lazy {
         MyMatchListAdapter(
             onItemClick = {
-                startActivity(MyFragment.detailIntent(requireContext(), it))
+                startActivity(detailIntent(requireContext(), it))
             },
             onEditClick = { item, position ->
-                Toast.makeText(requireContext(), "edit", Toast.LENGTH_LONG).show()
+                resultLauncher.launch(editIntent(requireContext(), item))
             },
             onRemoveClick = { item, position ->
-                Toast.makeText(requireContext(), "delete", Toast.LENGTH_LONG).show()
+                val dialog = MyDeleteDialog(item)
+                dialog.show(childFragmentManager, "deleteDialog")
             })
     }
 
@@ -61,7 +65,13 @@ class MyFragment : Fragment() {
             context: Context, item:
             MyMatchDataModel
         ): Intent {
-            val intent = Intent(context, MyMatchDetaillActivity::class.java)
+            val intent = Intent(context, MyMatchDetailActivity::class.java)
+            intent.putExtra(OBJECT_DATA, item)
+            return intent
+        }
+
+        fun editIntent(context: Context, item: MyMatchDataModel): Intent {
+            val intent = Intent(context, MyMatchEditActivity::class.java)
             intent.putExtra(OBJECT_DATA, item)
             return intent
         }
@@ -99,6 +109,12 @@ class MyFragment : Fragment() {
         manager.reverseLayout = true
         manager.stackFromEnd = true
         rv.layoutManager = manager
+
+        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+            if (result.resultCode == Activity.RESULT_OK){
+                viewModel.fetchData()
+            }
+        }
 
         btnEdit.setOnClickListener {
             dialogBinding = DialogEditBinding.inflate(layoutInflater)

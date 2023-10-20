@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.matching_manager.ui.match.MatchRepositoryImpl
 
-class MyMatchViewModelFactory : ViewModelProvider.Factory{
+class MyMatchViewModelFactory() : ViewModelProvider.Factory{
     private val repository = MyMatchRepositoryImpl()
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

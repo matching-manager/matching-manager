@@ -1,11 +1,12 @@
 package com.example.matching_manager.ui.my
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicLong
 
 class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
@@ -13,14 +14,37 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
     private val _list: MutableLiveData<List<MyMatchDataModel>> = MutableLiveData()
     val list: LiveData<List<MyMatchDataModel>> get() = _list
 
+    private val _userId: MutableLiveData<String> = MutableLiveData()
+    val userId : LiveData<String> get() = _userId
 
-    suspend fun fetchData() {
+    private val _matchId: MutableLiveData<String> = MutableLiveData()
+    val matchId : LiveData<String> get() = _userId
 
-        val currentList = withContext(Dispatchers.IO) {
-            repository.getList()
+    private val _event: MutableLiveData<MatchEvent> = MutableLiveData()
+    val event: LiveData<MatchEvent> get() = _event
+
+
+
+    fun fetchData() {
+        viewModelScope.launch {
+            val currentList = repository.getList()
+            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
+
+            _list.postValue(currentList)
         }
-        _list.value = currentList
+    }
 
+    fun deleteMatch(data: MyMatchDataModel) {
+        viewModelScope.launch {
+            repository.deleteData(data)
+        }
+    }
+
+    fun editMatch(data: MyMatchDataModel, newData : MyMatchDataModel) {
+        viewModelScope.launch {
+            repository.editData(data, newData)
+            _event.postValue(MatchEvent.Finish)
+        }
     }
 
 
@@ -41,6 +65,9 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
 //        _profileName.value = name
 //        _profileImageUri.value = imageUri
 //    }
-
+}
+sealed interface MatchEvent {
+    object Dismiss : MatchEvent
+    object Finish : MatchEvent
 }
 
