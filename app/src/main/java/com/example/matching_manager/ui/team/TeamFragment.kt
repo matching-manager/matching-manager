@@ -53,13 +53,6 @@ class TeamFragment : Fragment() {
         }
 
 
-    private fun setAddContent(item: TeamItem?) {
-        if (item != null) {
-            Log.d("setAddContent", "item value = $item")
-            viewModel.addContentItem(item)
-        }
-    }
-
     companion object {
         fun newInstance() = TeamFragment()
         const val FRAGMENT_REQUEST_KEY = "request_key"
@@ -86,6 +79,24 @@ class TeamFragment : Fragment() {
         recyclerview.adapter = listAdapter
 
         recyclerview.layoutManager = LinearLayoutManager(requireContext())
+
+        btnApplication.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.filterApplicationItems() // 버튼이 체크되면 용병신청 아이템 필터링
+            } else {
+                viewModel.clearFilter() // 버튼이 해제되면 필터 제거
+            }
+        }
+
+        // 용병모집 버튼 토글 리스너
+        btnRecruitment.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.filterRecruitmentItems() // 버튼이 체크되면 용병모집 아이템 필터링
+            } else {
+                viewModel.clearFilter() // 버튼이 해제되면 필터 제거
+            }
+        }
+
 
         //add btn
         fabAdd.setOnClickListener {
@@ -133,6 +144,14 @@ class TeamFragment : Fragment() {
     private fun initViewModel() = with(viewModel) {
         list.observe(viewLifecycleOwner) {
             listAdapter.submitList(it)
+        }
+    }
+
+    //글추가 로직
+    private fun setAddContent(item: TeamItem?) {
+        if (item != null) {
+            Log.d("setAddContent", "item value = $item")
+            viewModel.addContentItem(item)
         }
     }
 

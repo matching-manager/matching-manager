@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.match.MatchFragment"
-    android:background="@drawable/common_gradient_background">
+    android:background="@drawable/common_gradient_background"
+    tools:context=".ui.match.MatchFragment">
 
     <TextView
         android:id="@+id/team"
@@ -30,23 +30,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/team">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <ToggleButton
             android:id="@+id/btn_recruitment"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/team_fragment_recruitment" />
+            android:layout_height="35dp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/toggle_selector"
+            android:textOff="@string/team_fragment_recruitment"
+            android:textOn="@string/team_fragment_recruitment"
+            />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <ToggleButton
             android:id="@+id/btn_application"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/team_fragment_application" />
+            android:layout_height="35dp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/toggle_selector"
+            android:textOff="@string/team_fragment_application"
+            android:textOn="@string/team_fragment_application" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_filter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/team_fragment_filter" />
+            android:layout_height="35dp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp"
+            android:background="@drawable/toggle_selector"
+            android:text="필터"
+            android:textColor="@color/black"
+            android:drawableRight="@drawable/ic_filter"/>
 
 
     </LinearLayout>
@@ -55,7 +76,7 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -70,8 +91,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/ic_write_grey"
         android:backgroundTint="@color/common_point_green"
+        android:src="@drawable/ic_write_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -9,10 +9,16 @@ import com.example.matching_manager.ui.team.TeamItem
 
 class TeamViewModel : ViewModel() {
 
-    private val _list: MutableLiveData<List<TeamItem>> = MutableLiveData()
-    val list: LiveData<List<TeamItem>> get() = _list
+    private val _list: MutableLiveData<List<TeamItem>?> = MutableLiveData()
+    private var filteredList: List<TeamItem>? = null
+    val list: MutableLiveData<List<TeamItem>?> get() = _list
+
 
     init {
+
+        // 이 부분에서 originalList를 초기화해주세요.
+        filteredList = _list.value
+
         _list.value = arrayListOf<TeamItem>().apply {
             for (i in 1 until 2) {
                 add(
@@ -58,12 +64,14 @@ class TeamViewModel : ViewModel() {
         }
     }
 
+    //글을 추가해주는 함수
     fun addContentItem(item: TeamItem) {
         val currentList = list.value.orEmpty().toMutableList()
         currentList.add(item)
         _list.value = currentList
     }
 
+    //조회수를 업데이트하는 함수
     fun incrementViewCount(item: TeamItem) {
         if (item is TeamItem.RecruitmentItem) {
             val currentList = list.value.orEmpty().toMutableList()
@@ -84,5 +92,23 @@ class TeamViewModel : ViewModel() {
         }
     }
 
+    // 용병모집만 필터링하는 함수
+    fun filterRecruitmentItems() {
+        val recruitmentList = list.value.orEmpty().filterIsInstance<TeamItem.RecruitmentItem>()
+        filteredList = list.value // 현재 보여지고 있는 리스트를 보관
+        _list.value = recruitmentList
+    }
+
+    fun filterApplicationItems() {
+        val applicationList = list.value.orEmpty().filterIsInstance<TeamItem.ApplicationItem>()
+        filteredList = list.value // 현재 보여지고 있는 리스트를 보관
+        _list.value = applicationList
+    }
+
+    fun clearFilter() {
+        // 필터를 제거하고 이전에 보관해둔 리스트를 다시 보여준다.
+        _list.value = filteredList
+        filteredList = null // 보관해둔 리스트를 초기화
+    }
 
 }
