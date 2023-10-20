@@ -1,7 +1,7 @@
-package com.example.matching_manager.ui.match
+package com.example.matching_manager.ui.my
 
-import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,27 +10,38 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import com.example.matching_manager.R
-import com.example.matching_manager.databinding.MatchWritingActivityBinding
+import com.example.matching_manager.databinding.MyMatchEditActivityBinding
+import com.example.matching_manager.ui.match.MatchDataModel
+import com.example.matching_manager.ui.match.MatchFragment
+import com.example.matching_manager.ui.match.MatchViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MatchWritingActivity : AppCompatActivity() {
+class MyMatchEditActivity : AppCompatActivity() {
+    private lateinit var binding: MyMatchEditActivityBinding
 
-    private lateinit var binding: MatchWritingActivityBinding
+    private val viewModel: MyViewModel by viewModels {
+        MyMatchViewModelFactory()
+    }
 
-    private val viewModel: MatchViewModel by viewModels {
-        MatchViewModelFactory()
+    private val data: MyMatchDataModel? by lazy {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(OBJECT_DATA, MyMatchDataModel::class.java)
+        }
+        else {
+            intent.getParcelableExtra<MyMatchDataModel>(OBJECT_DATA)
+        }
     }
 
     companion object {
-        const val ID_DATA = "item_userId"
+        const val OBJECT_DATA = "item_object"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = MatchWritingActivityBinding.inflate(layoutInflater)
+        binding = MyMatchEditActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initView()
@@ -40,15 +51,14 @@ class MatchWritingActivity : AppCompatActivity() {
                 is MatchEvent.Finish -> {
                     finish()
                 }
+                is MatchEvent.Dismiss -> {
+                }
             }
         }
+
     }
 
-    @SuppressLint("SuspiciousIndentation")
     private fun initView() = with(binding) {
-
-        val userId = intent.getStringExtra(ID_DATA)
-        Log.d("MatchWritingActivity", "userId = $userId")
 
         var selectedGame = ""
         var selectedGender = ""
@@ -56,7 +66,7 @@ class MatchWritingActivity : AppCompatActivity() {
         // spinner adapter
         //종목 스피너
         val gameAdapter = ArrayAdapter.createFromResource(
-            this@MatchWritingActivity,
+            this@MyMatchEditActivity,
             R.array.game_array,
             android.R.layout.simple_spinner_item
         )
@@ -65,7 +75,7 @@ class MatchWritingActivity : AppCompatActivity() {
 
         //성별 스피너
         val genderAdapter = ArrayAdapter.createFromResource(
-            this@MatchWritingActivity,
+            this@MyMatchEditActivity,
             R.array.gender_array,
             android.R.layout.simple_spinner_item
         )
@@ -111,17 +121,16 @@ class MatchWritingActivity : AppCompatActivity() {
         val entryFee = 10000
         val description = etDiscription.text.toString()
 
-
-
         btnConfirm.setOnClickListener {
-            val dummyMatch = MatchDataModel(matchId = etTeamName.text.toString().toInt(), schedule = etSchedule.text.toString())
-            val match = MatchDataModel(teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0)
+            val dummyEditData = MyMatchDataModel(matchId = etTeamName.text.toString().toInt(), schedule = etSchedule.text.toString())
+            val editData = MyMatchDataModel(teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0)
 
-            val intent = Intent(this@MatchWritingActivity, MatchFragment::class.java)
+            val intent = Intent(this@MyMatchEditActivity, MyFragment::class.java)
             setResult(RESULT_OK, intent)
+            viewModel.editMatch(data!!, dummyEditData)  //더미데이터
 
-            viewModel.addMatch(dummyMatch)  //더미데이터
-//            viewModel.addMatch(match)     //실제 데이터
-        }
+
+
+
     }
-}
+}}

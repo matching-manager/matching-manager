@@ -1,22 +1,52 @@
 package com.example.matching_manager.ui.my
 
-import android.media.Image
 import android.net.Uri
-import android.provider.MediaStore
-import android.provider.MediaStore.Video
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicLong
 
-class MyViewModel : ViewModel() {
+class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
 
-    private val _list: MutableLiveData<ArrayList<MediaStore.Video>> = MutableLiveData()
+    private val _list: MutableLiveData<List<MyMatchDataModel>> = MutableLiveData()
+    val list: LiveData<List<MyMatchDataModel>> get() = _list
 
-    val list: LiveData<ArrayList<Video>> get() = _list
-    private val _profileName = MutableLiveData<String>()
+    private val _userId: MutableLiveData<String> = MutableLiveData()
+    val userId : LiveData<String> get() = _userId
 
-    val profileName: LiveData<String> get() = _profileName
+    private val _matchId: MutableLiveData<String> = MutableLiveData()
+    val matchId : LiveData<String> get() = _userId
+
+    private val _event: MutableLiveData<MatchEvent> = MutableLiveData()
+    val event: LiveData<MatchEvent> get() = _event
+
+
+
+    fun fetchData() {
+        viewModelScope.launch {
+            val currentList = repository.getList()
+            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
+
+            _list.postValue(currentList)
+        }
+    }
+
+    fun deleteMatch(data: MyMatchDataModel) {
+        viewModelScope.launch {
+            repository.deleteData(data)
+        }
+    }
+
+    fun editMatch(data: MyMatchDataModel, newData : MyMatchDataModel) {
+        viewModelScope.launch {
+            repository.editData(data, newData)
+            _event.postValue(MatchEvent.Finish)
+        }
+    }
+
 
     private val _profileImageUri = MutableLiveData<Uri?>() // 프로필 이미지 Uri를 저장하는 LiveData
 
@@ -31,10 +61,13 @@ class MyViewModel : ViewModel() {
 //        _list.value = data
 //    }
 
-    fun setProfile(name: String, imageUri: Uri?){
-        _profileName.value = name
-        _profileImageUri.value = imageUri
-    }
-
+//    fun setProfile(name: String, imageUri: Uri?){
+//        _profileName.value = name
+//        _profileImageUri.value = imageUri
+//    }
+}
+sealed interface MatchEvent {
+    object Dismiss : MatchEvent
+    object Finish : MatchEvent
 }
 

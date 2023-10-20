@@ -5,30 +5,51 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Nickname
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.DialogEditBinding
 import com.example.matching_manager.databinding.MyFragmentBinding
-import com.example.matching_manager.databinding.SignInFragmentBinding
-import com.example.matching_manager.ui.home.HomeFragment
-import com.example.matching_manager.ui.match.MatchFragment
-import com.example.matching_manager.ui.my.MyFragment.Companion.PICK_IMAGE_REQUEST
-import com.example.matching_manager.ui.signin.SignInFragment
+import kotlinx.coroutines.launch
 
 class MyFragment : Fragment() {
     private var _binding: MyFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: MyViewModel by viewModels {
+        MyMatchViewModelFactory()
+    }
+
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+
+    private val adapter by lazy {
+        MyMatchListAdapter(
+            onItemClick = {
+                startActivity(detailIntent(requireContext(), it))
+            },
+            onEditClick = { item, position ->
+                resultLauncher.launch(editIntent(requireContext(), item))
+            },
+            onRemoveClick = { item, position ->
+                val dialog = MyDeleteDialog(item)
+                dialog.show(childFragmentManager, "deleteDialog")
+            })
+    }
+
     private var context: Context? = null
     private lateinit var dialogBinding: DialogEditBinding
     private var selectedImageUri: Uri? = null
@@ -38,6 +59,22 @@ class MyFragment : Fragment() {
         val MY_IMAGE_POSITION = "my_image_position"
         val MY_IMAGE_MODEL = "my_image_model"
         const val PICK_IMAGE_REQUEST = 1
+
+        const val OBJECT_DATA = "item_object"
+        fun detailIntent(
+            context: Context, item:
+            MyMatchDataModel
+        ): Intent {
+            val intent = Intent(context, MyMatchDetailActivity::class.java)
+            intent.putExtra(OBJECT_DATA, item)
+            return intent
+        }
+
+        fun editIntent(context: Context, item: MyMatchDataModel): Intent {
+            val intent = Intent(context, MyMatchEditActivity::class.java)
+            intent.putExtra(OBJECT_DATA, item)
+            return intent
+        }
     }
 
 //    private val listAdapter by lazy {
@@ -58,10 +95,27 @@ class MyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initViewModel()
     }
 
 
     private fun initView() = with(binding) {
+        lifecycleScope.launch {
+            viewModel.fetchData()
+        }
+
+        rv.adapter = adapter
+        val manager = LinearLayoutManager(requireContext())
+        manager.reverseLayout = true
+        manager.stackFromEnd = true
+        rv.layoutManager = manager
+
+        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+            if (result.resultCode == Activity.RESULT_OK){
+                viewModel.fetchData()
+            }
+        }
+
         btnEdit.setOnClickListener {
             dialogBinding = DialogEditBinding.inflate(layoutInflater)
             val dialogView = dialogBinding.root
@@ -94,7 +148,7 @@ class MyFragment : Fragment() {
 
                     dialog.dismiss()
                 }
-                    //setProfileImage(selectedImageUri)
+                //setProfileImage(selectedImageUri)
 
 
 //                if (et_content_nickname.text.isNullOrBlank() && et_content_location.text.isNullOrBlank() && et_content_id.text.isNullOrBlank()) {
@@ -121,10 +175,7 @@ class MyFragment : Fragment() {
             iv_profile.setOnClickListener {
                 openGallery()
             }
-
-
         }
-
     }
 
     private fun openGallery() {
@@ -140,8 +191,8 @@ class MyFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri = data.data
-                //dialogBinding.ivProfile.setImageURI(selectedImageUri)
-           //binding.ivMypageFace.setImageURI(selectedImageUri)
+            //dialogBinding.ivProfile.setImageURI(selectedImageUri)
+            //binding.ivMypageFace.setImageURI(selectedImageUri)
             setProfileImage(selectedImageUri)
         }
     }
@@ -153,6 +204,13 @@ class MyFragment : Fragment() {
         //) { newName, newImageUri ->
         //viewModel.setProfile(newName, newImageUri)
         //}.show(parentFragmentManager, "MyFileDialog")
+    }
+
+    private fun initViewModel() = with(viewModel) {
+        list.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it.toList())
+            Log.d("listData", "${it.size}")
+        })
     }
 
     override fun onDestroy() {

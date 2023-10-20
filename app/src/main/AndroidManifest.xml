@@ -27,7 +27,13 @@
             android:name=".ui.main.MainActivity"
             android:exported="false"/>
         <activity
-            android:name=".ui.home.alarm.AlarmActivity"
+            android:name=".ui.my.MyMatchEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.my.MyMatchDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.alram.AlramActivity"
             android:exported="false" />
         <activity
             android:name=".ui.match.MatchWritingActivity"
@@ -64,7 +70,8 @@
         <service
             android:name=".fcm.MyFirebaseMessagingService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
