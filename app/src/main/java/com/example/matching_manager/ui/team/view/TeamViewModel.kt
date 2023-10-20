@@ -13,11 +13,10 @@ class TeamViewModel : ViewModel() {
 
     init {
         _list.value = arrayListOf<TeamItem>().apply {
-            for (i in 1 until 3) {
+            for (i in 1 until 2) {
                 add(
                     TeamItem.RecruitmentItem(
-                        "용병모집" +
-                                "$i",
+                        "용병모집",
                         "[풋살]",
                         "[경기도/광주]",
                         "11/2 (목) 오후 8시",
@@ -31,9 +30,28 @@ class TeamViewModel : ViewModel() {
                         "조선대학교 운동장",
                         "광주손흥민",
                         "이번주 목요일 8시 같이 경기 뛰실 용병 구합니다~",
-                        "5시간전",
-                        "중수"
+                        "23/10/11",
+                        "중수(Lv4-6)"
                     )
+
+                )
+                add(
+                    TeamItem.ApplicationItem(
+                        "용병신청",
+                        "[풋살]",
+                        "[광주/동구]",
+                        "11/2 (목) 오후 8시",
+                        R.drawable.sonny,
+                        "3명",
+                        "20",
+                        "여성",
+                        0,
+                        5, "뽑아줘",
+                        "조선대학교 운동장",
+                        "23/10/20",
+                        "중수(Lv4-6)",
+                    )
+
                 )
             }
         }

@@ -52,7 +52,7 @@ class TeamFragment : Fragment() {
 
     private fun setAddContent(item: TeamItem?) {
         if (item != null) {
-            Log.d("test", "item value = $item")
+            Log.d("setAddContent", "item value = $item")
             viewModel.addContentItem(item)
         }
     }
