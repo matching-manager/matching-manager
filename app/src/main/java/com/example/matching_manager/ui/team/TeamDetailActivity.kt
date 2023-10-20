@@ -64,7 +64,7 @@ class TeamDetailActivity : AppCompatActivity() {
             tvTeam.text = "팀이름"
             tvTeamName.text = item.teamName
             tvGender.text = item.gender
-            tvViewCount.text = item.viewCount.toString()
+            tvViewCount.text = item.viewCount.toString() +1
             tvNicname.text = item.nicname
             tvContent.text = item.content
             tvTime.text = item.creationTime
@@ -107,6 +107,8 @@ class TeamDetailActivity : AppCompatActivity() {
 
         }
     }
+
+
 
     private fun initFcm() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

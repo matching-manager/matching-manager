@@ -14,6 +14,7 @@ import com.example.matching_manager.ui.team.TeamItem
 
 class TeamListAdapter(
     private val onClick: (TeamItem) -> Unit,
+    private val onIncrementViewCount: (TeamItem) -> Unit,
 ) : ListAdapter<TeamItem, TeamListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<TeamItem>() {
         override fun areItemsTheSame(oldItem: TeamItem, newItem: TeamItem): Boolean {
@@ -52,7 +53,8 @@ class TeamListAdapter(
                         parent,
                         false
                     ),
-                    onClick
+                    onClick,
+                    onIncrementViewCount
                 )
 
             TeamItemViewType.Application.ordinal ->
@@ -62,7 +64,8 @@ class TeamListAdapter(
                         parent,
                         false
                     ),
-                    onClick
+                    onClick,
+                    onIncrementViewCount
                 )
 
             else -> UnknownViewHolder(
@@ -81,6 +84,7 @@ class TeamListAdapter(
     class RecruitViewHolder(
         private val binding: TeamItemBinding,
         private val onClick: (TeamItem) -> Unit,
+        private val onIncrementViewCount: (TeamItem) -> Unit,
     ) : ViewHolder(binding.root) {
 
         override fun onBind(item: TeamItem) = with(binding) {
@@ -95,6 +99,7 @@ class TeamListAdapter(
                 tvPlace.text = item.area
                 itemView.setOnClickListener {
                     onClick(item)
+                    onIncrementViewCount(item) // 클릭 시 조회수 증가
                 }
             }
         }
@@ -103,6 +108,7 @@ class TeamListAdapter(
     class ApplicationViewHolder(
         private val binding: TeamItemBinding,
         private val onClick: (TeamItem) -> Unit,
+        private val onIncrementViewCount: (TeamItem) -> Unit,
     ) : ViewHolder(binding.root) {
 
         override fun onBind(item: TeamItem) = with(binding) {
@@ -119,6 +125,7 @@ class TeamListAdapter(
 
                 itemView.setOnClickListener {
                     onClick(item)
+                    onIncrementViewCount(item) // 클릭 시 조회수 증가
                 }
             }
         }

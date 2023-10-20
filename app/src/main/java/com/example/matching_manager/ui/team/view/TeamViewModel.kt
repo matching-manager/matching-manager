@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.matching_manager.R
+import com.example.matching_manager.ui.team.TeamAddType
 import com.example.matching_manager.ui.team.TeamItem
 
 class TeamViewModel : ViewModel() {
@@ -63,8 +64,25 @@ class TeamViewModel : ViewModel() {
         _list.value = currentList
     }
 
-    //아이템을 추가합니다.
-
+    fun incrementViewCount(item: TeamItem) {
+        if (item is TeamItem.RecruitmentItem) {
+            val currentList = list.value.orEmpty().toMutableList()
+            val updatedItem = item.copy(viewCount = item.viewCount + 1)
+            val index = currentList.indexOf(item)
+            if (index != -1) {
+                currentList[index] = updatedItem
+                _list.value = currentList
+            }
+        } else if (item is TeamItem.ApplicationItem) {
+            val currentList = list.value.orEmpty().toMutableList()
+            val updatedItem = item.copy(viewCount = item.viewCount + 1)
+            val index = currentList.indexOf(item)
+            if (index != -1) {
+                currentList[index] = updatedItem
+                _list.value = currentList
+            }
+        }
+    }
 
 
 }

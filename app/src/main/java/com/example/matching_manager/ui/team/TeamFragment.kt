@@ -26,10 +26,14 @@ class TeamFragment : Fragment() {
 
 
     private val listAdapter by lazy {
-        TeamListAdapter { item ->
+        TeamListAdapter(onClick = { item ->
             val intent = TeamDetailActivity.newIntent(item, requireContext())
             startActivity(intent)
+        }, onIncrementViewCount = { item ->
+            viewModel.incrementViewCount(item)
         }
+        )
+
     }
 
     private val addContentLauncher =
@@ -45,7 +49,6 @@ class TeamFragment : Fragment() {
                 )
             }
 
-
             setAddContent(teamModel)
         }
 
@@ -56,7 +59,6 @@ class TeamFragment : Fragment() {
             viewModel.addContentItem(item)
         }
     }
-
 
     companion object {
         fun newInstance() = TeamFragment()
@@ -90,7 +92,10 @@ class TeamFragment : Fragment() {
             val teamAddCategory = TeamAddCategory()
             teamAddCategory.show(childFragmentManager, teamAddCategory.tag)
             //프래그먼트의 childFragmentManager를 쓰면 같은 라이프사이클을 사용 해야함
-            childFragmentManager.setFragmentResultListener(FRAGMENT_REQUEST_KEY,viewLifecycleOwner) { key, bundle ->
+            childFragmentManager.setFragmentResultListener(
+                FRAGMENT_REQUEST_KEY,
+                viewLifecycleOwner
+            ) { key, bundle ->
                 val result = bundle.getString(FRAGMENT_RETURN_TYPE)
 
                 when (result) {

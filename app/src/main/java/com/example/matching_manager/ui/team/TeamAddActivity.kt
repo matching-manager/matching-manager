@@ -377,16 +377,10 @@ class TeamAddActivity : AppCompatActivity() {
             }
         )
 
-        fun formatTimeString(regTime: Long): String? {
-            val regDate = Date(regTime)
-            val calendar = Calendar.getInstance()
-            calendar.time = regDate
-
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH) + 1 // 월은 0부터 시작하므로 1을 더함
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-            return "$year/$month/$day"
+        fun formatTimeString(): String? {
+            val currentDate = java.text.SimpleDateFormat("yyyy.MM.dd", java.util.Locale.getDefault())
+                .format(java.util.Date())
+            return currentDate
         }
 
 
@@ -403,8 +397,7 @@ class TeamAddActivity : AppCompatActivity() {
             val selectedNumber = viewModel.number.value ?: 0 // 기본값을 0으로 설정
             val selectedAge = viewModel.age.value ?: 0 // 기본값을 0으로 설정
             // 시간 포맷 변경 시작
-            val regTime = System.currentTimeMillis()
-            val formattedTime = formatTimeString(regTime).toString()
+            val formattedTime = formatTimeString().toString()
 
             val recruitment = getString(R.string.team_fragment_recruitment)
             val application = getString(R.string.team_fragment_application)
