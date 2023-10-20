@@ -51,6 +51,7 @@ class TeamDetailActivity : AppCompatActivity() {
 
         if (item is TeamItem.RecruitmentItem) {
             // 용병모집 아이템인 경우
+            ivMatch.setImageResource(R.drawable.ic_recruitment)
             tvType.text = item.type
             tvDialogInfo.text = item.type
             tvGame.text = item.game

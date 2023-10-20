@@ -40,7 +40,7 @@ class TeamViewModel : ViewModel() {
                         "용병신청",
                         "[풋살]",
                         "[광주/동구]",
-                        "11/2 (목) 오후 8시",
+                        "평일",
                         R.drawable.sonny,
                         "3명",
                         "20",
