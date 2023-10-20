@@ -4,12 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.signin.SignInActivity">
-
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-    />
+    android:background="@color/common_transparent"
+    tools:context=".fcm.FcmActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

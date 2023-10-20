@@ -3,15 +3,18 @@ package com.example.matching_manager.ui.match
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamItemBinding
 import com.example.matching_manager.databinding.TeamUnknownItemBinding
 import com.example.matching_manager.ui.team.TeamItem
 
 class TeamListAdapter(
     private val onClick: (TeamItem) -> Unit,
+    private val onIncrementViewCount: (TeamItem) -> Unit,
 ) : ListAdapter<TeamItem, TeamListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<TeamItem>() {
         override fun areItemsTheSame(oldItem: TeamItem, newItem: TeamItem): Boolean {
@@ -50,7 +53,8 @@ class TeamListAdapter(
                         parent,
                         false
                     ),
-                    onClick
+                    onClick,
+                    onIncrementViewCount
                 )
 
             TeamItemViewType.Application.ordinal ->
@@ -60,7 +64,8 @@ class TeamListAdapter(
                         parent,
                         false
                     ),
-                    onClick
+                    onClick,
+                    onIncrementViewCount
                 )
 
             else -> UnknownViewHolder(
@@ -79,20 +84,22 @@ class TeamListAdapter(
     class RecruitViewHolder(
         private val binding: TeamItemBinding,
         private val onClick: (TeamItem) -> Unit,
+        private val onIncrementViewCount: (TeamItem) -> Unit,
     ) : ViewHolder(binding.root) {
 
         override fun onBind(item: TeamItem) = with(binding) {
             if (item is TeamItem.RecruitmentItem) {
+                cvType.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.team_recruit_blue))
                 ivProfile.setImageResource(item.teamProfile)
-                tvType.text = "용병모집"
-                tvDetail.text = "${item.playerNum} ${item.gender}"
+                tvType.text = item.type
+                tvDetail.text = "${item.gender} ${item.playerNum}"
                 tvViewCount.text = item.viewCount.toString()
                 tvChatCount.text = item.chatCount.toString()
                 tvSchedule.text = item.schedule
-                tvPlace.text = item.place
-
+                tvPlace.text = item.area
                 itemView.setOnClickListener {
                     onClick(item)
+                    onIncrementViewCount(item) // 클릭 시 조회수 증가
                 }
             }
         }
@@ -101,27 +108,31 @@ class TeamListAdapter(
     class ApplicationViewHolder(
         private val binding: TeamItemBinding,
         private val onClick: (TeamItem) -> Unit,
+        private val onIncrementViewCount: (TeamItem) -> Unit,
     ) : ViewHolder(binding.root) {
 
         override fun onBind(item: TeamItem) = with(binding) {
             if (item is TeamItem.ApplicationItem) {
+                cvType.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.team_request_yellow))
                 ivProfile.setImageResource(item.teamProfile)
-                tvType.text = "용병신청"
-                tvDetail.text = "${item.playerNum} : ${item.playerNum} ${item.gender}"
+                tvType.text = item.type
+                tvDetail.text = "${item.gender} ${item.playerNum}"
                 tvViewCount.text = item.viewCount.toString()
                 tvChatCount.text = item.chatCount.toString()
                 tvSchedule.text = item.schedule
+                tvPlace.text = item.area
                 //제목 넣어야함
 
                 itemView.setOnClickListener {
                     onClick(item)
+                    onIncrementViewCount(item) // 클릭 시 조회수 증가
                 }
             }
         }
     }
 
     class UnknownViewHolder(
-        binding: TeamUnknownItemBinding
+        binding: TeamUnknownItemBinding,
     ) : ViewHolder(binding.root) {
 
         override fun onBind(item: TeamItem) = Unit

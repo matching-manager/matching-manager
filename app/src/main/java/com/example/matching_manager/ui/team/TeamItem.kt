@@ -6,11 +6,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 sealed class TeamItem(
-
 ) : Parcelable {
     data class RecruitmentItem(
         val type: String,//용병모집
-        val detail:String,
         val game:String,//경기종목
         val area:String,//지역
         val schedule: String,//가능시간 월,일,시간
@@ -27,7 +25,6 @@ sealed class TeamItem(
         val creationTime:String,//작성시간
         val level:String//수준
     ) : TeamItem(), Parcelable
-
     data class ApplicationItem(
         val type: String,//용병신청
         val game:String,//경기종목
@@ -44,5 +41,4 @@ sealed class TeamItem(
         val creationTime:String,//작성시간
         val level:String//수준
     ) : TeamItem(), Parcelable
-
 }

@@ -45,24 +45,23 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_recruitment"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
             android:layout_marginTop="60dp"
             android:background="@color/common_transparent"
             android:text="@string/team_category_recruitment"
-            android:textSize="20dp"
+            android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linearLayoutCompat" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_application"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@color/common_transparent"
             android:text="@string/team_category_application"
-            android:textSize="20dp"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="@+id/btn_recruitment"
             app:layout_constraintStart_toStartOf="@+id/btn_recruitment"
             app:layout_constraintTop_toBottomOf="@+id/btn_recruitment" />

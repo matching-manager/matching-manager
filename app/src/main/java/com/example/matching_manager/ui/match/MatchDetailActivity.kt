@@ -40,7 +40,7 @@ class MatchDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
-        ivProfile.setImageResource(data!!.userImg)
+        data?.let { ivProfile.setImageResource(it.userImg) }
 
         initializePersistentBottomSheet()
         persistentBottomSheetEvent()

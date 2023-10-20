@@ -2,17 +2,29 @@ package com.example.matching_manager.ui.team.bottomsheet
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import com.example.matching_manager.databinding.TeamAddCategoryBinding
 import com.example.matching_manager.ui.team.TeamAddActivity
+import com.example.matching_manager.ui.team.TeamAddType
+import com.example.matching_manager.ui.team.TeamFragment
+import com.example.matching_manager.ui.team.TeamFragment.Companion.FRAGMENT_REQUEST_KEY
+import com.example.matching_manager.ui.team.TeamFragment.Companion.FRAGMENT_RETURN_TYPE
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class TeamAddCategory : BottomSheetDialogFragment() {
 
     private var _binding: TeamAddCategoryBinding? = null
     private val binding get() = _binding!!
+
+    companion object{
+        const val RETURN_TYPE_RECRUITMENT = "return_type_recruitment"
+        const val RETURN_TYPE_APPLICATION = "return_type_application"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,17 +42,20 @@ class TeamAddCategory : BottomSheetDialogFragment() {
         initView()
     }
 
-    private fun initView()= with(binding) {
-        btnApplication.setOnClickListener {
-            //용변신청 동작 추가
-            val intent = Intent(requireContext(), TeamAddActivity::class.java)
-            startActivity(intent)
+    private fun initView() = with(binding) {
+        // 여기서 Fragment Result Listener로 값을 return한다.
+        btnRecruitment.setOnClickListener {
+            //용병 모집
+            setFragmentResult(FRAGMENT_REQUEST_KEY,bundleOf( FRAGMENT_RETURN_TYPE to RETURN_TYPE_RECRUITMENT))
+            dismiss()
+            Log.d("teamAddCaregory","close bottonseet")
         }
 
-        btnRecruitment.setOnClickListener {
-        //용병모집 동작추가
-            val intent = Intent(requireContext(), TeamAddActivity::class.java)
-            startActivity(intent)
+        btnApplication.setOnClickListener {
+            //용병 신청
+            setFragmentResult(FRAGMENT_REQUEST_KEY,bundleOf(FRAGMENT_RETURN_TYPE to RETURN_TYPE_APPLICATION))
+            dismiss()
+            Log.d("teamAddCaregory","close bottonseet")
         }
     }
 
