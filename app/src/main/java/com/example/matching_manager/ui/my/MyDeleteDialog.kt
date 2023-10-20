@@ -47,6 +47,7 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
 
         binding.dialBtn1.setOnClickListener {
             viewModel.deleteMatch(item)
+            viewModel.fetchData()
             dismiss()
         }
 
