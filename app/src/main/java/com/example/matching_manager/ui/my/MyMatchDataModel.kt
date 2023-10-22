@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class MyMatchDataModel(
-    val matchId : Int = 20,
+    val matchId : String = "matchId",
     val userId : String = "userId",    //유저ID
     var userImg: Int = 0,     //유저이미지
     var teamName : String = "team",  //팀이름

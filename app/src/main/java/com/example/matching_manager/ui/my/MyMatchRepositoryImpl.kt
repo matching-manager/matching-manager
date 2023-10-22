@@ -36,7 +36,7 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
 
     override suspend fun deleteData(data: MyMatchDataModel) {
         Log.d("deleteData", "start")
-        val query = matchRef.orderByChild("matchId").equalTo(data.matchId.toDouble())
+        val query = matchRef.orderByChild("matchId").equalTo(data.matchId)
         try {
             val snapshot = query.get().await()
             Log.d("deleteData", "${snapshot}")
@@ -51,7 +51,7 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
     }
 
     override suspend fun editData(data: MyMatchDataModel, newData: MyMatchDataModel) {
-        val query = matchRef.orderByChild("matchId").equalTo(data.matchId.toDouble())
+        val query = matchRef.orderByChild("matchId").equalTo(data.matchId)
 
         val dataToUpdate = hashMapOf(
             "teamName" to newData.teamName,

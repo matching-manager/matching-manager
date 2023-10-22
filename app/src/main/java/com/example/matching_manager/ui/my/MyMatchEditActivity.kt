@@ -18,6 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.UUID
 
 class MyMatchEditActivity : AppCompatActivity() {
     private lateinit var binding: MyMatchEditActivityBinding
@@ -122,8 +123,8 @@ class MyMatchEditActivity : AppCompatActivity() {
         val description = etDiscription.text.toString()
 
         btnConfirm.setOnClickListener {
-            val dummyEditData = MyMatchDataModel(matchId = etTeamName.text.toString().toInt(), schedule = etSchedule.text.toString())
-            val editData = MyMatchDataModel(teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0)
+            val dummyEditData = MyMatchDataModel(matchId = etTeamName.text.toString(), schedule = etSchedule.text.toString())
+            val editData = MyMatchDataModel(matchId = data!!.matchId, teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0)
 
             val intent = Intent(this@MyMatchEditActivity, MyFragment::class.java)
             setResult(RESULT_OK, intent)
