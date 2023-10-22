@@ -24,8 +24,8 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
         val items = arrayListOf<MyMatchDataModel>()
         val snapshot = matchRef.get().await()
         if (snapshot.exists()) {
-            for (matchSnapshot in snapshot.children) {
-                matchSnapshot.getValue(MyMatchDataModel::class.java)?.let { matchData ->
+            for (childSnapshot in snapshot.children) {
+                childSnapshot.getValue(MyMatchDataModel::class.java)?.let { matchData ->
                     items.add(matchData)
                 }
             }
@@ -34,26 +34,19 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
     }
 
     override suspend fun deleteData(data: MyMatchDataModel) {
-        matchRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (childSnapshot in dataSnapshot.children) {
-                    val matchId = childSnapshot.child("matchId").getValue(Int::class.java)
-
-                    if (matchId == data.matchId) {
-                        // 특정 matchId와 일치하는 데이터 삭제
-                        childSnapshot.ref.removeValue().addOnSuccessListener {
-                            Log.d("delete", "success")
-                        }.addOnFailureListener {
-                            Log.d("delete", "fail")
-                        }
-                    }
+        Log.d("deleteData", "start")
+        val query = matchRef.orderByChild("matchId").equalTo(data.matchId.toDouble())
+        try {
+            val snapshot = query.get().await()
+            Log.d("deleteData", "${snapshot}")
+            if (snapshot.exists()) {
+                for (childSnapshot in snapshot.children) {
+                    childSnapshot.ref.removeValue()
                 }
             }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // 읽기 작업 실패
-            }
-        })
+        } catch (e: Exception) {
+            Log.e("deleteData", "Error deleting data: $e")
+        }
     }
 
     override suspend fun editData(data: MyMatchDataModel, newData: MyMatchDataModel) {
@@ -71,24 +64,9 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
         )
         val snapshot = query.get().await()
         if (snapshot.exists()) {
-            for (matchSnapshot in snapshot.children) {
-                matchSnapshot.ref.updateChildren(dataToUpdate as Map<String, Any>)
+            for (childSnapshot in snapshot.children) {
+                childSnapshot.ref.updateChildren(dataToUpdate as Map<String, Any>)
             }
         }
     }
-
-//    override suspend fun deleteData(data: MyMatchDataModel) {
-//        Log.d("deleteData", "")
-//        val snapshot = matchRef.get().await()
-//        Log.d("snapshot", "${snapshot}")
-//        if (snapshot.exists()) {
-//            for (matchSnapshot in snapshot.children) {
-//                val matchId = matchSnapshot.child("matchId").getValue(Int::class.java)
-//
-//                if (matchId == data.matchId) {
-//                    matchSnapshot.ref.removeValue()
-//                }
-//            }
-//        }
-//    }
 }

@@ -37,6 +37,7 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
     fun deleteMatch(data: MyMatchDataModel) {
         viewModelScope.launch {
             repository.deleteData(data)
+            _event.postValue(MatchEvent.Dismiss)
         }
     }
 
