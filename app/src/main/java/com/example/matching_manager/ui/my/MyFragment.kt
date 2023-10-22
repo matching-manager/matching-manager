@@ -48,7 +48,7 @@ class MyFragment : Fragment() {
                 val dialog = MyDeleteDialog(item)
                 dialog.setOnDismissListener(object : MyDeleteDialog.OnDialogDismissListener {
                     override fun onDismiss() {
-                        viewModel.fetchData()
+                        viewModel.fetchData(viewModel.userId)
                     }
                 })
                 dialog.show(childFragmentManager, "deleteDialog")
@@ -106,7 +106,7 @@ class MyFragment : Fragment() {
 
     private fun initView() = with(binding) {
         lifecycleScope.launch {
-            viewModel.fetchData()
+            viewModel.fetchData(viewModel.userId)
         }
 
         rv.adapter = adapter
@@ -118,7 +118,7 @@ class MyFragment : Fragment() {
         resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    viewModel.fetchData()
+                    viewModel.fetchData(viewModel.userId)
                 }
             }
 

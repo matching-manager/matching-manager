@@ -20,9 +20,10 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
         Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
     val matchRef = database.getReference("Match")
 
-    override suspend fun getList(): List<MyMatchDataModel> {
+    override suspend fun getList(userId : String): List<MyMatchDataModel> {
         val items = arrayListOf<MyMatchDataModel>()
-        val snapshot = matchRef.get().await()
+        val query = matchRef.orderByChild("userId").equalTo(userId)
+        val snapshot = query.get().await()
         if (snapshot.exists()) {
             for (childSnapshot in snapshot.children) {
                 childSnapshot.getValue(MyMatchDataModel::class.java)?.let { matchData ->

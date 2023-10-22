@@ -1,7 +1,7 @@
 package com.example.matching_manager.ui.my
 
 interface MyMatchRepository {
-    suspend fun getList(): List<MyMatchDataModel>
+    suspend fun getList(userId : String): List<MyMatchDataModel>
 
     suspend fun deleteData(data : MyMatchDataModel)
 

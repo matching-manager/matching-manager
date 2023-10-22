@@ -14,20 +14,16 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
     private val _list: MutableLiveData<List<MyMatchDataModel>> = MutableLiveData()
     val list: LiveData<List<MyMatchDataModel>> get() = _list
 
-    private val _userId: MutableLiveData<String> = MutableLiveData()
-    val userId : LiveData<String> get() = _userId
-
-    private val _matchId: MutableLiveData<String> = MutableLiveData()
-    val matchId : LiveData<String> get() = _userId
+    val userId = "userId"
 
     private val _event: MutableLiveData<MatchEvent> = MutableLiveData()
     val event: LiveData<MatchEvent> get() = _event
 
 
 
-    fun fetchData() {
+    fun fetchData(userId : String) {
         viewModelScope.launch {
-            val currentList = repository.getList()
+            val currentList = repository.getList(userId)
             Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
 
             _list.postValue(currentList)
