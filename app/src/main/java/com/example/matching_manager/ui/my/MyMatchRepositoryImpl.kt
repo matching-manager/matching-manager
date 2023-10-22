@@ -20,30 +20,6 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
         Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
     val matchRef = database.getReference("Match")
 
-
-//    override suspend fun getList(): Flow<MyMatchItems> = callbackFlow {
-//        val listener = matchRef.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                if (snapshot.exists()) {
-//                    for (matchSnapshot in snapshot.children) {
-//                        val getData = matchSnapshot.getValue(MyMatchDataModel::class.java)
-//                        getData?.let {
-//                            trySend(it) // 각 MatchDataModel을 Flow로 보냅니다.
-//                        }
-//                    }
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                close(error.toException()) // Flow를 종료하고 예외를 전달합니다.
-//            }
-//        })
-//        awaitClose {
-//            // Flow를 닫을 때 ValueEventListener를 제거합니다.
-//            matchRef.removeEventListener(listener)
-//        }
-//    }
-
     override suspend fun getList(): List<MyMatchDataModel> {
         val items = arrayListOf<MyMatchDataModel>()
         val snapshot = matchRef.get().await()
@@ -54,7 +30,6 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
                 }
             }
         }
-
         return items
     }
 
@@ -94,24 +69,12 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
             "description" to newData.description,
             "gender" to newData.gender,
         )
-
-        query.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (childSnapshot in dataSnapshot.children) {
-                    // 업데이트할 데이터의 특정 필드 값을 수정
-                    childSnapshot.ref.updateChildren(dataToUpdate as Map<String, Any>)
-                        .addOnSuccessListener {
-                            Log.d("update", "success")
-                        }.addOnFailureListener {
-                            Log.d("update", "fail")
-                        }
-                }
+        val snapshot = query.get().await()
+        if (snapshot.exists()) {
+            for (matchSnapshot in snapshot.children) {
+                matchSnapshot.ref.updateChildren(dataToUpdate as Map<String, Any>)
             }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // 읽기 작업 실패
-            }
-        })
+        }
     }
 
 //    override suspend fun deleteData(data: MyMatchDataModel) {
