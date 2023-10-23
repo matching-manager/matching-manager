@@ -15,6 +15,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 class MatchWritingActivity : AppCompatActivity() {
@@ -112,12 +114,13 @@ class MatchWritingActivity : AppCompatActivity() {
         val gender = selectedGender
         val entryFee = 10000
         val description = etDiscription.text.toString()
+        val uploadTime = getCurrentTime()
 
 
 
         btnConfirm.setOnClickListener {
-            val dummyMatch = MatchDataModel(matchId = matchId, schedule = etSchedule.text.toString())
-            val match = MatchDataModel(matchId = matchId,teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0)
+            val dummyMatch = MatchDataModel(matchId = matchId, schedule = etSchedule.text.toString(), uploadTime = uploadTime)
+            val match = MatchDataModel(matchId = matchId,teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0, uploadTime = uploadTime)
 
             val intent = Intent(this@MatchWritingActivity, MatchFragment::class.java)
             setResult(RESULT_OK, intent)
@@ -125,5 +128,12 @@ class MatchWritingActivity : AppCompatActivity() {
             viewModel.addMatch(dummyMatch)  //더미데이터
 //            viewModel.addMatch(match)     //실제 데이터
         }
+    }
+
+    private fun getCurrentTime() : String {
+        val currentTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+
+        return currentTime.format(formatter)
     }
 }
