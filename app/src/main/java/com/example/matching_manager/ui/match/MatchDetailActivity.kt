@@ -128,7 +128,7 @@ class MatchDetailActivity : AppCompatActivity() {
         return timeInMilliseconds
     }
 
-    fun calculationTime(createDateTime: Long): String{
+    private fun calculationTime(createDateTime: Long): String{
         val nowDateTime = Calendar.getInstance().timeInMillis //현재 시간 to millisecond
         var value = ""
         val differenceValue = nowDateTime - createDateTime //현재 시간 - 비교가 될 시간

@@ -18,6 +18,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 class MyMatchEditActivity : AppCompatActivity() {
@@ -121,17 +123,22 @@ class MyMatchEditActivity : AppCompatActivity() {
         val gender = selectedGender
         val entryFee = 10000
         val description = etDiscription.text.toString()
+        val uploadTime = getCurrentTime()
 
         btnConfirm.setOnClickListener {
-            val dummyEditData = MyMatchDataModel(matchId = etTeamName.text.toString(), schedule = etSchedule.text.toString())
-            val editData = MyMatchDataModel(matchId = data!!.matchId, teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0)
+            val dummyEditData = MyMatchDataModel(matchId = etTeamName.text.toString(), schedule = etSchedule.text.toString(), uploadTime = uploadTime)
+            val editData = MyMatchDataModel(matchId = data!!.matchId, teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0, uploadTime = uploadTime)
 
             val intent = Intent(this@MyMatchEditActivity, MyFragment::class.java)
             setResult(RESULT_OK, intent)
             viewModel.editMatch(data!!, dummyEditData)  //더미데이터
-
-
-
-
+        }
     }
-}}
+
+    private fun getCurrentTime() : String {
+        val currentTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+
+        return currentTime.format(formatter)
+    }
+}
