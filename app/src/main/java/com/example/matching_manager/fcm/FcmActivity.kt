@@ -46,13 +46,10 @@ class FcmActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        initFcm()
         initView()
         initViewModel()
-        initFcm()
-
     }
-
-
 
     private fun initViewModel() = with(viewModel) {
         list.observe(this@FcmActivity, Observer {
@@ -63,9 +60,9 @@ class FcmActivity : AppCompatActivity() {
 
     private fun initView() = with(binding) {
         Log.d(TAG, "$TAG 진입")
-        Log.d(TAG, "$TAG fcm Test ${intent.extras?.getString("userId")}")
+        Log.d(TAG, "$TAG fcm Test ${intent.extras?.getString(MyFirebaseMessagingService.RECEIVED_USER_ID)}")
 
-        if (intent.getStringExtra("userId") != null) {
+        if (intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_ID) != null) {
             addFcmData()
         } else {
             val intent = Intent(this@FcmActivity, MainActivity::class.java)
@@ -106,6 +103,13 @@ class FcmActivity : AppCompatActivity() {
             for (key in it.keySet()) {
                 val value = intent.extras?.getString(key)
                 Log.d(TAG, "키: $key 값: $value")
+            }
+
+            if (intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_ID) != null) {
+                addFcmData()
+            } else {
+                val intent = Intent(this@FcmActivity, MainActivity::class.java)
+                startActivity(intent)
             }
         }
 

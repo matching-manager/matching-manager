@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.matching_manager.databinding.AlarmActivityBinding
-import com.example.matching_manager.fcm.SendFcmActivity
+import com.example.matching_manager.fcm.send.SendFcmActivity
 import com.example.matching_manager.util.Utils
 
 class AlarmActivity : AppCompatActivity() {
@@ -53,7 +53,7 @@ class AlarmActivity : AppCompatActivity() {
         viewModel.loadAlarm()
 
         btnBack.setOnClickListener {
-            val intent = Intent(this@AlarmActivity,SendFcmActivity::class.java)
+            val intent = Intent(this@AlarmActivity, SendFcmActivity::class.java)
             startActivity(intent)
 //            onBackPressed()
         }
