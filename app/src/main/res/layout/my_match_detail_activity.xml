@@ -331,8 +331,6 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <include layout="@layout/match_detail_bottom_sheet" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
