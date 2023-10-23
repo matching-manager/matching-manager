@@ -11,14 +11,14 @@ object RetrofitClient {
 
     private const val  BASE_URL = "https://dapi.kakao.com"
 
-    private val loggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.HEADERS
-    }
+//    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+//        level = HttpLoggingInterceptor.Level.HEADERS
+//    }
 
     private val okHttpClient by lazy {
         OkHttpClient.Builder()
             .addInterceptor(AuthorizationInterceptor())
-            .addInterceptor(loggingInterceptor)
+//            .addInterceptor(loggingInterceptor)
             .build()
     }
 

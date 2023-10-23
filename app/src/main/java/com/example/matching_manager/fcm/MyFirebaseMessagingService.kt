@@ -114,8 +114,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
         private const val TAG = "MyFirebaseMsgService"
-        const val RECEIVED_USER_ID = "userId"
-        const val RECEIVED_USER_PHONE_NUMBER = "phoneNumber"
+        const val RECEIVED_USER_ID = "user_id"
+        const val RECEIVED_USER_PHONE_NUMBER = "phone_number"
         const val RECEIVED_BODY = "body"
     }
 }
