@@ -13,6 +13,8 @@ import com.example.matching_manager.databinding.CalendarFragmentBinding
 import com.example.matching_manager.databinding.CalendarRecyclerviewItemBinding
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 class CalendarFragment : Fragment() {
@@ -20,7 +22,7 @@ class CalendarFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var materialCalendarView: MaterialCalendarView
     private lateinit var calendarRecyclerviewItemBinding: CalendarRecyclerviewItemBinding
-
+    private val memoMap = mutableMapOf<CalendarDay, String>()
     private val viewModel : CalendarViewModel by viewModels() //뷰모델 생성
 
     private val listAdapter = CalendarListAdapter() { calendarModel ->
@@ -97,26 +99,35 @@ class CalendarFragment : Fragment() {
 
         childFragmentManager.setFragmentResultListener(CalendarMemoDialogFragment.REQUEST_KEY, viewLifecycleOwner) { requestKey, result ->
             //if (requestKey == CalendarMemoDialogFragment.REQUEST_KEY) {
-            val memoText = result.getString(CalendarMemoDialogFragment.RESULT_KEY_TEXT)
+            val memoText = result.getString(CalendarMemoDialogFragment.RESULT_KEY_TEXT) ?:""
 
+            val clickedDay = date.day.toString() // 클릭한 날짜의 일 정보
+            //val clickedMonth = (date.month + 1).toString() // 클릭한 날짜의 월 정보
+
+            val simpleDateFormat = SimpleDateFormat("MMM", Locale.US)
+            val clickedMonth = simpleDateFormat.format(date.date)
 
             Log.d("getmemoText", "MemoText: $memoText")
 
             // memoText를 이용해 원하는 처리를 수행합니다.
             val calendarModel = CalendarModel(
-                "클릭한날짜설정",
-                "클릭한날짜설정",
+                clickedDay,
+                clickedMonth,
                 "운동장", // 여기서 월을 원하는 형식으로 변경
-                "", // 원하는 장소 정보
                 memoText
             )
+
+
+            memoMap[date] = memoText
             viewModel.addMemoItem(calendarModel)
 
 
-       // }
-        }
-
-
+            if (memoText != null && memoText.isNotEmpty()) {
+                val datesWithMemo = memoMap.keys.toSet()
+                val memoDecorator = MemoDecorator(datesWithMemo)
+                materialCalendarView.addDecorator(memoDecorator)
+            }
+         }
 
     }
 

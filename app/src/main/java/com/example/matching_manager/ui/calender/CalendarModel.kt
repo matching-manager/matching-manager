@@ -9,6 +9,5 @@ data class CalendarModel (
     val day: String?,
     val month: String?,
     val place: String?,
-    val division: String?,
-    val memo: String?
+    val memo: String?,
 ) : Parcelable

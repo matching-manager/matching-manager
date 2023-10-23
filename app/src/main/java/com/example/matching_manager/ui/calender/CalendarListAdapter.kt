@@ -64,7 +64,7 @@ class CalendarListAdapter(
             tvSchedulePlace.text = item.place
             //tvScheduleDay.text = it.day
             //tvScheduleMonth.text = it.month
-            tvScheduleDivision.text = item.division
+            //tvScheduleDivision.text = item.division
 
             tvScheduleDay.text = item.day
             tvScheduleMonth.text = item.month
