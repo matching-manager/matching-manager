@@ -48,6 +48,7 @@ android {
         }
     }
 
+
 }
 
 dependencies {
@@ -94,7 +95,7 @@ dependencies {
     // Coil
     implementation'io.coil-kt:coil:2.4.0'
 
-    implementation("io.coil-kt:coil:2.4.0")
+
 
 
 
@@ -106,4 +107,9 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:2.8.1"
     // Google auth
     implementation "com.google.firebase:firebase-auth-ktx"
+
+    //Calendar library
+
+    implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+
 }

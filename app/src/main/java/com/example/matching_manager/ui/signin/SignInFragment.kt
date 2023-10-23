@@ -67,8 +67,8 @@ class SignInFragment : Fragment() {
 
     private fun initView() {
         // FirebaseAuth 및 FirebaseDatabase 인스턴스를 초기화합니다.
-        auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
+        FirebaseAuth.getInstance()
+        FirebaseDatabase.getInstance()
 
         // ProgressDialog를 초기화합니다.
         progressDialog = ProgressDialog(requireContext())
