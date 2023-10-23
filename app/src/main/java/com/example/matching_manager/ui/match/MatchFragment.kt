@@ -69,6 +69,8 @@ class MatchFragment : Fragment() {
 
     private fun initView() = with(binding) {
 
+        progressBar.visibility = View.VISIBLE
+
         viewModel.fetchData()
 
         rv.adapter = adapter
@@ -104,6 +106,7 @@ class MatchFragment : Fragment() {
     private fun initViewModel() = with(viewModel) {
         list.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it.toList())
+            binding.progressBar.visibility = View.INVISIBLE
             binding.rv.smoothScrollToPosition(it.size - 1)
         })
     }
