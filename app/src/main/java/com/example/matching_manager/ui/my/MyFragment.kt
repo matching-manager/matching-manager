@@ -105,9 +105,8 @@ class MyFragment : Fragment() {
 
 
     private fun initView() = with(binding) {
-        lifecycleScope.launch {
-            viewModel.fetchData(viewModel.userId)
-        }
+        progressBar.visibility = View.VISIBLE
+        viewModel.fetchData(viewModel.userId)
 
         rv.adapter = adapter
         val manager = LinearLayoutManager(requireContext())
@@ -216,6 +215,7 @@ class MyFragment : Fragment() {
     private fun initViewModel() = with(viewModel) {
         list.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it.toList())
+            binding.progressBar.visibility = View.INVISIBLE
             Log.d("listData", "${it.size}")
         })
     }
