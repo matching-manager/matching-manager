@@ -46,6 +46,11 @@ class MyFragment : Fragment() {
             },
             onRemoveClick = { item, position ->
                 val dialog = MyDeleteDialog(item)
+                dialog.setOnDismissListener(object : MyDeleteDialog.OnDialogDismissListener {
+                    override fun onDismiss() {
+                        viewModel.fetchData(viewModel.userId)
+                    }
+                })
                 dialog.show(childFragmentManager, "deleteDialog")
             })
     }
@@ -101,7 +106,7 @@ class MyFragment : Fragment() {
 
     private fun initView() = with(binding) {
         lifecycleScope.launch {
-            viewModel.fetchData()
+            viewModel.fetchData(viewModel.userId)
         }
 
         rv.adapter = adapter
@@ -110,11 +115,12 @@ class MyFragment : Fragment() {
         manager.stackFromEnd = true
         rv.layoutManager = manager
 
-        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-            if (result.resultCode == Activity.RESULT_OK){
-                viewModel.fetchData()
+        resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    viewModel.fetchData(viewModel.userId)
+                }
             }
-        }
 
         btnEdit.setOnClickListener {
             dialogBinding = DialogEditBinding.inflate(layoutInflater)
@@ -187,6 +193,7 @@ class MyFragment : Fragment() {
         dialogBinding.ivProfile.setImageURI(imageUri)
         binding.ivMypageFace.setImageURI(imageUri)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {

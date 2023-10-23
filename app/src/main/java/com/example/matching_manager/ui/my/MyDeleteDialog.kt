@@ -1,5 +1,6 @@
 package com.example.matching_manager.ui.my
 
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -17,6 +18,8 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
     private val viewModel: MyViewModel by viewModels {
         MyMatchViewModelFactory()
     }
+
+    private var dismissListener: OnDialogDismissListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +39,7 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
                 is MatchEvent.Dismiss -> {
                     dismiss()
                 }
+
                 is MatchEvent.Finish -> {
                 }
             }
@@ -47,8 +51,6 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
 
         binding.dialBtn1.setOnClickListener {
             viewModel.deleteMatch(item)
-            viewModel.fetchData()
-            dismiss()
         }
 
         binding.dialBtn2.setOnClickListener {
@@ -56,6 +58,20 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
         }
     }
 
+    interface OnDialogDismissListener {
+        fun onDismiss()
+    }
+
+    fun setOnDismissListener(listener: OnDialogDismissListener) {
+        dismissListener = listener
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+
+        // 다이얼로그가 닫힐 때 작업을 수행한 후 액티비티에 알림
+        dismissListener?.onDismiss()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

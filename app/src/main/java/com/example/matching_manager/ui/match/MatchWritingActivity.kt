@@ -15,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.UUID
 
 class MatchWritingActivity : AppCompatActivity() {
 
@@ -102,6 +103,7 @@ class MatchWritingActivity : AppCompatActivity() {
             }
         }
 
+        val matchId = UUID.randomUUID().toString()
         val teamName = etTeamName.text.toString()
         val game = selectedGame
         val schedule = etSchedule.text.toString()
@@ -114,8 +116,8 @@ class MatchWritingActivity : AppCompatActivity() {
 
 
         btnConfirm.setOnClickListener {
-            val dummyMatch = MatchDataModel(matchId = etTeamName.text.toString().toInt(), schedule = etSchedule.text.toString())
-            val match = MatchDataModel(teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0)
+            val dummyMatch = MatchDataModel(matchId = matchId, schedule = etSchedule.text.toString())
+            val match = MatchDataModel(matchId = matchId,teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0)
 
             val intent = Intent(this@MatchWritingActivity, MatchFragment::class.java)
             setResult(RESULT_OK, intent)
