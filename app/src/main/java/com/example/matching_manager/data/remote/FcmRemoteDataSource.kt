@@ -12,13 +12,6 @@ import retrofit2.http.POST
 
 interface FcmRemoteDataSource {
 
-
-//    @Headers(
-////        "Authorization: Bearer ya29.$SERVER_KEY",
-////        "Authorization: key=$SERVER_KEY",
-//        "Content-Type: $CONTENT_TYPE"
-//    )
-//    @POST("messages:send/")
     @POST("fcm/send")
     suspend fun postNotification(
         @HeaderMap headers: Map<String, String> = mapOf( "Authorization" to "key=$SERVER_KEY", "project_id" to SENDER_ID ),
