@@ -9,6 +9,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.net.toUri
+import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchDetailActivityBinding
 import com.example.matching_manager.ui.match.MatchFragment.Companion.OBJECT_DATA
@@ -65,6 +67,7 @@ class MatchDetailActivity : AppCompatActivity() {
         }
 
         tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
+        ivTeam.load(data!!.postImg.toUri())
     }
 
     private fun initializePersistentBottomSheet() {
