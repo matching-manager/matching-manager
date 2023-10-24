@@ -49,6 +49,11 @@ class TeamFragment : Fragment() {
                 )
             }
 
+            binding.apply {
+                btnRecruitment.isChecked = false
+                btnApplication.isChecked = false
+            }
+
             setAddContent(teamModel)
         }
 
@@ -72,6 +77,10 @@ class TeamFragment : Fragment() {
 
         initView()
         initViewModel()
+
+        // 초기 상태로 버튼을 눌러둡니다.
+//        binding.btnRecruitment.isChecked = true
+//        binding.btnApplication.isChecked = true
     }
 
 
@@ -82,20 +91,22 @@ class TeamFragment : Fragment() {
 
         btnApplication.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                viewModel.filterApplicationItems() // 버튼이 체크되면 용병신청 아이템 필터링
-            } else {
-                viewModel.clearFilter() // 버튼이 해제되면 필터 제거
+                btnRecruitment.isChecked = false
+                viewModel.filterApplicationItems() // 용병신청
+            } else if (!btnRecruitment.isChecked) {
+                viewModel.clearFilter() // 둘 다 체크 안되어 있을 때만 필터링 제거
             }
         }
 
-        // 용병모집 버튼 토글 리스너
         btnRecruitment.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                viewModel.filterRecruitmentItems() // 버튼이 체크되면 용병모집 아이템 필터링
-            } else {
-                viewModel.clearFilter() // 버튼이 해제되면 필터 제거
+                btnApplication.isChecked = false
+                viewModel.filterRecruitmentItems() // 용병모집
+            } else if (!btnApplication.isChecked) {
+                viewModel.clearFilter() // 둘 다 체크 안되어 있을 때만 필터링 제거
             }
         }
+
 
 
         //add btn
