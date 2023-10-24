@@ -105,9 +105,12 @@ class MatchFragment : Fragment() {
 
     private fun initViewModel() = with(viewModel) {
         list.observe(viewLifecycleOwner, Observer {
+            var smoothList = 0
             adapter.submitList(it.toList())
+            if(it.size > 0) smoothList = it.size - 1
+            else smoothList = 1
             binding.progressBar.visibility = View.INVISIBLE
-            binding.rv.smoothScrollToPosition(it.size - 1)
+            binding.rv.smoothScrollToPosition(smoothList)
         })
     }
 
