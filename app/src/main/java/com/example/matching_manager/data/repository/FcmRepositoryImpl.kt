@@ -10,7 +10,6 @@ class FcmRepositoryImpl(
     override suspend fun pushNotification(
         payload : Payload
     ) = remoteDataSource.postNotification(
-//        path = ":",
         payload = payload
     )
 }
