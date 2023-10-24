@@ -373,10 +373,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="4dp"
                         android:layout_marginEnd="20dp"
                         android:background="@color/common_gray"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -391,6 +392,18 @@
                         app:layout_constraintBottom_toBottomOf="@+id/textView4"
                         app:layout_constraintEnd_toEndOf="@+id/iv_team"
                         app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_team"
+                        app:layout_constraintStart_toStartOf="@+id/iv_team"
+                        app:layout_constraintTop_toTopOf="@+id/iv_team" />
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

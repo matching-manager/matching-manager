@@ -2,19 +2,21 @@ package com.example.matching_manager.ui.match
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchWritingActivityBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID
@@ -26,6 +28,9 @@ class MatchWritingActivity : AppCompatActivity() {
     private val viewModel: MatchViewModel by viewModels {
         MatchViewModelFactory()
     }
+
+    private val reference: StorageReference = FirebaseStorage.getInstance().reference
+    private var imageUri: Uri? = null
 
     companion object {
         const val ID_DATA = "item_userId"
@@ -105,6 +110,14 @@ class MatchWritingActivity : AppCompatActivity() {
             }
         }
 
+        tvAddImage.setOnClickListener {
+            val galleryIntent = Intent(Intent.ACTION_GET_CONTENT)
+            galleryIntent.type = "image/"
+            activityResult.launch(galleryIntent)
+        }
+
+
+
         val matchId = UUID.randomUUID().toString()
         val teamName = etTeamName.text.toString()
         val game = selectedGame
@@ -117,16 +130,19 @@ class MatchWritingActivity : AppCompatActivity() {
         val uploadTime = getCurrentTime()
 
 
-
         btnConfirm.setOnClickListener {
             val dummyMatch = MatchDataModel(matchId = matchId, schedule = etSchedule.text.toString(), uploadTime = uploadTime)
             val match = MatchDataModel(matchId = matchId,teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0, uploadTime = uploadTime)
 
+
             val intent = Intent(this@MatchWritingActivity, MatchFragment::class.java)
             setResult(RESULT_OK, intent)
 
-            viewModel.addMatch(dummyMatch)  //더미데이터
-//            viewModel.addMatch(match)     //실제 데이터
+            if (imageUri != null) {
+                uploadToFirebase(imageUri!!, dummyMatch)
+            } else {
+                Toast.makeText(this@MatchWritingActivity, "사진을 선택해 주세요.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -135,5 +151,40 @@ class MatchWritingActivity : AppCompatActivity() {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
         return currentTime.format(formatter)
+    }
+
+    private val activityResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK && result.data != null) {
+            imageUri = result.data?.data
+            binding.ivTeam.load(imageUri)
+        }
+    }
+
+    // 파이어베이스 이미지 업로드
+    private fun uploadToFirebase(uri: Uri, data : MatchDataModel) {
+        val fileRef = reference.child("Match/${data.matchId}")
+
+        fileRef.putFile(uri)
+            .addOnSuccessListener {
+                fileRef.downloadUrl
+                    .addOnSuccessListener { uri ->
+                        data.postImg = uri.toString()
+                        viewModel.addMatch(data)
+
+                        binding.progressBar.visibility = View.INVISIBLE
+
+                        Toast.makeText(this, "매치가 등록되었습니다.", Toast.LENGTH_SHORT).show()
+
+                    }
+            }
+            .addOnProgressListener { snapshot ->
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            .addOnFailureListener { e ->
+                binding.progressBar.visibility = View.INVISIBLE
+                Toast.makeText(this, "매치 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+            }
     }
 }
