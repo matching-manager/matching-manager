@@ -16,7 +16,7 @@ data class MyMatchDataModel(
     var entryFee: Int = 10000,   //참가비
     var description : String = "정보",   //정보
     var gender : String = "남성",    //성별
-    var postImg : Int = 0,      //게시글 사진
+    var postImg : String = "",      //게시글 사진
     var viewCount: Int = 5,     //조회수
     var chatCount: Int = 1,  //신청수
     var uploadTime : String = "2023-10-23 15:32:54"

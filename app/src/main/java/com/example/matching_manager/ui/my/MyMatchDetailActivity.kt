@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.net.toUri
+import coil.load
 import com.example.matching_manager.databinding.MyMatchDetailActivityBinding
 import com.example.matching_manager.ui.match.MatchDataModel
 import com.example.matching_manager.ui.match.MatchFragment
@@ -32,6 +34,7 @@ class MyMatchDetailActivity : AppCompatActivity() {
 
     private fun initView() = with(binding) {
         tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
+        ivTeam.load(data!!.postImg.toUri())
     }
 
     @SuppressLint("SimpleDateFormat")

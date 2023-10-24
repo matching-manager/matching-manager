@@ -131,7 +131,9 @@ class MatchWritingActivity : AppCompatActivity() {
 
 
         btnConfirm.setOnClickListener {
+            //테스트용 객체
             val dummyMatch = MatchDataModel(matchId = matchId, schedule = etSchedule.text.toString(), uploadTime = uploadTime)
+            //실제 객체
             val match = MatchDataModel(matchId = matchId,teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0, uploadTime = uploadTime)
 
 
