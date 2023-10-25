@@ -1,12 +1,16 @@
 package com.example.matching_manager.ui.my
 
+import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
+import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.matching_manager.databinding.MyDeleteDialogBinding
@@ -18,8 +22,6 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
     private val viewModel: MyViewModel by viewModels {
         MyMatchViewModelFactory()
     }
-
-    private var dismissListener: OnDialogDismissListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +36,7 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+
         viewModel.event.observe(this) {
             when (it) {
                 is MatchEvent.Dismiss -> {
@@ -58,19 +61,38 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
         }
     }
 
-    interface OnDialogDismissListener {
-        fun onDismiss()
+    override fun onResume() {
+        super.onResume()
+        context?.dialogFragmentResize(this, 0.9F, 0.2F)
     }
 
-    fun setOnDismissListener(listener: OnDialogDismissListener) {
-        dismissListener = listener
-    }
+    private fun Context.dialogFragmentResize(dialogFragment: DialogFragment, width: Float, height: Float) {
+        val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
+        if (Build.VERSION.SDK_INT < 30) {
 
-        // 다이얼로그가 닫힐 때 작업을 수행한 후 액티비티에 알림
-        dismissListener?.onDismiss()
+            val display = windowManager.defaultDisplay
+            val size = Point()
+
+            display.getSize(size)
+
+            val window = dialogFragment.dialog?.window
+
+            val x = (size.x * width).toInt()
+            val y = (size.y * height).toInt()
+            window?.setLayout(x, y)
+
+        } else {
+
+            val rect = windowManager.currentWindowMetrics.bounds
+
+            val window = dialogFragment.dialog?.window
+
+            val x = (rect.width() * width).toInt()
+            val y = (rect.height() * height).toInt()
+
+            window?.setLayout(x, y)
+        }
     }
 
     override fun onDestroyView() {
