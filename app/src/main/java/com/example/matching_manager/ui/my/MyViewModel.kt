@@ -25,10 +25,9 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
     val matchRef = database.getReference("Match")
 
 
-
     fun fetchData(userId : String) {
         viewModelScope.launch {
-            val currentList = repository.getList(userId)
+            val currentList = repository.getList(userId, database)
             Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
 
             _list.postValue(currentList)
@@ -37,14 +36,14 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
 
     fun deleteMatch(data: MyMatchDataModel) {
         viewModelScope.launch {
-            repository.deleteData(data)
+            repository.deleteData(data, database)
             _event.postValue(MatchEvent.Dismiss)
         }
     }
 
     fun editMatch(data: MyMatchDataModel, newData : MyMatchDataModel) {
         viewModelScope.launch {
-            repository.editData(data, newData)
+            repository.editData(data, newData, database)
             _event.postValue(MatchEvent.Finish)
         }
     }
