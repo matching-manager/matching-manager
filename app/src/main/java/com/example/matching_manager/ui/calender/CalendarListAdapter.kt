@@ -1,5 +1,6 @@
 package com.example.matching_manager.ui.calender
 
+import android.content.ClipData
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.matching_manager.databinding.CalendarRecyclerviewItemBinding
 
 class CalendarListAdapter(
-    private val onCalendarItemClick: (CalendarModel) -> Unit
+    private val onCalendarItemClick: (CalendarModel) -> Unit,
+    private val onCalendarItemLongClick: (CalendarModel, Int) -> Unit
 ) : ListAdapter<CalendarModel, CalendarListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<CalendarModel>() {
         override fun areItemsTheSame(
@@ -39,6 +41,8 @@ class CalendarListAdapter(
                 parent,
                 false
             ),
+            onCalendarItemClick,
+            onCalendarItemLongClick
             //onCalendarItemClick
         )
 
@@ -52,9 +56,16 @@ class CalendarListAdapter(
         holder.bind(item)
     }
 
+    fun onLongClick(position: Int) {
+        val item = getItem(position)
+        onCalendarItemLongClick(item, position)
+    }
+
 
     class ViewHolder(
-        private val binding: CalendarRecyclerviewItemBinding
+        private val binding: CalendarRecyclerviewItemBinding,
+        private val onCalendarItemClick: (CalendarModel) -> Unit,
+        private val onCalendarItemLongClick: (CalendarModel, Int) -> Unit // 긴 클릭 처리를 위한 콜백 함수 추가
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
@@ -66,15 +77,25 @@ class CalendarListAdapter(
             //tvScheduleMonth.text = it.month
             //tvScheduleDivision.text = item.division
 
-            tvScheduleDay.text = item.day
-            tvScheduleMonth.text = item.month
+            tvScheduleDay.text = item.day.toString()
+            tvScheduleMonth.text = item.month.toString()
+            tvScheduleYear.text = item.year.toString()
             tvScheduleMemo.text = item.memo
             //item이라고 만든 이유
+
+            itemView.setOnClickListener {
+                onCalendarItemClick(item)
+            }
+
+            // 아이템을 길게 클릭할 때 처리
+            itemView.setOnLongClickListener() {
+                onCalendarItemLongClick(item, adapterPosition)
+                true
+            }
 
         }
 
     }
-
 
 }
 

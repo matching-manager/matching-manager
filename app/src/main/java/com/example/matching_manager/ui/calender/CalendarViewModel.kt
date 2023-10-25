@@ -1,11 +1,8 @@
 package com.example.matching_manager.ui.calender
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.matching_manager.domain.usecase.sharedpreference.LoadFcmDataUseCase
-import com.example.matching_manager.ui.home.alarm.AlarmModel
 
 class CalendarViewModel(
 ) : ViewModel() {
@@ -18,8 +15,10 @@ class CalendarViewModel(
         _list.value = currentList
     }
 
-    fun removeMemoItem(model:CalendarModel){
-
+    fun removeMemoItem(model: CalendarModel, position: Int){
+        val currentList = list.value.orEmpty().toMutableList() // 리스트 변경이 가능함
+        currentList.removeAt(position)
+        _list.value = currentList
     }
 
 }

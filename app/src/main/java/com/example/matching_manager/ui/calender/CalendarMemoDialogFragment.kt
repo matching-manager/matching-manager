@@ -24,7 +24,7 @@ class CalendarMemoDialogFragment : BottomSheetDialogFragment() {
     companion object {
         const val REQUEST_KEY = "CalendarMemoDialogFragment"  // 다이얼로그 요청 키
         const val RESULT_KEY_TEXT = "memoText" // 결과 데이터 키
-        const val RESULT_KEY_DATE = "selectedDate" // 날짜 데이터를 위한 상수 추가
+        const val RESULT_KEY_PLACE = "memoPlace" // 장소 데이터 키
 
 
         fun newInstance(): CalendarMemoDialogFragment {
@@ -47,13 +47,11 @@ class CalendarMemoDialogFragment : BottomSheetDialogFragment() {
 
         binding.btnSave.setOnClickListener {
             val memoText = binding.edtCalendarTxt.text.toString()
-
-
-
+            val memoPlace = binding.edtCalendarPlace.text.toString()
 
             // 메모 데이터를 부모 Fragment로 전달합니다.
-            setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_TEXT to memoText))
-
+            setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_TEXT to memoText, RESULT_KEY_PLACE to memoPlace))
+            //setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_PLACE to memoPlace))
 
             dismiss() // 다이얼로그 닫기
         }
