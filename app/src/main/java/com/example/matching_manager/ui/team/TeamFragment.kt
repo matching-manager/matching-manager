@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.TeamFragmentBinding
@@ -31,9 +32,7 @@ class TeamFragment : Fragment() {
             startActivity(intent)
         }, onIncrementViewCount = { item ->
             viewModel.incrementViewCount(item)
-        }
-        )
-
+        })
     }
 
     private val addContentLauncher =
@@ -53,7 +52,6 @@ class TeamFragment : Fragment() {
                 btnRecruitment.isChecked = false
                 btnApplication.isChecked = false
             }
-
             setAddContent(teamModel)
         }
 
@@ -61,26 +59,23 @@ class TeamFragment : Fragment() {
     companion object {
         fun newInstance() = TeamFragment()
         const val FRAGMENT_REQUEST_KEY = "request_key"
+        const val CATEGORY_REQUEST_KEY = "category_key"
         const val FRAGMENT_RETURN_TYPE = "fragment_return_type"
+        const val CATEGORY_RETURN_TYPE = "category_return_type"
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding = TeamFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initView()
         initViewModel()
-
-        // 초기 상태로 버튼을 눌러둡니다.
-//        binding.btnRecruitment.isChecked = true
-//        binding.btnApplication.isChecked = true
+        initView()
     }
 
 
@@ -108,15 +103,13 @@ class TeamFragment : Fragment() {
         }
 
 
-
         //add btn
         fabAdd.setOnClickListener {
             val teamAddCategory = TeamAddCategory()
             teamAddCategory.show(childFragmentManager, teamAddCategory.tag)
             //프래그먼트의 childFragmentManager를 쓰면 같은 라이프사이클을 사용 해야함
             childFragmentManager.setFragmentResultListener(
-                FRAGMENT_REQUEST_KEY,
-                viewLifecycleOwner
+                FRAGMENT_REQUEST_KEY, viewLifecycleOwner
             ) { key, bundle ->
                 val result = bundle.getString(FRAGMENT_RETURN_TYPE)
 
@@ -140,15 +133,22 @@ class TeamFragment : Fragment() {
 
             }
         }
+
         //filtr btn
         btnFilter.setOnClickListener {
             val teamFilterCategory = TeamFilterCategory()
-
             val fragmentManager = requireActivity().supportFragmentManager
             teamFilterCategory.show(fragmentManager, teamFilterCategory.tag)
 
-        }
+            setFragmentResultListener(CATEGORY_REQUEST_KEY) { _, bundle ->
+                //결과 값을 받는곳입니다.
+                val selectedGame = bundle.getString(TeamFilterCategory.SELECTED_GAME)
+                val selectedArea = bundle.getString(TeamFilterCategory.SELECTED_AREA)
 
+                // 선택한 게임과 지역에 따라 아이템을 필터링합니다.
+                viewModel.filterItems(selectedGame, selectedArea)
+            }
+        }
     }
 
     //viewmodel init
