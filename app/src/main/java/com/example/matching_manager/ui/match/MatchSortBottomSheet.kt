@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.example.matching_manager.databinding.MatchCategoryBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class MatchCategory : BottomSheetDialogFragment() {
+class MatchSortBottomSheet : BottomSheetDialogFragment() {
 
     private var _binding: MatchCategoryBinding? = null
     private val binding get() = _binding!!
