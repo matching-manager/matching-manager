@@ -21,7 +21,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // 메시지가 데이터 페이로드를 포함하는지 확인
         if (remoteMessage.data.isNotEmpty()) {
             Log.d(TAG, "메시지 데이터 페이로드: ${remoteMessage.data}")
-            handleNow()
         }
 
         // 메시지가 알림 페이로드를 포함하는지 확인
@@ -39,11 +38,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // FCM 등록 토큰을 앱 서버로 보내야 함
         sendRegistrationToServer(token)
     }
-
-    private fun handleNow() {
-        Log.d(TAG, "작업 완료")
-    }
-
     /**
      * 등록 토큰을 서버에 보관합니다.
      *
@@ -75,14 +69,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             putExtra(RECEIVED_USER_PHONE_NUMBER, phoneNumber)
             putExtra(RECEIVED_USER_ID, userId)
             putExtra(RECEIVED_BODY, messageBody)
-//            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
+
         val pendingIntent = PendingIntent.getActivity(
             this,
             requestCode,
             intent,
-            PendingIntent.FLAG_IMMUTABLE,
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+//            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE // 인텐트 재사용 문제 해결 : notification 데이터 갱신 안됨
         )
 
         val channelId = getString(R.string.default_notification_channel_id)
@@ -98,17 +93,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        // Android Oreo 이상에서는 알림 채널이 필요합니다.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                "Channel human readable title",
-                NotificationManager.IMPORTANCE_DEFAULT,
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
+        val channel = NotificationChannel(
+            channelId,
+            "Channel human readable title",
+            NotificationManager.IMPORTANCE_DEFAULT,
+        )
+        notificationManager.createNotificationChannel(channel)
 
-        val notificationId = 0
+        val notificationId = 1
+        notificationManager.cancel(notificationId)
         notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
