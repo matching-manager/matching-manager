@@ -8,7 +8,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import androidx.lifecycle.ViewModelProvider
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamFilterCategoryBinding
 import com.example.matching_manager.ui.team.TeamFragment
@@ -23,10 +22,8 @@ class TeamFilterCategory : BottomSheetDialogFragment() {
     private var selectedArea: String? = null
 
     companion object{
-        const val RETURN_TYPE_CATEGORY = "return_type_category"
         const val SELECTED_GAME = "selected_game"
         const val SELECTED_AREA = "selected_area"
-
     }
 
     override fun onCreateView(
@@ -201,14 +198,11 @@ class TeamFilterCategory : BottomSheetDialogFragment() {
 
         btnSearch.setOnClickListener {
             //필터 적용
+
             val game = selectedGame// 선택한 게임을 얻어오는 코드
             val area = selectedArea// 선택한 지역을 얻어오는 코드
 
-            val bundle = Bundle().apply {
-                putString(SELECTED_GAME, game)
-                putString(SELECTED_AREA, area)
-            }
-            setFragmentResult(TeamFragment.CATEGORY_REQUEST_KEY, bundleOf(TeamFragment.CATEGORY_RETURN_TYPE to bundle))
+            setFragmentResult(TeamFragment.CATEGORY_REQUEST_KEY, bundleOf(SELECTED_GAME to game,SELECTED_AREA to area))
             dismiss()
         }
     }

@@ -1,5 +1,6 @@
 package com.example.matching_manager.ui.team.view
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -120,12 +121,15 @@ class TeamViewModel : ViewModel() {
                 selectedGame,
                 ignoreCase = true
             ))
+            Log.d("game match","${isGameMatched}")
             val isAreaMatched = selectedArea.isNullOrBlank() || (item.area.contains(
                 selectedArea,
                 ignoreCase = true
             ))
+            Log.d("area match","${isAreaMatched}")
             isGameMatched || isAreaMatched
         }
+        Log.d("filter match","${filteredList}")
         _list.value = filteredList
     }
 

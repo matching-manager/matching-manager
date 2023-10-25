@@ -142,11 +142,11 @@ class TeamFragment : Fragment() {
 
             setFragmentResultListener(CATEGORY_REQUEST_KEY) { _, bundle ->
                 //결과 값을 받는곳입니다.
-                val selectedGame = bundle.getString(TeamFilterCategory.SELECTED_GAME)
-                val selectedArea = bundle.getString(TeamFilterCategory.SELECTED_AREA)
+                val game = bundle.getString(TeamFilterCategory.SELECTED_GAME)
+                val area = bundle.getString(TeamFilterCategory.SELECTED_AREA)
 
-                // 선택한 게임과 지역에 따라 아이템을 필터링합니다.
-                viewModel.filterItems(selectedGame, selectedArea)
+//                 선택한 게임과 지역에 따라 아이템을 필터링합니다.
+                viewModel.filterItems(selectedGame = game, selectedArea = area)
             }
         }
     }
