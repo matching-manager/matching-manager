@@ -8,38 +8,44 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.matching_manager.domain.model.ArenaEntity
 import com.example.matching_manager.domain.usecase.GetArenaInfoUseCase
+import com.example.matching_manager.domain.usecase.geo.GetGeoLocationUseCase
 import com.example.matching_manager.util.Utils
 import kotlinx.coroutines.launch
 
 class ArenaViewModel(
-    private val arenaInfo: GetArenaInfoUseCase
+    private val arenaInfo: GetArenaInfoUseCase,
+    private val getGeoLocation: GetGeoLocationUseCase
 ) : ViewModel() {
 
     private val _list: MutableLiveData<List<ArenaModel>> = MutableLiveData()
     val list: LiveData<List<ArenaModel>> get() = _list
 
     private val _item: MutableLiveData<ArenaModel> = MutableLiveData()
-    val item :LiveData<ArenaModel> get() = _item
+    val item: LiveData<ArenaModel> get() = _item
 
-    fun updateItem(item : ArenaModel){
+    fun updateItem(item: ArenaModel) {
         _item.value = item
     }
 
 
     fun searchArena(query: String, context: Context) {
-        val latitude = Utils.geoCoding("서울특별시 마포구 성산동 515", context).latitude.toString()
-        val longitude = Utils.geoCoding("서울특별시 마포구 성산동 515", context).longitude.toString()
 
-        Log.d("test", "search")
-        getArenaInfo(
-            query = query,
-            x = longitude,
-            y = latitude
+        getGeoLocation(
+            address = "서울특별시 마포구 성산동 515",
+            context = context
+        ).apply {
+            val placeLatitude = latitude.toString()
+            val placeLongitude = longitude.toString()
+            getArenaInfo(
+                query = query,
+                x = placeLongitude,
+                y = placeLatitude
 //            radius = 1000,
 //            page = 1,
 //            size = 10,
 //            sort = "distance"
-        )
+            )
+        }
     }
 
     private fun getArenaInfo(

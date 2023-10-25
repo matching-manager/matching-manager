@@ -63,4 +63,5 @@ class TeamAddCategory : BottomSheetDialogFragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }
