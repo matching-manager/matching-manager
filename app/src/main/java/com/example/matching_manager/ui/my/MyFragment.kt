@@ -46,11 +46,6 @@ class MyFragment : Fragment() {
             },
             onRemoveClick = { item, position ->
                 val dialog = MyDeleteDialog(item)
-                dialog.setOnDismissListener(object : MyDeleteDialog.OnDialogDismissListener {
-                    override fun onDismiss() {
-                        viewModel.fetchData(viewModel.userId)
-                    }
-                })
                 dialog.show(childFragmentManager, "deleteDialog")
             })
     }
@@ -117,7 +112,6 @@ class MyFragment : Fragment() {
         resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    viewModel.fetchData(viewModel.userId)
                 }
             }
 
@@ -213,10 +207,14 @@ class MyFragment : Fragment() {
     }
 
     private fun initViewModel() = with(viewModel) {
+        autoFetchData()
         list.observe(viewLifecycleOwner, Observer {
+            var smoothList = 0
             adapter.submitList(it.toList())
+            if(it.size > 0) smoothList = it.size - 1
+            else smoothList = 1
             binding.progressBar.visibility = View.INVISIBLE
-            Log.d("listData", "${it.size}")
+            binding.rv.smoothScrollToPosition(smoothList)
         })
     }
 
