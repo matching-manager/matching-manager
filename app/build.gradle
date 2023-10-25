@@ -84,6 +84,9 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
 
+    //FireBase Storage
+    implementation 'com.google.firebase:firebase-storage'
+
     //FCM
     implementation 'com.google.firebase:firebase-messaging-ktx'
 
