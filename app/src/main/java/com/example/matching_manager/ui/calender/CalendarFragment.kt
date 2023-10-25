@@ -120,16 +120,7 @@ class CalendarFragment : Fragment() {
                 }
             }
 
-//            val deletedDate = calendarModel.year?.let { yearStr ->
-//                calendarModel.month?.let { monthStr ->
-//                    calendarModel.day?.let { dayStr ->
-//                        val year = yearStr
-//                        val month = monthStr
-//                        val day = dayStr
-//                        //CalendarDay.from(year, month, day)
-//                    }
-//                }
-//            }
+
 
             if (deletedDate != null) {
                 memoMap.remove(deletedDate)

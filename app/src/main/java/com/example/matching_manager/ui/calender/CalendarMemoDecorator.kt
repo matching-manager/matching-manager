@@ -19,7 +19,7 @@ class CalendarMemoDecorator(private val datesWithMemo: Set<CalendarDay>) : DayVi
 
     override fun decorate(view: DayViewFacade) {
         if (datesWithMemo.isNotEmpty()) {
-            view.addSpan(DotSpan(10F, Color.TRANSPARENT))
+            view.addSpan(DotSpan(10F, Color.BLUE))
         } else
             view.addSpan(DotSpan(15F, Color.TRANSPARENT))
     }
