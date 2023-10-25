@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.matching_manager.databinding.ArenaActivityBinding
+import com.example.matching_manager.fcm.send.SendFcmFragment
 import com.example.matching_manager.ui.home.arena.detail_dialog.ArenaDetailFragment
 
 class ArenaActivity : AppCompatActivity() {
@@ -60,6 +61,11 @@ class ArenaActivity : AppCompatActivity() {
         }
         btnBadminton.setOnClickListener {
             searchArena("배드민턴장")
+        }
+        btnFilter.setOnClickListener {
+            SendFcmFragment().show(
+                supportFragmentManager, "SampleDialog"
+            )
         }
     }
 

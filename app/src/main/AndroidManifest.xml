@@ -24,12 +24,6 @@
         android:theme="@style/Theme.Matchingmanager"
         tools:targetApi="31">
         <activity
-            android:name=".fcm.send.SendFcmActivity"
-            android:exported="false" />
-        <activity
-            android:name=".fcm.MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.main.MainActivity"
             android:exported="false" />
         <activity
@@ -63,7 +57,6 @@
                 <action
                     android:name="android.intent.action.MAIN"
                     android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

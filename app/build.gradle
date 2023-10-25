@@ -79,12 +79,12 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.6.1")
 
     // FireBase
-    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
     implementation'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.8.1'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.9.0'
 
     // FireBase Fcm send Message
-    implementation 'com.google.firebase:firebase-messaging:23.2.1'
+    implementation 'com.google.firebase:firebase-messaging:23.3.0'
     implementation 'com.android.volley:volley:1.2.1'
 
     //FCM

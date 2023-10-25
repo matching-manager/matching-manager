@@ -30,7 +30,6 @@ import com.google.firebase.messaging.ktx.messaging
 import org.json.JSONException
 import org.json.JSONObject
 
-
 class FcmActivity : AppCompatActivity() {
 
     private val binding by lazy {
@@ -46,6 +45,8 @@ class FcmActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        Log.d(TAG,"this : $this")
+
         initFcm()
         initView()
         initViewModel()
@@ -55,18 +56,20 @@ class FcmActivity : AppCompatActivity() {
         list.observe(this@FcmActivity, Observer {
             val intent = AlarmActivity.newIntent(this@FcmActivity)
             startActivity(intent)
+            finish()
         })
     }
 
     private fun initView() = with(binding) {
         Log.d(TAG, "$TAG 진입")
-        Log.d(TAG, "$TAG fcm Test ${intent.extras?.getString(MyFirebaseMessagingService.RECEIVED_USER_ID)}")
+        Log.d(TAG, "$TAG fcm Test ${intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_ID)}")
 
         if (intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_ID) != null) {
             addFcmData()
         } else {
             val intent = Intent(this@FcmActivity, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 
@@ -82,36 +85,34 @@ class FcmActivity : AppCompatActivity() {
 
     // Token 받기
     private fun initFcm() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // 알림을 표시할 채널 생성
-            val channelId = getString(R.string.default_notification_channel_id)
-            val channelName = getString(R.string.default_notification_channel_name)
-            val notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager?.createNotificationChannel(
-                NotificationChannel(
-                    channelId,
-                    channelName,
-                    NotificationManager.IMPORTANCE_LOW,
-                ),
-            )
-        }
+        // 알림을 표시할 채널 생성
+        val channelId = getString(R.string.default_notification_channel_id)
+        val channelName = getString(R.string.default_notification_channel_name)
+        val notificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager?.createNotificationChannel(
+            NotificationChannel(
+                channelId,
+                channelName,
+                NotificationManager.IMPORTANCE_LOW,
+            ),
+        )
 
         // 알림 메시지가 탭될 때, 알림 메시지와 함께 제공된 데이터는 인텐트 익스트라에서 사용 가능
         // 예제에서는 런처 인텐트가 알림이 탭될 때 시작되므로, 함께 제공된 데이터는 여기서 처리
         // 다른 인텐트를 시작하려면 알림 메시지의 click_action 필드를 원하는 인텐트로 설정하면 됨
-        intent.extras?.let {
-            for (key in it.keySet()) {
-                val value = intent.extras?.getString(key)
-                Log.d(TAG, "키: $key 값: $value")
-            }
-
-            if (intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_ID) != null) {
-                addFcmData()
-            } else {
-                val intent = Intent(this@FcmActivity, MainActivity::class.java)
-                startActivity(intent)
-            }
-        }
+//        intent.extras?.let {
+//            for (key in it.keySet()) {
+//                val value = intent.extras?.getString(key)
+//                Log.d(TAG, "키: $key 값: $value")
+//            }
+//
+//            if (intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_ID) != null) {
+//                addFcmData()
+//            } else {
+//                val intent = Intent(this@FcmActivity, MainActivity::class.java)
+//                startActivity(intent)
+//            }
+//        }
 
         // 토큰 가져오기
         Firebase.messaging.token.addOnCompleteListener(

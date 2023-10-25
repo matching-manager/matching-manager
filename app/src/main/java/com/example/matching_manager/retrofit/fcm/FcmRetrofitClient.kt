@@ -9,8 +9,7 @@ object FcmRetrofitClient {
     //    private const val BASE_URL = "https://fcm.googleapis.com/v1/projects/matching-manager/"
     private const val BASE_URL = "https://fcm.googleapis.com"
     const val SERVER_KEY = "AAAAncssPQM:APA91bHiwnBwaHWzLHXB1bxtwqCjgdDojs1MYwmDp9EqudSzYBebkdlOYmQzC5jnXH0HH3m8jTfnRlh0yN0n588_HqRxe8q1KudwCwWM5x26C06dB-Ejt_1Igox0EhhCOk0yhLs0ju3Q"
-///        "a0AfB_byBFPnEvMsCmOGC6-XKfOtfZ82uES8bytXTUcJRB-bmVFso2OK2DFq034J1Pt5HggzhZC_XwpGWGHSsTckux9ImoFMWFB_5Fbm5DGEWiwwqlxjBScXw5MjWUsR2fEfNoCR6Hfdj0bl633PizVE0VX6WT0-xFdkbAaCgYKAXkSARMSFQGOcNnC9UgEYRikrZEOk6F9kgjW6g0171"
-    const val CONTENT_TYPE = "application/json"
+//    const val SENDER_ID = "fIskCPLNRp-71t5ZiiRePL:APA91bESLiMhccFyoDeu2jFgtPRNbQdBKDgoAAOwe22KEbZ6OBmNes11eKz_hgPWctEam87vRTABnj14Fa2-XtztmpxHPDNGxbElEBMjjVgU7usW2VqFh3leqHrY8QSTLlATgMb0_KsC"
     const val SENDER_ID = "677718539523"
 
     private val okHttpClient by lazy {

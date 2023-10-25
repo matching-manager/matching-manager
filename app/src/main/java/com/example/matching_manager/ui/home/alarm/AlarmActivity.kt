@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.matching_manager.databinding.AlarmActivityBinding
-import com.example.matching_manager.fcm.send.SendFcmActivity
+import com.example.matching_manager.fcm.send.SendFcmFragment
 import com.example.matching_manager.util.Utils
 
 class AlarmActivity : AppCompatActivity() {
@@ -53,21 +53,10 @@ class AlarmActivity : AppCompatActivity() {
         viewModel.loadAlarm()
 
         btnBack.setOnClickListener {
-            val intent = Intent(this@AlarmActivity, SendFcmActivity::class.java)
-            startActivity(intent)
-//            onBackPressed()
+//            SendFcmFragment().show(
+//                supportFragmentManager, "SampleDialog"
+//            )
+            onBackPressed()
         }
     }
-
-//    override fun onNewIntent(intent: Intent?) {
-//        super.onNewIntent(intent)
-//        Log.d("AlarmActivity","intent")
-//        intent?.let {
-//            val userId = intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_ID)
-//            val userPhoneNumber = intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_PHONE_NUMBER)
-//            val body = intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_BODY)
-//            Log.d("AlarmActivity","value $userId $userPhoneNumber $body")
-//            viewModel.addAlarm(userId, body, userPhoneNumber)
-//        }
-//    }
 }
