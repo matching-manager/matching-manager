@@ -110,7 +110,7 @@ class TeamViewModel : ViewModel() {
     }
 
     fun filterItems(selectedGame: String?, selectedArea: String?) {
-        if (selectedGame.isNullOrBlank() && selectedArea.isNullOrBlank()) {
+        if ("선택" in selectedGame.orEmpty() && "선택" in selectedArea.orEmpty()) {
             // 게임과 지역이 선택되지 않았을 경우, 필터링을 하지 않고 모든 아이템을 보여줍니다.
             _list.value = originalList
             return
@@ -131,6 +131,7 @@ class TeamViewModel : ViewModel() {
         }
         Log.d("filter match","${filteredList}")
         _list.value = filteredList
+
     }
 
     fun clearFilter() {
