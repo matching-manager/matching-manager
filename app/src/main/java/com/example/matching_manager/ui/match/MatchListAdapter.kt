@@ -39,8 +39,8 @@ class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : Lis
 
         fun bind(item : MatchDataModel, onItemClick: (MatchDataModel) -> Unit) = with(binding) {
             ivProfile.setImageResource(item.userImg)
-            tvType.text = "팀 매칭"
-            tvDetail.text = "${item.playerNum} : ${item.playerNum} ${item.gender}"
+            tvGame.text = item.game
+            tvDetail.text = formatDetail(item.playerNum, item.gender)
             tvViewCount.text = item.viewCount.toString()
             tvChatCount.text = item.chatCount.toString()
             tvSchedule.text = item.schedule
@@ -49,6 +49,10 @@ class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : Lis
             itemView.setOnClickListener {
                 onItemClick(item)
             }
+        }
+
+        private fun formatDetail(playerNum : Int, gender : String) : String {
+            return "${playerNum}:${playerNum} ${gender}"
         }
     }
 

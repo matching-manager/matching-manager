@@ -20,7 +20,7 @@
     <string name="arena_adress">경기 안양 동안구 관평로 149</string>
 
     <!-- match_item.xml -->
-    <string name="match_item_type">팀 매칭</string>
+    <string name="match_item_type">축구</string>
     <string name="match_item_detail">11:11 남성</string>
     <string name="match_item_view_count">1</string>
     <string name="match_item_chat_count">0</string>
