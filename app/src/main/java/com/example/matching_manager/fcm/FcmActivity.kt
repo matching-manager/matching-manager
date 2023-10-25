@@ -37,6 +37,7 @@ class FcmActivity : AppCompatActivity() {
     }
 
     private val viewModel: FcmViewModel by viewModels { FcmViewModelFactory(this) }
+
     companion object {
         const val TAG = "FcmActivity"
     }
@@ -45,7 +46,7 @@ class FcmActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        Log.d(TAG,"this : $this")
+        Log.d(TAG, "this : $this")
 
         initFcm()
         initView()
@@ -61,8 +62,14 @@ class FcmActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
+        //권한 요청
+        askNotificationPermission()
+
         Log.d(TAG, "$TAG 진입")
-        Log.d(TAG, "$TAG fcm Test ${intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_ID)}")
+        Log.d(
+            TAG,
+            "$TAG fcm Test ${intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_ID)}"
+        )
 
         if (intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_ID) != null) {
             addFcmData()
@@ -133,23 +140,20 @@ class FcmActivity : AppCompatActivity() {
 
             },
         )
-
-        //권한 요청
-        askNotificationPermission()
     }
 
+    // 권한이 있는지 확인하는 함수
     private fun askNotificationPermission() {
-        // API 레벨이 33보다 큰 경우에만 필요
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
-                PackageManager.PERMISSION_GRANTED
-            ) {
-                // FCM SDK (및 앱)은 알림을 게시할 수 있음
-            } else {
-                // 권한 직접 요청
-                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            Toast.makeText(this, "알림 권한이 허용되었습니다.", Toast.LENGTH_SHORT)
+                .show()
+        } else {
+            // 권한 직접 요청
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
+
     }
 
     // 권한 요청 결과를 처리하는 런처
@@ -157,7 +161,7 @@ class FcmActivity : AppCompatActivity() {
         ActivityResultContracts.RequestPermission(),
     ) { isGranted: Boolean ->
         if (isGranted) {
-            Toast.makeText(this, "알림 권한이 허용되었습니다", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "알림 권한이 허용되었습니다.", Toast.LENGTH_SHORT)
                 .show()
         } else {
             Toast.makeText(

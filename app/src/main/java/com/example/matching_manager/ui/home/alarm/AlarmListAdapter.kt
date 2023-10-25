@@ -63,7 +63,7 @@ class AlarmListAdapter(
                 tvPhoneNumber.text = it.phoneNumber
             }
             btnCall.setOnClickListener {
-                onCallClick
+                onCallClick(item)
             }
         }
     }
