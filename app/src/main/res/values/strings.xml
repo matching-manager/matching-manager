@@ -129,7 +129,8 @@
     <!-- Alarm -->
     <string name="alarm">알림</string>
     <string name="alarm_recyclerview_title">스파르타FC와 매칭이 성사되었습니다.</string>
-
+    <string name="alarm_recyclerview_user_text">User : </string>
+    <string name="alarm_recyclerview_phone_number_text">Phone : </string>
 
     <!-- FCM -->
     <string name="quickstart_message">Click the SUBSCRIBE TO WEATHER button below to subscribe to the
@@ -151,8 +152,13 @@
     <!-- [END fcm_default_icon_string] -->
     <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
     <string name="fcm_message">FCM Message</string>
-    <string name="alarm_recyclerview_user_text">User : </string>
-    <string name="alarm_recyclerview_phone_number_text">Phone : </string>
+
+
+    <!-- Send -->
+    <string name="send_dialog_btn_cancel">CANCEL</string>
+    <string name="send_dialog_btn_submit">SUBMIT</string>
+    <string name="send_dialog_hint_id">&#160;&#160;&#160;Username or user id</string>
+    <string name="send_dialog_hint_pw">&#160;&#160;&#160;Mobile number</string>
 
 
 </resources>
