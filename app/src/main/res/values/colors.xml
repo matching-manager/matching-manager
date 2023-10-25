@@ -8,6 +8,7 @@
     <color name="common_grey">#BCBCBC</color>
     <color name="common_transparent">#00ff0000</color>
     <color name="common_selected">#BFC9D8</color>
+    <color name="common_edit_text">#979797</color>
 
     <!-- tab -->
     <color name="tab_btn_green">#53C28D</color>

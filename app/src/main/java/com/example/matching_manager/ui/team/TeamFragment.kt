@@ -26,10 +26,14 @@ class TeamFragment : Fragment() {
 
 
     private val listAdapter by lazy {
-        TeamListAdapter { item ->
+        TeamListAdapter(onClick = { item ->
             val intent = TeamDetailActivity.newIntent(item, requireContext())
             startActivity(intent)
+        }, onIncrementViewCount = { item ->
+            viewModel.incrementViewCount(item)
         }
+        )
+
     }
 
     private val addContentLauncher =
@@ -45,17 +49,8 @@ class TeamFragment : Fragment() {
                 )
             }
 
-
             setAddContent(teamModel)
         }
-
-
-    private fun setAddContent(item: TeamItem?) {
-        if (item != null) {
-            Log.d("test", "item value = $item")
-            viewModel.addContentItem(item)
-        }
-    }
 
 
     companion object {
@@ -85,12 +80,33 @@ class TeamFragment : Fragment() {
 
         recyclerview.layoutManager = LinearLayoutManager(requireContext())
 
+        btnApplication.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.filterApplicationItems() // 버튼이 체크되면 용병신청 아이템 필터링
+            } else {
+                viewModel.clearFilter() // 버튼이 해제되면 필터 제거
+            }
+        }
+
+        // 용병모집 버튼 토글 리스너
+        btnRecruitment.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.filterRecruitmentItems() // 버튼이 체크되면 용병모집 아이템 필터링
+            } else {
+                viewModel.clearFilter() // 버튼이 해제되면 필터 제거
+            }
+        }
+
+
         //add btn
         fabAdd.setOnClickListener {
             val teamAddCategory = TeamAddCategory()
             teamAddCategory.show(childFragmentManager, teamAddCategory.tag)
             //프래그먼트의 childFragmentManager를 쓰면 같은 라이프사이클을 사용 해야함
-            childFragmentManager.setFragmentResultListener(FRAGMENT_REQUEST_KEY,viewLifecycleOwner) { key, bundle ->
+            childFragmentManager.setFragmentResultListener(
+                FRAGMENT_REQUEST_KEY,
+                viewLifecycleOwner
+            ) { key, bundle ->
                 val result = bundle.getString(FRAGMENT_RETURN_TYPE)
 
                 when (result) {
@@ -128,6 +144,14 @@ class TeamFragment : Fragment() {
     private fun initViewModel() = with(viewModel) {
         list.observe(viewLifecycleOwner) {
             listAdapter.submitList(it)
+        }
+    }
+
+    //글추가 로직
+    private fun setAddContent(item: TeamItem?) {
+        if (item != null) {
+            Log.d("setAddContent", "item value = $item")
+            viewModel.addContentItem(item)
         }
     }
 

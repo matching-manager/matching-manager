@@ -1,20 +1,30 @@
 package com.example.matching_manager.ui.match
 
-import com.example.matching_manager.R
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.tasks.await
 
-class MatchRepositoryImpl()  : MatchRepository{
-    private val list = mutableListOf<MatchDataModel>()
+class MatchRepositoryImpl() : MatchRepository {
 
-    init {
-        list.apply {
-            for(i in 1..10) {
-                add(MatchDataModel(1, "testUser", R.drawable.sonny, "수원 삼성", "축구", "11월2일 오후8시", "경기도 안양시 평촌 중앙공원 축구장", 11, 10000, "초보만 받습니다", "남성", R.drawable.sonny, 1, 0))
+    val database =
+        Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
+    val matchRef = database.getReference("Match")
+
+    override suspend fun getList(): List<MatchDataModel> {
+        val items = arrayListOf<MatchDataModel>()
+        val snapshot = matchRef.get().await()
+        if (snapshot.exists()) {
+            for (matchSnapshot in snapshot.children) {
+                 matchSnapshot.getValue(MatchDataModel::class.java)?.let { matchData ->
+                     items.add(matchData)
+                }
             }
         }
+
+        return items
     }
 
-
-    override suspend fun getList(): MutableList<MatchDataModel> {
-        return list
+    override suspend fun addData(data: MatchDataModel) {
+        matchRef.push().setValue(data).await()
     }
 }

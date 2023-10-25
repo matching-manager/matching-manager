@@ -1,10 +1,10 @@
-package com.example.matching_manager.ui.match
+package com.example.matching_manager.ui.my
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class MatchDataModel(
+data class MyMatchDataModel(
     val matchId : String = "matchId",
     val userId : String = "userId",    //유저ID
     var userImg: Int = 0,     //유저이미지

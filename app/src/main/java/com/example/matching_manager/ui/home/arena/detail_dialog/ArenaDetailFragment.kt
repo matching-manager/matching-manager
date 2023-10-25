@@ -25,13 +25,6 @@ class ArenaDetailFragment : DialogFragment() {
 
     private val viewModel : ArenaDetailViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,9 +56,10 @@ class ArenaDetailFragment : DialogFragment() {
 
     private fun initView() = with(binding){
 
+
+
         // Dialog의 배경을 투명으로 설정
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
 
         btnShare.setOnClickListener {
             Utils.shareUrl(requireContext(),viewModel.getPlaceUrl())
