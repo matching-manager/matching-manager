@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +12,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchFragmentBinding
-import kotlinx.coroutines.launch
 
 class MatchFragment : Fragment() {
     private var _binding: MatchFragmentBinding? = null
@@ -85,11 +82,11 @@ class MatchFragment : Fragment() {
             }
         }
 
-        btnCategory.setOnClickListener {
-            val matchCategory = MatchCategory()
+        btnSort.setOnClickListener {
+            val matchSortBottomSheet = MatchSortBottomSheet()
 
             val fragmentManager = requireActivity().supportFragmentManager
-            matchCategory.show(fragmentManager, matchCategory.tag)
+            matchSortBottomSheet.show(fragmentManager, matchSortBottomSheet.tag)
         }
 
         fabAdd.setOnClickListener {
