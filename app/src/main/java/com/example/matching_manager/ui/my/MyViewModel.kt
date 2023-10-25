@@ -55,13 +55,11 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
                 val dataList = mutableListOf<MyMatchDataModel>()
 
                 for (childSnapshot in dataSnapshot.children) {
-                    // Firebase에서 데이터를 가져와서 MyMatchDataModel로 변환하여 리스트에 추가
                     val matchData = childSnapshot.getValue(MyMatchDataModel::class.java)
                     if (matchData != null) {
                         dataList.add(matchData)
                     }
                 }
-                // 뷰모델의 MutableLiveData에 데이터 설정
                 _list.value = dataList
             }
 
