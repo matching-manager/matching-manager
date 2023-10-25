@@ -35,7 +35,7 @@
             android:name=".ui.my.MyMatchDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.alram.AlramActivity"
+            android:name=".ui.home.alarm.AlarmActivity"
             android:exported="false" />
         <activity
             android:name=".ui.match.MatchWritingActivity"
