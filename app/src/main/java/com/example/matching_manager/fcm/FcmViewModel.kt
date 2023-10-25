@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.matching_manager.domain.usecase.sharedpreference.LoadFcmDataUseCase
 import com.example.matching_manager.domain.usecase.sharedpreference.SaveFcmDataUseCase
-import com.example.matching_manager.ui.home.alarm.AlarmModel
+import com.example.matching_manager.ui.home.arena.alarm.AlarmModel
 
 class FcmViewModel(
     private val saveFcmList: SaveFcmDataUseCase,

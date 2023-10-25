@@ -1,6 +1,7 @@
 package com.example.matching_manager.ui.calender
 
 import android.content.ClipData
+import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.matching_manager.databinding.CalendarRecyclerviewItemBinding
+import com.prolificinteractive.materialcalendarview.CalendarDay
+import java.util.Calendar
+import java.util.Locale
 
 class CalendarListAdapter(
     private val onCalendarItemClick: (CalendarModel) -> Unit,
@@ -78,7 +82,13 @@ class CalendarListAdapter(
             //tvScheduleDivision.text = item.division
 
             tvScheduleDay.text = item.day.toString()
-            tvScheduleMonth.text = item.month.toString()
+
+            val simpleDataFormat = SimpleDateFormat("MMM", Locale.ENGLISH)
+            val monthName = simpleDataFormat.format(Calendar.getInstance().apply {
+                set(Calendar.MONTH, item.month!!) // Calendar.MONTH는 0부터 시작하기 때문에 1을 뺍니다.
+            }.time)
+
+            tvScheduleMonth.text = monthName
             tvScheduleYear.text = item.year.toString()
             tvScheduleMemo.text = item.memo
             //item이라고 만든 이유

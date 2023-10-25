@@ -21,7 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.FcmActivityBinding
-import com.example.matching_manager.ui.home.alarm.AlarmActivity
+import com.example.matching_manager.ui.home.arena.alarm.AlarmActivity
 import com.example.matching_manager.ui.main.MainActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase

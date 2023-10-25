@@ -7,7 +7,7 @@ import android.util.Log
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MainActivityBinding
 import com.example.matching_manager.fcm.MyFirebaseMessagingService
-import com.example.matching_manager.ui.home.alarm.AlarmActivity
+import com.example.matching_manager.ui.home.arena.alarm.AlarmActivity
 import com.google.android.material.tabs.TabLayoutMediator
 
 

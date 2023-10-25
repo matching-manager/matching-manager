@@ -1,4 +1,4 @@
-package com.example.matching_manager.ui.home.alarm
+package com.example.matching_manager.ui.home.arena.alarm
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

@@ -36,7 +36,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.home.alarm.AlarmActivity"
+            android:name=".ui.home.arena.alarm.AlarmActivity"
             android:exported="false" />
         <activity
             android:name=".ui.match.MatchWritingActivity"

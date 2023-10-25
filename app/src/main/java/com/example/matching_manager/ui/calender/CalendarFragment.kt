@@ -2,21 +2,21 @@ package com.example.matching_manager.ui.calender
 
 import CalendarMemoDialogFragment
 import android.app.AlertDialog
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.example.matching_manager.R
 import com.example.matching_manager.databinding.CalendarFragmentBinding
 import com.example.matching_manager.databinding.CalendarRecyclerviewItemBinding
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import java.util.Date
+import java.util.Locale
 
 
 class CalendarFragment : Fragment() {
@@ -107,35 +107,42 @@ class CalendarFragment : Fragment() {
         alertDialogBuilder.setPositiveButton("삭제") { _, _ ->
             viewModel.removeMemoItem(calendarModel, position) // 삭제 동작을 수행합니다.
 
-//            val deletedDate = calendarModel.year?.let {
-//                calendarModel.month?.let { it1 ->
-//                    calendarModel.day?.let { it2 ->
-//                        CalendarDay.from(
-//                            it,
-//                            it1,
-//                            it2
-//                        )
-//                    }
-//                }
-//            }
-            val deletedDate = calendarModel.year?.let { year ->
-                calendarModel.month?.let { month ->
-                    calendarModel.day?.let { day ->
-                        CalendarDay.from(year, month, day)
+            val deletedDate =
+                calendarModel.year?.let { it ->
+                calendarModel.month?.let { it1 ->
+                    calendarModel.day?.let { it2 ->
+                        CalendarDay.from(
+                            it,
+                            it1,
+                            it2
+                        )
                     }
                 }
             }
 
+//            val deletedDate = calendarModel.year?.let { yearStr ->
+//                calendarModel.month?.let { monthStr ->
+//                    calendarModel.day?.let { dayStr ->
+//                        val year = yearStr
+//                        val month = monthStr
+//                        val day = dayStr
+//                        //CalendarDay.from(year, month, day)
+//                    }
+//                }
+//            }
+
             if (deletedDate != null) {
                 memoMap.remove(deletedDate)
-
-                val datesWithMemo = memoMap.keys.toSet()
-                val memoDecorator = CalendarMemoDecorator(datesWithMemo)
-
-                materialCalendarView.removeDecorator(memoDecorator)
-                materialCalendarView.addDecorator(memoDecorator)
             }
-        }
+
+            val datesWithMemo = memoMap.keys.toSet()
+            val memoDecorator = CalendarMemoDecorator(datesWithMemo)
+
+            materialCalendarView.removeDecorator(memoDecorator)
+            materialCalendarView.invalidateDecorators()
+            materialCalendarView.addDecorator(memoDecorator)
+
+    }
 
         alertDialogBuilder.setNegativeButton("취소") { _, _ ->
             // 취소 동작을 수행합니다. (아무 동작 필요 없을 때)
@@ -161,7 +168,10 @@ class CalendarFragment : Fragment() {
 
             val memoPlace = result.getString(CalendarMemoDialogFragment.RESULT_KEY_PLACE) ?: ""
             val clickedDay = date.day // 클릭한 날짜의 일 정보
-            val clickedMonth = date.month + 1 // 클릭한 날짜의 월정보
+
+            val clickedMonth = date.month // Calendar.MONTH는 0부터 시작하기 때문에 1을 뺍니다.
+
+            //val clickedMonth = (date.month + 1) .toString()// 클릭한 날짜의 월정보
             val clickedYear = date.year // 클릭한 날짜의 년 정보
 
             Log.d("getmemoText", "MemoText: $memoText")
