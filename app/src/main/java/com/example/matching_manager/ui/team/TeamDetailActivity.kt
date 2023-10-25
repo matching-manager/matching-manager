@@ -52,7 +52,7 @@ class TeamDetailActivity : AppCompatActivity() {
             tvTeam.text = "팀이름"
             tvTeamName.text = item.teamName
             tvGender.text = item.gender
-            tvViewCount.text = item.viewCount.toString() +1
+            tvChatCount.text = item.chatCount.toString()
             tvNicname.text = item.nicname
             tvContent.text = item.content
             tvTime.text = item.creationTime
@@ -75,7 +75,7 @@ class TeamDetailActivity : AppCompatActivity() {
             tvTeam.text = "가능 시간"
             tvTeamName.text = item.schedule//가능시간이 들어가야함
             tvGender.text = item.gender
-            tvViewCount.text = item.viewCount.toString()
+            tvChatCount.text = item.chatCount.toString()
             tvNicname.text = item.nicname
             tvContent.text = item.content
             tvTime.text = item.creationTime

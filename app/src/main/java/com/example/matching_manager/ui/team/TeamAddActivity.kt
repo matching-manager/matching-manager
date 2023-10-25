@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamAddActivityBinding
@@ -129,6 +130,8 @@ class TeamAddActivity : AppCompatActivity() {
                 selectedArea = parent?.getItemAtPosition(position).toString()
 
                 // 선택된 시/도에 따라 동작을 추가합니다.
+                sigunguSpinner.visibility = (View.INVISIBLE)
+                dongSpinner.visibility = (View.INVISIBLE)
                 when (position) {
                     // 시/도 별로 동작을 구현합니다.
                     0 -> sigunguSpinner.adapter = null
@@ -178,6 +181,8 @@ class TeamAddActivity : AppCompatActivity() {
                 id: Long,
             ) {
                 // 서울특별시 선택시
+                sigunguSpinner.visibility = (View.VISIBLE)
+                dongSpinner.visibility = (View.VISIBLE)
                 if (citySpinner.selectedItemPosition == 1 && sigunguSpinner.selectedItemPosition > -1) {
                     when (position) {
                         0 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangnam)

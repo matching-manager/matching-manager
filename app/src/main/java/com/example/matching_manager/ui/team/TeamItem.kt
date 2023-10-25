@@ -6,11 +6,12 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 sealed class TeamItem(
+    open val game:String,//경기종목
+    open val area:String,//지역
+
 ) : Parcelable {
     data class RecruitmentItem(
         val type: String,//용병모집
-        val game:String,//경기종목
-        val area:String,//지역
         val schedule: String,//가능시간 월,일,시간
         val teamProfile: Int,//프로필
         val playerNum: String,//인원
@@ -24,11 +25,10 @@ sealed class TeamItem(
         val content:String,//글내용
         val creationTime:String,//작성시간
         val level:String//수준
-    ) : TeamItem(), Parcelable
+        , override val game: String, override val area: String
+    ) : TeamItem(game, area), Parcelable
     data class ApplicationItem(
         val type: String,//용병신청
-        val game:String,//경기종목
-        val area:String,//지역
         val schedule: String,//시간 평일/주말
         val teamProfile: Int,//프로필
         val playerNum: String,//인원
@@ -40,5 +40,6 @@ sealed class TeamItem(
         val content:String,//글내용
         val creationTime:String,//작성시간
         val level:String//수준
-    ) : TeamItem(), Parcelable
+        , override val game: String, override val area: String
+    ) : TeamItem(game, area), Parcelable
 }
