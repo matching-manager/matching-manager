@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@string/match_detail_team"
+                android:text="@string/match_detail_nickName"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
                 app:layout_constraintStart_toEndOf="@+id/iv_profile"
                 app:layout_constraintTop_toTopOf="@+id/iv_profile" />
