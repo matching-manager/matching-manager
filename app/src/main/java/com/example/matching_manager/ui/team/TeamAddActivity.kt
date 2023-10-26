@@ -17,6 +17,7 @@ import com.example.matching_manager.databinding.TeamAddActivityBinding
 import com.example.matching_manager.ui.team.bottomsheet.TeamAge
 import com.example.matching_manager.ui.team.bottomsheet.TeamCalender
 import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
+import com.example.matching_manager.ui.team.bottomsheet.TeamTime
 import com.example.matching_manager.ui.team.view.TeamSharedViewModel
 import java.util.Calendar
 import java.util.Date
@@ -39,6 +40,7 @@ class TeamAddActivity : AppCompatActivity() {
         const val EXTRA_TEAM_MODEL = "extra_team_model"
         const val TEAM_NUMBER_BOTTOM_SHEET = "team_number_bottom_sheet"
         const val TEAM_AGE_BOTTOM_SHEET = "team_age_bottom_sheet"
+        const val TEAM_TIME_BOTTOM_SHEET = "team_time_bottom_sheet"
         const val TEAM_CALENDER_BOTTOM_SHEET = "team_calender_bottom_sheet"
 
 
@@ -83,6 +85,16 @@ class TeamAddActivity : AppCompatActivity() {
             age.observe(this@TeamAddActivity, Observer {
                 Log.d("teamAge", "activity = $it")
                 binding.teamAge.text = it.toString()
+            })
+            teamTime.observe(this@TeamAddActivity, Observer {(hour, minute, amPm) ->
+                val time = String.format("%s %02d:%02d", amPm, hour, minute)
+                Log.d("teamTime", "activity = $time")
+                binding.tvTime.text = time
+            })
+            calendar.observe(this@TeamAddActivity, Observer {(year, month, dayOfMonth, dayOfWeek) ->
+                val date = String.format("%d %02d월 %02d일 %s", year, month, dayOfMonth,dayOfWeek)
+                Log.d("teamTime", "activity = $date")
+                binding.tvMonthDate.text = date
             })
         }
     }
@@ -302,7 +314,10 @@ class TeamAddActivity : AppCompatActivity() {
         tvMonthDate.setOnClickListener {
             showCalenderPicker()
         }
-
+        //time
+        tvTime.setOnClickListener {
+            showTimePicker()
+        }
         //number
         teamNumber.setOnClickListener {
             showNumberPicker()
@@ -317,6 +332,11 @@ class TeamAddActivity : AppCompatActivity() {
     private fun showCalenderPicker() {
         val bottomSheet = TeamCalender()
         bottomSheet.show(supportFragmentManager, TEAM_CALENDER_BOTTOM_SHEET)
+    }
+
+    private fun showTimePicker() {
+        val bottomSheet = TeamTime()
+        bottomSheet.show(supportFragmentManager, TEAM_TIME_BOTTOM_SHEET)
     }
 
     private fun showNumberPicker() {
