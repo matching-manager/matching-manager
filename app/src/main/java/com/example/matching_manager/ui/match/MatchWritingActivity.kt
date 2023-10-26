@@ -34,6 +34,16 @@ class MatchWritingActivity : AppCompatActivity() {
 
     companion object {
         const val ID_DATA = "item_userId"
+
+        const val REVIEW_MIN_LENGTH = 10
+        // 갤러리 권한 요청
+        const val REQ_GALLERY = 1
+
+        // API 호출시 Parameter key값
+        const val PARAM_KEY_IMAGE = "image"
+        const val PARAM_KEY_PRODUCT_ID = "product_id"
+        const val PARAM_KEY_REVIEW = "review_content"
+        const val PARAM_KEY_RATING = "rating"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +95,7 @@ class MatchWritingActivity : AppCompatActivity() {
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
-                id: Long,
+                id: Long
             ) {
                 selectedGame = gameAdapter.getItem(position).toString()
             }
@@ -100,7 +110,7 @@ class MatchWritingActivity : AppCompatActivity() {
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
-                id: Long,
+                id: Long
             ) {
                 selectedGender = gameAdapter.getItem(position).toString()
             }
@@ -111,10 +121,11 @@ class MatchWritingActivity : AppCompatActivity() {
         }
 
         tvAddImage.setOnClickListener {
-            val galleryIntent = Intent(Intent.ACTION_GET_CONTENT)
+            val galleryIntent = Intent(Intent.ACTION_PICK)
             galleryIntent.type = "image/"
-            activityResult.launch(galleryIntent)
+            imageResult.launch(galleryIntent)
         }
+
 
 
         val matchId = UUID.randomUUID().toString()
@@ -131,26 +142,9 @@ class MatchWritingActivity : AppCompatActivity() {
 
         btnConfirm.setOnClickListener {
             //테스트용 객체
-            val dummyMatch = MatchDataModel(
-                matchId = matchId,
-                schedule = etSchedule.text.toString(),
-                uploadTime = uploadTime
-            )
+            val dummyMatch = MatchDataModel(matchId = matchId, schedule = etSchedule.text.toString(), uploadTime = uploadTime)
             //실제 객체
-            val match = MatchDataModel(
-                matchId = matchId,
-                teamName = teamName,
-                game = game,
-                schedule = schedule,
-                matchPlace = matchPlace,
-                playerNum = playerNum,
-                entryFee = entryFee,
-                description = description,
-                gender = gender,
-                viewCount = 0,
-                chatCount = 0,
-                uploadTime = uploadTime
-            )
+            val match = MatchDataModel(matchId = matchId,teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0, uploadTime = uploadTime)
 
 
             val intent = Intent(this@MatchWritingActivity, MatchFragment::class.java)
@@ -164,14 +158,14 @@ class MatchWritingActivity : AppCompatActivity() {
         }
     }
 
-    private fun getCurrentTime(): String {
+    private fun getCurrentTime() : String {
         val currentTime = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
         return currentTime.format(formatter)
     }
 
-    private val activityResult = registerForActivityResult(
+    private val imageResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK && result.data != null) {
@@ -180,8 +174,7 @@ class MatchWritingActivity : AppCompatActivity() {
         }
     }
 
-    // 파이어베이스 이미지 업로드
-    private fun uploadToFirebase(uri: Uri, data: MatchDataModel) {
+    private fun uploadToFirebase(uri: Uri, data : MatchDataModel) {
         val fileRef = reference.child("Match/${data.matchId}")
 
         fileRef.putFile(uri)
