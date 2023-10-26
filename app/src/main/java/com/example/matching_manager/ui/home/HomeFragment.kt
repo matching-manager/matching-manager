@@ -11,7 +11,7 @@ import com.example.matching_manager.R
 import com.example.matching_manager.databinding.HomeFragmentBinding
 import com.example.matching_manager.databinding.SignInFragmentBinding
 import com.example.matching_manager.ui.calender.CalendarFragment
-import com.example.matching_manager.ui.home.alarm.AlarmActivity
+import com.example.matching_manager.ui.home.arena.alarm.AlarmActivity
 import com.example.matching_manager.ui.home.arena.ArenaActivity
 import com.example.matching_manager.ui.home.arena.ArenaViewModel
 

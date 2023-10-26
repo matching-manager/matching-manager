@@ -160,5 +160,12 @@
     <string name="send_dialog_hint_id">&#160;&#160;&#160;Username or user id</string>
     <string name="send_dialog_hint_pw">&#160;&#160;&#160;Mobile number</string>
 
+    <!-- [calendar_item.xml] -->
+    <string name="calendar_item_schedule_match">경기일정</string>
+    <string name="calendar_item_schedule_day">23</string>
+    <string name="calendar_item_schedule_month">NOV</string>
+    <string name="calendar_item_place">전남 담양 금성면</string>
+    <string name="calendar_item_schedule">23 Nov - 24 Nov</string>
+    <string name="calendar_item_schedule_divison">Online Remote</string>
 
 </resources>
