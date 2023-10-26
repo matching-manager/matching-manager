@@ -34,6 +34,16 @@ class MatchWritingActivity : AppCompatActivity() {
 
     companion object {
         const val ID_DATA = "item_userId"
+
+        const val REVIEW_MIN_LENGTH = 10
+        // 갤러리 권한 요청
+        const val REQ_GALLERY = 1
+
+        // API 호출시 Parameter key값
+        const val PARAM_KEY_IMAGE = "image"
+        const val PARAM_KEY_PRODUCT_ID = "product_id"
+        const val PARAM_KEY_REVIEW = "review_content"
+        const val PARAM_KEY_RATING = "rating"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,9 +121,9 @@ class MatchWritingActivity : AppCompatActivity() {
         }
 
         tvAddImage.setOnClickListener {
-            val galleryIntent = Intent(Intent.ACTION_GET_CONTENT)
+            val galleryIntent = Intent(Intent.ACTION_PICK)
             galleryIntent.type = "image/"
-            activityResult.launch(galleryIntent)
+            imageResult.launch(galleryIntent)
         }
 
 
@@ -155,7 +165,7 @@ class MatchWritingActivity : AppCompatActivity() {
         return currentTime.format(formatter)
     }
 
-    private val activityResult = registerForActivityResult(
+    private val imageResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK && result.data != null) {
@@ -164,7 +174,6 @@ class MatchWritingActivity : AppCompatActivity() {
         }
     }
 
-    // 파이어베이스 이미지 업로드
     private fun uploadToFirebase(uri: Uri, data : MatchDataModel) {
         val fileRef = reference.child("Match/${data.matchId}")
 
