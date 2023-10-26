@@ -54,7 +54,7 @@
             android:name=".ui.home.arena.ArenaActivity"
             android:exported="false" />
         <activity
-            android:name=".fcm.FcmActivity"
+            android:name=".ui.fcm.FcmActivity"
             android:exported="false">
 <!--            <intent-filter>-->
 <!--                <action android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" />-->
@@ -71,7 +71,7 @@
         </activity>
 
         <service
-            android:name=".fcm.MyFirebaseMessagingService"
+            android:name=".ui.fcm.MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND">

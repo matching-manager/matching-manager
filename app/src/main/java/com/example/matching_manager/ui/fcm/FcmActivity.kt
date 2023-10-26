@@ -1,34 +1,25 @@
-package com.example.matching_manager.fcm
+package com.example.matching_manager.ui.fcm
 
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import com.android.volley.RequestQueue
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.FcmActivityBinding
 import com.example.matching_manager.ui.home.arena.alarm.AlarmActivity
 import com.example.matching_manager.ui.main.MainActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.ktx.messaging
-import org.json.JSONException
-import org.json.JSONObject
 
 class FcmActivity : AppCompatActivity() {
 

@@ -14,7 +14,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.SignInFragmentBinding
-import com.example.matching_manager.fcm.FcmActivity
+import com.example.matching_manager.ui.fcm.FcmActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
