@@ -16,7 +16,6 @@ import com.example.matching_manager.databinding.CalendarFragmentBinding
 import com.example.matching_manager.databinding.CalendarRecyclerviewItemBinding
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import java.util.Locale
 
 
 class CalendarFragment : Fragment() {
@@ -39,8 +38,6 @@ class CalendarFragment : Fragment() {
 
     companion object {
         fun newInstance() = CalendarFragment()
-
-
     }
 
     override fun onCreateView(
@@ -51,7 +48,6 @@ class CalendarFragment : Fragment() {
         calendarRecyclerviewItemBinding =
             CalendarRecyclerviewItemBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
 

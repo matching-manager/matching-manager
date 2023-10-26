@@ -1,6 +1,7 @@
 package com.example.matching_manager.ui.home.arena.alarm
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,7 @@ class AlarmViewModel(
 
     fun loadAlarm() {
         _list.value = loadFcmData()
+        Log.d("????","${_list.value}")
     }
 
     private fun loadFcmData() = loadAlarmList(context)

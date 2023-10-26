@@ -1,4 +1,4 @@
-package com.example.matching_manager.fcm
+package com.example.matching_manager.ui.fcm
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

@@ -4,10 +4,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.matching_manager.databinding.ArenaActivityBinding
-import com.example.matching_manager.fcm.send.SendFcmFragment
+import com.example.matching_manager.ui.fcm.send.SendFcmFragment
 import com.example.matching_manager.ui.home.arena.detail_dialog.ArenaDetailFragment
 
 class ArenaActivity : AppCompatActivity() {
@@ -63,9 +64,7 @@ class ArenaActivity : AppCompatActivity() {
             searchArena("배드민턴장")
         }
         btnFilter.setOnClickListener {
-            SendFcmFragment().show(
-                supportFragmentManager, "SampleDialog"
-            )
+           Toast.makeText(this@ArenaActivity,"지역별 필터를 적용할 예정입니다.", Toast.LENGTH_SHORT).show()
         }
     }
 

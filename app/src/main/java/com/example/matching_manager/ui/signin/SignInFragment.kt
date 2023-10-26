@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.SignInFragmentBinding
+import com.example.matching_manager.ui.fcm.FcmActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -111,6 +112,8 @@ class SignInFragment : Fragment() {
                             Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
                             firebaseAuthWithGoogle(account.idToken!!)
                             Toast.makeText(context, "승인성공", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(requireContext(), FcmActivity::class.java)
+                            startActivity(intent)
                         } catch (e: ApiException) {
                             // 구글 승인 실패, 업데이트 UI 적절하게
                             Log.w(TAG, "Google sign in failed", e)
