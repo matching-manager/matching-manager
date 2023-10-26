@@ -190,18 +190,18 @@
 
                     <TextView
                         android:id="@+id/tv_month_date"
-                        android:layout_width="150dp"
+                        android:layout_width="170dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
                         android:gravity="center"
-                        android:hint="10월 10일 화요일"
+                        android:hint="23년 10월 10일 (화)"
                         android:textSize="18dp" />
 
                     <TextView
                         android:id="@+id/tv_time"
                         android:layout_width="120dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="10dp"
                         android:gravity="center"
                         android:hint="오전 9시 00분"
                         android:textSize="18dp" />
