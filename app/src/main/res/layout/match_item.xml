@@ -22,8 +22,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_profile"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginStart="20dp"
                 android:background="@color/common_point_grey"
                 android:scaleType="centerCrop"
@@ -102,7 +102,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/imageView5"
                 app:layout_constraintEnd_toStartOf="@+id/tv_view_count"
                 app:layout_constraintTop_toTopOf="@+id/imageView5"
-                app:srcCompat="@drawable/ic_eye" />
+                app:srcCompat="@drawable/ic_eye"
+                android:alpha="0.6"/>
 
             <TextView
                 android:id="@+id/tv_view_count"
@@ -110,19 +111,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="@string/match_item_view_count"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView4"
                 app:layout_constraintEnd_toStartOf="@+id/imageView5"
                 app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/cv_detail"
                 app:layout_constraintEnd_toStartOf="@+id/tv_chat_count"
                 app:layout_constraintTop_toTopOf="@+id/cv_detail"
-                app:srcCompat="@drawable/ic_chat" />
+                app:srcCompat="@drawable/ic_chat"
+                android:alpha="0.6"/>
 
             <TextView
                 android:id="@+id/tv_chat_count"
@@ -130,6 +133,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:text="@string/match_item_chat_count"
+                android:textSize="15sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/imageView5" />
@@ -139,6 +144,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
                 android:text="@string/match_item_schedule"
                 app:layout_constraintStart_toStartOf="@+id/cv_type"
                 app:layout_constraintTop_toBottomOf="@+id/cv_type" />
@@ -148,6 +155,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
                 android:text="@string/match_item_place"
                 app:layout_constraintStart_toStartOf="@+id/tv_schedule"
                 app:layout_constraintTop_toBottomOf="@+id/tv_schedule" />
