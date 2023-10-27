@@ -39,77 +39,87 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_futsal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_margin="3dp"
+        android:background="@drawable/btn_background_white_shadow"
         android:drawableStart="@drawable/ic_futsal"
         android:text="@string/arena_futsal"
         android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@id/btn_soccer"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_soccer"
         app:layout_constraintTop_toBottomOf="@id/btn_back" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_soccer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_margin="3dp"
+        android:background="@drawable/btn_background_white_shadow"
         android:drawableStart="@drawable/ic_soccer"
         android:text="@string/arena_soccer"
         android:textSize="15sp"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintEnd_toStartOf="@id/btn_bowling"
         app:layout_constraintBottom_toBottomOf="@id/btn_futsal"
+        app:layout_constraintEnd_toStartOf="@id/btn_bowling"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@id/btn_futsal"
         app:layout_constraintTop_toTopOf="@id/btn_futsal" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_bowling"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_margin="3dp"
+        android:background="@drawable/btn_background_white_shadow"
         android:drawableStart="@drawable/ic_bowling"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintEnd_toStartOf="@id/btn_basketball"
         android:text="@string/arena_bowling"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@id/btn_futsal"
+        app:layout_constraintEnd_toStartOf="@id/btn_basketball"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@id/btn_soccer"
         app:layout_constraintTop_toTopOf="@id/btn_futsal" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_basketball"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintEnd_toStartOf="@id/btn_badminton"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_margin="3dp"
+        android:background="@drawable/btn_background_white_shadow"
         android:drawableStart="@drawable/ic_basketball"
         android:text="@string/arena_basketball"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@id/btn_futsal"
+        app:layout_constraintEnd_toStartOf="@id/btn_badminton"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@id/btn_bowling"
         app:layout_constraintTop_toTopOf="@id/btn_futsal" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_badminton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
+        android:layout_margin="3dp"
+        android:background="@drawable/btn_background_white_shadow"
         android:drawableStart="@drawable/ic_badminton"
         android:text="@string/arena_badminton"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@id/btn_futsal"
-        app:layout_constraintStart_toEndOf="@id/btn_basketball"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_basketball"
         app:layout_constraintTop_toTopOf="@id/btn_futsal" />
 
     <androidx.recyclerview.widget.RecyclerView
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/rv_arena"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/btn_futsal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/arena_recyclerview_item"/>
+        app:layout_constraintTop_toBottomOf="@id/btn_futsal"
+        tools:listitem="@layout/arena_recyclerview_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
