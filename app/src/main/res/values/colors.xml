@@ -21,7 +21,12 @@
     <color name="signup_exception_red">#BA2930</color>
 
     <!-- match -->
-    <color name="match_mercenary_pink">#E18585</color>
+    <color name="match_soccer_pink">#E18585</color>
+    <color name="match_futsal_purple">#FFAAFF</color>
+    <color name="match_basketball_orange">#53C28D</color>
+    <color name="match_badminton_brown">#DC9146</color>
+    <color name="match_bowling_skyblue">#B8D7FF</color>
+    
 
     <!-- team -->
     <color name="team_request_yellow">#D9D68D</color>
