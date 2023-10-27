@@ -1,10 +1,13 @@
 package com.example.matching_manager.ui.match
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchItemBinding
 
 class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : ListAdapter<MatchDataModel, MatchListAdapter.ViewHolder> (
@@ -37,17 +40,37 @@ class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : Lis
     class ViewHolder(private val binding: MatchItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("ResourceAsColor")
         fun bind(item : MatchDataModel, onItemClick: (MatchDataModel) -> Unit) = with(binding) {
             ivProfile.setImageResource(item.userImg)
             tvGame.text = item.game
             tvDetail.text = formatDetail(item.playerNum, item.gender)
-            tvViewCount.text = item.viewCount.toString()
-            tvChatCount.text = item.chatCount.toString()
             tvSchedule.text = item.schedule
             tvPlace.text = item.matchPlace
 
             itemView.setOnClickListener {
                 onItemClick(item)
+            }
+
+            when (item.game) {
+                "축구" -> {
+                    cvType.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.match_soccer_pink))
+                }
+                "풋살" -> {
+                    cvType.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.match_futsal_purple))
+                }
+                "농구" -> {
+                    cvType.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.match_basketball_orange))
+                }
+                "배드민턴" -> {
+                    cvType.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.match_badminton_brown))
+                }
+                "볼링" -> {
+                    cvType.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.match_bowling_skyblue))
+                }
+                else -> {
+                    cvType.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.black))
+                }
             }
         }
 
