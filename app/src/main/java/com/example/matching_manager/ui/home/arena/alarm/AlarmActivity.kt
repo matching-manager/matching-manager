@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.matching_manager.databinding.AlarmActivityBinding
-import com.example.matching_manager.fcm.send.SendFcmFragment
+import com.example.matching_manager.ui.fcm.send.SendFcmFragment
 import com.example.matching_manager.util.Utils
 
 class AlarmActivity : AppCompatActivity() {
@@ -53,9 +53,6 @@ class AlarmActivity : AppCompatActivity() {
         viewModel.loadAlarm()
 
         btnBack.setOnClickListener {
-//            SendFcmFragment().show(
-//                supportFragmentManager, "SampleDialog"
-//            )
             onBackPressed()
         }
     }

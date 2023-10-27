@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -12,8 +12,6 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="true" />
-
-
 
     <application
         android:allowBackup="true"
@@ -34,7 +32,6 @@
         <activity
             android:name=".ui.my.MyMatchDetailActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.home.arena.alarm.AlarmActivity"
             android:exported="false" />
@@ -57,21 +54,24 @@
             android:name=".ui.home.arena.ArenaActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.signin.SignInActivity"
-            android:exported="false" />
+            android:name=".ui.fcm.FcmActivity"
+            android:exported="false">
+<!--            <intent-filter>-->
+<!--                <action android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" />-->
+<!--            </intent-filter>-->
+        </activity>
+
         <activity
-            android:name=".fcm.FcmActivity"
+            android:name=".ui.signin.SignInActivity"
             android:exported="true">
             <intent-filter>
-                <action
-                    android:name="android.intent.action.MAIN"
-                    android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" />
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <service
-            android:name=".fcm.MyFirebaseMessagingService"
+            android:name=".ui.fcm.MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND">

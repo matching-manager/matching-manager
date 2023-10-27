@@ -151,7 +151,7 @@
     <string name="default_notification_channel_name" translatable="true">Weather</string>
     <!-- [END fcm_default_icon_string] -->
     <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
-    <string name="fcm_message">FCM Message</string>
+    <string name="fcm_message">새로운 알림이 있습니다.</string>
 
 
     <!-- Send -->
@@ -167,5 +167,6 @@
     <string name="calendar_item_place">전남 담양 금성면</string>
     <string name="calendar_item_schedule">23 Nov - 24 Nov</string>
     <string name="calendar_item_schedule_divison">Online Remote</string>
+    <string name="common_sign_out_button_text">SIGN OUT</string>
 
 </resources>

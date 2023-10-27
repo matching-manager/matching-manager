@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamDetailActivityBinding
+import com.example.matching_manager.ui.fcm.send.SendFcmFragment
+import com.example.matching_manager.ui.fcm.send.SendType
 
 
 class TeamDetailActivity : AppCompatActivity() {
@@ -88,7 +90,9 @@ class TeamDetailActivity : AppCompatActivity() {
 
         //submit button
         btnSubmit.setOnClickListener {
-
+            SendFcmFragment().apply {
+                arguments = Bundle().apply { putString(SendFcmFragment.INPUT_TYPE, SendType.MERCENARY.name) }
+            }.show(supportFragmentManager, "SampleDialog")
         }
     }
 }
