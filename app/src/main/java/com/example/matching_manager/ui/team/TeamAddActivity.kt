@@ -3,15 +3,18 @@ package com.example.matching_manager.ui.team
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
+import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamAddActivityBinding
 import com.example.matching_manager.ui.team.bottomsheet.TeamAge
@@ -29,6 +32,7 @@ class TeamAddActivity : AppCompatActivity() {
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
     private var selectedTime: String? = null
+    private var imageUri: Uri? = null
 
 
     private val viewModel: TeamSharedViewModel by viewModels()
@@ -388,6 +392,12 @@ class TeamAddActivity : AppCompatActivity() {
             return currentDate
         }
 
+        tvAddImage.setOnClickListener {
+            val galleryIntent = Intent(Intent.ACTION_PICK)
+            galleryIntent.type = "image/"
+            imageResult.launch(galleryIntent)
+        }
+
 
         btnSubmit.setOnClickListener {
             val selectedGame = "[" +gameSpinner.selectedItem.toString()+ "]"
@@ -464,6 +474,15 @@ class TeamAddActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    private val imageResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK && result.data != null) {
+            imageUri = result.data?.data
+            binding.ivImage.load(imageUri)
+        }
     }
 
 }
