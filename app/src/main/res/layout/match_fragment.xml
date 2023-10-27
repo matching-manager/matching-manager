@@ -32,14 +32,30 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_filter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/match_fragment_filter" />
+            android:layout_height="35dp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="10dp"
+            android:padding="5dp"
+            android:background="@drawable/toggle_selector"
+            android:text="필터"
+            android:textColor="@color/black"
+            android:drawableEnd="@drawable/ic_filter"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_category"
+            android:id="@+id/btn_sort"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/match_fragment_category" />
+            android:layout_height="35dp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="198dp"
+            android:paddingStart="8dp"
+            android:background="@drawable/sort_selector"
+            android:text="최근 등록순"
+            android:textColor="@color/black"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_down"/>
 
     </LinearLayout>
 

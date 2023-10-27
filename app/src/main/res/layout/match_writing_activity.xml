@@ -30,6 +30,18 @@
         app:layout_constraintStart_toEndOf="@+id/btn_cancel"
         app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:translationZ="10dp"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -368,18 +380,29 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/iv_team"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_photo1"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="4dp"
                         android:layout_marginEnd="20dp"
-                        android:background="@color/common_gray"
+                        app:cardCornerRadius="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+                        <ImageView
+                            android:id="@+id/iv_team"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="center"
+                            android:background="@color/common_gray" />
+
+                    </androidx.cardview.widget.CardView>
+
+
 
                     <TextView
                         android:id="@+id/tv_add_image"
@@ -390,19 +413,8 @@
                         android:textStyle="bold"
                         android:textColor="@color/common_point_green"
                         app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                        app:layout_constraintEnd_toEndOf="@+id/iv_team"
+                        app:layout_constraintEnd_toEndOf="@+id/cv_photo1"
                         app:layout_constraintTop_toTopOf="@+id/textView4" />
-
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        style="?android:attr/progressBarStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/iv_team"
-                        app:layout_constraintStart_toStartOf="@+id/iv_team"
-                        app:layout_constraintTop_toTopOf="@+id/iv_team" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

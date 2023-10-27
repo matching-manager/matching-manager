@@ -41,28 +41,25 @@ class MyFragment : Fragment() {
             onItemClick = {
                 startActivity(detailIntent(requireContext(), it))
             },
-            onEditClick = { item, position ->
-                resultLauncher.launch(editIntent(requireContext(), item))
+            onMenuClick = {
+                val myMatchMenuBottomSheet = MyMatchMenuBottomSheet(it)
+
+                val fragmentManager = requireActivity().supportFragmentManager
+                myMatchMenuBottomSheet.show(fragmentManager, myMatchMenuBottomSheet.tag)
+//                startActivity(editIntent(requireContext(), it))
             },
-            onRemoveClick = { item, position ->
-                val dialog = MyDeleteDialog(item)
-                dialog.setOnDismissListener(object : MyDeleteDialog.OnDialogDismissListener {
-                    override fun onDismiss() {
-                        viewModel.fetchData(viewModel.userId)
-                    }
-                })
-                dialog.show(childFragmentManager, "deleteDialog")
-            })
+//            onRemoveClick = {
+//                val dialog = MyDeleteDialog(it)
+//                dialog.show(childFragmentManager, "deleteDialog")
+//            }
+        )
     }
 
-    private var context: Context? = null
     private lateinit var dialogBinding: DialogEditBinding
     private var selectedImageUri: Uri? = null
 
     companion object {
         fun newInstance() = MyFragment()
-        val MY_IMAGE_POSITION = "my_image_position"
-        val MY_IMAGE_MODEL = "my_image_model"
         const val PICK_IMAGE_REQUEST = 1
 
         const val OBJECT_DATA = "item_object"
@@ -81,12 +78,6 @@ class MyFragment : Fragment() {
             return intent
         }
     }
-
-//    private val listAdapter by lazy {
-//        MyAdapter { position, image ->
-//            val intent = Intent(context, Image)
-//        }
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -117,14 +108,12 @@ class MyFragment : Fragment() {
         resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    viewModel.fetchData(viewModel.userId)
                 }
             }
 
         btnEdit.setOnClickListener {
             dialogBinding = DialogEditBinding.inflate(layoutInflater)
             val dialogView = dialogBinding.root
-            //val dialogView = layoutInflater.inflate(R.layout.dialog_edit, null)
             val builder = AlertDialog.Builder(requireContext())
                 .setView(dialogView)
             val dialog = builder.create()
@@ -153,29 +142,11 @@ class MyFragment : Fragment() {
 
                     dialog.dismiss()
                 }
-                //setProfileImage(selectedImageUri)
-
-
-//                if (et_content_nickname.text.isNullOrBlank() && et_content_location.text.isNullOrBlank() && et_content_id.text.isNullOrBlank()) {
-//                    Toast.makeText(context, "입력하십시요!", Toast.LENGTH_SHORT).show()
-//                }  else {
-//                    val newName = et_content_nickname.text.toString()
-//                    val newImageUri = selectedImageUri
-//
-//                    // 데이터 SharedPreferences에 저장
-//                    //saveProfiledData(newName, newImageUri)
-//                    //okCallback(etContent.text.toString(), selectedImageUri)
-//                }
-
             }
 
             btn_cancle.setOnClickListener {
                 dialog.dismiss()
             }
-
-//            btnEdit.setOnClickListener{
-//                openGallery()
-//            }
 
             iv_profile.setOnClickListener {
                 openGallery()
@@ -197,26 +168,20 @@ class MyFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri = data.data
-            //dialogBinding.ivProfile.setImageURI(selectedImageUri)
-            //binding.ivMypageFace.setImageURI(selectedImageUri)
             setProfileImage(selectedImageUri)
         }
     }
 
-    private fun showProfileDialog() = with(binding) {
-        //MyFileDialog(
-        //viewModel.profileName.value,
-        //viewModel.profileImageUri.value
-        //) { newName, newImageUri ->
-        //viewModel.setProfile(newName, newImageUri)
-        //}.show(parentFragmentManager, "MyFileDialog")
-    }
-
     private fun initViewModel() = with(viewModel) {
+        autoFetchData()
+
         list.observe(viewLifecycleOwner, Observer {
+            var smoothList = 0
             adapter.submitList(it.toList())
+            if(it.size > 0) smoothList = it.size - 1
+            else smoothList = 1
             binding.progressBar.visibility = View.INVISIBLE
-            Log.d("listData", "${it.size}")
+            binding.rv.smoothScrollToPosition(smoothList)
         })
     }
 

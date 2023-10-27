@@ -20,7 +20,7 @@
     <string name="arena_adress">경기 안양 동안구 관평로 149</string>
 
     <!-- match_item.xml -->
-    <string name="match_item_type">팀 매칭</string>
+    <string name="match_item_type">축구</string>
     <string name="match_item_detail">11:11 남성</string>
     <string name="match_item_view_count">1</string>
     <string name="match_item_chat_count">0</string>
@@ -35,14 +35,15 @@
 
     <!-- match_detail.xml -->
     <string name="match_detail_title">매치 제목</string>
-    <string name="match_detail_team">팀 이름</string>
+    <string name="match_detail_nickName">작성자</string>
     <string name="match_detail_time">5시간 전</string>
     <string name="match_detail_slash">/</string>
     <string name="match_detail_view_count">조회 5</string>
     <string name="match_detail_manner_score_title">매너점수</string>
     <string name="match_detail_manner_score">5.0</string>
     <string name="match_detail_information">정보</string>
-    <string name="match_detail_match_title">경기 매치</string>
+    <string name="match_detail_match_title">경기 종목</string>
+    <string name="match_detail_match_type">축구</string>
     <string name="match_detail_match">무슨 정보일까</string>
     <string name="match_detail_people_number_title">인원</string>
     <string name="match_detail_people_number">11 VS 11</string>
