@@ -58,6 +58,9 @@ class MatchWritingActivity : AppCompatActivity() {
                 is MatchEvent.Finish -> {
                     finish()
                 }
+
+                else -> {
+                }
             }
         }
     }
@@ -97,7 +100,8 @@ class MatchWritingActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                selectedGame = gameAdapter.getItem(position).toString()
+                selectedGame = parent?.getItemAtPosition(position).toString()
+                Log.d("game", "${selectedGame}")
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -112,7 +116,7 @@ class MatchWritingActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                selectedGender = gameAdapter.getItem(position).toString()
+                selectedGender = parent?.getItemAtPosition(position).toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -132,23 +136,34 @@ class MatchWritingActivity : AppCompatActivity() {
         val teamName = etTeamName.text.toString()
         val game = selectedGame
         val schedule = etSchedule.text.toString()
-        val playerNum = 11
+        val playerNum = etPlayerNum.text.toString()
         val matchPlace = etMatchPlace.text.toString()
         val gender = selectedGender
-        val entryFee = 10000
+        val entryFee = etEntryFee.text.toString()
         val description = etDiscription.text.toString()
         val uploadTime = getCurrentTime()
 
 
         btnConfirm.setOnClickListener {
+            Log.d("gameSave", "${game}")
             //테스트용 객체
-            val dummyMatch = MatchDataModel(matchId = matchId, schedule = etSchedule.text.toString(), uploadTime = uploadTime)
+            val dummyMatch = MatchDataModel(matchId = matchId, schedule = etSchedule.text.toString(), game = selectedGame,uploadTime = uploadTime)
             //실제 객체
-            val match = MatchDataModel(matchId = matchId,teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum, entryFee = entryFee, description = description, gender = gender, viewCount = 0, chatCount = 0, uploadTime = uploadTime)
+//            val match = MatchDataModel(matchId = matchId,teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum.toInt(), entryFee = entryFee.toInt(), description = description, gender = gender, viewCount = 0, chatCount = 0, uploadTime = uploadTime)
 
 
             val intent = Intent(this@MatchWritingActivity, MatchFragment::class.java)
             setResult(RESULT_OK, intent)
+
+            if (teamName.isBlank() || schedule.isBlank() || matchPlace.isBlank() || description.isBlank() || selectedGame.isBlank() || playerNum.isBlank()  || entryFee.isBlank()) {
+                // 선택되지 않은 값이 있을 때 토스트 메시지를 띄웁니다.
+                Toast.makeText(
+                    this@MatchWritingActivity,
+                    "모든 항목을 입력해주세요",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
 
             if (imageUri != null) {
                 uploadToFirebase(imageUri!!, dummyMatch)
