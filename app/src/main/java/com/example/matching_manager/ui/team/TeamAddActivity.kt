@@ -86,16 +86,19 @@ class TeamAddActivity : AppCompatActivity() {
                 Log.d("teamAge", "activity = $it")
                 binding.teamAge.text = it.toString()
             })
-            teamTime.observe(this@TeamAddActivity, Observer {(hour, minute, amPm) ->
+            teamTime.observe(this@TeamAddActivity, Observer { (hour, minute, amPm) ->
                 val time = String.format("%s %02d:%02d", amPm, hour, minute)
                 Log.d("teamTime", "activity = $time")
                 binding.tvTime.text = time
             })
-            calendar.observe(this@TeamAddActivity, Observer {(year, month, dayOfMonth, dayOfWeek) ->
-                val date = String.format("%d %02d월 %02d일 %s", year, month, dayOfMonth,dayOfWeek)
-                Log.d("teamTime", "activity = $date")
-                binding.tvMonthDate.text = date
-            })
+            calendar.observe(
+                this@TeamAddActivity,
+                Observer { (year, month, dayOfMonth, dayOfWeek) ->
+                    val date =
+                        String.format("%02d월 %02d일 %s", month, dayOfMonth, dayOfWeek)
+                    Log.d("teamTime", "activity = $date")
+                    binding.tvMonthDate.text = date
+                })
         }
     }
 
@@ -141,7 +144,7 @@ class TeamAddActivity : AppCompatActivity() {
             ) {
                 selectedArea = parent?.getItemAtPosition(position).toString()
 
-                // 선택된 시/도에 따라 동작을 추가합니다.
+//                // 선택된 시/도에 따라 동작을 추가합니다.
                 sigunguSpinner.visibility = (View.INVISIBLE)
                 dongSpinner.visibility = (View.INVISIBLE)
                 when (position) {
@@ -194,8 +197,9 @@ class TeamAddActivity : AppCompatActivity() {
             ) {
                 // 서울특별시 선택시
                 sigunguSpinner.visibility = (View.VISIBLE)
-                dongSpinner.visibility = (View.VISIBLE)
                 if (citySpinner.selectedItemPosition == 1 && sigunguSpinner.selectedItemPosition > -1) {
+                    sigunguSpinner.visibility = (View.VISIBLE)
+                    dongSpinner.visibility = (View.VISIBLE)
                     when (position) {
                         0 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangnam)
                         1 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangdong)
@@ -403,16 +407,17 @@ class TeamAddActivity : AppCompatActivity() {
         )
 
         fun formatTimeString(): String? {
-            val currentDate = java.text.SimpleDateFormat("yyyy.MM.dd", java.util.Locale.getDefault())
-                .format(java.util.Date())
+            val currentDate =
+                java.text.SimpleDateFormat("yyyy.MM.dd", java.util.Locale.getDefault())
+                    .format(java.util.Date())
             return currentDate
         }
 
 
         btnSubmit.setOnClickListener {
-            val selectedGame = "[" +gameSpinner.selectedItem.toString()+ "]"
+            val selectedGame = "[" + gameSpinner.selectedItem.toString() + "]"
             val selectedArea =
-                "[" + citySpinner.selectedItem.toString() + "/"  + sigunguSpinner.selectedItem.toString() + "]"
+                "[" + citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString() + "]"
             val selectedGender = genderSpinner.selectedItem.toString()
             val selectedLevel = levelSpinner.selectedItem.toString()
             val selectedApplicationTime = timeSpinner.selectedItem.toString()
@@ -421,8 +426,12 @@ class TeamAddActivity : AppCompatActivity() {
             val setContent = etContent.text.toString()
             val selectedNumber = viewModel.number.value ?: 0 // 기본값을 0으로 설정
             val selectedAge = viewModel.age.value ?: 0 // 기본값을 0으로 설정
+            val selectedDate = binding.tvMonthDate.text.toString()
+            val selectedTime = binding.tvTime.text.toString()
+
             // 시간 포맷 변경 시작
             val formattedTime = formatTimeString().toString()
+
 
             val recruitment = getString(R.string.team_fragment_recruitment)
             val application = getString(R.string.team_fragment_application)
@@ -436,9 +445,9 @@ class TeamAddActivity : AppCompatActivity() {
                             type = recruitment, // 임의의 값으로 설정 (용병모집)
                             game = selectedGame,
                             area = selectedArea,//지역 설정하기 스피너 추가해야함
-                            schedule = unfined,//경기일정으로 되어있음 -> 달력바텀시트 만들어야함
+                            schedule = selectedDate + " " + selectedTime,//경기일정으로 되어있음 -> 달력바텀시트 만들어야함
                             teamProfile = 0,
-                            playerNum = selectedNumber.toString()+"명",
+                            playerNum = selectedNumber.toString() + "명",
                             pay = selectedFee,
                             teamName = selectedTeamName,
                             gender = selectedGender,
@@ -460,7 +469,7 @@ class TeamAddActivity : AppCompatActivity() {
                         area = selectedArea,
                         schedule = selectedApplicationTime,
                         teamProfile = 0,
-                        playerNum = selectedNumber.toString()+"명",
+                        playerNum = selectedNumber.toString() + "명",
                         age = selectedAge.toString(),
                         gender = selectedGender,
                         viewCount = 0,
