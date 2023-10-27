@@ -61,8 +61,8 @@
                 android:background="@color/common_point_grey"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_team_name"
-                app:layout_constraintStart_toStartOf="@+id/tv_game"
-                app:layout_constraintTop_toBottomOf="@+id/tv_game"
+                app:layout_constraintStart_toStartOf="@+id/tv_detail"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail"
                 app:shapeAppearanceOverlay="@style/RoundedShape" />
 
             <TextView
@@ -424,39 +424,17 @@
                 tools:layout_editor_absoluteX="10dp" />
 
             <TextView
-                android:id="@+id/tv_game"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_detail"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="[풋살]"
+                android:layout_marginEnd="20dp"
+                android:text="[배드민턴][축구] 10월 10일 (화) 오전 10:00"
                 android:textSize="20dp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_area"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="[경기/하남시]"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_game"
-                app:layout_constraintStart_toEndOf="@+id/tv_game"
-                app:layout_constraintTop_toTopOf="@+id/tv_game" />
-
-            <TextView
-                android:id="@+id/tv_schedule"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="10/11일(수) 오전 10시"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_area"
-                app:layout_constraintStart_toEndOf="@+id/tv_area"
-                app:layout_constraintTop_toTopOf="@+id/tv_area" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
