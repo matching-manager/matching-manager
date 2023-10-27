@@ -2,7 +2,6 @@ package com.example.matching_manager.domain.usecase.geo
 
 import android.content.Context
 import android.location.Location
-import com.example.matching_manager.data.model.GeoAddress
 import com.example.matching_manager.domain.repository.GeoRepository
 
 class GetGeoLocationUseCase(
