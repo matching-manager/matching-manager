@@ -421,8 +421,13 @@ class TeamAddActivity : AppCompatActivity() {
             val setContent = etContent.text.toString()
             val selectedNumber = viewModel.number.value ?: 0 // 기본값을 0으로 설정
             val selectedAge = viewModel.age.value ?: 0 // 기본값을 0으로 설정
+            val selectedDate = binding.tvMonthDate.text.toString()
+            val selectedTime = binding.tvTime.text.toString()
+
             // 시간 포맷 변경 시작
             val formattedTime = formatTimeString().toString()
+
+
 
             val recruitment = getString(R.string.team_fragment_recruitment)
             val application = getString(R.string.team_fragment_application)
@@ -436,7 +441,7 @@ class TeamAddActivity : AppCompatActivity() {
                             type = recruitment, // 임의의 값으로 설정 (용병모집)
                             game = selectedGame,
                             area = selectedArea,//지역 설정하기 스피너 추가해야함
-                            schedule = unfined,//경기일정으로 되어있음 -> 달력바텀시트 만들어야함
+                            schedule = selectedDate + " " +selectedTime,//경기일정으로 되어있음 -> 달력바텀시트 만들어야함
                             teamProfile = 0,
                             playerNum = selectedNumber.toString()+"명",
                             pay = selectedFee,
