@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -315,6 +316,7 @@ class TeamAddActivity : AppCompatActivity() {
             }
         }
 
+        //date
         tvMonthDate.setOnClickListener {
             showCalenderPicker()
         }
@@ -437,6 +439,23 @@ class TeamAddActivity : AppCompatActivity() {
             val application = getString(R.string.team_fragment_application)
             val unfined = getString(R.string.undefined_test_value)
 
+            //예외처리
+            if (selectedGame.isBlank() ||
+                selectedArea.isBlank() ||
+                selectedGender.isBlank() ||
+                selectedLevel.isBlank() ||
+                selectedApplicationTime.isBlank() ||
+                selectedFee.isBlank() ||
+                selectedTeamName.isBlank() ||
+                setContent.isBlank() ||
+                selectedDate.isBlank() ||
+                selectedTime.isBlank()
+            ) {
+                // 선택되지 않은 값이 있을 때 토스트 메시지를 띄웁니다.
+                Toast.makeText(
+                    this@TeamAddActivity, "비어있는 칸이 있습니다. 값을 입력해주세요", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             val teamItem = when (entryType) {
                 TeamAddType.RECRUIT -> {
