@@ -16,22 +16,23 @@
 
         <ImageView
             android:id="@+id/iv_runner"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25sp"
+            android:layout_height="25sp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/ic_exercise"
+            android:src="@drawable/logo_handshake_green"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_home_logo"
-            android:layout_width="58dp"
-            android:layout_height="24dp"
-            android:text="LOGO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textStyle="bold"
+            android:layout_marginStart="3dp"
             android:textColor="@color/common_point_green"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="@id/iv_runner"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/iv_runner"
             app:layout_constraintTop_toTopOf="@id/iv_runner" />
 
