@@ -23,6 +23,8 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
         MyMatchViewModelFactory()
     }
 
+    private var dismissListener: OnDialogDismissListener? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -94,6 +96,19 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
             window?.setLayout(x, y)
         }
     }
+    interface OnDialogDismissListener {
+        fun onDismiss()
+    }
+    fun setOnDismissListener(listener: OnDialogDismissListener) {
+        dismissListener = listener
+    }
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+
+        // 다이얼로그가 닫힐 때 작업을 수행한 후 액티비티에 알림
+        dismissListener?.onDismiss()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

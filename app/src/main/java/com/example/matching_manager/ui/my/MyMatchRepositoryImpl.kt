@@ -44,6 +44,7 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
             "entryFee" to newData.entryFee,
             "description" to newData.description,
             "gender" to newData.gender,
+            "postImg" to newData.postImg
         )
         val snapshot = query.get().await()
         if (snapshot.exists()) {

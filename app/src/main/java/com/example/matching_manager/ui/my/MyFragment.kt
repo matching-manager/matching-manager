@@ -41,13 +41,18 @@ class MyFragment : Fragment() {
             onItemClick = {
                 startActivity(detailIntent(requireContext(), it))
             },
-            onEditClick = {
-                startActivity(editIntent(requireContext(), it))
+            onMenuClick = {
+                val myMatchMenuBottomSheet = MyMatchMenuBottomSheet(it)
+
+                val fragmentManager = requireActivity().supportFragmentManager
+                myMatchMenuBottomSheet.show(fragmentManager, myMatchMenuBottomSheet.tag)
+//                startActivity(editIntent(requireContext(), it))
             },
-            onRemoveClick = {
-                val dialog = MyDeleteDialog(it)
-                dialog.show(childFragmentManager, "deleteDialog")
-            })
+//            onRemoveClick = {
+//                val dialog = MyDeleteDialog(it)
+//                dialog.show(childFragmentManager, "deleteDialog")
+//            }
+        )
     }
 
     private lateinit var dialogBinding: DialogEditBinding
