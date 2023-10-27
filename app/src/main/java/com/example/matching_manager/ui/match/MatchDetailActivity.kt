@@ -13,6 +13,8 @@ import androidx.core.net.toUri
 import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchDetailActivityBinding
+import com.example.matching_manager.ui.fcm.send.SendFcmFragment
+import com.example.matching_manager.ui.fcm.send.SendType
 import com.example.matching_manager.ui.match.MatchFragment.Companion.OBJECT_DATA
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.text.DecimalFormat
@@ -65,9 +67,9 @@ class MatchDetailActivity : AppCompatActivity() {
         }
 
         btnCallMatch.setOnClickListener {
-//            SendFcmFragment().apply {
-//                arguments = Bundle().apply { putString(SendFcmFragment.INPUT_TYPE, SendType.MATCH.name) }
-//            }.show(supportFragmentManager, "SampleDialog")
+            SendFcmFragment().apply {
+                arguments = Bundle().apply { putString(SendFcmFragment.INPUT_TYPE, SendType.MATCH.name) }
+            }.show(supportFragmentManager, "SampleDialog")
         }
 
 
