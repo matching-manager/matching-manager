@@ -6,12 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchFilterCategoryBinding
-import com.example.matching_manager.databinding.TeamFilterCategoryBinding
-import com.example.matching_manager.ui.team.TeamFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class MatchFilterCategory : BottomSheetDialogFragment() {
@@ -197,15 +193,15 @@ class MatchFilterCategory : BottomSheetDialogFragment() {
             binding.citySpinner.setSelection(0)
         }
 
-        btnSearch.setOnClickListener {
-            //필터 적용
-
-            val game = selectedGame// 선택한 게임을 얻어오는 코드
-            val area = selectedArea// 선택한 지역을 얻어오는 코드
-
-            setFragmentResult(TeamFragment.CATEGORY_REQUEST_KEY, bundleOf(SELECTED_GAME to game,SELECTED_AREA to area))
-            dismiss()
-        }
+//        btnSearch.setOnClickListener {
+//            //필터 적용
+//
+//            val game = selectedGame// 선택한 게임을 얻어오는 코드
+//            val area = selectedArea// 선택한 지역을 얻어오는 코드
+//
+//            setFragmentResult(TeamFragment.CATEGORY_REQUEST_KEY, bundleOf(SELECTED_GAME to game,SELECTED_AREA to area))
+//            dismiss()
+//        }
     }
 
 
