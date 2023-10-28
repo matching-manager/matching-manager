@@ -3,7 +3,6 @@ package com.example.matching_manager.ui.my
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,28 +11,18 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.core.net.toUri
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MyMatchEditActivityBinding
-import com.example.matching_manager.ui.match.MatchDataModel
-import com.example.matching_manager.ui.match.MatchFragment
-import com.example.matching_manager.ui.match.MatchSharedViewModel
-import com.example.matching_manager.ui.match.MatchViewModel
-import com.example.matching_manager.ui.match.MatchWritingActivity
 import com.example.matching_manager.ui.my.bottomsheet.MyCalender
 import com.example.matching_manager.ui.my.bottomsheet.MyNumber
 import com.example.matching_manager.ui.my.bottomsheet.MyTime
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.UUID
 
 class MyMatchEditActivity : AppCompatActivity() {
     private lateinit var binding: MyMatchEditActivityBinding
@@ -290,6 +279,7 @@ class MyMatchEditActivity : AppCompatActivity() {
 //            } else {
 //                Toast.makeText(this@MyMatchEditActivity, "사진을 선택해 주세요.", Toast.LENGTH_SHORT).show()
 //            }
+            //현재는 예외처리는 전부 제외했기 때문에 전부 작성하고 글 올려야합니다!!
             uploadToFirebase(imageUri!!, data!!, editData)
         }
     }

@@ -21,5 +21,5 @@ data class MatchDataModel(
     var postImg : String = "",      //게시글 사진
     var viewCount: Int = 0,     //조회수
     var chatCount: Int = 0,  //신청수
-    var uploadTime : String = "2023-10-23 15:32:54"
+    var uploadTime : String = "2023-10-23 15:32:54" //업로드 시간
 ) : Parcelable

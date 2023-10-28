@@ -19,9 +19,6 @@ import com.example.matching_manager.databinding.MatchWritingActivityBinding
 import com.example.matching_manager.ui.match.bottomsheet.MatchCalender
 import com.example.matching_manager.ui.match.bottomsheet.MatchNumber
 import com.example.matching_manager.ui.match.bottomsheet.MatchTime
-import com.example.matching_manager.ui.my.bottomsheet.MyCalender
-import com.example.matching_manager.ui.my.bottomsheet.MyNumber
-import com.example.matching_manager.ui.my.bottomsheet.MyTime
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.time.LocalDateTime
@@ -265,7 +262,7 @@ class MatchWritingActivity : AppCompatActivity() {
 //            } else {
 //                Toast.makeText(this@MatchWritingActivity, "사진을 선택해 주세요.", Toast.LENGTH_SHORT).show()
 //            }
-            //현재는 예외처리는 전부 제외하고 글 올리게 해놨습니다
+            //현재는 예외처리는 전부 제외했기 때문에 전부 작성하고 글 올려야합니다!!
             uploadToFirebase(imageUri!!, match)
         }
 

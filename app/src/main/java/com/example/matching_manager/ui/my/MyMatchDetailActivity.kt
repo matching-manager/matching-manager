@@ -2,13 +2,11 @@ package com.example.matching_manager.ui.my
 
 import android.annotation.SuppressLint
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import coil.load
 import com.example.matching_manager.databinding.MyMatchDetailActivityBinding
-import com.example.matching_manager.ui.match.MatchDataModel
-import com.example.matching_manager.ui.match.MatchFragment
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar

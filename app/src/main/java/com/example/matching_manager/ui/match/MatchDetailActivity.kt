@@ -2,25 +2,16 @@ package com.example.matching_manager.ui.match
 
 import android.annotation.SuppressLint
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import coil.load
-import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchDetailActivityBinding
 import com.example.matching_manager.ui.fcm.send.SendFcmFragment
 import com.example.matching_manager.ui.fcm.send.SendType
 import com.example.matching_manager.ui.match.MatchFragment.Companion.OBJECT_DATA
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
@@ -28,6 +19,7 @@ class MatchDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: MatchDetailActivityBinding
 
+    //기능 버그로 임시 주석처리
 //    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 //
 //    private val bottomSheetLayout by lazy { findViewById<ConstraintLayout>(R.id.bottom_sheet_layout) }
@@ -76,8 +68,7 @@ class MatchDetailActivity : AppCompatActivity() {
                 arguments = Bundle().apply { putString(SendFcmFragment.INPUT_TYPE, SendType.MATCH.name) }
             }.show(supportFragmentManager, "SampleDialog")
         }
-
-
+        //기능 버그로 임시 주석처리
 //        initializePersistentBottomSheet()
 
 //        scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
@@ -92,9 +83,8 @@ class MatchDetailActivity : AppCompatActivity() {
 //                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 //            }
 //        }
-
     }
-
+    //기능 버그로 임시 주석처리
 //    private fun initializePersistentBottomSheet() {
 //
 //        // BottomSheetBehavior에 layout 설정

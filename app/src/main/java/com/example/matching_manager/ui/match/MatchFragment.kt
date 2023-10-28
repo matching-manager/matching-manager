@@ -43,6 +43,7 @@ class MatchFragment : Fragment() {
             return intent
         }
 
+        //로그인 기능 구현 후 유저 아이디 보내줘야함
         fun writeIntent(context: Context, userId: String): Intent {
             val intent = Intent(context, MatchWritingActivity::class.java)
             intent.putExtra(ID_DATA, userId)

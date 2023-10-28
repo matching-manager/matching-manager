@@ -1,8 +1,6 @@
 package com.example.matching_manager.ui.match
 
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
 class MatchRepositoryImpl() : MatchRepository {
