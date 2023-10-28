@@ -64,8 +64,8 @@
                 android:background="@color/common_point_grey"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_team_name"
-                app:layout_constraintStart_toStartOf="@+id/tv_arena_title"
-                app:layout_constraintTop_toBottomOf="@+id/tv_arena_title"
+                app:layout_constraintStart_toStartOf="@+id/tv_arena_title2"
+                app:layout_constraintTop_toBottomOf="@+id/tv_arena_title2"
                 app:shapeAppearanceOverlay="@style/RoundedShape" />
 
             <TextView
@@ -330,9 +330,10 @@
 
                     <TextView
                         android:id="@+id/tv_pay"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:gravity="center"
                         android:text="@string/team_detail_price"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -372,9 +373,10 @@
 
                     <TextView
                         android:id="@+id/tv_team_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:gravity="center"
                         android:text="@string/team_detail_team_name"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -388,13 +390,14 @@
 
 
             <TextView
-                android:id="@+id/tv_content"
+                android:id="@+id/tv_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp"
                 android:text="@string/match_detail_description"
+                android:textStyle="bold"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardview4" />
@@ -406,14 +409,14 @@
                 android:layout_height="200dp"
                 android:layout_margin="20dp"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintStart_toStartOf="@+id/tv_content"
-                app:layout_constraintTop_toBottomOf="@+id/tv_content">
+                app:layout_constraintStart_toStartOf="@+id/tv_description"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description">
 
                 <ImageView
                     android:id="@+id/iv_team"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="center"
+                    android:scaleType="centerCrop"
                     android:background="@color/common_gray"/>
             </androidx.cardview.widget.CardView>
 
@@ -432,26 +435,39 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:text="@string/match_detail_title"
+                android:text="[종목] 일정"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/tv_arena_title2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="장소"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/tv_arena_title"
+                app:layout_constraintStart_toStartOf="@+id/tv_arena_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_arena_title" />
+
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="5dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView8"
-                app:layout_constraintEnd_toStartOf="@+id/textView8"
-                app:layout_constraintTop_toTopOf="@+id/textView8"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_view_count"
+                app:layout_constraintEnd_toStartOf="@+id/tv_view_count"
+                app:layout_constraintTop_toTopOf="@+id/tv_view_count"
                 app:srcCompat="@drawable/ic_eye"
                 android:alpha="0.6"/>
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/tv_view_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
