@@ -137,7 +137,6 @@ class TeamViewModel : ViewModel() {
     fun clearFilter() {
         _list.value = originalList // 현재 _list에 있는 값을 다시 할당하여 불러오기
     }
-
 }
 
 
