@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="종목"
-                        android:textSize="18"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
