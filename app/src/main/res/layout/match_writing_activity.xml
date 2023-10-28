@@ -86,6 +86,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
+                        android:maxLines="1"
                         android:hint="팀명을 입력해주세요." />
                 </LinearLayout>
 
@@ -256,6 +257,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
+                        android:maxLines="2"
                         android:hint="위치를 입력해 주세요." />
 
                 </LinearLayout>
@@ -317,6 +319,40 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
+                        android:text="실력"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/level_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/spinner_selector" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview9"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:background="@color/common_point_green"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/cardview8"
+                app:layout_constraintTop_toBottomOf="@+id/cardview8">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginTop="8dp"
                         android:text="회비"
                         android:textSize="18dp"
@@ -329,22 +365,23 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:hint="내용을 입력해 주세요." />
+                        android:maxLines="1"
+                        android:hint="5,000원/무료" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardview9"
+                android:id="@+id/cardview10"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
                 android:background="@color/common_point_green"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/cardview8"
-                app:layout_constraintStart_toStartOf="@+id/cardview8"
-                app:layout_constraintTop_toBottomOf="@+id/cardview8">
+                app:layout_constraintEnd_toEndOf="@+id/cardview9"
+                app:layout_constraintStart_toStartOf="@+id/cardview9"
+                app:layout_constraintTop_toBottomOf="@+id/cardview9">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -373,15 +410,15 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardview10"
+                android:id="@+id/cardview11"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_margin="10dp"
                 android:background="@color/common_point_green"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/cardview9"
-                app:layout_constraintStart_toStartOf="@+id/cardview9"
-                app:layout_constraintTop_toBottomOf="@+id/cardview9">
+                app:layout_constraintEnd_toEndOf="@+id/cardview10"
+                app:layout_constraintStart_toStartOf="@+id/cardview10"
+                app:layout_constraintTop_toBottomOf="@+id/cardview10">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -453,7 +490,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardview10" />
+                app:layout_constraintTop_toBottomOf="@id/cardview11" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

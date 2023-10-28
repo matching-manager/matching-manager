@@ -6,23 +6,17 @@ import androidx.lifecycle.ViewModel
 
 class MatchSharedViewModel : ViewModel() {
     private val _number: MutableLiveData<Int> = MutableLiveData()
-    private val _age: MutableLiveData<Int> = MutableLiveData()
     private val _teamTime = MutableLiveData<Triple<Int, Int, String>>() // 시간, 분, 오전/오후
     private val _calendar = MutableLiveData<Quad<Int, Int, Int, String>>() // 년,월,일,요일
 
 
     val number: LiveData<Int> get() = _number
-//    val age: LiveData<Int> get() = _age
     val teamTime: LiveData<Triple<Int, Int, String>> get() = _teamTime
     val calendar: LiveData<Quad<Int, Int, Int, String>> get() = _calendar
 
     fun updateTeamNumber(num: Int) {
         _number.value = num
     }
-
-//    fun updateTeamAge(age: Int) {
-//        _age.value = age
-//    }
 
     fun updateTeamTime(hour: Int, minute: Int, amPm: String) {
         _teamTime.value = Triple(hour, minute, amPm)

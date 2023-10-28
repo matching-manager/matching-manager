@@ -78,20 +78,20 @@ class TeamWritingActivity : AppCompatActivity() {
         initViewModel()
     }
 
-    private fun initViewModel() {
+    private fun initViewModel() = with(binding) {
         with(sheardViewModel) {
             number.observe(this@TeamWritingActivity, Observer {
                 Log.d("teamNumber", "activity = $it")
-                binding.teamNumber.text = it.toString()
+                teamNumber.text = it.toString()
             })
             age.observe(this@TeamWritingActivity, Observer {
                 Log.d("teamAge", "activity = $it")
-                binding.teamAge.text = it.toString()
+                teamAge.text = it.toString()
             })
             teamTime.observe(this@TeamWritingActivity, Observer { (hour, minute, amPm) ->
                 val time = String.format("%s %02d:%02d", amPm, hour, minute)
                 Log.d("teamTime", "activity = $time")
-                binding.tvTime.text = time
+                tvTime.text = time
             })
             calendar.observe(
                 this@TeamWritingActivity,
@@ -99,7 +99,7 @@ class TeamWritingActivity : AppCompatActivity() {
                     val date =
                         String.format("%02d월 %02d일 %s", month, dayOfMonth, dayOfWeek)
                     Log.d("teamTime", "activity = $date")
-                    binding.tvMonthDate.text = date
+                    tvMonthDate.text = date
                 })
         }
     }
@@ -435,8 +435,8 @@ class TeamWritingActivity : AppCompatActivity() {
             val setContent = etContent.text.toString()
             val selectedNumber = sheardViewModel.number.value ?: 0 // 기본값을 0으로 설정
             val selectedAge = sheardViewModel.age.value ?: 0 // 기본값을 0으로 설정
-            val selectedDate = binding.tvMonthDate.text.toString()
-            val selectedTime = binding.tvTime.text.toString()
+            val selectedDate = tvMonthDate.text.toString()
+            val selectedTime = tvTime.text.toString()
 
             // 시간 포맷 변경 시작
             val formattedTime = formatTimeString().toString()
@@ -446,23 +446,23 @@ class TeamWritingActivity : AppCompatActivity() {
             val application = getString(R.string.team_fragment_application)
             val unfined = getString(R.string.undefined_test_value)
 
-            //예외처리
-            if (selectedGame.isBlank() ||
-                selectedArea.isBlank() ||
-                selectedGender.isBlank() ||
-                selectedLevel.isBlank() ||
-                selectedApplicationTime.isBlank() ||
-                selectedFee.isBlank() ||
-                selectedTeamName.isBlank() ||
-                setContent.isBlank() ||
-                selectedDate.isBlank() ||
-                selectedTime.isBlank()
-            ) {
-                // 선택되지 않은 값이 있을 때 토스트 메시지를 띄웁니다.
-                Toast.makeText(
-                    this@TeamWritingActivity, "비어있는 칸이 있습니다. 값을 입력해주세요", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+//            //예외처리
+//            if (selectedGame.isBlank() ||
+//                selectedArea.isBlank() ||
+//                selectedGender.isBlank() ||
+//                selectedLevel.isBlank() ||
+//                selectedApplicationTime.isBlank() ||
+//                selectedFee.isBlank() ||
+//                selectedTeamName.isBlank() ||
+//                setContent.isBlank() ||
+//                selectedDate.isBlank() ||
+//                selectedTime.isBlank()
+//            ) {
+//                // 선택되지 않은 값이 있을 때 토스트 메시지를 띄웁니다.
+//                Toast.makeText(
+//                    this@TeamWritingActivity, "비어있는 칸이 있습니다. 값을 입력해주세요", Toast.LENGTH_SHORT).show()
+//                return@setOnClickListener
+//            }
 
             val teamItem = when (entryType) {
                 TeamAddType.RECRUIT -> {

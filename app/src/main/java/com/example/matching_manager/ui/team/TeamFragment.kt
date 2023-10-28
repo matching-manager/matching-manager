@@ -115,7 +115,7 @@ class TeamFragment : Fragment() {
 
                 when (result) {
                     TeamAddCategory.RETURN_TYPE_RECRUITMENT -> {
-                        val intent = TeamAddActivity.newIntentForAddRecruit(
+                        val intent = TeamWritingActivity.newIntentForAddRecruit(
                             requireContext(),
                             TeamAddType.RECRUIT.name
                         )
@@ -123,7 +123,7 @@ class TeamFragment : Fragment() {
                     }
 
                     TeamAddCategory.RETURN_TYPE_APPLICATION -> {
-                        val intent = TeamAddActivity.newIntentForAddApplication(
+                        val intent = TeamWritingActivity.newIntentForAddApplication(
                             requireContext(),
                             TeamAddType.APPLICATION.name
                         )
