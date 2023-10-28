@@ -5,10 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.example.matching_manager.databinding.TeamAgeBinding
-import com.example.matching_manager.databinding.TeamCalenderBinding
 import com.example.matching_manager.databinding.TeamTimeBinding
-import com.example.matching_manager.ui.team.TeamAddActivity
 import com.example.matching_manager.ui.team.view.TeamSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

@@ -1,6 +1,5 @@
 package com.example.matching_manager.ui.team.bottomsheet
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,9 +8,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.example.matching_manager.databinding.TeamAddCategoryBinding
-import com.example.matching_manager.ui.team.TeamAddActivity
-import com.example.matching_manager.ui.team.TeamAddType
-import com.example.matching_manager.ui.team.TeamFragment
 import com.example.matching_manager.ui.team.TeamFragment.Companion.FRAGMENT_REQUEST_KEY
 import com.example.matching_manager.ui.team.TeamFragment.Companion.FRAGMENT_RETURN_TYPE
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

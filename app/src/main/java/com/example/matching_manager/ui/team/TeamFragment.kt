@@ -39,12 +39,12 @@ class TeamFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             val teamModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 result.data?.getParcelableExtra(
-                    TeamAddActivity.EXTRA_TEAM_MODEL,
+                    TeamWritingActivity.EXTRA_TEAM_MODEL,
                     TeamItem::class.java
                 )
             } else {
                 result.data?.getParcelableExtra(
-                    TeamAddActivity.EXTRA_TEAM_MODEL,
+                    TeamWritingActivity.EXTRA_TEAM_MODEL,
                 )
             }
 
@@ -115,7 +115,7 @@ class TeamFragment : Fragment() {
 
                 when (result) {
                     TeamAddCategory.RETURN_TYPE_RECRUITMENT -> {
-                        val intent = TeamAddActivity.newIntentForAddRecruit(
+                        val intent = team.newIntentForAddRecruit(
                             requireContext(),
                             TeamAddType.RECRUIT.name
                         )
@@ -123,7 +123,7 @@ class TeamFragment : Fragment() {
                     }
 
                     TeamAddCategory.RETURN_TYPE_APPLICATION -> {
-                        val intent = TeamAddActivity.newIntentForAddApplication(
+                        val intent = team.newIntentForAddApplication(
                             requireContext(),
                             TeamAddType.APPLICATION.name
                         )

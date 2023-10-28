@@ -17,45 +17,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
 
-
     <TextView
         android:id="@+id/tv_dialog_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="매치 글쓰기"
+        android:text=""
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
         app:layout_constraintStart_toEndOf="@+id/btn_cancel"
         app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:translationZ="10dp"/>
-
-
-
     <ScrollView
-        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_cancel"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintTop_toBottomOf="@+id/btn_cancel">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -78,20 +59,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="3dp"
-                        android:text="팀명"
-                        android:textSize="20dp"
+                        android:text="종목"
+                        android:textSize="18"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/et_team_name"
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/game_spinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:hint="내용을 입력해 주세요." />
+                        android:background="@drawable/spinner_selector" />
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_radius"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:background="@color/common_point_green"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="false"
+                app:contentPadding="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="10dp">
+
 
             </androidx.cardview.widget.CardView>
 
@@ -115,27 +108,40 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="3dp"
-                        android:text="종목"
-                        android:textSize="20dp"
+                        android:text="위치"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/game_spinner"
-                        android:layout_width="match_parent"
+                        android:id="@+id/city_spinner"
+                        android:layout_width="110dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/spinner_selector" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/sigungu_spinner"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/spinner_selector" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/dong_spinner"
+                        android:layout_width="90dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/spinner_selector"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardview4"
+                android:id="@+id/cv_application_time"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
                 android:background="@color/common_point_green"
+                android:visibility="invisible"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/cardview3"
                 app:layout_constraintStart_toStartOf="@+id/cardview3"
@@ -147,6 +153,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_application_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -155,14 +162,59 @@
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/et_schedule"
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/time_spinner"
                         android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/spinner_selector" />
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_recruit_time"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:background="@color/common_point_green"
+                android:visibility="visible"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardview3"
+                app:layout_constraintStart_toStartOf="@+id/cardview3"
+                app:layout_constraintTop_toBottomOf="@+id/cardview3">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_recruit_time"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:hint="내용을 입력해 주세요." />
+                        android:text="일정"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_month_date"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="center"
+                        android:hint="10월 10일 (화)"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:hint="오전 10:00"
+                        android:textSize="18dp" />
 
 
                 </LinearLayout>
@@ -177,9 +229,9 @@
                 android:layout_margin="10dp"
                 android:background="@color/common_point_green"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/cardview4"
-                app:layout_constraintStart_toStartOf="@+id/cardview4"
-                app:layout_constraintTop_toBottomOf="@+id/cardview4">
+                app:layout_constraintEnd_toEndOf="@+id/cv_application_time"
+                app:layout_constraintStart_toStartOf="@+id/cv_application_time"
+                app:layout_constraintTop_toBottomOf="@+id/cv_application_time">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -190,30 +242,37 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="3dp"
-                        android:text="상대 인원"
-                        android:textSize="20dp"
+                        android:text="인원"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/et_player_num"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                    <TextView
+                        android:id="@+id/team_number"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:hint="내용을 입력해 주세요." />
+                        android:gravity="center"
+                        android:hint="0"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:text="명"
+                        android:textSize="18dp" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardview6"
+                android:id="@+id/cv_application_age"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
                 android:background="@color/common_point_green"
+                android:visibility="invisible"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/cardview5"
                 app:layout_constraintStart_toStartOf="@+id/cardview5"
@@ -228,19 +287,107 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="15dp"
-                        android:text="위치"
+                        android:text="나이"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/team_age"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="center"
+                        android:hint="0"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:text="살"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_team_name"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:background="@color/common_point_green"
+                android:visibility="invisible"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardview5"
+                app:layout_constraintStart_toStartOf="@+id/cardview5"
+                app:layout_constraintTop_toBottomOf="@+id/cardview5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="8dp"
+                        android:text="팀명"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/tv_team_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:hint="팀 이름을 입력 해 주세요." />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_fee"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:background="@color/common_point_green"
+                android:visibility="gone"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/cv_application_age"
+                app:layout_constraintStart_toStartOf="@+id/cv_application_age"
+                app:layout_constraintTop_toBottomOf="@+id/cv_application_age"
+                tools:layout_editor_absoluteY="290dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:text="회비"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/et_match_place"
+                        android:id="@+id/tv_fee"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:hint="내용을 입력해 주세요." />
+                        android:hint="ex.5000원/무료"
+                        android:maxLines="1" />
+
 
                 </LinearLayout>
 
@@ -253,9 +400,9 @@
                 android:layout_margin="10dp"
                 android:background="@color/common_point_green"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/cardview6"
-                app:layout_constraintStart_toStartOf="@+id/cardview6"
-                app:layout_constraintTop_toBottomOf="@+id/cardview6">
+                app:layout_constraintEnd_toEndOf="@+id/cv_fee"
+                app:layout_constraintStart_toStartOf="@+id/cv_fee"
+                app:layout_constraintTop_toBottomOf="@+id/cv_fee">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -266,9 +413,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="3dp"
                         android:text="성별"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -302,20 +448,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="3dp"
-                        android:text="참가비"
-                        android:textSize="20dp"
+                        android:text="실력"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/et_entry_fee"
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/level_spinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:hint="내용을 입력해 주세요." />
-
+                        android:background="@drawable/spinner_selector" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -323,7 +465,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview9"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/common_point_green"
                 app:cardCornerRadius="10dp"
@@ -333,24 +475,24 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:text="내용"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/et_discription"
+                        android:id="@+id/et_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:hint="내용을 입력해 주세요." />
                 </LinearLayout>
@@ -379,7 +521,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="사진"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -398,7 +540,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
                         <ImageView
-                            android:id="@+id/iv_team"
+                            android:id="@+id/iv_image"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="center"
@@ -419,21 +561,19 @@
                         app:layout_constraintBottom_toBottomOf="@+id/textView4"
                         app:layout_constraintEnd_toEndOf="@+id/cv_photo1"
                         app:layout_constraintTop_toTopOf="@+id/textView4" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/tab_btn_green"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/tab_btn_green"
                 android:text="등록하기"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
