@@ -11,8 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:scaleType="centerCrop"
+        android:background="@color/common_transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
@@ -45,7 +46,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_cancel"
         app:layout_constraintVertical_bias="1.0"
@@ -298,7 +299,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardview8"
+                android:id="@+id/cardview11"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
@@ -307,6 +308,40 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/cardview7"
                 app:layout_constraintTop_toBottomOf="@+id/cardview7">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="실력"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/level_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/spinner_selector" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview8"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:background="@color/common_point_green"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/cardview11"
+                app:layout_constraintTop_toBottomOf="@+id/cardview11">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -329,7 +364,8 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:hint="내용을 입력해 주세요." />
+                        android:hint="내용을 입력해 주세요."
+                        android:inputType="number"/>
 
                 </LinearLayout>
 
@@ -416,7 +452,7 @@
                             android:id="@+id/iv_team"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="center"
+                            android:scaleType="centerCrop"
                             android:background="@color/common_gray" />
 
                     </androidx.cardview.widget.CardView>

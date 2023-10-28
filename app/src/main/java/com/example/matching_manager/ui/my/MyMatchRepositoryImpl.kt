@@ -39,11 +39,12 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
             "teamName" to newData.teamName,
             "game" to newData.game,
             "schedule" to newData.schedule,
-            "matchPlace" to newData.matchPlace,
             "playerNum" to newData.playerNum,
+            "matchPlace" to newData.matchPlace,
+            "gender" to newData.gender,
+            "level" to newData.level,
             "entryFee" to newData.entryFee,
             "description" to newData.description,
-            "gender" to newData.gender,
             "postImg" to newData.postImg
         )
         val snapshot = query.get().await()

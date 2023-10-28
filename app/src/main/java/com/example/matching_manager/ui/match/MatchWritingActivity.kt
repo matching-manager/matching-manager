@@ -19,12 +19,6 @@ import com.example.matching_manager.databinding.MatchWritingActivityBinding
 import com.example.matching_manager.ui.match.bottomsheet.MatchCalender
 import com.example.matching_manager.ui.match.bottomsheet.MatchNumber
 import com.example.matching_manager.ui.match.bottomsheet.MatchTime
-import com.example.matching_manager.ui.team.TeamWritingActivity
-import com.example.matching_manager.ui.team.bottomsheet.TeamAge
-import com.example.matching_manager.ui.team.bottomsheet.TeamCalender
-import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
-import com.example.matching_manager.ui.team.bottomsheet.TeamTime
-import com.example.matching_manager.ui.team.view.TeamSharedViewModel
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.time.LocalDateTime
@@ -38,7 +32,7 @@ class MatchWritingActivity : AppCompatActivity() {
     private val viewModel: MatchViewModel by viewModels {
         MatchViewModelFactory()
     }
-    private val sheardViewModel: MatchSharedViewModel by viewModels()
+    private val sharedViewModel: MatchSharedViewModel by viewModels()
 
     private val reference: StorageReference = FirebaseStorage.getInstance().reference
     private var imageUri: Uri? = null
@@ -49,17 +43,6 @@ class MatchWritingActivity : AppCompatActivity() {
 
     companion object {
         const val ID_DATA = "item_userId"
-
-        const val REVIEW_MIN_LENGTH = 10
-
-        // 갤러리 권한 요청
-        const val REQ_GALLERY = 1
-
-        // API 호출시 Parameter key값
-        const val PARAM_KEY_IMAGE = "image"
-        const val PARAM_KEY_PRODUCT_ID = "product_id"
-        const val PARAM_KEY_REVIEW = "review_content"
-        const val PARAM_KEY_RATING = "rating"
 
         //바텀시트호출
         const val MATCH_NUMBER_BOTTOM_SHEET = "match_number_bottom_sheet"
@@ -75,43 +58,6 @@ class MatchWritingActivity : AppCompatActivity() {
         initView()
         initViewModel()
         setSpinner()
-    }
-
-    private fun initViewModel() = with(binding) {
-        with(viewModel) {
-            event.observe(this@MatchWritingActivity) {
-                when (it) {
-                    is MatchEvent.Finish -> {
-                        finish()
-                    }
-
-                    else -> {
-                    }
-                }
-            }
-        }
-        with(sheardViewModel) {
-            number.observe(this@MatchWritingActivity, Observer {
-                Log.d("teamNumber", "activity = $it")
-                tvTeamNumber1.text = it.toString()
-                tvTeamNumber2.text = it.toString()
-
-            })
-            teamTime.observe(this@MatchWritingActivity, Observer { (hour, minute, amPm) ->
-                val time = String.format("%s %02d:%02d", amPm, hour, minute)
-                Log.d("teamTime", "activity = $time")
-                tvTime.text = time
-            })
-            calendar.observe(
-                this@MatchWritingActivity,
-                Observer { (year, month, dayOfMonth, dayOfWeek) ->
-                    val date =
-                        String.format("%02d월 %02d일 %s", month, dayOfMonth, dayOfWeek)
-                    Log.d("teamTime", "activity = $date")
-                    tvMonthDate.text = date
-                })
-        }
-
     }
 
     private fun setSpinner() = with(binding) {
@@ -200,6 +146,42 @@ class MatchWritingActivity : AppCompatActivity() {
         }
         tvTeamNumber1.setOnClickListener(clickListener)
         tvTeamNumber2.setOnClickListener(clickListener)
+    }
+
+    private fun initViewModel() = with(binding) {
+        with(viewModel) {
+            event.observe(this@MatchWritingActivity) {
+                when (it) {
+                    is MatchEvent.Finish -> {
+                        finish()
+                    }
+
+                    else -> {
+                    }
+                }
+            }
+        }
+        with(sharedViewModel) {
+            number.observe(this@MatchWritingActivity, Observer {
+                Log.d("teamNumber", "activity = $it")
+                tvTeamNumber1.text = it.toString()
+                tvTeamNumber2.text = it.toString()
+
+            })
+            teamTime.observe(this@MatchWritingActivity, Observer { (hour, minute, amPm) ->
+                val time = String.format("%s %02d:%02d", amPm, hour, minute)
+                Log.d("teamTime", "activity = $time")
+                tvTime.text = time
+            })
+            calendar.observe(
+                this@MatchWritingActivity,
+                Observer { (year, month, dayOfMonth, dayOfWeek) ->
+                    val date =
+                        String.format("%02d월 %02d일 %s", month, dayOfMonth, dayOfWeek)
+                    Log.d("teamTime", "activity = $date")
+                    tvMonthDate.text = date
+                })
+        }
 
     }
 
@@ -222,18 +204,9 @@ class MatchWritingActivity : AppCompatActivity() {
     @SuppressLint("SuspiciousIndentation")
     private fun initView() = with(binding) {
 
-        val matchId = UUID.randomUUID().toString()
-        val teamName = etTeamName?.text?.toString() ?: "" // Elvis 연산자를 사용하여 null일 경우 ""으로 초기화합니다.
-        val game = "[" + (gameSpinner?.selectedItem?.toString() ?: "") + "]"
-        val date = tvMonthDate?.text?.toString() ?: ""
-        val time = tvTime?.text?.toString() ?: ""
-        val playerNum = sheardViewModel.number.value ?: 0
-        val matchPlace = etMatchPlace?.text?.toString() ?: ""
-        val gender = genderSpinner?.selectedItem?.toString() ?: ""
-        val level = levelSpinner?.selectedItem?.toString() ?: ""
-        val entryFee = etEntryFee?.text?.toString() ?: ""
-        val description = etDiscription?.text?.toString() ?: ""
-        val uploadTime = getCurrentTime()
+        //matchFragment에서 가져오는 userID
+        val userId = intent.getStringExtra(ID_DATA)
+        Log.d("userId", "${userId}")
 
         //back button
         btnCancel.setOnClickListener {
@@ -241,26 +214,30 @@ class MatchWritingActivity : AppCompatActivity() {
         }
 
         btnSubmit.setOnClickListener {
-            Log.d("gameSave", "${game}")
-            //테스트용 객체
-//            val dummyMatch = MatchDataModel(
-//                matchId = matchId,
-//                schedule = "$date $time",
-//                game = game,
-//                uploadTime = uploadTime
-//            )
-            //실제 객체
+            val matchId = UUID.randomUUID().toString()
+            val teamName = etTeamName?.text?.toString() ?: "" // Elvis 연산자를 사용하여 null일 경우 ""으로 초기화합니다.
+            val game = (gameSpinner?.selectedItem?.toString() ?: "")
+            val schedule = "${tvMonthDate?.text?.toString()} ${tvTime?.text?.toString()}"
+            val playerNum = sharedViewModel.number.value ?: 0
+            val matchPlace = etMatchPlace?.text?.toString() ?: ""
+            val gender = genderSpinner?.selectedItem?.toString() ?: ""
+            val level = levelSpinner?.selectedItem?.toString() ?: ""
+            val entryFee = etEntryFee?.text?.toString()?.toInt() ?: 0
+            val description = etDiscription?.text?.toString() ?: ""
+            val uploadTime = getCurrentTime()
+
+            //현재 유저 아이디 및 유저 닉네임은 임시, 나중에 로그인 기능 구현되면 추가해야함
             val match = MatchDataModel(
                 matchId = matchId,
                 teamName = teamName,
                 game = game,
-                schedule = "$date $time",
-                matchPlace = matchPlace,
+                schedule = schedule,
                 playerNum = playerNum,
-                entryFee = entryFee.toInt(),
-                description = description,
+                matchPlace = matchPlace,
                 gender = gender,
                 level = level,
+                entryFee = entryFee,
+                description = description,
                 viewCount = 0,
                 chatCount = 0,
                 uploadTime = uploadTime
@@ -281,10 +258,12 @@ class MatchWritingActivity : AppCompatActivity() {
 //            }
             //사진 예외처리
 //            if (imageUri != null) {
-//                uploadToFirebase(imageUri!!, dummyMatch)
+//                uploadToFirebase(imageUri!!, match)
 //            } else {
 //                Toast.makeText(this@MatchWritingActivity, "사진을 선택해 주세요.", Toast.LENGTH_SHORT).show()
 //            }
+            //현재는 예외처리는 전부 제외했기 때문에 전부 작성하고 글 올려야합니다!!
+            uploadToFirebase(imageUri!!, match)
         }
 
         tvAddImage.setOnClickListener {
@@ -292,11 +271,6 @@ class MatchWritingActivity : AppCompatActivity() {
             galleryIntent.type = "image/"
             imageResult.launch(galleryIntent)
         }
-
-        val userId = intent.getStringExtra(ID_DATA)
-        Log.d("MatchWritingActivity", "userId = $userId")
-
-
     }
 
     private fun getCurrentTime(): String {

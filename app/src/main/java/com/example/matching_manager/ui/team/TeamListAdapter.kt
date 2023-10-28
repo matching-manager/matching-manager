@@ -93,8 +93,6 @@ class TeamListAdapter(
                 ivProfile.setImageResource(item.teamProfile)
                 tvType.text = item.type
                 tvDetail.text = "${item.gender} ${item.playerNum}"
-                tvViewCount.text = item.viewCount.toString()
-                tvChatCount.text = item.chatCount.toString()
                 tvSchedule.text = item.schedule
                 tvPlace.text = item.area
                 itemView.setOnClickListener {
@@ -117,8 +115,6 @@ class TeamListAdapter(
                 ivProfile.setImageResource(item.teamProfile)
                 tvType.text = item.type
                 tvDetail.text = "${item.gender} ${item.playerNum}"
-                tvViewCount.text = item.viewCount.toString()
-                tvChatCount.text = item.chatCount.toString()
                 tvSchedule.text = item.schedule
                 tvPlace.text = item.area
                 //제목 넣어야함
