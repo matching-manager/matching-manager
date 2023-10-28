@@ -112,9 +112,12 @@ class MatchWritingActivity : AppCompatActivity() {
                 })
         }
 
-    }
+        val userId = intent.getStringExtra(ID_DATA)
+        Log.d("MatchWritingActivity", "userId = $userId")
 
-    private fun setSpinner() = with(binding) {
+        var selectedGame = ""
+        var selectedGender = ""
+
         // spinner adapter
         //종목 스피너
         val gameAdapter = ArrayAdapter.createFromResource(
