@@ -16,13 +16,13 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
     private val _list: MutableLiveData<List<MyMatchDataModel>> = MutableLiveData()
     val list: LiveData<List<MyMatchDataModel>> get() = _list
 
-    val userId = "userId"
+    val userId = "testUser"
 
     private val _event: MutableLiveData<MatchEvent> = MutableLiveData()
     val event: LiveData<MatchEvent> get() = _event
 
-    val database = Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
-    val matchRef = database.getReference("Match")
+    private val database = Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
+    private val matchRef = database.getReference("Match")
 
 
     fun fetchData(userId : String) {
