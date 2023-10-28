@@ -149,9 +149,8 @@ class MyMatchEditActivity : AppCompatActivity() {
         val game = selectedGame
         val date = tvMonthDate.text.toString()
         val time = tvTime.text.toString()
-        val schedule = "$date +$time"
-        val playerNum = "$playerNum 1VS$playerNum2"
-        val playerNum1 = tvTeamNumber1.text.toString()
+        val schedule = "$date +$time "
+        val playerNum1 = tvTeamNumber2.text.toString()
         val playerNum2 = tvTeamNumber2.text.toString()
         val matchPlace = etMatchPlace.text.toString()
         val gender = selectedGender
@@ -162,7 +161,7 @@ class MyMatchEditActivity : AppCompatActivity() {
         btnSubmit.setOnClickListener {
             val dummyEditData = MyMatchDataModel(
                 matchId = etTeamName.text.toString(),
-                schedule = schedule
+                schedule = tvMonthDate.text.toString(),
                 uploadTime = uploadTime
             )
             val editData = MyMatchDataModel(
@@ -171,7 +170,7 @@ class MyMatchEditActivity : AppCompatActivity() {
                 game = game,
                 schedule = schedule,
                 matchPlace = matchPlace,
-                playerNum = playerNum.toInt(),
+                playerNum = playerNum1.toInt(),
                 entryFee = entryFee.toInt(),
                 description = description,
                 gender = gender,
