@@ -1,21 +1,24 @@
-package com.example.matching_manager.ui.team.bottomsheet
+package com.example.matching_manager.ui.match.bottomsheet
 
 import android.os.Bundle
+import android.service.autofill.FieldClassification.Match
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.example.matching_manager.databinding.TeamAgeBinding
+import com.example.matching_manager.databinding.MatchTimeBinding
+import com.example.matching_manager.databinding.TeamTimeBinding
+import com.example.matching_manager.ui.match.MatchSharedViewModel
 import com.example.matching_manager.ui.team.view.TeamSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class TeamAge : BottomSheetDialogFragment() {
+class MatchTime : BottomSheetDialogFragment() {
 
-    private var _binding: TeamAgeBinding? = null
+    private var _binding: MatchTimeBinding? = null
     private val binding get() = _binding!!
 
-    private val sharedViewModel : TeamSharedViewModel by activityViewModels()
+    private val sharedViewModel: MatchSharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,26 +27,21 @@ class TeamAge : BottomSheetDialogFragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        _binding = TeamAgeBinding.inflate(inflater, container, false)
+        _binding = MatchTimeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setNumber()
         initView()
     }
-
-    private fun setNumber() = with(binding) {
-        // NumberPicker의 범위 설정 (1명부터 20명까지)
-        pickerAge.minValue = 0
-        pickerAge.maxValue = 100
-    }
-
     private fun initView() = with(binding) {
         btnSave.setOnClickListener {
-            var age =pickerAge.value
-            sharedViewModel.updateTeamAge(age)
+            val hour = pickerTime.hour
+            val minute = pickerTime.minute
+            val amPm = if (hour < 12) "오전" else "오후"
+
+            sharedViewModel.updateTeamTime(hour, minute, amPm)
             dismiss() // BottomSheet 닫기
         }
         btnCancel.setOnClickListener {

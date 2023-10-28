@@ -39,7 +39,7 @@
             android:name=".ui.match.MatchWritingActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.team.TeamAddActivity"
+            android:name=".ui.team.TeamWritingActivity"
             android:exported="false" />
         <activity
             android:name=".ui.match.MatchDetailActivity"

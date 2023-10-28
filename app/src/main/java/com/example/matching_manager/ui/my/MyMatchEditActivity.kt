@@ -39,15 +39,14 @@ class MyMatchEditActivity : AppCompatActivity() {
     private val reference: StorageReference = FirebaseStorage.getInstance().reference
 
     private val data: MyMatchDataModel? by lazy {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(OBJECT_DATA, MyMatchDataModel::class.java)
-        }
-        else {
+        } else {
             intent.getParcelableExtra<MyMatchDataModel>(OBJECT_DATA)
         }
     }
 
-    private var imageUri : Uri? = null
+    private var imageUri: Uri? = null
 
     companion object {
         const val OBJECT_DATA = "item_object"
@@ -65,6 +64,7 @@ class MyMatchEditActivity : AppCompatActivity() {
                 is MatchEvent.Finish -> {
                     finish()
                 }
+
                 is MatchEvent.Dismiss -> {
                 }
             }
@@ -104,7 +104,7 @@ class MyMatchEditActivity : AppCompatActivity() {
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
-                id: Long
+                id: Long,
             ) {
                 selectedGame = gameAdapter.getItem(position).toString()
             }
@@ -119,7 +119,7 @@ class MyMatchEditActivity : AppCompatActivity() {
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
-                id: Long
+                id: Long,
             ) {
                 selectedGender = gameAdapter.getItem(position).toString()
             }
@@ -147,27 +147,49 @@ class MyMatchEditActivity : AppCompatActivity() {
 
         val teamName = etTeamName.text.toString()
         val game = selectedGame
-        val schedule = etSchedule.text.toString()
-        val playerNum = etPlayerNum.text.toString()
+        val date = tvMonthDate.text.toString()
+        val time = tvTime.text.toString()
+        val schedule = "$date +$time "
+        val playerNum1 = tvTeamNumber2.text.toString()
+        val playerNum2 = tvTeamNumber2.text.toString()
         val matchPlace = etMatchPlace.text.toString()
         val gender = selectedGender
         val entryFee = etEntryFee.text.toString()
         val description = etDiscription.text.toString()
         val uploadTime = getCurrentTime()
 
-        btnConfirm.setOnClickListener {
-            val dummyEditData = MyMatchDataModel(matchId = etTeamName.text.toString(), schedule = etSchedule.text.toString(), uploadTime = uploadTime)
-            val editData = MyMatchDataModel(matchId = data!!.matchId, teamName = teamName, game = game, schedule = schedule, matchPlace = matchPlace, playerNum = playerNum.toInt(), entryFee = entryFee.toInt(), description = description, gender = gender, viewCount = 0, chatCount = 0, uploadTime = uploadTime)
+        btnSubmit.setOnClickListener {
+            val dummyEditData = MyMatchDataModel(
+                matchId = etTeamName.text.toString(),
+                schedule = tvMonthDate.text.toString(),
+                uploadTime = uploadTime
+            )
+            val editData = MyMatchDataModel(
+                matchId = data!!.matchId,
+                teamName = teamName,
+                game = game,
+                schedule = schedule,
+                matchPlace = matchPlace,
+                playerNum = playerNum1.toInt(),
+                entryFee = entryFee.toInt(),
+                description = description,
+                gender = gender,
+                viewCount = 0,
+                chatCount = 0,
+                uploadTime = uploadTime
+            )
 
-            if (teamName.isBlank() || schedule.isBlank() || matchPlace.isBlank() || description.isBlank() || playerNum.toString().isBlank() || entryFee.toString().isBlank()) {
-                // 선택되지 않은 값이 있을 때 토스트 메시지를 띄웁니다.
-                Toast.makeText(
-                    this@MyMatchEditActivity,
-                    "모든 항목을 입력해주세요",
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
-            }
+//            if (teamName.isBlank() || schedule.isBlank() || matchPlace.isBlank() || description.isBlank() || playerNum.toString()
+//                    .isBlank() || entryFee.toString().isBlank()
+//            ) {
+//                // 선택되지 않은 값이 있을 때 토스트 메시지를 띄웁니다.
+//                Toast.makeText(
+//                    this@MyMatchEditActivity,
+//                    "모든 항목을 입력해주세요",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//                return@setOnClickListener
+//            }
 
             if (imageUri != null) {
                 uploadToFirebase(imageUri!!, data!!, dummyEditData)
@@ -186,14 +208,14 @@ class MyMatchEditActivity : AppCompatActivity() {
         }
     }
 
-    private fun getCurrentTime() : String {
+    private fun getCurrentTime(): String {
         val currentTime = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
         return currentTime.format(formatter)
     }
 
-    private fun uploadToFirebase(uri: Uri, data : MyMatchDataModel, newData : MyMatchDataModel) {
+    private fun uploadToFirebase(uri: Uri, data: MyMatchDataModel, newData: MyMatchDataModel) {
         val fileRef = reference.child("Match/${data.matchId}")
 
         fileRef.putFile(uri)

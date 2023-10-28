@@ -15,7 +15,8 @@ data class MatchDataModel(
     var playerNum: Int = 11,  //경기인원
     var entryFee: Int = 10000,   //참가비
     var description : String = "쳐발리는거 좋아하면 지원 ㄱ\n쳐발리는거 좋아하면 지원 ㄱ\n쳐발리는거 좋아하면 지원 ㄱ\n쳐발리는거 좋아하면 지원 ㄱ\n쳐발리는거 좋아하면 지원 ㄱ\n쳐발리는거 좋아하면 지원 ㄱ\n쳐발리는거 좋아하면 지원 ㄱ\n쳐발리는거 좋아하면 지원 ㄱ\n",   //정보
-    var gender : String = "남성",    //성별
+    var gender : String = "남성", //성별
+    var level : String = "중수(Lv4-6)", //성별
     var postImg : String = "",      //게시글 사진
     var viewCount: Int = 5,     //조회수
     var chatCount: Int = 1,  //신청수
