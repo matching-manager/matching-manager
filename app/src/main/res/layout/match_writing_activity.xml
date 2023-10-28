@@ -11,8 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:scaleType="centerCrop"
+        android:background="@color/common_transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
@@ -45,7 +46,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_cancel"
         app:layout_constraintVertical_bias="1.0"
@@ -366,6 +367,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:maxLines="1"
+                        android:inputType="number"
                         android:hint="5,000원/무료" />
 
                 </LinearLayout>
@@ -453,7 +455,7 @@
                             android:id="@+id/iv_team"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="center"
+                            android:scaleType="centerCrop"
                             android:background="@color/common_gray" />
 
                     </androidx.cardview.widget.CardView>
