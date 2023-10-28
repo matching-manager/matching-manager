@@ -52,14 +52,19 @@ class MatchDetailActivity : AppCompatActivity() {
 
     private fun initView() = with(binding) {
         data?.let { ivProfile.setImageResource(it.userImg) }
-        tvNickname.text = data!!.userId
+        tvArenaTitle.text = "[${data!!.game}] [${data!!.schedule}]"
+        tvArenaTitle2.text = data!!.matchPlace
+        tvNickname.text = data!!.userNickname
         tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
+        tvViewCount.text = data!!.viewCount.toString()
         tvChatCount.text = data!!.chatCount.toString()
         tvType.text = data!!.game
         tvPlayerNum.text = "${data!!.playerNum} VS ${data!!.playerNum}"
         tvGender.text = data!!.gender
+        tvLevel.text = data!!.level
         tvPay.text = decimalFormat(data!!.entryFee)
         tvTeamName.text = data!!.teamName
+        tvDescription.text = data!!.description
         ivTeam.load(data!!.postImg.toUri())
 
         btnCancel.setOnClickListener {

@@ -91,7 +91,7 @@ class MatchFragment : Fragment() {
         }
 
         fabAdd.setOnClickListener {
-            resultLauncher.launch(writeIntent(requireContext(), ID_DATA))
+            resultLauncher.launch(writeIntent(requireContext(), "testUser"))
         }
         swipeRefreshLayout.setOnRefreshListener {
 

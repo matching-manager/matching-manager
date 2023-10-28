@@ -9,6 +9,7 @@ import coil.load
 import com.example.matching_manager.databinding.MyMatchDetailActivityBinding
 import com.example.matching_manager.ui.match.MatchDataModel
 import com.example.matching_manager.ui.match.MatchFragment
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
@@ -33,8 +34,26 @@ class MyMatchDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
+        tvArenaTitle.text = "[${data!!.game}] [${data!!.schedule}]"
+        tvArenaTitle2.text = data!!.matchPlace
+        data?.let { ivProfile.setImageResource(it.userImg) }
+        tvNickname.text = data!!.userNickname
         tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
+        tvViewCount.text = data!!.viewCount.toString()
+        tvChatCount.text = data!!.chatCount.toString()
+        tvType.text = data!!.game
+        tvPlayerNum.text = "${data!!.playerNum} VS ${data!!.playerNum}"
+        tvGender.text = data!!.gender
+        tvLevel.text = data!!.level
+        tvPay.text = decimalFormat(data!!.entryFee)
+        tvTeamName.text = data!!.teamName
+        tvDescription.text = data!!.description
         ivTeam.load(data!!.postImg.toUri())
+        data?.let { ivProfile.setImageResource(it.userImg) }
+
+        btnCancel.setOnClickListener {
+            finish()
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -78,5 +97,11 @@ class MyMatchDetailActivity : AppCompatActivity() {
             }
         }
         return value
+    }
+
+    private fun decimalFormat(entryFee : Int) : String {
+        val dec = DecimalFormat("#,###")
+
+        return "${dec.format(entryFee)}원"
     }
 }
