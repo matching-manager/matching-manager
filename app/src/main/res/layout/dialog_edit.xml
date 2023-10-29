@@ -92,20 +92,22 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="60dp"
             android:text="저장"
-            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/common_point_green"
             app:layout_constraintBottom_toBottomOf="@+id/btn_cancle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btn_cancle" />
 
         <Button
             android:id="@+id/btn_cancle"
-            android:layout_width="100dp"
+            android:layout_width="00dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
             android:layout_marginTop="100dp"
             android:layout_marginBottom="30dp"
             android:text="취소"
-            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/common_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_content_nickname" />

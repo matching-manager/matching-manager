@@ -50,6 +50,8 @@
             android:layout_marginTop="60dp"
             android:background="@color/common_transparent"
             android:text="@string/team_category_recruitment"
+            android:textAlignment="textStart"
+            android:layout_marginLeft="50dp"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linearLayoutCompat" />
@@ -61,6 +63,8 @@
             android:layout_marginTop="8dp"
             android:background="@color/common_transparent"
             android:text="@string/team_category_application"
+            android:textAlignment="textStart"
+            android:layout_marginStart="50dp"
             android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="@+id/btn_recruitment"
             app:layout_constraintStart_toStartOf="@+id/btn_recruitment"

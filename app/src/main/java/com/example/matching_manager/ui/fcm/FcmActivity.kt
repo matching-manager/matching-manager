@@ -39,6 +39,7 @@ class FcmActivity : AppCompatActivity() {
 
         Log.d(TAG, "this : $this")
 
+//        viewModel.resetData() //시연용 reset 함수
         initFcm()
         initView()
         initViewModel()

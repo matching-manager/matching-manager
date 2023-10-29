@@ -26,9 +26,14 @@ class SendFcmFragment : DialogFragment() {
     companion object {
         const val TAG = "SendFragment"
         const val INPUT_TYPE = "input_type"
+        const val TOKEN1 = "dqhHfR6YSE6Ar5h1r6FKqb:APA91bEkPVynEwTbO4iPACeyUxFzsU-mP-9WQSeDZKMUxwI8mjpFy4MdySL9P9Rn5JLXiz4QWB0JvPi0FFWX5PLpOzysf5-HD8ujfIcDx471tEBV3BzGg__l9MwCO13UUjjg5aabzSun"
+        const val TOKEN2 = "c72G5pn1RWmv76uCpW7so3:APA91bERbSy1FBaAjIje9p_eBwG8zKd5ZxENue4zQp2lRanmqy5VFJ0Iw3yepVJ7qhZVcFKCApo4kUu8IRcqi4DIC0yIJUmZVVI5mHvIAHws7XWXgfYBqk-GNOhgD7hym0CTLxL0HNoe"
+
+
     }
 
     private val viewModel: SendFcmViewModel by viewModels { SendFcmViewModelFactory() }
+
 
 
     override fun onCreateView(
@@ -62,7 +67,7 @@ class SendFcmFragment : DialogFragment() {
                     Toast.makeText(context, "빈칸을 모두 채워주세요", Toast.LENGTH_SHORT).show()
                 } else {
                     val fcmData = Payload(
-                        "c72G5pn1RWmv76uCpW7so3:APA91bERbSy1FBaAjIje9p_eBwG8zKd5ZxENue4zQp2lRanmqy5VFJ0Iw3yepVJ7qhZVcFKCApo4kUu8IRcqi4DIC0yIJUmZVVI5mHvIAHws7XWXgfYBqk-GNOhgD7hym0CTLxL0HNoe",
+                        TOKEN1,
                         id = etId.text.toString(),
                         number = etPhoneNumber.text.toString(),
                         body = sendBody

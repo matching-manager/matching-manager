@@ -30,7 +30,7 @@
             android:layout_marginBottom="16dp"
             android:text="취소"
             android:textColor="@color/white"
-            android:backgroundTint="@color/tab_btn_green"
+            android:backgroundTint="@color/common_grey"
             android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
