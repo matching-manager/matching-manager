@@ -168,4 +168,10 @@
     <string name="calendar_item_schedule">23 Nov - 24 Nov</string>
     <string name="calendar_item_schedule_divison">Online Remote</string>
 
+    <!-- [my] -->
+    <string name="dialog_edit_location">location</string>
+    <string name="dialog_edit_nickname">nickname</string>
+    <string name="dialog_edit_id">id</string>
+    <string name="dialog_edit_btn_save">저장</string>
+    <string name="dialog_edit_btn_cancel">취소</string>
 </resources>
