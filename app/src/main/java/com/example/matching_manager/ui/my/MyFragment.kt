@@ -39,18 +39,18 @@ class MyFragment : Fragment() {
             onItemClick = {
                 startActivity(detailIntent(requireContext(), it))
             },
-            onEditClick = { item, position ->
-                resultLauncher.launch(editIntent(requireContext(), item))
+            onMenuClick = {
+                val myMatchMenuBottomSheet = MyMatchMenuBottomSheet(it)
+
+                val fragmentManager = requireActivity().supportFragmentManager
+                myMatchMenuBottomSheet.show(fragmentManager, myMatchMenuBottomSheet.tag)
+//                startActivity(editIntent(requireContext(), it))
             },
-            onRemoveClick = { item, position ->
-                val dialog = MyDeleteDialog(item)
-                dialog.setOnDismissListener(object : MyDeleteDialog.OnDialogDismissListener {
-                    override fun onDismiss() {
-                        viewModel.fetchData(viewModel.userId)
-                    }
-                })
-                dialog.show(childFragmentManager, "deleteDialog")
-            })
+//            onRemoveClick = {
+//                val dialog = MyDeleteDialog(it)
+//                dialog.show(childFragmentManager, "deleteDialog")
+//            }
+        )
     }
 
     private var context: Context? = null
@@ -158,13 +158,6 @@ class MyFragment : Fragment() {
             val dialog = builder.create()
             dialog.show()
 
-            //val et_content_nickname = dialogView.findViewById<EditText>(R.id.et_content_nickname)
-            //val et_content_location = dialogView.findViewById<EditText>(R.id.et_content_location)
-            //val et_content_id = dialogView.findViewById<EditText>(R.id.et_content_id)
-            //val btn_save = dialogView.findViewById<Button>(R.id.btn_save)
-            //val btn_cancle = dialogView.findViewById<Button>(R.id.btn_cancle)
-            //val iv_profile = dialogView.findViewById<ImageView>(R.id.iv_profile)
-
             val et_content_nickname = dialogBinding.etContentNickname
             val et_content_location = dialogBinding.etContentLocation
             val et_content_id = dialogBinding.etContentId
@@ -201,7 +194,10 @@ class MyFragment : Fragment() {
                     }
                 }
 
-            }
+                dialog.dismiss()
+
+        }
+
 
 
             btn_cancle.setOnClickListener {
@@ -232,6 +228,15 @@ class MyFragment : Fragment() {
     private fun setProfileImage(imageUri: Uri?) {
         val result = Bundle().apply {
             putParcelable("selectedImageUri", imageUri)
+        dialogBinding.ivProfile.setImageURI(imageUri)
+        binding.ivMypageFace.setImageURI(imageUri)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            val selectedImageUri = data.data
+            setProfileImage(selectedImageUri)
         }
         setFragmentResult("imageResult", result)
     }
@@ -259,10 +264,15 @@ class MyFragment : Fragment() {
 
 
     private fun initViewModel() = with(viewModel) {
+        autoFetchData()
+
         list.observe(viewLifecycleOwner, Observer {
+            var smoothList = 0
             adapter.submitList(it.toList())
+            if(it.size > 0) smoothList = it.size - 1
+            else smoothList = 1
             binding.progressBar.visibility = View.INVISIBLE
-            Log.d("listData", "${it.size}")
+            binding.rv.smoothScrollToPosition(smoothList)
         })
     }
 

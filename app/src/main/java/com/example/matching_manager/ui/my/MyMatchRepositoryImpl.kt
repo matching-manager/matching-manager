@@ -1,26 +1,12 @@
 package com.example.matching_manager.ui.my
 
-import android.util.Log
-import android.widget.Toast
-import com.example.matching_manager.ui.match.MatchDataModel
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
-import com.google.gson.GsonBuilder
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.callbackFlow
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
-import java.util.concurrent.Flow
 
 class MyMatchRepositoryImpl() : MyMatchRepository {
 
-    val database =
-        Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
-    val matchRef = database.getReference("Match")
-
-    override suspend fun getList(userId : String): List<MyMatchDataModel> {
+    override suspend fun getList(userId : String, database: FirebaseDatabase): List<MyMatchDataModel> {
+        val matchRef = database.getReference("Match")
         val items = arrayListOf<MyMatchDataModel>()
         val query = matchRef.orderByChild("userId").equalTo(userId)
         val snapshot = query.get().await()
@@ -34,34 +20,32 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
         return items
     }
 
-    override suspend fun deleteData(data: MyMatchDataModel) {
-        Log.d("deleteData", "start")
+    override suspend fun deleteData(data: MyMatchDataModel, database: FirebaseDatabase) {
+        val matchRef = database.getReference("Match")
         val query = matchRef.orderByChild("matchId").equalTo(data.matchId)
-        try {
-            val snapshot = query.get().await()
-            Log.d("deleteData", "${snapshot}")
-            if (snapshot.exists()) {
-                for (childSnapshot in snapshot.children) {
-                    childSnapshot.ref.removeValue()
-                }
+        val snapshot = query.get().await()
+        if (snapshot.exists()) {
+            for (childSnapshot in snapshot.children) {
+                childSnapshot.ref.removeValue()
             }
-        } catch (e: Exception) {
-            Log.e("deleteData", "Error deleting data: $e")
         }
     }
 
-    override suspend fun editData(data: MyMatchDataModel, newData: MyMatchDataModel) {
+    override suspend fun editData(data: MyMatchDataModel, newData: MyMatchDataModel, database: FirebaseDatabase) {
+        val matchRef = database.getReference("Match")
         val query = matchRef.orderByChild("matchId").equalTo(data.matchId)
 
         val dataToUpdate = hashMapOf(
             "teamName" to newData.teamName,
             "game" to newData.game,
             "schedule" to newData.schedule,
-            "matchPlace" to newData.matchPlace,
             "playerNum" to newData.playerNum,
+            "matchPlace" to newData.matchPlace,
+            "gender" to newData.gender,
+            "level" to newData.level,
             "entryFee" to newData.entryFee,
             "description" to newData.description,
-            "gender" to newData.gender,
+            "postImg" to newData.postImg
         )
         val snapshot = query.get().await()
         if (snapshot.exists()) {

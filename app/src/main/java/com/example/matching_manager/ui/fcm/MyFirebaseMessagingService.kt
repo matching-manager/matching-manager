@@ -1,4 +1,4 @@
-package com.example.matching_manager.fcm
+package com.example.matching_manager.ui.fcm
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -84,7 +84,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.ic_stat_ic_notification)
-            .setContentTitle(getString(R.string.fcm_message))
+//            .setContentTitle(getString(R.string.fcm_message))
             .setContentText(messageBody)
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
@@ -110,6 +110,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         const val RECEIVED_USER_ID = "user_id"
         const val RECEIVED_USER_PHONE_NUMBER = "phone_number"
         const val RECEIVED_BODY = "body"
+        const val RECEIVED_TITLE = "title"
     }
 }
 /**

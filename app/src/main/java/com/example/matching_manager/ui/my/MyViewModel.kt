@@ -1,29 +1,33 @@
 package com.example.matching_manager.ui.my
 
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
-import java.util.concurrent.atomic.AtomicLong
-
 class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
 
     private val _list: MutableLiveData<List<MyMatchDataModel>> = MutableLiveData()
     val list: LiveData<List<MyMatchDataModel>> get() = _list
 
-    val userId = "userId"
+    val userId = "testUser"
 
     private val _event: MutableLiveData<MatchEvent> = MutableLiveData()
     val event: LiveData<MatchEvent> get() = _event
 
+    private val database = Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
+    private val matchRef = database.getReference("Match")
 
 
     fun fetchData(userId : String) {
         viewModelScope.launch {
-            val currentList = repository.getList(userId)
+            val currentList = repository.getList(userId, database)
             Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
 
             _list.postValue(currentList)
@@ -32,36 +36,38 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
 
     fun deleteMatch(data: MyMatchDataModel) {
         viewModelScope.launch {
-            repository.deleteData(data)
+            repository.deleteData(data, database)
             _event.postValue(MatchEvent.Dismiss)
         }
     }
 
     fun editMatch(data: MyMatchDataModel, newData : MyMatchDataModel) {
         viewModelScope.launch {
-            repository.editData(data, newData)
+            repository.editData(data, newData, database)
             _event.postValue(MatchEvent.Finish)
         }
     }
 
+    fun autoFetchData() {
+        matchRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dataList = mutableListOf<MyMatchDataModel>()
 
-    private val _profileImageUri = MutableLiveData<Uri?>() // 프로필 이미지 Uri를 저장하는 LiveData
+                for (childSnapshot in dataSnapshot.children) {
+                    val matchData = childSnapshot.getValue(MyMatchDataModel::class.java)
+                    if (matchData != null) {
+                        dataList.add(matchData)
+                    }
+                }
+                _list.value = dataList
+            }
 
-    val profileImageUri : LiveData<Uri?> get() = _profileImageUri // 외부에서 프로필 이미지 Uri 접근하는 LiveData
+            override fun onCancelled(databaseError: DatabaseError) {
+                // 오류 처리
+            }
+        })
+    }
 
-    //live = 액티비티나 프래그먼트에서 읽기 전용
-    //_live = 뷰모델 내부에서 컨트럴 전용
-    // id 를 부여할 값
-    private val idGenerator = AtomicLong(1L)
-
-//    fun setData(data: ArrayList<Image>) {
-//        _list.value = data
-//    }
-
-//    fun setProfile(name: String, imageUri: Uri?){
-//        _profileName.value = name
-//        _profileImageUri.value = imageUri
-//    }
 }
 sealed interface MatchEvent {
     object Dismiss : MatchEvent

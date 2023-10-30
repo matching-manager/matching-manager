@@ -1,11 +1,9 @@
-package com.example.matching_manager.ui.team.view
+package com.example.matching_manager.ui.team.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.matching_manager.R
-import com.example.matching_manager.ui.team.TeamAddType
 import com.example.matching_manager.ui.team.TeamItem
 
 class TeamViewModel : ViewModel() {
@@ -35,8 +33,8 @@ class TeamViewModel : ViewModel() {
                             "조선대학교 운동장",
                             "광주손흥민",
                             "이번주 목요일 8시 같이 경기 뛰실 용병 구합니다~",
-                            "23/10/11",
-                            "중수(Lv4-6)",
+                            "5시간 전",
+                            "중(Lv4-6)",
                             "[풋살]",
                             "[경기도/광주]",
                         )
@@ -52,8 +50,8 @@ class TeamViewModel : ViewModel() {
                             0,
                             5, "뽑아줘",
                             "조선대학교 운동장",
-                            "23/10/20",
-                            "중수(Lv4-6)",
+                            "1일 전",
+                            "중(Lv4-6)",
                             "[풋살]",
                             "[광주/동구]"
                         )
@@ -137,7 +135,6 @@ class TeamViewModel : ViewModel() {
     fun clearFilter() {
         _list.value = originalList // 현재 _list에 있는 값을 다시 할당하여 불러오기
     }
-
 }
 
 

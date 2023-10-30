@@ -11,12 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:scaleType="centerCrop"
+        android:background="@color/common_transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
-
 
     <TextView
         android:id="@+id/tv_dialog_info"
@@ -33,7 +33,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_cancel">
 
@@ -60,9 +60,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="3dp"
                         android:text="종목"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -72,6 +71,21 @@
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/spinner_selector" />
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_radius"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:background="@color/common_point_green"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="false"
+                app:contentPadding="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="10dp">
+
 
             </androidx.cardview.widget.CardView>
 
@@ -95,14 +109,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="3dp"
                         android:text="위치"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/city_spinner"
-                        android:layout_width="100dp"
+                        android:layout_width="110dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/spinner_selector" />
@@ -115,10 +128,10 @@
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/dong_spinner"
-                        android:layout_width="100dp"
+                        android:layout_width="90dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/spinner_selector"
-                        android:visibility="visible"/>
+                        android:visibility="invisible" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -183,9 +196,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="3dp"
                         android:text="일정"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -194,16 +206,15 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
                         android:gravity="center"
-                        android:hint="10월 10일 화요일"
+                        android:hint="10월 10일 (화)"
                         android:textSize="18dp" />
 
                     <TextView
                         android:id="@+id/tv_time"
                         android:layout_width="120dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
                         android:gravity="center"
-                        android:hint="오전 9시 00분"
+                        android:hint="오전 10:00"
                         android:textSize="18dp" />
 
 
@@ -232,9 +243,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="0dp"
                         android:text="인원"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -278,9 +288,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="0dp"
                         android:text="나이"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -324,9 +333,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:text="팀명"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -405,9 +414,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="3dp"
                         android:text="성별"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -441,9 +449,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="3dp"
                         android:text="실력"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -476,9 +483,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:text="내용"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -515,43 +522,59 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="사진"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/imge_first"
-                        android:layout_width="200dp"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_photo1"
+                        android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginTop="20dp"
-                        android:background="@color/tab_btn_green"
-                        app:layout_constraintStart_toStartOf="@+id/textView4"
-                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-                    <ImageView
-                        android:id="@+id/imge_second"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
-                        android:background="@color/tab_btn_green"
-                        app:layout_constraintBottom_toBottomOf="@+id/imge_first"
+                        app:cardCornerRadius="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imge_first" />
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+                        <ImageView
+                            android:id="@+id/iv_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="center"
+                            android:background="@color/common_gray" />
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+                    <TextView
+                        android:id="@+id/tv_add_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="사진 등록"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/common_point_green"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                        app:layout_constraintEnd_toEndOf="@+id/cv_photo1"
+                        app:layout_constraintTop_toTopOf="@+id/textView4" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/tab_btn_green"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/tab_btn_green"
                 android:text="등록하기"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

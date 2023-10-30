@@ -2,22 +2,16 @@ package com.example.matching_manager.ui.match
 
 import android.annotation.SuppressLint
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import coil.load
-import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchDetailActivityBinding
+import com.example.matching_manager.ui.fcm.send.SendFcmFragment
+import com.example.matching_manager.ui.fcm.send.SendType
 import com.example.matching_manager.ui.match.MatchFragment.Companion.OBJECT_DATA
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
@@ -25,11 +19,12 @@ class MatchDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: MatchDetailActivityBinding
 
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-
-    private val bottomSheetLayout by lazy { findViewById<ConstraintLayout>(R.id.bottom_sheet_layout) }
-    private val bottomSheetBookmarkButton by lazy { findViewById<ImageView>(R.id.iv_bookmark) }
-    private val bottomSheetCallMatchButton by lazy { findViewById<Button>(R.id.btn_call_match) }
+    //기능 버그로 임시 주석처리
+//    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+//
+//    private val bottomSheetLayout by lazy { findViewById<ConstraintLayout>(R.id.bottom_sheet_layout) }
+//    private val bottomSheetBookmarkButton by lazy { findViewById<ImageView>(R.id.iv_bookmark) }
+//    private val bottomSheetCallMatchButton by lazy { findViewById<Button>(R.id.btn_call_match) }
 
     private val data: MatchDataModel? by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -49,75 +44,96 @@ class MatchDetailActivity : AppCompatActivity() {
 
     private fun initView() = with(binding) {
         data?.let { ivProfile.setImageResource(it.userImg) }
+        tvArenaTitle.text = "[${data!!.game}] [${data!!.schedule}]"
+        tvArenaTitle2.text = data!!.matchPlace
+        tvNickname.text = data!!.userNickname
+        tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
+        tvViewCount.text = data!!.viewCount.toString()
+        tvChatCount.text = data!!.chatCount.toString()
+        tvType.text = data!!.game
+        tvPlayerNum.text = "${data!!.playerNum} VS ${data!!.playerNum}"
+        tvGender.text = data!!.gender
+        tvLevel.text = data!!.level
+        tvPay.text = decimalFormat(data!!.entryFee)
+        tvTeamName.text = data!!.teamName
+        tvDescription.text = data!!.description
+        ivTeam.load(data!!.postImg.toUri())
 
-        initializePersistentBottomSheet()
-        persistentBottomSheetEvent()
-
-        scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
-            if (scrollY > 0) {
-                // 아래로 스크롤 중
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            } else {
-                // 위로 스크롤 중
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            }
-            if (oldScrollY > scrollY) {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            }
+        btnCancel.setOnClickListener {
+            finish()
         }
 
-        tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
-        ivTeam.load(data!!.postImg.toUri())
+        btnCallMatch.setOnClickListener {
+            SendFcmFragment().apply {
+                arguments = Bundle().apply { putString(SendFcmFragment.INPUT_TYPE, SendType.MATCH.name) }
+            }.show(supportFragmentManager, "SampleDialog")
+        }
+        //기능 버그로 임시 주석처리
+//        initializePersistentBottomSheet()
+
+//        scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+//            if (scrollY > 0) {
+//                // 아래로 스크롤 중
+//                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+//            } else {
+//                // 위로 스크롤 중
+//                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//            }
+//            if (oldScrollY > scrollY) {
+//                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//            }
+//        }
     }
+    //기능 버그로 임시 주석처리
+//    private fun initializePersistentBottomSheet() {
+//
+//        // BottomSheetBehavior에 layout 설정
+//        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
+//
+//        bottomSheetBehavior.addBottomSheetCallback(object :
+//            BottomSheetBehavior.BottomSheetCallback() {
+//            override fun onStateChanged(bottomSheet: View, newState: Int) {
+//
+//                // BottomSheetBehavior state에 따른 이벤트
+//                when (newState) {
+//                    BottomSheetBehavior.STATE_HIDDEN -> {
+//                        Log.d("MatchDetailActivity", "state: hidden")
+//                    }
+//
+//                    BottomSheetBehavior.STATE_EXPANDED -> {
+//                        Log.d("MatchDetailActivity", "state: expanded")
+//                    }
+//
+//                    BottomSheetBehavior.STATE_COLLAPSED -> {
+//                        Log.d("MatchDetailActivity", "state: collapsed")
+//                    }
+//
+//                    BottomSheetBehavior.STATE_DRAGGING -> {
+//                        Log.d("MatchDetailActivity", "state: dragging")
+//                    }
+//
+//                    BottomSheetBehavior.STATE_SETTLING -> {
+//                        Log.d("MatchDetailActivity", "state: settling")
+//                    }
+//
+//                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {
+//                        Log.d("MatchDetailActivity", "state: half expanded")
+//                    }
+//                }
+//
+//            }
+//
+//            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+//            }
+//
+//        })
+//    }
 
-    private fun initializePersistentBottomSheet() {
+    private fun decimalFormat(entryFee : Int) : String {
+        val dec = DecimalFormat("#,###")
 
-        // BottomSheetBehavior에 layout 설정
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
-
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-
-                // BottomSheetBehavior state에 따른 이벤트
-                when (newState) {
-                    BottomSheetBehavior.STATE_HIDDEN -> {
-                        Log.d("MatchDetailActivity", "state: hidden")
-                    }
-
-                    BottomSheetBehavior.STATE_EXPANDED -> {
-                        Log.d("MatchDetailActivity", "state: expanded")
-                    }
-
-                    BottomSheetBehavior.STATE_COLLAPSED -> {
-                        Log.d("MatchDetailActivity", "state: collapsed")
-                    }
-
-                    BottomSheetBehavior.STATE_DRAGGING -> {
-                        Log.d("MatchDetailActivity", "state: dragging")
-                    }
-
-                    BottomSheetBehavior.STATE_SETTLING -> {
-                        Log.d("MatchDetailActivity", "state: settling")
-                    }
-
-                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {
-                        Log.d("MatchDetailActivity", "state: half expanded")
-                    }
-                }
-
-            }
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            }
-
-        })
+        return "${dec.format(entryFee)}원"
     }
-
-    // PersistentBottomSheet 내부 버튼 click event
-    private fun persistentBottomSheetEvent() {
-    }
-
     @SuppressLint("SimpleDateFormat")
     private fun dateTimeToMillSec(dateTime: String): Long{
         var timeInMilliseconds: Long = 0

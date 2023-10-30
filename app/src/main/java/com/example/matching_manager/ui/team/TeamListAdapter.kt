@@ -42,6 +42,9 @@ class TeamListAdapter(
     override fun getItemViewType(position: Int): Int = when (getItem(position)) {
         is TeamItem.RecruitmentItem -> TeamItemViewType.Recruit.ordinal
         is TeamItem.ApplicationItem -> TeamItemViewType.Application.ordinal
+        else -> {
+            TeamItemViewType.Recruit.ordinal
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -89,12 +92,15 @@ class TeamListAdapter(
 
         override fun onBind(item: TeamItem) = with(binding) {
             if (item is TeamItem.RecruitmentItem) {
-                cvType.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.team_recruit_blue))
+                cvType.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        itemView.context,
+                        R.color.team_recruit_blue
+                    )
+                )
                 ivProfile.setImageResource(item.teamProfile)
                 tvType.text = item.type
                 tvDetail.text = "${item.gender} ${item.playerNum}"
-                tvViewCount.text = item.viewCount.toString()
-                tvChatCount.text = item.chatCount.toString()
                 tvSchedule.text = item.schedule
                 tvPlace.text = item.area
                 itemView.setOnClickListener {
@@ -113,12 +119,15 @@ class TeamListAdapter(
 
         override fun onBind(item: TeamItem) = with(binding) {
             if (item is TeamItem.ApplicationItem) {
-                cvType.setCardBackgroundColor(ContextCompat.getColor(itemView.context, R.color.team_request_yellow))
+                cvType.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        itemView.context,
+                        R.color.team_request_yellow
+                    )
+                )
                 ivProfile.setImageResource(item.teamProfile)
                 tvType.text = item.type
                 tvDetail.text = "${item.gender} ${item.playerNum}"
-                tvViewCount.text = item.viewCount.toString()
-                tvChatCount.text = item.chatCount.toString()
                 tvSchedule.text = item.schedule
                 tvPlace.text = item.area
                 //제목 넣어야함

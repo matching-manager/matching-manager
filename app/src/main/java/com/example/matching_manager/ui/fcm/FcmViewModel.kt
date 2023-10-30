@@ -1,4 +1,4 @@
-package com.example.matching_manager.fcm
+package com.example.matching_manager.ui.fcm
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.matching_manager.domain.usecase.sharedpreference.LoadFcmDataUseCase
 import com.example.matching_manager.domain.usecase.sharedpreference.SaveFcmDataUseCase
 import com.example.matching_manager.ui.home.arena.alarm.AlarmModel
+import com.google.protobuf.Empty
 
 class FcmViewModel(
     private val saveFcmList: SaveFcmDataUseCase,
@@ -15,6 +16,11 @@ class FcmViewModel(
 ) : ViewModel() {
     private val _list: MutableLiveData<List<AlarmModel>> = MutableLiveData()
     val list: LiveData<List<AlarmModel>> get() = _list
+
+    fun resetData(){
+        val reset = listOf<AlarmModel>()
+        saveFcmList(context,reset)
+    }
 
     fun addFcmAlarm(userId: String?, phoneNumber: String?, body: String?) {
         val currentList = loadFcmData()

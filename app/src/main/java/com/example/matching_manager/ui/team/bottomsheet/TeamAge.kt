@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.matching_manager.databinding.TeamAgeBinding
-import com.example.matching_manager.databinding.TeamCalenderBinding
-import com.example.matching_manager.ui.team.TeamAddActivity
-import com.example.matching_manager.ui.team.view.TeamSharedViewModel
+import com.example.matching_manager.ui.team.viewmodel.TeamSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
@@ -27,9 +25,13 @@ class TeamAge : BottomSheetDialogFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         _binding = TeamAgeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setNumber()
         initView()
-        return binding.root
     }
 
     private fun setNumber() = with(binding) {

@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamDetailActivityBinding
+import com.example.matching_manager.ui.fcm.send.SendFcmFragment
+import com.example.matching_manager.ui.fcm.send.SendType
 
 
 class TeamDetailActivity : AppCompatActivity() {
@@ -42,9 +44,7 @@ class TeamDetailActivity : AppCompatActivity() {
             ivMatch.setImageResource(R.drawable.ic_recruitment)
             tvType.text = item.type
             tvDialogInfo.text = item.type
-            tvGame.text = item.game
-            tvArea.text = item.area
-            tvSchedule.text = item.schedule
+            tvDetail.text = item.game + " " + item.area + " " + item.schedule
             ivProfile.load(item.teamProfile)
             tvPlayerNum.text = item.playerNum
             tvFee.text = "회의비"
@@ -65,9 +65,7 @@ class TeamDetailActivity : AppCompatActivity() {
             // 용병신청 아이템인 경우
             tvType.text = item.type
             tvDialogInfo.text = item.type
-            tvGame.text = item.game
-            tvArea.text = item.area
-            tvSchedule.text = item.schedule//제목이 들어가야함
+            tvDetail.text = item.game + " " + item.area + " " + item.schedule
             ivProfile.load(item.teamProfile)
             tvPlayerNum.text = item.playerNum
             tvFee.text = "나이"
@@ -92,7 +90,9 @@ class TeamDetailActivity : AppCompatActivity() {
 
         //submit button
         btnSubmit.setOnClickListener {
-
+            SendFcmFragment().apply {
+                arguments = Bundle().apply { putString(SendFcmFragment.INPUT_TYPE, SendType.MERCENARY.name) }
+            }.show(supportFragmentManager, "SampleDialog")
         }
     }
 }

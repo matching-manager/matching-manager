@@ -3,35 +3,37 @@ package com.example.matching_manager.ui.team
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
+import coil.load
 import com.example.matching_manager.R
-import com.example.matching_manager.databinding.TeamAddActivityBinding
+import com.example.matching_manager.databinding.TeamWritingActivityBinding
 import com.example.matching_manager.ui.team.bottomsheet.TeamAge
 import com.example.matching_manager.ui.team.bottomsheet.TeamCalender
 import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
-import com.example.matching_manager.ui.team.view.TeamSharedViewModel
-import java.util.Calendar
-import java.util.Date
+import com.example.matching_manager.ui.team.bottomsheet.TeamTime
+import com.example.matching_manager.ui.team.viewmodel.TeamSharedViewModel
 
 
-class TeamAddActivity : AppCompatActivity() {
-    private lateinit var binding: TeamAddActivityBinding
+class TeamWritingActivity : AppCompatActivity() {
+    private lateinit var binding: TeamWritingActivityBinding
     private var selectedGame: String? = null
     private var selectedArea: String? = null
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
     private var selectedTime: String? = null
+    private var imageUri: Uri? = null
 
 
-    private val viewModel: TeamSharedViewModel by viewModels()
+    private val sheardViewModel: TeamSharedViewModel by viewModels()
 
     //진입타입 설정을 위함
     companion object {
@@ -39,6 +41,7 @@ class TeamAddActivity : AppCompatActivity() {
         const val EXTRA_TEAM_MODEL = "extra_team_model"
         const val TEAM_NUMBER_BOTTOM_SHEET = "team_number_bottom_sheet"
         const val TEAM_AGE_BOTTOM_SHEET = "team_age_bottom_sheet"
+        const val TEAM_TIME_BOTTOM_SHEET = "team_time_bottom_sheet"
         const val TEAM_CALENDER_BOTTOM_SHEET = "team_calender_bottom_sheet"
 
 
@@ -46,7 +49,7 @@ class TeamAddActivity : AppCompatActivity() {
         fun newIntentForAddRecruit(
             context: Context,
             entryType: String,
-        ) = Intent(context, TeamAddActivity::class.java).apply {
+        ) = Intent(context, TeamWritingActivity::class.java).apply {
             putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType) // 타입을 전달
         }
 
@@ -54,7 +57,7 @@ class TeamAddActivity : AppCompatActivity() {
         fun newIntentForAddApplication(
             context: Context,
             entryType: String,
-        ) = Intent(context, TeamAddActivity::class.java).apply {
+        ) = Intent(context, TeamWritingActivity::class.java).apply {
             putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType) // 타입을 전달
         }
     }
@@ -65,7 +68,7 @@ class TeamAddActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = TeamAddActivityBinding.inflate(layoutInflater)
+        binding = TeamWritingActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         Log.d("TeamAddActivity", "in")
@@ -74,16 +77,29 @@ class TeamAddActivity : AppCompatActivity() {
         initViewModel()
     }
 
-    private fun initViewModel() {
-        with(viewModel) {
-            number.observe(this@TeamAddActivity, Observer {
+    private fun initViewModel() = with(binding) {
+        with(sheardViewModel) {
+            number.observe(this@TeamWritingActivity, Observer {
                 Log.d("teamNumber", "activity = $it")
-                binding.teamNumber.text = it.toString()
+                teamNumber.text = it.toString()
             })
-            age.observe(this@TeamAddActivity, Observer {
+            age.observe(this@TeamWritingActivity, Observer {
                 Log.d("teamAge", "activity = $it")
-                binding.teamAge.text = it.toString()
+                teamAge.text = it.toString()
             })
+            teamTime.observe(this@TeamWritingActivity, Observer { (hour, minute, amPm) ->
+                val time = String.format("%s %02d:%02d", amPm, hour, minute)
+                Log.d("teamTime", "activity = $time")
+                tvTime.text = time
+            })
+            calendar.observe(
+                this@TeamWritingActivity,
+                Observer { (year, month, dayOfMonth, dayOfWeek) ->
+                    val date =
+                        String.format("%02d월 %02d일 %s", month, dayOfMonth, dayOfWeek)
+                    Log.d("teamTime", "activity = $date")
+                    tvMonthDate.text = date
+                })
         }
     }
 
@@ -91,7 +107,7 @@ class TeamAddActivity : AppCompatActivity() {
         // spinner adapter
         //종목 스피너
         val gameAdapter = ArrayAdapter.createFromResource(
-            this@TeamAddActivity,
+            this@TeamWritingActivity,
             R.array.game_array,
             android.R.layout.simple_spinner_item
         )
@@ -114,7 +130,7 @@ class TeamAddActivity : AppCompatActivity() {
 
         //지역선택 스피너
         val arrayAdapter = ArrayAdapter.createFromResource(
-            this@TeamAddActivity,
+            this@TeamWritingActivity,
             R.array.spinner_region,
             android.R.layout.simple_spinner_item
         )
@@ -129,7 +145,7 @@ class TeamAddActivity : AppCompatActivity() {
             ) {
                 selectedArea = parent?.getItemAtPosition(position).toString()
 
-                // 선택된 시/도에 따라 동작을 추가합니다.
+//                // 선택된 시/도에 따라 동작을 추가합니다.
                 sigunguSpinner.visibility = (View.INVISIBLE)
                 dongSpinner.visibility = (View.INVISIBLE)
                 when (position) {
@@ -164,7 +180,7 @@ class TeamAddActivity : AppCompatActivity() {
                     dongSpinner.adapter = null
                 }
                 val arrayAdapter1 = ArrayAdapter(
-                    this@TeamAddActivity,
+                    this@TeamWritingActivity,
                     android.R.layout.simple_spinner_item,
                     resources.getStringArray(arrayResource)
                 )
@@ -182,8 +198,9 @@ class TeamAddActivity : AppCompatActivity() {
             ) {
                 // 서울특별시 선택시
                 sigunguSpinner.visibility = (View.VISIBLE)
-                dongSpinner.visibility = (View.VISIBLE)
                 if (citySpinner.selectedItemPosition == 1 && sigunguSpinner.selectedItemPosition > -1) {
+                    sigunguSpinner.visibility = (View.VISIBLE)
+                    dongSpinner.visibility = (View.VISIBLE)
                     when (position) {
                         0 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangnam)
                         1 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangdong)
@@ -220,7 +237,7 @@ class TeamAddActivity : AppCompatActivity() {
 
             fun setDongSpinnerAdapterItem(arrayResource: Int) {
                 val arrayAdapter = ArrayAdapter(
-                    this@TeamAddActivity,
+                    this@TeamWritingActivity,
                     android.R.layout.simple_spinner_item,
                     resources.getStringArray(arrayResource)
                 )
@@ -231,7 +248,7 @@ class TeamAddActivity : AppCompatActivity() {
 
         //성별 스피너
         val genderAdapter = ArrayAdapter.createFromResource(
-            this@TeamAddActivity,
+            this@TeamWritingActivity,
             R.array.gender_array,
             android.R.layout.simple_spinner_item
         )
@@ -255,7 +272,7 @@ class TeamAddActivity : AppCompatActivity() {
 
         //실력 스피너
         val levelAdapter = ArrayAdapter.createFromResource(
-            this@TeamAddActivity,
+            this@TeamWritingActivity,
             R.array.level_array,
             android.R.layout.simple_spinner_item
         )
@@ -278,7 +295,7 @@ class TeamAddActivity : AppCompatActivity() {
 
         //일정 스피너
         val timeAdapter = ArrayAdapter.createFromResource(
-            this@TeamAddActivity,
+            this@TeamWritingActivity,
             R.array.time_array,
             android.R.layout.simple_spinner_item
         )
@@ -299,10 +316,14 @@ class TeamAddActivity : AppCompatActivity() {
             }
         }
 
+        //date
         tvMonthDate.setOnClickListener {
             showCalenderPicker()
         }
-
+        //time
+        tvTime.setOnClickListener {
+            showTimePicker()
+        }
         //number
         teamNumber.setOnClickListener {
             showNumberPicker()
@@ -317,6 +338,11 @@ class TeamAddActivity : AppCompatActivity() {
     private fun showCalenderPicker() {
         val bottomSheet = TeamCalender()
         bottomSheet.show(supportFragmentManager, TEAM_CALENDER_BOTTOM_SHEET)
+    }
+
+    private fun showTimePicker() {
+        val bottomSheet = TeamTime()
+        bottomSheet.show(supportFragmentManager, TEAM_TIME_BOTTOM_SHEET)
     }
 
     private fun showNumberPicker() {
@@ -383,31 +409,59 @@ class TeamAddActivity : AppCompatActivity() {
         )
 
         fun formatTimeString(): String? {
-            val currentDate = java.text.SimpleDateFormat("yyyy.MM.dd", java.util.Locale.getDefault())
-                .format(java.util.Date())
+            val currentDate =
+                java.text.SimpleDateFormat("yyyy.MM.dd", java.util.Locale.getDefault())
+                    .format(java.util.Date())
             return currentDate
+        }
+
+        tvAddImage.setOnClickListener {
+            val galleryIntent = Intent(Intent.ACTION_PICK)
+            galleryIntent.type = "image/"
+            imageResult.launch(galleryIntent)
         }
 
 
         btnSubmit.setOnClickListener {
-            val selectedGame = "[" +gameSpinner.selectedItem.toString()+ "]"
+            val selectedGame = "[" + gameSpinner.selectedItem.toString() + "]"
             val selectedArea =
-                "[" + citySpinner.selectedItem.toString() + "/"  + sigunguSpinner.selectedItem.toString() + "]"
+                "[" + citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString() + "]"
             val selectedGender = genderSpinner.selectedItem.toString()
             val selectedLevel = levelSpinner.selectedItem.toString()
             val selectedApplicationTime = timeSpinner.selectedItem.toString()
             val selectedFee = tvFee.text.toString()
             val selectedTeamName = tvTeamName.text.toString()
             val setContent = etContent.text.toString()
-            val selectedNumber = viewModel.number.value ?: 0 // 기본값을 0으로 설정
-            val selectedAge = viewModel.age.value ?: 0 // 기본값을 0으로 설정
+            val selectedNumber = sheardViewModel.number.value ?: 0 // 기본값을 0으로 설정
+            val selectedAge = sheardViewModel.age.value ?: 0 // 기본값을 0으로 설정
+            val selectedDate = tvMonthDate.text.toString()
+            val selectedTime = tvTime.text.toString()
+
             // 시간 포맷 변경 시작
             val formattedTime = formatTimeString().toString()
+
 
             val recruitment = getString(R.string.team_fragment_recruitment)
             val application = getString(R.string.team_fragment_application)
             val unfined = getString(R.string.undefined_test_value)
 
+//            //예외처리
+//            if (selectedGame.isBlank() ||
+//                selectedArea.isBlank() ||
+//                selectedGender.isBlank() ||
+//                selectedLevel.isBlank() ||
+//                selectedApplicationTime.isBlank() ||
+//                selectedFee.isBlank() ||
+//                selectedTeamName.isBlank() ||
+//                setContent.isBlank() ||
+//                selectedDate.isBlank() ||
+//                selectedTime.isBlank()
+//            ) {
+//                // 선택되지 않은 값이 있을 때 토스트 메시지를 띄웁니다.
+//                Toast.makeText(
+//                    this@TeamWritingActivity, "비어있는 칸이 있습니다. 값을 입력해주세요", Toast.LENGTH_SHORT).show()
+//                return@setOnClickListener
+//            }
 
             val teamItem = when (entryType) {
                 TeamAddType.RECRUIT -> {
@@ -416,9 +470,9 @@ class TeamAddActivity : AppCompatActivity() {
                             type = recruitment, // 임의의 값으로 설정 (용병모집)
                             game = selectedGame,
                             area = selectedArea,//지역 설정하기 스피너 추가해야함
-                            schedule = unfined,//경기일정으로 되어있음 -> 달력바텀시트 만들어야함
+                            schedule = selectedDate + " " + selectedTime,//경기일정으로 되어있음 -> 달력바텀시트 만들어야함
                             teamProfile = 0,
-                            playerNum = selectedNumber.toString()+"명",
+                            playerNum = selectedNumber.toString() + "명",
                             pay = selectedFee,
                             teamName = selectedTeamName,
                             gender = selectedGender,
@@ -440,7 +494,7 @@ class TeamAddActivity : AppCompatActivity() {
                         area = selectedArea,
                         schedule = selectedApplicationTime,
                         teamProfile = 0,
-                        playerNum = selectedNumber.toString()+"명",
+                        playerNum = selectedNumber.toString() + "명",
                         age = selectedAge.toString(),
                         gender = selectedGender,
                         viewCount = 0,
@@ -464,6 +518,15 @@ class TeamAddActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    private val imageResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK && result.data != null) {
+            imageUri = result.data?.data
+            binding.ivImage.load(imageUri)
+        }
     }
 
 }

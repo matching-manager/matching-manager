@@ -1,16 +1,12 @@
 package com.example.matching_manager.ui.match
 
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 
 class MatchRepositoryImpl() : MatchRepository {
 
-    val database =
-        Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
-    val matchRef = database.getReference("Match")
-
-    override suspend fun getList(): List<MatchDataModel> {
+    override suspend fun getList(database : FirebaseDatabase): List<MatchDataModel> {
+        val matchRef = database.getReference("Match")
         val items = arrayListOf<MatchDataModel>()
         val snapshot = matchRef.get().await()
         if (snapshot.exists()) {
@@ -24,7 +20,8 @@ class MatchRepositoryImpl() : MatchRepository {
         return items
     }
 
-    override suspend fun addData(data: MatchDataModel) {
+    override suspend fun addData(data: MatchDataModel, database: FirebaseDatabase) {
+        val matchRef = database.getReference("Match")
         matchRef.push().setValue(data).await()
     }
 }

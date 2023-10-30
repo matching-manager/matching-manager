@@ -42,9 +42,8 @@ android {
     buildscript {
         repositories {
             google()
-            maven {url 'https://jitpack.io' }
+            maven { url 'https://jitpack.io' }
         }
-
         dependencies {
             classpath 'com.google.gms:google-services:4.3.5'
         }
