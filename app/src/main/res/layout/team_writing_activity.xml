@@ -180,7 +180,7 @@
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
                 android:background="@color/common_point_green"
-                android:visibility="visible"
+                android:visibility="invisible"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/cardview3"
                 app:layout_constraintStart_toStartOf="@+id/cardview3"

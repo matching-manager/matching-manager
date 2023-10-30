@@ -1,11 +1,9 @@
-package com.example.matching_manager.ui.team.view
+package com.example.matching_manager.ui.team.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.matching_manager.R
-import com.example.matching_manager.ui.team.TeamAddType
 import com.example.matching_manager.ui.team.TeamItem
 
 class TeamViewModel : ViewModel() {

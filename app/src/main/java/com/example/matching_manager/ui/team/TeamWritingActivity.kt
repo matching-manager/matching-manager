@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +20,7 @@ import com.example.matching_manager.ui.team.bottomsheet.TeamAge
 import com.example.matching_manager.ui.team.bottomsheet.TeamCalender
 import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
 import com.example.matching_manager.ui.team.bottomsheet.TeamTime
-import com.example.matching_manager.ui.team.view.TeamSharedViewModel
+import com.example.matching_manager.ui.team.viewmodel.TeamSharedViewModel
 
 
 class TeamWritingActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.matching_manager.ui.team.view
+package com.example.matching_manager.ui.team.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

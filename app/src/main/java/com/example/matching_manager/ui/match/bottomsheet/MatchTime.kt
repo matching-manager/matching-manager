@@ -1,15 +1,12 @@
 package com.example.matching_manager.ui.match.bottomsheet
 
 import android.os.Bundle
-import android.service.autofill.FieldClassification.Match
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.matching_manager.databinding.MatchTimeBinding
-import com.example.matching_manager.databinding.TeamTimeBinding
 import com.example.matching_manager.ui.match.MatchSharedViewModel
-import com.example.matching_manager.ui.team.view.TeamSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
