@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import com.example.matching_manager.R
+import com.example.matching_manager.data.model.UserInfoModel
 import com.example.matching_manager.databinding.SignInFragmentBinding
 import com.example.matching_manager.ui.fcm.FcmActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -20,12 +22,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 
 class SignInFragment : Fragment() {
 
@@ -33,9 +37,10 @@ class SignInFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var database: FirebaseDatabase
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var progressDialog: ProgressDialog
+
+    private val viewModel: SignInViewModel by viewModels { SignInViewModelFactory() }
 
     // ActivityResultLauncher 선언
     private lateinit var startGoogleLoginForResult: ActivityResultLauncher<Intent>
@@ -67,6 +72,28 @@ class SignInFragment : Fragment() {
     }
 
     private fun initView() {
+        // FCM 토큰 가져오기
+        var fcmToken: String? = null
+
+        Firebase.messaging.token.addOnCompleteListener(
+            OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w(FcmActivity.TAG, "FCM 등록 토큰 가져오기 실패", task.exception)
+                    return@OnCompleteListener
+                }
+
+                // 새 FCM 등록 토큰 가져오기
+                fcmToken = task.result
+
+                // 로깅 및 토스트
+                val msg = getString(R.string.msg_token_fmt, fcmToken)
+                Log.d(TAG, msg)
+                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+                Log.w(TAG, msg, task.exception)
+            },
+        )
+
+
         // FirebaseAuth 및 FirebaseDatabase 인스턴스를 초기화합니다.
         FirebaseAuth.getInstance()
         FirebaseDatabase.getInstance()
@@ -92,7 +119,7 @@ class SignInFragment : Fragment() {
         }
 
         // 임시 로그아웃 버튼
-        binding.btnSignoutGoogle.setOnClickListener{
+        binding.btnSignoutGoogle.setOnClickListener {
             val signOutIntent = mGoogleSignInClient.signOut()
             FirebaseAuth.getInstance().signOut()
             Toast.makeText(context, "로그아웃", Toast.LENGTH_SHORT).show()
@@ -109,11 +136,25 @@ class SignInFragment : Fragment() {
                         try {
                             // 구글 승인 성공, firebase 인증
                             val account = task.getResult(ApiException::class.java)!!
-                            Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
-                            Toast.makeText(context, "account ${account}", Toast.LENGTH_SHORT).show()
-                            Toast.makeText(context, "account id ${account.id}", Toast.LENGTH_SHORT).show()
+                            Log.d(TAG, "firebaseAuthWithGoogle id:" + account.id)
+                            Log.d(TAG, "firebaseAuthWithGoogle id token:" + account.idToken)
+                            Log.d(TAG, "firebaseAuthWithGoogle email:" + account.email)
+                            Log.d(TAG, "firebaseAuthWithGoogle photoUrl:" + account.photoUrl)
+                            Log.d(TAG, "firebaseAuthWithGoogle account:" + account)
                             firebaseAuthWithGoogle(account.idToken!!)
                             Toast.makeText(context, "승인성공", Toast.LENGTH_SHORT).show()
+
+                            //firebase realtime database에 user정보 등록
+                            viewModel.addUserInfo(
+                                UserInfoModel(
+                                    uid = account.id,
+                                    uidToken = account.idToken,
+                                    email = account.email,
+                                    fcmToken = fcmToken.toString(),
+                                    photoUrl = account.photoUrl.toString()
+                                )
+                            )
+
                             val intent = Intent(requireContext(), FcmActivity::class.java)
                             startActivity(intent)
                         } catch (e: ApiException) {

@@ -96,42 +96,25 @@ class FcmActivity : AppCompatActivity() {
             ),
         )
 
-        // 알림 메시지가 탭될 때, 알림 메시지와 함께 제공된 데이터는 인텐트 익스트라에서 사용 가능
-        // 예제에서는 런처 인텐트가 알림이 탭될 때 시작되므로, 함께 제공된 데이터는 여기서 처리
-        // 다른 인텐트를 시작하려면 알림 메시지의 click_action 필드를 원하는 인텐트로 설정하면 됨
-//        intent.extras?.let {
-//            for (key in it.keySet()) {
-//                val value = intent.extras?.getString(key)
-//                Log.d(TAG, "키: $key 값: $value")
-//            }
+//        // 토큰 가져오기
+//        Firebase.messaging.token.addOnCompleteListener(
+//            OnCompleteListener { task ->
+//                if (!task.isSuccessful) {
+//                    Log.w(TAG, "FCM 등록 토큰 가져오기 실패", task.exception)
+//                    return@OnCompleteListener
+//                }
 //
-//            if (intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_ID) != null) {
-//                addFcmData()
-//            } else {
-//                val intent = Intent(this@FcmActivity, MainActivity::class.java)
-//                startActivity(intent)
-//            }
-//        }
-
-        // 토큰 가져오기
-        Firebase.messaging.token.addOnCompleteListener(
-            OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.w(TAG, "FCM 등록 토큰 가져오기 실패", task.exception)
-                    return@OnCompleteListener
-                }
-
-                // 새 FCM 등록 토큰 가져오기
-                val token = task.result
-
-                // 로깅 및 토스트
-                val msg = getString(R.string.msg_token_fmt, token)
-                Log.d(TAG, msg)
-                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-                Log.w(TAG, msg, task.exception)
-
-            },
-        )
+//                // 새 FCM 등록 토큰 가져오기
+//                val token = task.result
+//
+//                // 로깅 및 토스트
+//                val msg = getString(R.string.msg_token_fmt, token)
+//                Log.d(TAG, msg)
+//                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+//                Log.w(TAG, msg, task.exception)
+//
+//            },
+//        )
     }
 
     // 권한이 있는지 확인하는 함수

@@ -10,8 +10,6 @@ import com.example.matching_manager.databinding.SignInActivityBinding
 
 class SignInActivity : AppCompatActivity() {
 
-
-
     private val binding by lazy { SignInActivityBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
