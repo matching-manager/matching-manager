@@ -28,32 +28,11 @@ import com.google.firebase.auth.FirebaseAuth
 class MyFragment : Fragment() {
     private var _binding: MyFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
-    }
 
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private var editName: String? = null // editName 선언
     private var editImageUri: Uri? = null // editImageUri 선언
 
-    private val adapter by lazy {
-        MyMatchListAdapter(
-            onItemClick = {
-                startActivity(detailIntent(requireContext(), it))
-            },
-            onMenuClick = {
-                val myMatchMenuBottomSheet = MyMatchMenuBottomSheet(it)
-
-                val fragmentManager = requireActivity().supportFragmentManager
-                myMatchMenuBottomSheet.show(fragmentManager, myMatchMenuBottomSheet.tag)
-//                startActivity(editIntent(requireContext(), it))
-            },
-//            onRemoveClick = {
-//                val dialog = MyDeleteDialog(it)
-//                dialog.show(childFragmentManager, "deleteDialog")
-//            }
-        )
-    }
 
     private var context: Context? = null
     private lateinit var dialogBinding: DialogEditBinding
@@ -66,26 +45,7 @@ class MyFragment : Fragment() {
         const val PICK_IMAGE_REQUEST = 1
 
         const val OBJECT_DATA = "item_object"
-        fun detailIntent(
-            context: Context, item: MyMatchDataModel
-        ): Intent {
-            val intent = Intent(context, MyMatchDetailActivity::class.java)
-            intent.putExtra(OBJECT_DATA, item)
-            return intent
-        }
-
-        fun editIntent(context: Context, item: MyMatchDataModel): Intent {
-            val intent = Intent(context, MyMatchEditActivity::class.java)
-            intent.putExtra(OBJECT_DATA, item)
-            return intent
-        }
     }
-
-//    private val listAdapter by lazy {
-//        MyAdapter { position, image ->
-//            val intent = Intent(context, Image)
-//        }
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -99,7 +59,6 @@ class MyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        initViewModel()
 
         myFileDialog =
             MyFileDialog(editName, editImageUri) { newName, newLocation, newId, newImageUri ->
@@ -119,21 +78,15 @@ class MyFragment : Fragment() {
 
 
     private fun initView() = with(binding) {
-        progressBar.visibility = View.VISIBLE
-        viewModel.fetchData(viewModel.userId)
-
-        rv.adapter = adapter
-        val manager = LinearLayoutManager(requireContext())
-        manager.reverseLayout = true
-        manager.stackFromEnd = true
-        rv.layoutManager = manager
+        cv1.setOnClickListener {
+            val intent = Intent(requireContext(), MyMatchActivity::class.java)
+            startActivity(intent)
+        }
 
 
         resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    viewModel.fetchData(viewModel.userId)
-
                     val data: Intent? = result.data
                     selectedImageUri = data?.data
                     if (selectedImageUri != null) {
@@ -227,19 +180,6 @@ class MyFragment : Fragment() {
         editor?.putString("profileImageUri", imageUri?.toString())
 
         editor?.apply()
-    }
-
-    private fun initViewModel() = with(viewModel) {
-        autoFetchData()
-
-        list.observe(viewLifecycleOwner, Observer {
-            var smoothList = 0
-            adapter.submitList(it.toList())
-            if (it.size > 0) smoothList = it.size - 1
-            else smoothList = 1
-            binding.progressBar.visibility = View.INVISIBLE
-            binding.rv.smoothScrollToPosition(smoothList)
-        })
     }
 
     override fun onDestroy() {
