@@ -5,6 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.matching_manager.ui.my.MyMatchDataModel
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
@@ -14,10 +18,14 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
     private val _list: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
     val list: LiveData<List<MatchDataModel>> get() = _list
 
+    private val _realTimeList: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
+    val realTimeList: LiveData<List<MatchDataModel>> get() = _realTimeList
+
     private val _event: MutableLiveData<MatchEvent> = MutableLiveData()
     val event: LiveData<MatchEvent> get() = _event
 
     private val database = Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
+    private val matchRef = database.getReference("Match")
     fun fetchData() {
         viewModelScope.launch {
             val currentList = repository.getList(database)
@@ -32,6 +40,28 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
             repository.addData(data, database)
             _event.postValue(MatchEvent.Finish)
         }
+    }
+
+    fun autoFetchData() {
+        Log.d("autoFetchData", "abcd")
+        matchRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dataList = mutableListOf<MatchDataModel>()
+
+                for (childSnapshot in dataSnapshot.children) {
+                    val matchData = childSnapshot.getValue(MatchDataModel::class.java)
+                    if (matchData != null) {
+                        dataList.add(matchData)
+                    }
+                }
+                _realTimeList.value = dataList
+                Log.d("autoFetchData", "${_realTimeList.value}")
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // 오류 처리
+            }
+        })
     }
 }
 sealed interface MatchEvent {

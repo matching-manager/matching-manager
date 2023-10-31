@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.R
@@ -27,7 +29,14 @@ class MatchFragment : Fragment() {
 
     private val adapter by lazy {
         MatchListAdapter { item ->
-            startActivity(detailIntent(requireContext(), item))
+            val matchList = viewModel.realTimeList.value ?: emptyList()
+            if(matchList.any { it.matchId == item.matchId }) {
+                startActivity(detailIntent(requireContext(), item))
+            }
+            else {
+                val dialog = MatchDeletedAlertDialog()
+                dialog.show(childFragmentManager, "matchDeletedAlertDialog")
+            }
         }
     }
 
@@ -103,6 +112,7 @@ class MatchFragment : Fragment() {
     }
 
     private fun initViewModel() = with(viewModel) {
+        autoFetchData()
         list.observe(viewLifecycleOwner, Observer {
             var smoothList = 0
             adapter.submitList(it.toList())
@@ -112,7 +122,6 @@ class MatchFragment : Fragment() {
             binding.rv.smoothScrollToPosition(smoothList)
         })
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
