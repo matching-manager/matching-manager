@@ -82,6 +82,10 @@ class MyFragment : Fragment() {
             val intent = Intent(requireContext(), MyMatchActivity::class.java)
             startActivity(intent)
         }
+        cv2.setOnClickListener {
+            val intent = Intent(requireContext(), MyTeamActivity::class.java)
+            startActivity(intent)
+        }
 
 
         resultLauncher =

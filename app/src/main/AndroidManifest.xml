@@ -24,6 +24,9 @@
         android:theme="@style/Theme.Matchingmanager"
         tools:targetApi="31">
         <activity
+            android:name=".ui.my.MyTeamActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.my.MyMatchActivity"
             android:exported="false" />
         <activity
