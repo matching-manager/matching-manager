@@ -126,8 +126,8 @@ class CalendarFragment : Fragment() {
             val memoDecorator = CalendarMemoDecorator(datesWithMemo)
 
             materialCalendarView.removeDecorator(memoDecorator)
-            materialCalendarView.invalidateDecorators()
-            materialCalendarView.addDecorator(memoDecorator)
+            //materialCalendarView.invalidateDecorators()
+            //materialCalendarView.addDecorator(memoDecorator)
 
     }
 
@@ -154,6 +154,7 @@ class CalendarFragment : Fragment() {
             // CalendarMemoDialogFragment에서 전달된 메모 텍스트를 가져옵니다. 만약 값이 null인 경우 빈 문자열로 초기화합니다.
 
             val memoPlace = result.getString(CalendarMemoDialogFragment.RESULT_KEY_PLACE) ?: ""
+
             val clickedDay = date.day // 클릭한 날짜의 일 정보
 
             val clickedMonth = date.month // Calendar.MONTH는 0부터 시작하기 때문에 1을 뺍니다.

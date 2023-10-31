@@ -2,6 +2,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.example.matching_manager.R
@@ -32,7 +33,11 @@ class CalendarMemoDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // 다이얼로그 레이아웃을 설정합니다.
         return inflater.inflate(R.layout.calendar_memo_dialog_fragment, container, false)
 
@@ -49,19 +54,27 @@ class CalendarMemoDialogFragment : BottomSheetDialogFragment() {
             val memoText = binding.edtCalendarTxt.text.toString()
             val memoPlace = binding.edtCalendarPlace.text.toString()
 
-            // 메모 데이터를 부모 Fragment로 전달합니다.
-            setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_TEXT to memoText, RESULT_KEY_PLACE to memoPlace))
-            //setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_PLACE to memoPlace))
+            if (memoText.isNotBlank() && memoPlace.isNotBlank()) {
+                // 메모 데이터를 부모 Fragment로 전달합니다.
+                setFragmentResult(
+                    REQUEST_KEY,
+                    bundleOf(RESULT_KEY_TEXT to memoText, RESULT_KEY_PLACE to memoPlace)
+                )
+                //setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_PLACE to memoPlace))
 
-            dismiss() // 다이얼로그 닫기
+                dismiss() // 다이얼로그 닫기
+            } else {
+                // `memoText`와 `memoPlace` 중 하나라도 입력되지 않았을 때 클릭 비활성화
+                Toast.makeText(requireContext(), "메모, 장소를 꼭 입력하세요", Toast.LENGTH_SHORT).show()
+                binding.btnSave.isEnabled = true
+            }
         }
+            binding.btnCancel.setOnClickListener {
+                dismiss() // 다이얼로그 닫기
+            }
 
-        binding.btnCancel.setOnClickListener {
-            dismiss() // 다이얼로그 닫기
+        fun setMemoSaveListener(listener: (String) -> Unit) {
+            memoSaveListener = listener
         }
-    }
-
-    fun setMemoSaveListener(listener: (String) -> Unit) {
-        memoSaveListener = listener
     }
 }

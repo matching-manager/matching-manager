@@ -82,13 +82,14 @@ dependencies {
 
     // FireBase
     implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
-    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.9.0'
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
 
     //FireBase Storage
     implementation 'com.google.firebase:firebase-storage'
+
 
     // FireBase Fcm send Message
     implementation 'com.google.firebase:firebase-messaging:23.3.0'
@@ -104,10 +105,13 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor'
 
     // Coil
-    implementation 'io.coil-kt:coil:2.4.0'
+    implementation'io.coil-kt:coil:2.4.0'
+
 
     // SwipeRefreshLayout
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+
 
     // Google play service
     implementation("com.google.android.gms:play-services-auth:20.7.0")
@@ -117,5 +121,7 @@ dependencies {
     implementation "com.google.firebase:firebase-auth-ktx"
 
     //Calendar library
+
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+
 }
