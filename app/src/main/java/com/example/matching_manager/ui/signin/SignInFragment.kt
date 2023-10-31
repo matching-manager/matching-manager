@@ -18,7 +18,6 @@ import com.example.matching_manager.data.model.UserInfoModel
 import com.example.matching_manager.databinding.SignInFragmentBinding
 import com.example.matching_manager.ui.fcm.FcmActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
