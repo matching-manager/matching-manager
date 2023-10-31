@@ -110,6 +110,8 @@ class SignInFragment : Fragment() {
                             // 구글 승인 성공, firebase 인증
                             val account = task.getResult(ApiException::class.java)!!
                             Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
+                            Toast.makeText(context, "account ${account}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "account id ${account.id}", Toast.LENGTH_SHORT).show()
                             firebaseAuthWithGoogle(account.idToken!!)
                             Toast.makeText(context, "승인성공", Toast.LENGTH_SHORT).show()
                             val intent = Intent(requireContext(), FcmActivity::class.java)

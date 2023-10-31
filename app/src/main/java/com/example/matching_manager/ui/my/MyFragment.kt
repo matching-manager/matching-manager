@@ -22,6 +22,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.DialogEditBinding
 import com.example.matching_manager.databinding.MyFragmentBinding
+import com.example.matching_manager.ui.my.MyFragment.Companion.PICK_IMAGE_REQUEST
+import com.google.firebase.auth.FirebaseAuth
 
 class MyFragment : Fragment() {
     private var _binding: MyFragmentBinding? = null
@@ -65,8 +67,7 @@ class MyFragment : Fragment() {
 
         const val OBJECT_DATA = "item_object"
         fun detailIntent(
-            context: Context, item:
-            MyMatchDataModel
+            context: Context, item: MyMatchDataModel
         ): Intent {
             val intent = Intent(context, MyMatchDetailActivity::class.java)
             intent.putExtra(OBJECT_DATA, item)
@@ -87,8 +88,7 @@ class MyFragment : Fragment() {
 //    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = MyFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -101,9 +101,10 @@ class MyFragment : Fragment() {
         initView()
         initViewModel()
 
-        myFileDialog = MyFileDialog(editName, editImageUri) { newName, newLocation, newId, newImageUri ->
-            // newName, newLocation, newId, newImageUri를 이곳에서 사용할 수 있습니다.
-        }
+        myFileDialog =
+            MyFileDialog(editName, editImageUri) { newName, newLocation, newId, newImageUri ->
+                // newName, newLocation, newId, newImageUri를 이곳에서 사용할 수 있습니다.
+            }
 
 
         setFragmentResultListener("imageResult") { _, result ->
@@ -142,8 +143,7 @@ class MyFragment : Fragment() {
                         //ivMypageFace.setImageURI(selectedImageUri)
                         //setProfileImage(selectedImageUri)
                         Log.d(
-                            "MyFragment",
-                            "After save click: selectedImageUri = $selectedImageUri"
+                            "MyFragment", "After save click: selectedImageUri = $selectedImageUri"
                         )
                     }
                 }
@@ -153,8 +153,7 @@ class MyFragment : Fragment() {
             dialogBinding = DialogEditBinding.inflate(layoutInflater)
             val dialogView = dialogBinding.root
             //val dialogView = layoutInflater.inflate(R.layout.dialog_edit, null)
-            val builder = AlertDialog.Builder(requireContext())
-                .setView(dialogView)
+            val builder = AlertDialog.Builder(requireContext()).setView(dialogView)
             val dialog = builder.create()
             dialog.show()
 
@@ -171,53 +170,39 @@ class MyFragment : Fragment() {
                     val nickname = et_content_nickname.text.toString()
                     val location = et_content_location.text.toString()
                     val id = et_content_id.text.toString()
-
-                    //setProfileImage(selectedImageUri)
-
                     if (nickname.isNullOrBlank() || location.isNullOrBlank() || id.isNullOrBlank()) {
                         // btn_save.isEnabled
                         Toast.makeText(
-                            requireContext(),
-                            "닉네임, 위치, 아이디를 입력해주세요.",
-                            Toast.LENGTH_SHORT
+                            requireContext(), "닉네임, 위치, 아이디를 입력해주세요.", Toast.LENGTH_SHORT
                         ).show()
-
                     } else {
-
                         btnMypageNickname.text = nickname
                         btnMypageLocation.text = location
                         btnMypageId.text = id
-
-                        //val newName = et_content_nickname.text.toString()
                         val newImageUri = selectedImageUri
                         dialog.dismiss()
                     }
                 }
-
                 dialog.dismiss()
-
-        }
-
-
+            }
 
             btn_cancle.setOnClickListener {
-                //selectedImageUri = null
                 dialogBinding.ivProfile.setImageURI(null)
-
                 dialog.dismiss()
             }
 
-
             iv_profile.setOnClickListener {
-
-                //myFileDialog.openGallery(resultLauncher)
                 openGallery()
-
             }
-        }
 
 
         }
+
+        btnLogout.setOnClickListener{
+            FirebaseAuth.getInstance().signOut()
+            Toast.makeText(context, "로그아웃", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -228,17 +213,9 @@ class MyFragment : Fragment() {
     private fun setProfileImage(imageUri: Uri?) {
         val result = Bundle().apply {
             putParcelable("selectedImageUri", imageUri)
-        dialogBinding.ivProfile.setImageURI(imageUri)
-        binding.ivMypageFace.setImageURI(imageUri)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            val selectedImageUri = data.data
-            setProfileImage(selectedImageUri)
+            dialogBinding.ivProfile.setImageURI(imageUri)
+            binding.ivMypageFace.setImageURI(imageUri)
         }
-        setFragmentResult("imageResult", result)
     }
 
     private fun saveProfiledData(name: String, imageUri: Uri?) {
@@ -252,24 +229,13 @@ class MyFragment : Fragment() {
         editor?.apply()
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-//            val selectedImageUri = data.data
-//            //dialogBinding.ivProfile.setImageURI(selectedImageUri)
-//            //binding.ivMypageFace.setImageURI(selectedImageUri)
-//            setProfileImage(selectedImageUri)
-//        }
-//    }
-
-
     private fun initViewModel() = with(viewModel) {
         autoFetchData()
 
         list.observe(viewLifecycleOwner, Observer {
             var smoothList = 0
             adapter.submitList(it.toList())
-            if(it.size > 0) smoothList = it.size - 1
+            if (it.size > 0) smoothList = it.size - 1
             else smoothList = 1
             binding.progressBar.visibility = View.INVISIBLE
             binding.rv.smoothScrollToPosition(smoothList)
