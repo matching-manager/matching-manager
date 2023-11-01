@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.activityViewModels
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.SignInFragmentBinding
 import com.example.matching_manager.databinding.SignUpFragmentBinding
@@ -16,6 +17,8 @@ class SignUpFragment : Fragment() {
 
     private var _binding: SignUpFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private val sharedViewModel :SignInSharedViewModel by activityViewModels { SignInViewModelFactory()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
