@@ -52,8 +52,13 @@ class ArenaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setButton()
         initView()
         initModel()
+    }
+
+    private fun setButton() = with(binding) {
+
     }
 
     private fun initView() = with(binding) {
@@ -66,18 +71,43 @@ class ArenaActivity : AppCompatActivity() {
         }
         btnFutsal.setOnClickListener {
             searchArena("풋살")
+            binding.btnFutsal.isChecked = true
+            binding.btnSoccer.isChecked = false
+            binding.btnBowling.isChecked = false
+            binding.btnBasketball.isChecked = false
+            binding.btnBadminton.isChecked = false
         }
         btnSoccer.setOnClickListener {
             searchArena("축구장")
+            binding.btnFutsal.isChecked = false
+            binding.btnSoccer.isChecked = true
+            binding.btnBowling.isChecked = false
+            binding.btnBasketball.isChecked = false
+            binding.btnBadminton.isChecked = false
         }
         btnBowling.setOnClickListener {
             searchArena("볼링장")
+            binding.btnFutsal.isChecked = false
+            binding.btnSoccer.isChecked = false
+            binding.btnBowling.isChecked = true
+            binding.btnBasketball.isChecked = false
+            binding.btnBadminton.isChecked = false
         }
         btnBasketball.setOnClickListener {
             searchArena("농구장")
+            binding.btnFutsal.isChecked = false
+            binding.btnSoccer.isChecked = false
+            binding.btnBowling.isChecked = false
+            binding.btnBasketball.isChecked = true
+            binding.btnBadminton.isChecked = false
         }
         btnBadminton.setOnClickListener {
             searchArena("배드민턴장")
+            binding.btnFutsal.isChecked = false
+            binding.btnSoccer.isChecked = false
+            binding.btnBowling.isChecked = false
+            binding.btnBasketball.isChecked = false
+            binding.btnBadminton.isChecked = true
         }
         btnFilter.setOnClickListener {
             val arenaFilterCategory = ArenaFilterCategory()
@@ -112,13 +142,14 @@ class ArenaActivity : AppCompatActivity() {
         filterArea.observe(this@ArenaActivity, Observer {
             when (it) {
                 null -> {
-                    binding.tvFilter.text="지역 설정"
+                    binding.tvFilter.text = "설정 필요"
                     binding.tvArena.visibility = (View.VISIBLE)
                 }
 
                 else -> {
                     binding.tvArena.visibility = (View.INVISIBLE)
                     searchArena("풋살")
+                    binding.btnFutsal.isChecked = true
                 }
             }
         })

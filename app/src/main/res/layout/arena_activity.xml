@@ -48,10 +48,13 @@
         android:layout_width="80dp"
         android:layout_height="30dp"
         android:layout_marginEnd="10dp"
+        android:paddingStart="13dp"
         android:background="@drawable/toggle_selector"
         android:drawableRight="@drawable/ic_filter"
         android:padding="5dp"
         android:text="@string/arena_filter"
+        android:textOff="필터"
+        android:textOn="필터"
         android:textColor="@color/black"
         android:textSize="13dp"
         android:textStyle="bold"
@@ -87,17 +90,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ToggleButton
                     android:id="@+id/btn_futsal"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
-                    android:background="@color/white"
+                    android:background="@drawable/toggle_selector"
                     android:drawableLeft="@drawable/ic_futsal"
-                    android:paddingStart="8dp"
+                    android:paddingStart="13dp"
                     android:paddingEnd="10dp"
-                    android:text="풋살"
-                    android:textStyle="bold"
+                    android:textOff="풋살"
+                    android:textOn="풋살"
                     android:textSize="13dp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -116,17 +120,18 @@
                 app:layout_constraintStart_toEndOf="@+id/cv_home_futsal"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ToggleButton
                     android:id="@+id/btn_soccer"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
-                    android:background="@color/white"
+                    android:background="@drawable/toggle_selector"
                     android:drawableLeft="@drawable/ic_soccer"
-                    android:paddingStart="8dp"
+                    android:paddingStart="13dp"
                     android:paddingEnd="10dp"
-                    android:text="축구"
-                    android:textStyle="bold"
+                    android:textOff="축구"
+                    android:textOn="축구"
                     android:textSize="13dp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -145,17 +150,18 @@
                 app:layout_constraintStart_toEndOf="@+id/cv_home_soccer"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ToggleButton
                     android:id="@+id/btn_basketball"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
-                    android:background="@color/white"
+                    android:background="@drawable/toggle_selector"
                     android:drawableLeft="@drawable/ic_basketball"
-                    android:paddingStart="8dp"
+                    android:paddingStart="13dp"
                     android:paddingEnd="10dp"
-                    android:text="농구"
-                    android:textStyle="bold"
+                    android:textOff="농구"
+                    android:textOn="농구"
                     android:textSize="13dp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -174,17 +180,18 @@
                 app:layout_constraintStart_toEndOf="@+id/cv_home_basketball"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ToggleButton
                     android:id="@+id/btn_badminton"
                     android:layout_width="90dp"
                     android:layout_height="30dp"
-                    android:background="@color/white"
+                    android:background="@drawable/toggle_selector"
                     android:drawableLeft="@drawable/ic_badminton"
                     android:paddingStart="8dp"
                     android:paddingEnd="10dp"
-                    android:text="배드민턴"
-                    android:textStyle="bold"
+                    android:textOff="배드민턴"
+                    android:textOn="배드민턴"
                     android:textSize="13dp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -204,17 +211,18 @@
                 app:layout_constraintStart_toEndOf="@+id/cv_home_badminton"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ToggleButton
                     android:id="@+id/btn_bowling"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
-                    android:background="@color/white"
+                    android:background="@drawable/toggle_selector"
                     android:drawableLeft="@drawable/ic_bowling"
-                    android:paddingStart="8dp"
+                    android:paddingStart="13dp"
                     android:paddingEnd="10dp"
-                    android:text="볼링"
-                    android:textStyle="bold"
+                    android:textOff="볼링"
+                    android:textOn="볼링"
                     android:textSize="13dp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -247,7 +255,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"/>
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 
     <TextView
         android:id="@+id/tv_empty"
@@ -261,6 +269,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"/>
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
