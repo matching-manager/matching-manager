@@ -152,7 +152,7 @@ class MatchWritingActivity : AppCompatActivity() {
         with(viewModel) {
             event.observe(this@MatchWritingActivity) {
                 when (it) {
-                    is MatchEvent.Finish -> {
+                    is MatchViewModel.MatchEvent.Finish -> {
                         finish()
                     }
 

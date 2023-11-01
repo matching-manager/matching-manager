@@ -150,6 +150,10 @@ class ArenaActivity : AppCompatActivity() {
                     binding.tvArena.visibility = (View.INVISIBLE)
                     searchArena("풋살")
                     binding.btnFutsal.isChecked = true
+                    binding.btnSoccer.isChecked = false
+                    binding.btnBowling.isChecked = false
+                    binding.btnBasketball.isChecked = false
+                    binding.btnBadminton.isChecked = false
                 }
             }
         })
