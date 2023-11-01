@@ -60,6 +60,7 @@ class ArenaActivity : AppCompatActivity() {
 
     companion object {
         const val ARENA_FILTER = "arena_filter"
+        var CHECK_FIRST_FILTER = true
         fun newIntent(
             context: Context,
         ) = Intent(context, ArenaActivity::class.java)
@@ -75,8 +76,6 @@ class ArenaActivity : AppCompatActivity() {
     private fun initView() = with(binding) {
 
         rvArena.adapter = listAdapter
-        searchArena("풋살")
-
         //색지정하기
 
         btnBack.setOnClickListener {
@@ -84,7 +83,6 @@ class ArenaActivity : AppCompatActivity() {
         }
         btnFutsal.setOnClickListener {
             searchArena("풋살")
-
         }
         btnSoccer.setOnClickListener {
             searchArena("축구장")
@@ -119,10 +117,11 @@ class ArenaActivity : AppCompatActivity() {
 
     private fun initModel() = with(viewModel) {
         list.observe(this@ArenaActivity, Observer {
-            if (it.isEmpty()){
-                binding.tvEmpty.visibility=(View.VISIBLE)
-            }else{
-                binding.tvEmpty.visibility=(View.INVISIBLE)
+            if (it.isEmpty()) {
+                binding.tvEmpty.visibility = (View.VISIBLE)
+                listAdapter.submitList(it)
+            } else {
+                binding.tvEmpty.visibility = (View.INVISIBLE)
                 listAdapter.submitList(it)
             }
         })
@@ -131,13 +130,11 @@ class ArenaActivity : AppCompatActivity() {
             when (it) {
                 null -> {
                     binding.tvArena.visibility = (View.VISIBLE)
-                    //recycleview invisible
                 }
 
                 else -> {
                     binding.tvArena.visibility = (View.INVISIBLE)
                     searchArena("풋살")
-                    //recycleview visible
                 }
             }
         })

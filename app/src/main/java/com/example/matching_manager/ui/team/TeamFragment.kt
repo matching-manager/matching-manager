@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.TeamFragmentBinding
@@ -152,9 +153,17 @@ class TeamFragment : Fragment() {
 
     //viewmodel init
     private fun initViewModel() = with(viewModel) {
-        list.observe(viewLifecycleOwner) {
-            listAdapter.submitList(it)
-        }
+        list.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                if (it.isEmpty()) {
+                    binding.tvEmpty.visibility = (View.VISIBLE)
+                    listAdapter.submitList(it)
+                } else {
+                    binding.tvEmpty.visibility = (View.INVISIBLE)
+                    listAdapter.submitList(it)
+                }
+            }
+        })
     }
 
     //글추가 로직

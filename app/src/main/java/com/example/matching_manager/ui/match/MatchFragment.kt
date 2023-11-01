@@ -29,7 +29,7 @@ class MatchFragment : Fragment() {
         MatchViewModelFactory()
     }
 
-    private val adapter by lazy {
+    private val listadapter by lazy {
         MatchListAdapter { item ->
             startActivity(detailIntent(requireContext(), item))
         }
@@ -75,10 +75,10 @@ class MatchFragment : Fragment() {
     private fun initView() = with(binding) {
 
         progressBar.visibility = View.VISIBLE
-
         viewModel.fetchData()
+        rv.adapter = listadapter
 
-        rv.adapter = adapter
+
         val manager = LinearLayoutManager(requireContext())
         manager.reverseLayout = true
         manager.stackFromEnd = true
@@ -126,8 +126,15 @@ class MatchFragment : Fragment() {
 
     private fun initViewModel() = with(viewModel) {
         list.observe(viewLifecycleOwner, Observer {
+            if (it.isEmpty()) {
+                binding.tvEmpty.visibility = (View.VISIBLE)
+                listadapter.submitList(it.toList())
+            } else {
+                binding.tvEmpty.visibility = (View.INVISIBLE)
+                listadapter.submitList(it.toList())
+            }
+
             var smoothList = 0
-            adapter.submitList(it.toList())
             if(it.size > 0) smoothList = it.size - 1
             else smoothList = 1
             binding.progressBar.visibility = View.INVISIBLE
