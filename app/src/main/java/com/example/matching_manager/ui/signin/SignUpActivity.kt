@@ -55,7 +55,10 @@ class SignUpActivity : AppCompatActivity() {
                 }
 
                 else -> {
-                    sharedViewModel.addUserInfo(etUserName.text.toString(),etPhoneNumber.text.toString())
+                    sharedViewModel.addUserInfo(
+                        etUserName.text.toString(),
+                        etPhoneNumber.text.toString()
+                    )
                     startActivity(FcmActivity.newIntent(this@SignUpActivity))
                 }
             }
@@ -70,6 +73,8 @@ class SignUpActivity : AppCompatActivity() {
         ivWarningUsername.isVisible = true
         tvUsernameDescription.setTextColor(resources.getColor(R.color.signup_exception_red))
         tvUsernameDescription.text = "2자리 이상의 UserName을 입력해주세요!"
+        etUserName.isFocusable = false
+        etUserName.isSelected = true
     }
 
     private fun userPhoneNumberException() = with(binding) {
@@ -77,5 +82,7 @@ class SignUpActivity : AppCompatActivity() {
         ivWarningPhoneNumber.isVisible = true
         tvPhoneNumberDescription.setTextColor(resources.getColor(R.color.signup_exception_red))
         tvPhoneNumberDescription.text = "010으로 시작하는 11자리 번호를 입력해주세요!"
+        etPhoneNumber.isFocusable = false
+        etPhoneNumber.isSelected = true
     }
 }
