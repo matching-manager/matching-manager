@@ -2,6 +2,21 @@
     <string name="app_name">matching-manager</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- sign up -->
+    <string name="sign_up_et_hint_Username">&#160;&#160;&#160;Input username</string>
+    <string name="sign_up_et_hint_phone_number">&#160;&#160;&#160;Input phone number</string>
+    <string name="sign_up_tv_username">Username</string>
+    <string name="sign_up_tv_phone_number">Phone number</string>
+    <string name="sign_up_tv_Username_description">Username은 최소 2자리 최대 8자리로 구성됩니다.</string>
+    <string name="sign_up_tv_phone_number_description">매칭에 사용될 핸드폰 번호를 입력해주세요.</string>
+    <string name="sign_up_description">Matching Manager를 즐기기 위해\n추가정보를 입력해주세요.</string>
+    <string name="sign_up_btn">SIGN UP</string>
+    <string name="cancel_btn">CANCEL</string>
+
+    <!-- signin -->
+    <string name="sign_in_continue_with_google">Continue With Google</string>
+    <string name="default_web_client_id">677718539523-47ds99rnc0eupphgjm4rnbmkojntg506.apps.googleusercontent.com</string>
+
     <string name="main_home">Home</string>
     <string name="main_match">Match</string>
     <string name="main_calendar">Calendar</string>
@@ -124,9 +139,6 @@
     <string name="arena_dialog_btn_call">CALL</string>
 
     <string name="undefined_test_value">미정 입니다.</string>
-
-    <!-- signinfragment -->
-    <string name="default_web_client_id">677718539523-47ds99rnc0eupphgjm4rnbmkojntg506.apps.googleusercontent.com</string>
 
     <!-- Alarm -->
     <string name="alarm">알림</string>

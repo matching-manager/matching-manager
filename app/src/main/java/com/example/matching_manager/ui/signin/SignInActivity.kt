@@ -10,19 +10,21 @@ import com.example.matching_manager.databinding.SignInActivityBinding
 
 class SignInActivity : AppCompatActivity() {
 
-
-
     private val binding by lazy { SignInActivityBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         val loginFragment = SignInFragment()
-        val fragmentManager : FragmentManager = supportFragmentManager
-        val transaction : FragmentTransaction = fragmentManager.beginTransaction()
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
 
         transaction.replace(binding.fragmentContainer.id, loginFragment)
         transaction.addToBackStack(null)
         transaction.commit()
-        }
     }
+
+}
+
+
+
