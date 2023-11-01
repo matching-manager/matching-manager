@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -198,13 +197,13 @@ class TeamWritingActivity : AppCompatActivity() {
             }
 
             fun setDongSpinnerAdapterItem(arrayResource: Int) {
-                val arrayAdapter = ArrayAdapter(
+                val dongAdapter = ArrayAdapter(
                     this@TeamWritingActivity,
                     android.R.layout.simple_spinner_item,
                     resources.getStringArray(arrayResource)
                 )
-                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                dongSpinner.adapter = arrayAdapter
+                dongAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                dongSpinner.adapter = dongAdapter
             }
         }
 

@@ -1,4 +1,4 @@
-package com.example.matching_manager.ui.match.bottomsheet
+package com.example.matching_manager.ui.home.arena.bottomsheet
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,14 +8,15 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import com.example.matching_manager.databinding.MatchFilterCategoryBinding
-import com.example.matching_manager.ui.match.MatchFragment
+import com.example.matching_manager.R
+import com.example.matching_manager.databinding.TeamFilterCategoryBinding
+import com.example.matching_manager.ui.team.TeamFragment
 import com.example.matching_manager.util.Spinners
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class MatchFilterCategory : BottomSheetDialogFragment() {
+class ArenaFilterCategory : BottomSheetDialogFragment() {
 
-    private var _binding: MatchFilterCategoryBinding? = null
+    private var _binding: TeamFilterCategoryBinding? = null
     private val binding get() = _binding!!
 
     private var selectedGame: String? = null
@@ -33,7 +34,7 @@ class MatchFilterCategory : BottomSheetDialogFragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        _binding = MatchFilterCategoryBinding.inflate(inflater, container, false)
+        _binding = TeamFilterCategoryBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -133,13 +134,13 @@ class MatchFilterCategory : BottomSheetDialogFragment() {
             }
 
             fun setDongSpinnerAdapterItem(arrayResource: Int) {
-                val dongAdapter = ArrayAdapter(
+                val arrayAdapter = ArrayAdapter(
                     requireContext(),
                     android.R.layout.simple_spinner_item,
                     resources.getStringArray(arrayResource)
                 )
-                dongAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                dongSpinner.adapter = dongAdapter
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                dongSpinner.adapter = arrayAdapter
             }
         }
     }
@@ -147,8 +148,8 @@ class MatchFilterCategory : BottomSheetDialogFragment() {
     private fun initView() = with(binding) {
         btnCancel.setOnClickListener {
             // 선택한 값을 초기화합니다.
-            gameSpinner.setSelection(0)
-            citySpinner.setSelection(0)
+            binding.gameSpinner.setSelection(0)
+            binding.citySpinner.setSelection(0)
         }
 
         btnSearch.setOnClickListener {
@@ -157,7 +158,7 @@ class MatchFilterCategory : BottomSheetDialogFragment() {
             val game = selectedGame// 선택한 게임을 얻어오는 코드
             val area = selectedArea// 선택한 지역을 얻어오는 코드
 
-            setFragmentResult(MatchFragment.CATEGORY_REQUEST_KEY, bundleOf(SELECTED_GAME to game,SELECTED_AREA to area))
+            setFragmentResult(TeamFragment.CATEGORY_REQUEST_KEY, bundleOf(SELECTED_GAME to game,SELECTED_AREA to area))
             dismiss()
         }
     }

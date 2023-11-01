@@ -61,7 +61,6 @@ class TeamFragment : Fragment() {
         const val FRAGMENT_REQUEST_KEY = "request_key"
         const val CATEGORY_REQUEST_KEY = "category_key"
         const val FRAGMENT_RETURN_TYPE = "fragment_return_type"
-        const val CATEGORY_RETURN_TYPE = "category_return_type"
     }
 
     override fun onCreateView(
@@ -145,7 +144,7 @@ class TeamFragment : Fragment() {
                 val game = bundle.getString(TeamFilterCategory.SELECTED_GAME)
                 val area = bundle.getString(TeamFilterCategory.SELECTED_AREA)
 
-//                 선택한 게임과 지역에 따라 아이템을 필터링합니다.
+                //선택한 게임과 지역에 따라 아이템을 필터링합니다.
                 viewModel.filterItems(selectedGame = game, selectedArea = area)
             }
         }

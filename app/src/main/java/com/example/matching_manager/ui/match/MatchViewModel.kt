@@ -33,6 +33,10 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
             _event.postValue(MatchEvent.Finish)
         }
     }
+
+    fun filterItems(selectedGame: String?, selectedArea: String?) {
+
+    }
 }
 sealed interface MatchEvent {
     object Finish : MatchEvent

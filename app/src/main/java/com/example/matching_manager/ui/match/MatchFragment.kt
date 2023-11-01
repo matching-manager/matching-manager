@@ -10,12 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchFragmentBinding
+import com.example.matching_manager.ui.match.bottomsheet.MatchFilterCategory
 import com.example.matching_manager.ui.match.bottomsheet.MatchSortBottomSheet
+import com.example.matching_manager.ui.team.TeamFragment
+import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategory
 
 class MatchFragment : Fragment() {
     private var _binding: MatchFragmentBinding? = null
@@ -37,6 +41,8 @@ class MatchFragment : Fragment() {
         fun newInstance() = MatchFragment()
         const val OBJECT_DATA = "item_object"
         const val ID_DATA = "item_userId"
+        const val CATEGORY_REQUEST_KEY = "category_key"
+
         fun detailIntent(context: Context, item: MatchDataModel): Intent {
             val intent = Intent(context, MatchDetailActivity::class.java)
             intent.putExtra(OBJECT_DATA, item)
@@ -100,6 +106,22 @@ class MatchFragment : Fragment() {
             swipeRefreshLayout.isRefreshing = false
         }
         swipeRefreshLayout.setColorSchemeResources(R.color.common_point_green)
+
+        //filtr btn
+        btnFilter.setOnClickListener {
+            val matchFilterCategory = MatchFilterCategory()
+            val fragmentManager = requireActivity().supportFragmentManager
+            matchFilterCategory.show(fragmentManager, matchFilterCategory.tag)
+
+            setFragmentResultListener(CATEGORY_REQUEST_KEY) { _, bundle ->
+                //결과 값을 받는곳입니다.
+                val game = bundle.getString(TeamFilterCategory.SELECTED_GAME)
+                val area = bundle.getString(TeamFilterCategory.SELECTED_AREA)
+
+                //선택한 게임과 지역에 따라 아이템을 필터링합니다.
+                viewModel.filterItems(selectedGame = game, selectedArea = area)
+            }
+        }
     }
 
     private fun initViewModel() = with(viewModel) {
