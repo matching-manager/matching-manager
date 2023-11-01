@@ -13,6 +13,9 @@
     <string name="sign_up_btn">SIGN UP</string>
     <string name="cancel_btn">CANCEL</string>
 
+    <!-- signin -->
+    <string name="sign_in_continue_with_google">Continue With Google</string>
+    <string name="default_web_client_id">677718539523-47ds99rnc0eupphgjm4rnbmkojntg506.apps.googleusercontent.com</string>
 
     <string name="main_home">Home</string>
     <string name="main_match">Match</string>
@@ -136,9 +139,6 @@
     <string name="arena_dialog_btn_call">CALL</string>
 
     <string name="undefined_test_value">미정 입니다.</string>
-
-    <!-- signinfragment -->
-    <string name="default_web_client_id">677718539523-47ds99rnc0eupphgjm4rnbmkojntg506.apps.googleusercontent.com</string>
 
     <!-- Alarm -->
     <string name="alarm">알림</string>
