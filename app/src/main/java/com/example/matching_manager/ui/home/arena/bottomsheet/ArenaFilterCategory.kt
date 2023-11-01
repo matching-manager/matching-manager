@@ -138,7 +138,7 @@ class ArenaFilterCategory : BottomSheetDialogFragment() {
         btnSearch.setOnClickListener {
             val area = selectedArea
             onFilterSelectedListener?.onFilterSelected(area)
-//            area?.let { it1 -> viewModel.updateFilter(it1) }
+            area?.let { it1 -> viewModel.updateFilter(it1) }
             dismiss()
         }
 

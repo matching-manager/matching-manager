@@ -38,23 +38,6 @@ class ArenaActivity : AppCompatActivity() {
         )
     }
 
-    // 데이터 추가
-//    private val filterLauncher =
-//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-//            if (result.resultCode == Activity.RESULT_OK) {
-//                val arenaModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//                    result.data?.getParcelableExtra(
-//                        ArenaFilterCategory.SELECTED_AREA,
-//                        ArenaModel::class.java
-//                    )
-//                } else {
-//                    result.data?.getParcelableExtra(
-//                        ArenaFilterCategory.SELECTED_AREA,
-//                    )
-//                }
-//
-//            }
-//        }
 
     private
 
@@ -129,6 +112,7 @@ class ArenaActivity : AppCompatActivity() {
         filterArea.observe(this@ArenaActivity, Observer {
             when (it) {
                 null -> {
+                    binding.tvFilter.text="지역 설정"
                     binding.tvArena.visibility = (View.VISIBLE)
                 }
 
@@ -136,6 +120,17 @@ class ArenaActivity : AppCompatActivity() {
                     binding.tvArena.visibility = (View.INVISIBLE)
                     searchArena("풋살")
                 }
+            }
+        })
+        filter.observe(this@ArenaActivity, Observer { area ->
+            val filter = kotlin.String.format("%s", area)
+
+            if (area.contains("선택")) {
+                binding.tvFilter.text = "전 지역"
+                binding.tvFilter.visibility = (android.view.View.VISIBLE)
+            } else {
+                binding.tvFilter.text = filter
+                binding.tvFilter.visibility = (android.view.View.VISIBLE)
             }
         })
     }
