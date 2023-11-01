@@ -157,11 +157,11 @@ class ArenaActivity : AppCompatActivity() {
             val filter = kotlin.String.format("%s", area)
 
             if (area.contains("선택")) {
-                binding.tvFilter.text = "전 지역"
-                binding.tvFilter.visibility = (android.view.View.VISIBLE)
+                binding.tvFilter.text = "모든 지역"
+                binding.tvFilter.visibility = (View.VISIBLE)
             } else {
                 binding.tvFilter.text = filter
-                binding.tvFilter.visibility = (android.view.View.VISIBLE)
+                binding.tvFilter.visibility = (View.VISIBLE)
             }
         })
     }

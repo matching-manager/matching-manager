@@ -173,8 +173,8 @@ class TeamFragment : Fragment() {
         with(sharedViewModel) {
             filter.observe(viewLifecycleOwner, Observer { (area, game) ->
                 val filter = kotlin.String.format("%s / %s", area, game)
-                val areaFilter = kotlin.String.format("%s", game)
-                val gameFilter = kotlin.String.format("%s", area)
+                val areaFilter = kotlin.String.format("모든 지역/%s", game)
+                val gameFilter = kotlin.String.format("%s/모든 경기", area)
 
                 if (area.contains("선택") && game.contains("선택")) {
                     tvFilter.text = "전체 글"
