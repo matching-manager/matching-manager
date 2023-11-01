@@ -5,5 +5,7 @@ data class UserInfoModel(
     val uidToken : String?,
     val email:String?,
     val fcmToken : String?,
-    val photoUrl : String?
+    val photoUrl : String?,
+    val username : String?,
+    val phoneNUmber : String?
 )

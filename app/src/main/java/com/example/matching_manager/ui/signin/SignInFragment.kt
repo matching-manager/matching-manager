@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.matching_manager.R
 import com.example.matching_manager.data.model.UserInfoModel
 import com.example.matching_manager.databinding.SignInFragmentBinding
@@ -39,13 +41,12 @@ class SignInFragment : Fragment() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var progressDialog: ProgressDialog
 
-    private val viewModel: SignInViewModel by viewModels { SignInViewModelFactory() }
+    private val viewModel: SignInSharedViewModel by activityViewModels { SignInViewModelFactory() }
 
     // ActivityResultLauncher 선언
     private lateinit var startGoogleLoginForResult: ActivityResultLauncher<Intent>
 
     companion object {
-        private const val RC_SIGN_IN = 40
         private const val TAG = "GoogleActivity"
     }
 
@@ -68,6 +69,22 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initViewModel()
+    }
+
+    private fun initViewModel() = with(viewModel) {
+        userType.observe(viewLifecycleOwner, Observer { type ->
+            when (type) {
+                CheckUserType.NEW_USER.name -> {
+                    Toast.makeText(context,"새로운 유저입니다.",Toast.LENGTH_SHORT).show()
+                }
+
+                CheckUserType.EXISTING_USER.name -> {
+                    val intent = Intent(requireContext(), FcmActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        })
     }
 
     private fun initView() {
@@ -144,18 +161,17 @@ class SignInFragment : Fragment() {
                             Toast.makeText(context, "승인성공", Toast.LENGTH_SHORT).show()
 
                             //firebase realtime database에 user정보 등록
-                            viewModel.addUserInfo(
+                            viewModel.checkUserinfo(
                                 UserInfoModel(
                                     uid = account.id,
                                     uidToken = account.idToken,
                                     email = account.email,
                                     fcmToken = fcmToken.toString(),
-                                    photoUrl = account.photoUrl.toString()
+                                    photoUrl = account.photoUrl.toString(),
+                                    username = null,
+                                    phoneNUmber = null
                                 )
                             )
-
-                            val intent = Intent(requireContext(), FcmActivity::class.java)
-                            startActivity(intent)
                         } catch (e: ApiException) {
                             // 구글 승인 실패, 업데이트 UI 적절하게
                             Log.w(TAG, "Google sign in failed", e)
