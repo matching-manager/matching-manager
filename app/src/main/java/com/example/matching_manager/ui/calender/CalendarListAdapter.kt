@@ -17,7 +17,7 @@ class CalendarListAdapter(
     private val onCalendarItemClick: (CalendarModel) -> Unit,
     private val onCalendarItemLongClick: (CalendarModel, Int) -> Unit
 ) : ListAdapter<CalendarModel, CalendarListAdapter.ViewHolder>(
-    object : DiffUtil.ItemCallback<CalendarModel>() {
+    object : DiffUtil.ItemCallback<CalendarModel>() { // DiffUtil.ItemCallback을 사용하여 아이템 변경 감지
         override fun areItemsTheSame(
             oldItem: CalendarModel,
             newItem: CalendarModel

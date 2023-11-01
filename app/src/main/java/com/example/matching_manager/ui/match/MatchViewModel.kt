@@ -5,6 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.matching_manager.ui.my.MyMatchDataModel
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
@@ -15,11 +19,15 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
     private var originalList: MutableList<MatchDataModel> = mutableListOf() // 원본 데이터를 보관할 리스트
     val list: LiveData<List<MatchDataModel>> get() = _list
 
+    private val _realTimeList: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
+    val realTimeList: LiveData<List<MatchDataModel>> get() = _realTimeList
 
     private val _event: MutableLiveData<MatchEvent> = MutableLiveData()
     val event: LiveData<MatchEvent> get() = _event
 
-    private val database = Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
+    private val database =
+        Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
+    private val matchRef = database.getReference("Match")
     fun fetchData() {
         viewModelScope.launch {
             val currentList = repository.getList(database)
@@ -35,7 +43,6 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
             _event.postValue(MatchEvent.Finish)
         }
     }
-
 
     fun filterItems(area: String?, game: String?) {
         if ("선택" in game.orEmpty() && "선택" in area.orEmpty()) {
@@ -64,8 +71,31 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
         }
         _list.value = filteredList
 
+
+        fun autoFetchData() {
+            Log.d("autoFetchData", "abcd")
+            matchRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val dataList = mutableListOf<MatchDataModel>()
+
+                    for (childSnapshot in dataSnapshot.children) {
+                        val matchData = childSnapshot.getValue(MatchDataModel::class.java)
+                        if (matchData != null) {
+                            dataList.add(matchData)
+                        }
+                    }
+                    _realTimeList.value = dataList
+                    Log.d("autoFetchData", "${_realTimeList.value}")
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // 오류 처리
+                }
+            })
+        }
     }
-}
-sealed interface MatchEvent {
-    object Finish : MatchEvent
+
+    sealed interface MatchEvent {
+        object Finish : MatchEvent
+    }
 }

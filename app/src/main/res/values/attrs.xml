@@ -3,4 +3,11 @@
         <attr name="firstDayOfTheWeek" format="integer" />
         <attr name="connectedDayIconPosition" format="integer" />
     </declare-styleable>
+
+<!--    <declare-styleable name="v">-->
+<!--        <attr name="bg" format="reference|integer" />-->
+<!--        <attr name="symbol" format="reference|integer" />-->
+<!--        <attr name="text" format="reference|string" />-->
+<!--        <attr name="textColor" format="reference|integer" />-->
+<!--    </declare-styleable>-->
 </resources>

@@ -4,12 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -19,9 +19,7 @@ import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchFragmentBinding
 import com.example.matching_manager.ui.match.bottomsheet.MatchFilterCategory
 import com.example.matching_manager.ui.match.bottomsheet.MatchSortBottomSheet
-import com.example.matching_manager.ui.team.TeamFragment
 import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategory
-import com.example.matching_manager.ui.team.viewmodel.TeamSharedViewModel
 
 class MatchFragment : Fragment() {
     private var _binding: MatchFragmentBinding? = null
@@ -35,7 +33,14 @@ class MatchFragment : Fragment() {
 
     private val listadapter by lazy {
         MatchListAdapter { item ->
-            startActivity(detailIntent(requireContext(), item))
+            val matchList = viewModel.realTimeList.value ?: emptyList()
+            if(matchList.any { it.matchId == item.matchId }) {
+                startActivity(detailIntent(requireContext(), item))
+            }
+            else {
+                val dialog = MatchDeletedAlertDialog()
+                dialog.show(childFragmentManager, "matchDeletedAlertDialog")
+            }
         }
     }
 
@@ -129,7 +134,6 @@ class MatchFragment : Fragment() {
         }
     }
 
-
     private fun initViewModel() = with(binding) {
         with(viewModel) {
             list.observe(viewLifecycleOwner, Observer {
@@ -169,8 +173,9 @@ class MatchFragment : Fragment() {
                 }
             })
         }
-    }
 
+
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

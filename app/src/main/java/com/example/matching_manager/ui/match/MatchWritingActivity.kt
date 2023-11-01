@@ -243,7 +243,6 @@ class MatchWritingActivity : AppCompatActivity() {
                 uploadTime = uploadTime
             )
 
-
             val intent = Intent(this@MatchWritingActivity, MatchFragment::class.java)
             setResult(RESULT_OK, intent)
 

@@ -1,25 +1,22 @@
-package com.example.matching_manager.ui.signin
+package com.example.matching_manager.ui.my
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.matching_manager.R
-import com.example.matching_manager.databinding.SignInFragmentBinding
-import com.example.matching_manager.databinding.SignUpFragmentBinding
+import androidx.fragment.app.Fragment
+import com.example.matching_manager.databinding.MyTeamRecruitFragmentBinding
 
+class MyTeamRecruitFragment : Fragment() {
 
-class SignUpFragment : Fragment() {
-
-    private var _binding: SignUpFragmentBinding? = null
+    private var _binding: MyTeamRecruitFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = SignUpFragmentBinding.inflate(inflater, container, false)
+        _binding = MyTeamRecruitFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -37,4 +34,5 @@ class SignUpFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 }
