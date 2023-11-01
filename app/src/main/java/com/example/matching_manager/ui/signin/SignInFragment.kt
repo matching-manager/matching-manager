@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -68,6 +69,7 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        startBlinkingAnimation()
         initView()
         initViewModel()
     }
@@ -103,7 +105,7 @@ class SignInFragment : Fragment() {
                 // 로깅 및 토스트
                 val msg = getString(R.string.msg_token_fmt, fcmToken)
                 Log.d(TAG, msg)
-                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                 Log.w(TAG, msg, task.exception)
             },
         )
@@ -128,16 +130,9 @@ class SignInFragment : Fragment() {
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
         // 구글 로그인 버튼 클릭 시 Google 로그인 과정을 시작합니다.
-        binding.btnSinginGoogle.setOnClickListener {
+        binding.btnSingInGoogle.setOnClickListener {
             val signInIntent = mGoogleSignInClient.signInIntent
             startGoogleLoginForResult.launch(signInIntent)
-        }
-
-        // 임시 로그아웃 버튼
-        binding.btnSignoutGoogle.setOnClickListener {
-            val signOutIntent = mGoogleSignInClient.signOut()
-            FirebaseAuth.getInstance().signOut()
-            Toast.makeText(context, "로그아웃", Toast.LENGTH_SHORT).show()
         }
 
         // ActivityResultLauncher 초기화
@@ -216,6 +211,12 @@ class SignInFragment : Fragment() {
             // 실패한 경우 사용자에게 알림을 표시하는 등의 작업을 수행하세요.
         }
     }
+
+    private fun startBlinkingAnimation() = with(binding){
+        val startAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.blink_animation)
+        binding.tvContinueWithGoogle.startAnimation(startAnimation)
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
