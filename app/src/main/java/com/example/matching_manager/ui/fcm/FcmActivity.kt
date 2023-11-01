@@ -3,6 +3,7 @@ package com.example.matching_manager.ui.fcm
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,11 @@ class FcmActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "FcmActivity"
+
+        fun newIntent(context: Context) = Intent(
+            context,
+            FcmActivity::class.java
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

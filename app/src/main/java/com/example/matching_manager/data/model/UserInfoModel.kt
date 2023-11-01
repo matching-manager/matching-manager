@@ -1,11 +1,11 @@
 package com.example.matching_manager.data.model
 
 data class UserInfoModel(
-    val uid : String?,
-    val uidToken : String?,
-    val email:String?,
-    val fcmToken : String?,
-    val photoUrl : String?,
-    val username : String?,
-    val phoneNUmber : String?
+    val uid : String?=null,
+    val uidToken : String?=null,
+    val email:String?=null,
+    val fcmToken : String?=null,
+    val photoUrl : String?=null,
+    val username : String?=null,
+    val phoneNUmber : String?=null
 )
