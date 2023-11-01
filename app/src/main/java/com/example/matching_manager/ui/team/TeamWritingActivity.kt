@@ -21,6 +21,10 @@ import com.example.matching_manager.ui.team.bottomsheet.TeamCalender
 import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
 import com.example.matching_manager.ui.team.bottomsheet.TeamTime
 import com.example.matching_manager.ui.team.viewmodel.TeamSharedViewModel
+import com.example.matching_manager.util.Spinners
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 class TeamWritingActivity : AppCompatActivity() {
@@ -106,11 +110,7 @@ class TeamWritingActivity : AppCompatActivity() {
     private fun setSpinner() = with(binding) {
         // spinner adapter
         //종목 스피너
-        val gameAdapter = ArrayAdapter.createFromResource(
-            this@TeamWritingActivity,
-            R.array.game_array,
-            android.R.layout.simple_spinner_item
-        )
+        val gameAdapter = Spinners.gameAdapter(context = this@TeamWritingActivity)
         gameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         gameSpinner.adapter = gameAdapter
         gameSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -129,13 +129,9 @@ class TeamWritingActivity : AppCompatActivity() {
         }
 
         //지역선택 스피너
-        val arrayAdapter = ArrayAdapter.createFromResource(
-            this@TeamWritingActivity,
-            R.array.spinner_region,
-            android.R.layout.simple_spinner_item
-        )
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        citySpinner.adapter = arrayAdapter
+        val cityAdapter = Spinners.cityAdapter(context = this@TeamWritingActivity)
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        citySpinner.adapter = cityAdapter
         citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -145,29 +141,17 @@ class TeamWritingActivity : AppCompatActivity() {
             ) {
                 selectedArea = parent?.getItemAtPosition(position).toString()
 
-//                // 선택된 시/도에 따라 동작을 추가합니다.
+                // 선택된 시/도에 따라 동작을 추가합니다.
                 sigunguSpinner.visibility = (View.INVISIBLE)
                 dongSpinner.visibility = (View.INVISIBLE)
                 when (position) {
                     // 시/도 별로 동작을 구현합니다.
                     0 -> sigunguSpinner.adapter = null
-                    1 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_seoul)
-                    2 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_busan)
-                    3 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_daegu)
-                    4 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_incheon)
-                    5 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gwangju)
-                    6 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_daejeon)
-                    7 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_ulsan)
-                    8 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_sejong)
-                    9 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeonggi)
-                    10 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gangwon)
-                    11 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_buk)
-                    12 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_nam)
-                    13 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_buk)
-                    14 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_nam)
-                    15 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_buk)
-                    16 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_nam)
-                    17 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_jeju)
+                    else ->// 시/도가 다른 경우의 동작
+                        // 예시로 setSigunguSpinnerAdapterItem 함수를 호출하는 코드를 추가합니다.
+                        Spinners.positionToCityResource(position)
+                            ?.let { setSigunguSpinnerAdapterItem(it) }
+
                 }
             }
 
@@ -179,13 +163,13 @@ class TeamWritingActivity : AppCompatActivity() {
                 if (citySpinner.selectedItemPosition > 1) {
                     dongSpinner.adapter = null
                 }
-                val arrayAdapter1 = ArrayAdapter(
+                val sigungnAdapter = ArrayAdapter(
                     this@TeamWritingActivity,
                     android.R.layout.simple_spinner_item,
                     resources.getStringArray(arrayResource)
                 )
-                arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                sigunguSpinner.adapter = arrayAdapter1
+                sigungnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                sigunguSpinner.adapter = sigungnAdapter
             }
         }
 
@@ -201,33 +185,10 @@ class TeamWritingActivity : AppCompatActivity() {
                 if (citySpinner.selectedItemPosition == 1 && sigunguSpinner.selectedItemPosition > -1) {
                     sigunguSpinner.visibility = (View.VISIBLE)
                     dongSpinner.visibility = (View.VISIBLE)
-                    when (position) {
-                        0 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangnam)
-                        1 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangdong)
-                        2 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangbuk)
-                        3 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangseo)
-                        4 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gwanak)
-                        5 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gwangjin)
-                        6 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_guro)
-                        7 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_geumcheon)
-                        8 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_nowon)
-                        9 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_dobong)
-                        10 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_dongdaemun)
-                        11 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_dongjag)
-                        12 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_mapo)
-                        13 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_seodaemun)
-                        14 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_seocho)
-                        15 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_seongdong)
-                        16 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_seongbuk)
-                        17 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_songpa)
-                        18 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_yangcheon)
-                        19 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_yeongdeungpo)
-                        20 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_yongsan)
-                        21 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_eunpyeong)
-                        22 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_jongno)
-                        23 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_jung)
-                        24 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_jungnanggu)
-                    }
+                    Spinners.positionToDongResource(position)
+                        ?.let {
+                            (setDongSpinnerAdapterItem(it))
+                        }
                 }
             }
 
@@ -236,22 +197,18 @@ class TeamWritingActivity : AppCompatActivity() {
             }
 
             fun setDongSpinnerAdapterItem(arrayResource: Int) {
-                val arrayAdapter = ArrayAdapter(
+                val dongAdapter = ArrayAdapter(
                     this@TeamWritingActivity,
                     android.R.layout.simple_spinner_item,
                     resources.getStringArray(arrayResource)
                 )
-                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                dongSpinner.adapter = arrayAdapter
+                dongAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                dongSpinner.adapter = dongAdapter
             }
         }
 
         //성별 스피너
-        val genderAdapter = ArrayAdapter.createFromResource(
-            this@TeamWritingActivity,
-            R.array.gender_array,
-            android.R.layout.simple_spinner_item
-        )
+        val genderAdapter = Spinners.genderAdapter(this@TeamWritingActivity)
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         genderSpinner.adapter = genderAdapter
         genderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -271,11 +228,7 @@ class TeamWritingActivity : AppCompatActivity() {
 
 
         //실력 스피너
-        val levelAdapter = ArrayAdapter.createFromResource(
-            this@TeamWritingActivity,
-            R.array.level_array,
-            android.R.layout.simple_spinner_item
-        )
+        val levelAdapter = Spinners.levelAdapter(this@TeamWritingActivity)
         levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         levelSpinner.adapter = levelAdapter
         levelSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -294,11 +247,7 @@ class TeamWritingActivity : AppCompatActivity() {
         }
 
         //일정 스피너
-        val timeAdapter = ArrayAdapter.createFromResource(
-            this@TeamWritingActivity,
-            R.array.time_array,
-            android.R.layout.simple_spinner_item
-        )
+        val timeAdapter = Spinners.timeAdapter(this@TeamWritingActivity)
         timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         timeSpinner.adapter = timeAdapter
         timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -333,26 +282,6 @@ class TeamWritingActivity : AppCompatActivity() {
             showAgePicker()
         }
 
-    }
-
-    private fun showCalenderPicker() {
-        val bottomSheet = TeamCalender()
-        bottomSheet.show(supportFragmentManager, TEAM_CALENDER_BOTTOM_SHEET)
-    }
-
-    private fun showTimePicker() {
-        val bottomSheet = TeamTime()
-        bottomSheet.show(supportFragmentManager, TEAM_TIME_BOTTOM_SHEET)
-    }
-
-    private fun showNumberPicker() {
-        val bottomSheet = TeamNumber()
-        bottomSheet.show(supportFragmentManager, TEAM_NUMBER_BOTTOM_SHEET)
-    }
-
-    private fun showAgePicker() {
-        val bottomSheet = TeamAge()
-        bottomSheet.show(supportFragmentManager, TEAM_AGE_BOTTOM_SHEET)
     }
 
 
@@ -409,10 +338,8 @@ class TeamWritingActivity : AppCompatActivity() {
         )
 
         fun formatTimeString(): String? {
-            val currentDate =
-                java.text.SimpleDateFormat("yyyy.MM.dd", java.util.Locale.getDefault())
-                    .format(java.util.Date())
-            return currentDate
+            return SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+                .format(Date())
         }
 
         tvAddImage.setOnClickListener {
@@ -527,6 +454,26 @@ class TeamWritingActivity : AppCompatActivity() {
             imageUri = result.data?.data
             binding.ivImage.load(imageUri)
         }
+    }
+
+    private fun showCalenderPicker() {
+        val bottomSheet = TeamCalender()
+        bottomSheet.show(supportFragmentManager, TEAM_CALENDER_BOTTOM_SHEET)
+    }
+
+    private fun showTimePicker() {
+        val bottomSheet = TeamTime()
+        bottomSheet.show(supportFragmentManager, TEAM_TIME_BOTTOM_SHEET)
+    }
+
+    private fun showNumberPicker() {
+        val bottomSheet = TeamNumber()
+        bottomSheet.show(supportFragmentManager, TEAM_NUMBER_BOTTOM_SHEET)
+    }
+
+    private fun showAgePicker() {
+        val bottomSheet = TeamAge()
+        bottomSheet.show(supportFragmentManager, TEAM_AGE_BOTTOM_SHEET)
     }
 
 }

@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.matching_manager.domain.model.ArenaEntity
 import com.example.matching_manager.domain.usecase.GetArenaInfoUseCase
 import com.example.matching_manager.domain.usecase.geo.GetGeoLocationUseCase
+import com.example.matching_manager.ui.match.MatchDataModel
 import com.example.matching_manager.util.Utils
 import kotlinx.coroutines.launch
 
@@ -20,8 +21,29 @@ class ArenaViewModel(
     private val _list: MutableLiveData<List<ArenaModel>> = MutableLiveData()
     val list: LiveData<List<ArenaModel>> get() = _list
 
+
+    private val _filterArea :MutableLiveData<String?> = MutableLiveData()
+    val filterArea : MutableLiveData<String?> get() =  _filterArea
+
+
     private val _item: MutableLiveData<ArenaModel> = MutableLiveData()
     val item: LiveData<ArenaModel> get() = _item
+
+    private val _filter = MutableLiveData<String>() //지역
+    val filter: LiveData<String> get() = _filter
+
+
+    init {
+        _filterArea.value = null
+    }
+    fun setFilterArea(area : String){
+        _filterArea.value = area
+    }
+
+    fun updateFilter(area: String) {
+        _filter.value = area
+    }
+
 
     fun updateItem(item: ArenaModel) {
         _item.value = item
@@ -30,21 +52,23 @@ class ArenaViewModel(
 
     fun searchArena(query: String, context: Context) {
 
-        getGeoLocation(
-            address = "서울특별시 마포구 성산동 515",
-            context = context
-        ).apply {
-            val placeLatitude = latitude.toString()
-            val placeLongitude = longitude.toString()
-            getArenaInfo(
-                query = query,
-                x = placeLongitude,
-                y = placeLatitude
-//            radius = 1000,
-//            page = 1,
-//            size = 10,
-//            sort = "distance"
-            )
+        filterArea.value?.let {
+            getGeoLocation(
+                address = it,
+                context = context
+            ).apply {
+                val placeLatitude = latitude.toString()
+                val placeLongitude = longitude.toString()
+                getArenaInfo(
+                    query = query,
+                    x = placeLongitude,
+                    y = placeLatitude
+    //            radius = 1000,
+    //            page = 1,
+    //            size = 10,
+    //            sort = "distance"
+                )
+            }
         }
     }
 
@@ -91,6 +115,10 @@ class ArenaViewModel(
         // sort : 거리순
         items.sortByDescending { it.distance }
         return items
+    }
+
+    fun filterItems(selectedArea: String?) {
+
     }
 
 

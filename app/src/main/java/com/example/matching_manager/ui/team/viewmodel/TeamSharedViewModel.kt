@@ -9,12 +9,15 @@ class TeamSharedViewModel : ViewModel() {
     private val _age: MutableLiveData<Int> = MutableLiveData()
     private val _teamTime = MutableLiveData<Triple<Int, Int, String>>() // 시간, 분, 오전/오후
     private val _calendar = MutableLiveData<Quad<Int, Int, Int, String>>() // 년,월,일,요일
+    private val _filter = MutableLiveData<Pair<String, String>>() //지역,경기
 
 
     val number: LiveData<Int> get() = _number
     val age: LiveData<Int> get() = _age
     val teamTime: LiveData<Triple<Int, Int, String>> get() = _teamTime
     val calendar: LiveData<Quad<Int, Int, Int, String>> get() = _calendar
+    val filter: LiveData<Pair<String, String>> get() = _filter
+
 
     fun updateTeamNumber(num: Int) {
         _number.value = num
@@ -32,6 +35,10 @@ class TeamSharedViewModel : ViewModel() {
         _calendar.value = Quad(year, month, dayOfMonth, dayOfWeek)
     }
 
+    fun updateFilter(area: String, game: String) {
+        _filter.value = Pair(area,game)
+    }
+
 
 }
 
@@ -40,5 +47,5 @@ data class Quad<out A, out B, out C, out D>(
     val first: A,
     val second: B,
     val third: C,
-    val fourth: D
+    val fourth: D,
 )
