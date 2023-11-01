@@ -10,9 +10,8 @@
     <string name="sign_up_tv_Username_description">Username은 최소 2자리 최대 8자리로 구성됩니다.</string>
     <string name="sign_up_tv_phone_number_description">매칭에 사용될 핸드폰 번호를 입력해주세요.</string>
     <string name="sign_up_description">Matching Manager를 즐기기 위해\n추가정보를 입력해주세요.</string>
-
-
-
+    <string name="sign_up_btn">SIGN UP</string>
+    <string name="cancel_btn">CANCEL</string>
 
 
     <string name="main_home">Home</string>
@@ -190,5 +189,4 @@
     <string name="dialog_edit_id">id</string>
     <string name="dialog_edit_btn_save">저장</string>
     <string name="dialog_edit_btn_cancel">취소</string>
-    <string name="sign_up_btn">SIGN UP</string>
 </resources>

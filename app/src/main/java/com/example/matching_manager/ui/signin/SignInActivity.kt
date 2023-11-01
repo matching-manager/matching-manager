@@ -16,11 +16,15 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         val loginFragment = SignInFragment()
-        val fragmentManager : FragmentManager = supportFragmentManager
-        val transaction : FragmentTransaction = fragmentManager.beginTransaction()
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
 
         transaction.replace(binding.fragmentContainer.id, loginFragment)
         transaction.addToBackStack(null)
         transaction.commit()
-        }
     }
+
+}
+
+
+

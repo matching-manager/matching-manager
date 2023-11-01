@@ -32,10 +32,21 @@ class SignInSharedViewModel(val repository: UserInfoRepository) : ViewModel() {
         }
     }
 
-    fun addUserInfo(userInfoModel: UserInfoModel) {
+    fun addUserInfo(userName: String, userPhoneNumber: String) {
+        val userdata = UserInformation.userInfo
         viewModelScope.launch {
-            repository.adduser(userInfoModel, database)
+            repository.adduser(UserInfoModel(
+                uid = userdata.uid,
+                uidToken = userdata.uidToken,
+                email = userdata.email,
+                fcmToken = userdata.fcmToken,
+                photoUrl = userdata.photoUrl,
+                username = userName,
+                phoneNUmber = userPhoneNumber
+            ), database)
         }
     }
+
+
 
 }

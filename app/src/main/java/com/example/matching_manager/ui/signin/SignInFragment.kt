@@ -76,12 +76,11 @@ class SignInFragment : Fragment() {
         userType.observe(viewLifecycleOwner, Observer { type ->
             when (type) {
                 CheckUserType.NEW_USER.name -> {
-                    Toast.makeText(context,"새로운 유저입니다.",Toast.LENGTH_SHORT).show()
+                    startActivity(SignUpActivity.newIntent(requireContext()))
                 }
 
                 CheckUserType.EXISTING_USER.name -> {
-                    val intent = Intent(requireContext(), FcmActivity::class.java)
-                    startActivity(intent)
+                    startActivity(FcmActivity.newIntent(requireContext()))
                 }
             }
         })
