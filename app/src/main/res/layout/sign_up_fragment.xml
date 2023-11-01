@@ -47,33 +47,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_img"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="30dp"
-            app:cardCornerRadius="150dp"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_sign_up_arena"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/android" />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_sign_up_arena" />
 
         <TextView
             android:id="@+id/tv_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="@string/sign_up_description"
             android:textColor="@color/common_point_green"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/cv_img"
-            app:layout_constraintStart_toStartOf="@id/cv_img"
-            app:layout_constraintTop_toBottomOf="@id/cv_img" />
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@id/iv_sign_up_arena"
+            app:layout_constraintStart_toStartOf="@id/iv_sign_up_arena"
+            app:layout_constraintBottom_toBottomOf="@id/iv_sign_up_arena" />
 
         <TextView
             android:id="@+id/tv_username"
