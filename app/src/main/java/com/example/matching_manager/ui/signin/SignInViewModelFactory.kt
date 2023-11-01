@@ -9,8 +9,8 @@ class SignInViewModelFactory : ViewModelProvider.Factory {
     private val repository: UserInfoRepository = UserInfoRepositoryImpl()
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SignInViewModel::class.java)) {
-            return SignInViewModel(
+        if (modelClass.isAssignableFrom(SignInSharedViewModel::class.java)) {
+            return SignInSharedViewModel(
                 repository
             ) as T
         } else {
