@@ -28,7 +28,6 @@ class UserInfoRepositoryImpl : UserInfoRepository {
                         "fcmToken" to data.fcmToken,
                         "photoUrl" to data.photoUrl
                     )
-
                     // 중복된 데이터 업데이트
                     userRef.child(key).updateChildren(updateData).await()
                 }
