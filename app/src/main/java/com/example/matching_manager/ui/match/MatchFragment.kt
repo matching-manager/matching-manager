@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -20,6 +21,7 @@ import com.example.matching_manager.ui.match.bottomsheet.MatchFilterCategory
 import com.example.matching_manager.ui.match.bottomsheet.MatchSortBottomSheet
 import com.example.matching_manager.ui.team.TeamFragment
 import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategory
+import com.example.matching_manager.ui.team.viewmodel.TeamSharedViewModel
 
 class MatchFragment : Fragment() {
     private var _binding: MatchFragmentBinding? = null
@@ -28,6 +30,8 @@ class MatchFragment : Fragment() {
     private val viewModel: MatchViewModel by viewModels {
         MatchViewModelFactory()
     }
+
+    private val sharedViewModel: MatchSharedViewModel by activityViewModels()
 
     private val listadapter by lazy {
         MatchListAdapter { item ->
@@ -59,7 +63,7 @@ class MatchFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = MatchFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -84,11 +88,12 @@ class MatchFragment : Fragment() {
         manager.stackFromEnd = true
         rv.layoutManager = manager
 
-        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-            if (result.resultCode == Activity.RESULT_OK){
-                viewModel.fetchData()
+        resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    viewModel.fetchData()
+                }
             }
-        }
 
         btnSort.setOnClickListener {
             val matchSortBottomSheet = MatchSortBottomSheet()
@@ -115,31 +120,55 @@ class MatchFragment : Fragment() {
 
             setFragmentResultListener(CATEGORY_REQUEST_KEY) { _, bundle ->
                 //결과 값을 받는곳입니다.
-                val game = bundle.getString(TeamFilterCategory.SELECTED_GAME)
                 val area = bundle.getString(TeamFilterCategory.SELECTED_AREA)
+                val game = bundle.getString(TeamFilterCategory.SELECTED_GAME)
 
                 //선택한 게임과 지역에 따라 아이템을 필터링합니다.
-                viewModel.filterItems(selectedGame = game, selectedArea = area)
+                viewModel.filterItems(area = area,game = game)
             }
         }
     }
 
-    private fun initViewModel() = with(viewModel) {
-        list.observe(viewLifecycleOwner, Observer {
-            if (it.isEmpty()) {
-                binding.tvEmpty.visibility = (View.VISIBLE)
-                listadapter.submitList(it.toList())
-            } else {
-                binding.tvEmpty.visibility = (View.INVISIBLE)
-                listadapter.submitList(it.toList())
-            }
 
-            var smoothList = 0
-            if(it.size > 0) smoothList = it.size - 1
-            else smoothList = 1
-            binding.progressBar.visibility = View.INVISIBLE
-            binding.rv.smoothScrollToPosition(smoothList)
-        })
+    private fun initViewModel() = with(binding) {
+        with(viewModel) {
+            list.observe(viewLifecycleOwner, Observer {
+                if (it.isEmpty()) {
+                    binding.tvEmpty.visibility = (View.VISIBLE)
+                    listadapter.submitList(it.toList())
+                } else {
+                    binding.tvEmpty.visibility = (View.INVISIBLE)
+                    listadapter.submitList(it.toList())
+                }
+
+                var smoothList = 0
+                if (it.size > 0) smoothList = it.size - 1
+                else smoothList = 1
+                binding.progressBar.visibility = View.INVISIBLE
+                binding.rv.smoothScrollToPosition(smoothList)
+            })
+        }
+        with(sharedViewModel) {
+            filter.observe(viewLifecycleOwner, Observer { (area, game) ->
+                val filter = kotlin.String.format("%s / %s", area, game)
+                val areaFilter = kotlin.String.format("%s", game)
+                val gameFilter = kotlin.String.format("%s", area)
+
+                if (area.contains("선택") && game.contains("선택")) {
+                    tvFilter.text = "전체 글"
+                    tvFilter.visibility = (android.view.View.VISIBLE)
+                } else if (area.contains("선택")) {
+                    tvFilter.text = areaFilter
+                    tvFilter.visibility = (android.view.View.VISIBLE)
+                } else if (game.contains("선택")) {
+                    tvFilter.text = gameFilter
+                    tvFilter.visibility = (android.view.View.VISIBLE)
+                } else {
+                    tvFilter.text = filter
+                    tvFilter.visibility = (android.view.View.VISIBLE)
+                }
+            })
+        }
     }
 
     override fun onDestroyView() {

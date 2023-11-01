@@ -39,22 +39,22 @@ class ArenaActivity : AppCompatActivity() {
     }
 
     // 데이터 추가
-    private val filterLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val arenaModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    result.data?.getParcelableExtra(
-                        ArenaFilterCategory.SELECTED_AREA,
-                        ArenaModel::class.java
-                    )
-                } else {
-                    result.data?.getParcelableExtra(
-                        ArenaFilterCategory.SELECTED_AREA,
-                    )
-                }
-
-            }
-        }
+//    private val filterLauncher =
+//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//            if (result.resultCode == Activity.RESULT_OK) {
+//                val arenaModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                    result.data?.getParcelableExtra(
+//                        ArenaFilterCategory.SELECTED_AREA,
+//                        ArenaModel::class.java
+//                    )
+//                } else {
+//                    result.data?.getParcelableExtra(
+//                        ArenaFilterCategory.SELECTED_AREA,
+//                    )
+//                }
+//
+//            }
+//        }
 
     private
 

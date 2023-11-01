@@ -36,25 +36,34 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
         }
     }
 
-    fun filterItems(selectedGame: String?, selectedArea: String?) {
-        if ("선택" in selectedGame.orEmpty() && "선택" in selectedArea.orEmpty()) {
+
+    fun filterItems(area: String?, game: String?) {
+        if ("선택" in game.orEmpty() && "선택" in area.orEmpty()) {
             // 게임과 지역이 선택되지 않았을 경우, 필터링을 하지 않고 모든 아이템을 보여줍니다.
             _list.value = originalList
             return
         }
         val filteredList = originalList.filter { item ->
             // 선택된 게임 또는 지역이 있을 경우, 해당 조건에 맞는 아이템만 필터링합니다.
-            val isGameMatched = selectedGame.isNullOrBlank() || (item.game.contains(
-                selectedGame,
+            val isGameMatched = game.isNullOrBlank() || (item.game.contains(
+                game,
                 ignoreCase = true
             ))
-            val isAreaMatched = selectedArea.isNullOrBlank() || (item.matchPlace.contains(
-                selectedArea,
+            val isAreaMatched = area.isNullOrBlank() || (item.matchPlace.contains(
+                area,
                 ignoreCase = true
             ))
-            isGameMatched || isAreaMatched
+            if (area!!.contains("선택")) {
+                isGameMatched
+            } else if (game!!.contains("선택")) {
+                isAreaMatched
+            } else {
+                //둘 다 체크되었을때
+                isGameMatched && isAreaMatched
+            }
         }
         _list.value = filteredList
+
     }
 }
 sealed interface MatchEvent {

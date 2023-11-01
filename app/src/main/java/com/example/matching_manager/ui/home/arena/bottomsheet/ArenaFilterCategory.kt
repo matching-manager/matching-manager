@@ -1,19 +1,14 @@
 package com.example.matching_manager.ui.home.arena.bottomsheet
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
-import com.example.matching_manager.R
+import androidx.fragment.app.activityViewModels
 import com.example.matching_manager.databinding.ArenaFilterCategoryBinding
-import com.example.matching_manager.databinding.TeamFilterCategoryBinding
-import com.example.matching_manager.ui.team.TeamFragment
+import com.example.matching_manager.ui.home.arena.ArenaViewModel
 import com.example.matching_manager.util.Spinners
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -23,13 +18,12 @@ class ArenaFilterCategory : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
     private var selectedArea: String? = null
 
-    companion object{
-        const val SELECTED_AREA = "selected_area"
-    }
+    private val viewModel: ArenaViewModel by activityViewModels()
 
     interface OnFilterSelectedListener {
         fun onFilterSelected(selectedArea: String?)
     }
+
     private var onFilterSelectedListener: OnFilterSelectedListener? = null
 
     fun setOnFilterSelectedListener(listener: OnFilterSelectedListener) {
@@ -144,6 +138,7 @@ class ArenaFilterCategory : BottomSheetDialogFragment() {
         btnSearch.setOnClickListener {
             val area = selectedArea
             onFilterSelectedListener?.onFilterSelected(area)
+//            area?.let { it1 -> viewModel.updateFilter(it1) }
             dismiss()
         }
 

@@ -29,6 +29,9 @@ class ArenaViewModel(
     private val _item: MutableLiveData<ArenaModel> = MutableLiveData()
     val item: LiveData<ArenaModel> get() = _item
 
+    private val _filter = MutableLiveData<String>() //지역
+    val filter: LiveData<String> get() = _filter
+
 
     init {
         _filterArea.value = null
@@ -36,6 +39,11 @@ class ArenaViewModel(
     fun setFilterArea(area : String){
         _filterArea.value = area
     }
+
+    fun updateFilter(area: String) {
+        _filter.value = area
+    }
+
 
     fun updateItem(item: ArenaModel) {
         _item.value = item

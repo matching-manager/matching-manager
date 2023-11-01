@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,7 @@ import com.example.matching_manager.databinding.TeamFragmentBinding
 import com.example.matching_manager.ui.match.TeamListAdapter
 import com.example.matching_manager.ui.team.bottomsheet.TeamAddCategory
 import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategory
+import com.example.matching_manager.ui.team.viewmodel.TeamSharedViewModel
 import com.example.matching_manager.ui.team.viewmodel.TeamViewModel
 
 class TeamFragment : Fragment() {
@@ -25,6 +27,8 @@ class TeamFragment : Fragment() {
     private val viewModel: TeamViewModel by lazy {
         ViewModelProvider(this)[TeamViewModel::class.java]
     }
+
+    private val sharedViewModel: TeamSharedViewModel by activityViewModels()
 
 
     private val listAdapter by lazy {
@@ -146,24 +150,49 @@ class TeamFragment : Fragment() {
                 val area = bundle.getString(TeamFilterCategory.SELECTED_AREA)
 
                 //선택한 게임과 지역에 따라 아이템을 필터링합니다.
-                viewModel.filterItems(selectedGame = game, selectedArea = area)
+                viewModel.filterItems(area= area, game = game)
             }
         }
     }
 
     //viewmodel init
-    private fun initViewModel() = with(viewModel) {
-        list.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                if (it.isEmpty()) {
-                    binding.tvEmpty.visibility = (View.VISIBLE)
-                    listAdapter.submitList(it)
-                } else {
-                    binding.tvEmpty.visibility = (View.INVISIBLE)
-                    listAdapter.submitList(it)
+    private fun initViewModel() = with(binding) {
+        with(viewModel) {
+            list.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    if (it.isEmpty()) {
+                        tvEmpty.visibility = (View.VISIBLE)
+                        listAdapter.submitList(it)
+                    } else {
+                        tvEmpty.visibility = (View.INVISIBLE)
+                        listAdapter.submitList(it)
+                    }
                 }
-            }
-        })
+            })
+        }
+        with(sharedViewModel) {
+            filter.observe(viewLifecycleOwner, Observer { (area, game) ->
+                val filter = kotlin.String.format("%s / %s", area, game)
+                val areaFilter = kotlin.String.format("%s", game)
+                val gameFilter = kotlin.String.format("%s", area)
+
+                if (area.contains("선택") && game.contains("선택")) {
+                    tvFilter.text = "전체 글"
+                    tvFilter.visibility = (View.VISIBLE)
+                }
+                else if (area.contains("선택")) {
+                    tvFilter.text = areaFilter
+                    tvFilter.visibility = (View.VISIBLE)
+                } else if (game.contains("선택")) {
+                    tvFilter.text = gameFilter
+                    tvFilter.visibility = (View.VISIBLE)
+                } else {
+                    tvFilter.text = filter
+                    tvFilter.visibility = (View.VISIBLE)
+                }
+
+            })
+        }
     }
 
     //글추가 로직

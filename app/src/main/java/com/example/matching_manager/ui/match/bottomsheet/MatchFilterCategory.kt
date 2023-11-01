@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import com.example.matching_manager.databinding.MatchFilterCategoryBinding
 import com.example.matching_manager.ui.match.MatchFragment
+import com.example.matching_manager.ui.match.MatchSharedViewModel
 import com.example.matching_manager.util.Spinners
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -21,7 +23,10 @@ class MatchFilterCategory : BottomSheetDialogFragment() {
     private var selectedGame: String? = null
     private var selectedArea: String? = null
 
-    companion object{
+    private val sharedViewModel: MatchSharedViewModel by activityViewModels()
+
+
+    companion object {
         const val SELECTED_GAME = "selected_game"
         const val SELECTED_AREA = "selected_area"
     }
@@ -157,9 +162,16 @@ class MatchFilterCategory : BottomSheetDialogFragment() {
             val game = selectedGame// 선택한 게임을 얻어오는 코드
             val area = selectedArea// 선택한 지역을 얻어오는 코드
 
-            setFragmentResult(MatchFragment.CATEGORY_REQUEST_KEY, bundleOf(SELECTED_GAME to game,SELECTED_AREA to area))
+            setFragmentResult(
+                MatchFragment.CATEGORY_REQUEST_KEY,
+                bundleOf(SELECTED_GAME to game, SELECTED_AREA to area)
+            )
+            if (area != null && game != null) {
+                sharedViewModel.updateFilter(area, game)
+            }
             dismiss()
         }
+
     }
 
 

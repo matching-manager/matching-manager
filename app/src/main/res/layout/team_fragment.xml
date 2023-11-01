@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,44 +34,64 @@
         <ToggleButton
             android:id="@+id/btn_recruitment"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
             android:background="@drawable/toggle_selector"
             android:textOff="@string/team_fragment_recruitment"
             android:textOn="@string/team_fragment_recruitment"
-            />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ToggleButton
             android:id="@+id/btn_application"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:background="@drawable/toggle_selector"
             android:textOff="@string/team_fragment_application"
-            android:textOn="@string/team_fragment_application" />
+            android:textOn="@string/team_fragment_application"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_recruitment"
+            app:layout_constraintStart_toEndOf="@+id/btn_recruitment"
+            app:layout_constraintTop_toTopOf="@+id/btn_recruitment" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_filter"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:padding="5dp"
+            android:layout_marginStart="5dp"
             android:background="@drawable/toggle_selector"
+            android:drawableRight="@drawable/ic_filter"
+            android:padding="5dp"
             android:text="필터"
             android:textColor="@color/black"
-            android:drawableRight="@drawable/ic_filter"/>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_application"
+            app:layout_constraintStart_toEndOf="@+id/btn_application"
+            app:layout_constraintTop_toTopOf="@+id/btn_application" />
+
+        <TextView
+            android:id="@+id/tv_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:text="전체 글"
+            android:visibility="visible"
+            android:textColor="@color/common_point_green"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_filter"
+            app:layout_constraintTop_toTopOf="@+id/btn_filter" />
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"

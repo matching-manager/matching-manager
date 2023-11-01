@@ -1,6 +1,7 @@
 package com.example.matching_manager.ui.team.viewmodel
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -109,27 +110,31 @@ class TeamViewModel : ViewModel() {
         }
     }
 
-    fun filterItems(selectedGame: String?, selectedArea: String?) {
-        if ("선택" in selectedGame.orEmpty() && "선택" in selectedArea.orEmpty()) {
+    fun filterItems(area: String?, game: String?) {
+        if ("선택" in game.orEmpty() && "선택" in area.orEmpty()) {
             // 게임과 지역이 선택되지 않았을 경우, 필터링을 하지 않고 모든 아이템을 보여줍니다.
             _list.value = originalList
             return
         }
         val filteredList = originalList.filter { item ->
             // 선택된 게임 또는 지역이 있을 경우, 해당 조건에 맞는 아이템만 필터링합니다.
-            val isGameMatched = selectedGame.isNullOrBlank() || (item.game.contains(
-                selectedGame,
+            val isGameMatched = game.isNullOrBlank() || (item.game.contains(
+                game,
                 ignoreCase = true
             ))
-            Log.d("game match","${isGameMatched}")
-            val isAreaMatched = selectedArea.isNullOrBlank() || (item.area.contains(
-                selectedArea,
+            val isAreaMatched = area.isNullOrBlank() || (item.area.contains(
+                area,
                 ignoreCase = true
             ))
-            Log.d("area match","${isAreaMatched}")
-            isGameMatched || isAreaMatched
+            if (area!!.contains("선택")) {
+                isGameMatched
+            } else if (game!!.contains("선택")) {
+                isAreaMatched
+            } else {
+                //둘 다 체크되었을때
+                isGameMatched && isAreaMatched
+            }
         }
-        Log.d("filter match","${filteredList}")
         _list.value = filteredList
 
     }
