@@ -1,58 +1,60 @@
 package com.example.matching_manager.ui.team
 
-import android.os.Build
+import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamFragmentBinding
+import com.example.matching_manager.ui.match.MatchDeletedAlertDialog
+import com.example.matching_manager.ui.match.MatchFragment
 import com.example.matching_manager.ui.match.TeamListAdapter
 import com.example.matching_manager.ui.team.bottomsheet.TeamAddCategory
 import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategory
 import com.example.matching_manager.ui.team.viewmodel.TeamViewModel
+import com.example.matching_manager.ui.team.viewmodel.TeamViewModelFactory
 
 class TeamFragment : Fragment() {
     private var _binding: TeamFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: TeamViewModel by lazy {
-        ViewModelProvider(this)[TeamViewModel::class.java]
+    private val viewModel: TeamViewModel by viewModels {
+        TeamViewModelFactory()
     }
 
 
     private val listAdapter by lazy {
         TeamListAdapter(onClick = { item ->
-            val intent = TeamDetailActivity.newIntent(item, requireContext())
-            startActivity(intent)
-        }, onIncrementViewCount = { item ->
-            viewModel.incrementViewCount(item)
+            val matchList = viewModel.realTimeList.value ?: emptyList()
+            if(matchList.any { it.teamId == item.teamId }) {
+                val intent = TeamDetailActivity.newIntent(item, requireContext())
+                startActivity(intent)
+            }
+            else {
+                val dialog = MatchDeletedAlertDialog()
+                dialog.show(childFragmentManager, "matchDeletedAlertDialog")
+            }
+
         })
     }
 
     private val addContentLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            val teamModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                result.data?.getParcelableExtra(
-                    TeamWritingActivity.EXTRA_TEAM_MODEL,
-                    TeamItem::class.java
-                )
-            } else {
-                result.data?.getParcelableExtra(
-                    TeamWritingActivity.EXTRA_TEAM_MODEL,
-                )
+            if (result.resultCode == Activity.RESULT_OK){
+                viewModel.fetchData()
             }
 
             binding.apply {
                 btnRecruitment.isChecked = false
                 btnApplication.isChecked = false
             }
-            setAddContent(teamModel)
         }
 
 
@@ -80,9 +82,15 @@ class TeamFragment : Fragment() {
 
 
     private fun initView() = with(binding) {
-        recyclerview.adapter = listAdapter
+        progressBar.visibility = View.VISIBLE
 
-        recyclerview.layoutManager = LinearLayoutManager(requireContext())
+        viewModel.fetchData()
+
+        rv.adapter = listAdapter
+        val manager = LinearLayoutManager(requireContext())
+        manager.reverseLayout = true
+        manager.stackFromEnd = true
+        rv.layoutManager = manager
 
         btnApplication.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -134,6 +142,13 @@ class TeamFragment : Fragment() {
             }
         }
 
+        swipeRefreshLayout.setOnRefreshListener {
+
+            viewModel.fetchData()
+            swipeRefreshLayout.isRefreshing = false
+        }
+        swipeRefreshLayout.setColorSchemeResources(R.color.common_point_green)
+
         //filtr btn
         btnFilter.setOnClickListener {
             val teamFilterCategory = TeamFilterCategory()
@@ -153,17 +168,15 @@ class TeamFragment : Fragment() {
 
     //viewmodel init
     private fun initViewModel() = with(viewModel) {
-        list.observe(viewLifecycleOwner) {
-            listAdapter.submitList(it)
-        }
-    }
-
-    //글추가 로직
-    private fun setAddContent(item: TeamItem?) {
-        if (item != null) {
-            Log.d("setAddContent", "item value = $item")
-            viewModel.addContentItem(item)
-        }
+        autoFetchData()
+        list.observe(viewLifecycleOwner, Observer {
+            var smoothList = 0
+            listAdapter.submitList(it.toList())
+            if(it.size > 0) smoothList = it.size - 1
+            else smoothList = 1
+            binding.progressBar.visibility = View.INVISIBLE
+            binding.rv.smoothScrollToPosition(smoothList)
+        })
     }
 
     override fun onDestroyView() {
