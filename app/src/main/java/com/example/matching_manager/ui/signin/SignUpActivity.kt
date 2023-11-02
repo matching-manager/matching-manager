@@ -16,7 +16,11 @@ class SignUpActivity : AppCompatActivity() {
 
     private val binding by lazy { SignUpActivityBinding.inflate(layoutInflater) }
 
-    private val sharedViewModel: SignInSharedViewModel by viewModels { SignInViewModelFactory() }
+    private val sharedViewModel: SignInSharedViewModel by viewModels {
+        SignInViewModelFactory(
+            context = baseContext
+        )
+    }
 
     companion object {
         const val TAG = "SignUpActivity"
