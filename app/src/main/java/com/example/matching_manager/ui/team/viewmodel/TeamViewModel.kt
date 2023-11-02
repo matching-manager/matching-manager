@@ -1,93 +1,89 @@
 package com.example.matching_manager.ui.team.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.matching_manager.R
+import com.example.matching_manager.ui.match.MatchDataModel
+import com.example.matching_manager.ui.match.MatchEvent
 import com.example.matching_manager.ui.team.TeamItem
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
-class TeamViewModel : ViewModel() {
+class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
 
-    private val _list: MutableLiveData<List<TeamItem>?> = MutableLiveData()
+    private val _list: MutableLiveData<List<TeamItem>> = MutableLiveData()
     private var originalList: MutableList<TeamItem> = mutableListOf() // 원본 데이터를 보관할 리스트
-    val list: MutableLiveData<List<TeamItem>?> get() = _list
+    val list: MutableLiveData<List<TeamItem>> get() = _list
+
+    private val _realTimeList: MutableLiveData<List<TeamItem>> = MutableLiveData()
+    val realTimeList: LiveData<List<TeamItem>> get() = _realTimeList
+
     private var isRecruitmentChecked = false
     private var isApplicationChecked = false
 
+    private val database = Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
+    private val teamRef = database.getReference("Team")
 
-    init {
-        originalList =
-            arrayListOf<TeamItem>().apply {
-                for (i in 1 until 2) {
-                    add(
-                        TeamItem.RecruitmentItem(
-                            "용병모집",
-                            "11/2 (목) 오후 8시",
-                            R.drawable.sonny,
-                            "3명",
-                            "5,000원",
-                            "광주FC",
-                            "남성",
-                            5,
-                            3,
-                            "조선대학교 운동장",
-                            "광주손흥민",
-                            "이번주 목요일 8시 같이 경기 뛰실 용병 구합니다~",
-                            "5시간 전",
-                            "중(Lv4-6)",
-                            "[풋살]",
-                            "[경기도/광주]",
-                        )
-                    )
-                    add(
-                        TeamItem.ApplicationItem(
-                            "용병신청",
-                            "평일",
-                            R.drawable.sonny,
-                            "3명",
-                            "20",
-                            "여성",
-                            0,
-                            5, "뽑아줘",
-                            "조선대학교 운동장",
-                            "1일 전",
-                            "중(Lv4-6)",
-                            "[풋살]",
-                            "[광주/동구]"
-                        )
+    private val _event: MutableLiveData<TeamEvent> = MutableLiveData()
+    val event: LiveData<TeamEvent> get() = _event
 
-                    )
+    fun fetchData() {
+        viewModelScope.launch {
+            val currentList = repository.getList(database)
+            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
+
+            originalList.clear()
+            originalList.addAll(currentList)
+            _list.value = originalList
+        }
+    }
+
+    fun autoFetchData() {
+        teamRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dataList = mutableListOf<TeamItem>()
+
+                for (childSnapshot in dataSnapshot.children) {
+                    val type = childSnapshot.child("type").getValue(String::class.java)
+                    if (type == "용병모집") {
+                        childSnapshot.getValue(TeamItem.RecruitmentItem::class.java)?.let { teamData ->
+                            dataList.add(teamData)
+                        }
+                    }
+                    else {
+                        childSnapshot.getValue(TeamItem.ApplicationItem::class.java)?.let { teamData ->
+                            dataList.add(teamData)
+                        }
+                    }
                 }
+                _realTimeList.value = dataList
+                Log.d("autoFetchData", "${_realTimeList.value}")
             }
 
-        _list.value = originalList
+            override fun onCancelled(databaseError: DatabaseError) {
+                // 오류 처리
+            }
+        })
     }
 
-    //글을 추가해주는 함수
-    fun addContentItem(item: TeamItem) {
-        originalList.add(item)
-        clearFilter()
+    fun addRecruitment(data: TeamItem.RecruitmentItem) {
+        viewModelScope.launch {
+            repository.addRecruitmentData(data, database)
+            _event.postValue(TeamEvent.Finish)
+        }
     }
 
-    //조회수를 업데이트하는 함수
-    fun incrementViewCount(item: TeamItem) {
-
-        if (item is TeamItem.RecruitmentItem) {
-            val currentList = list.value.orEmpty().toMutableList()
-            val updatedItem = item.copy(viewCount = item.viewCount + 1)
-            val index = currentList.indexOf(item)
-            if (index != -1) {
-                currentList[index] = updatedItem
-                _list.value = currentList
-            }
-        } else if (item is TeamItem.ApplicationItem) {
-            val currentList = list.value.orEmpty().toMutableList()
-            val updatedItem = item.copy(viewCount = item.viewCount + 1)
-            val index = currentList.indexOf(item)
-            if (index != -1) {
-                currentList[index] = updatedItem
-                _list.value = currentList
-            }
+    fun addApplication(data: TeamItem.ApplicationItem) {
+        viewModelScope.launch {
+            repository.addApplicationData(data, database)
+            _event.postValue(TeamEvent.Finish)
         }
     }
 
@@ -135,6 +131,10 @@ class TeamViewModel : ViewModel() {
     fun clearFilter() {
         _list.value = originalList // 현재 _list에 있는 값을 다시 할당하여 불러오기
     }
+}
+
+sealed interface TeamEvent {
+    object Finish : TeamEvent
 }
 
 
