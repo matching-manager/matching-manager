@@ -73,12 +73,11 @@ class ArenaActivity : AppCompatActivity() {
 
 
     private fun initView() = with(binding) {
-//        rvArena.itemAnimator = null
         rvArena.adapter = listAdapter
         rvArena.addOnScrollListener(onScrollListener)
 
         fabTop.setOnClickListener {
-            scrollTop()
+            smoothScrollTop()
         }
 
         btnBack.setOnClickListener {
@@ -197,4 +196,11 @@ class ArenaActivity : AppCompatActivity() {
             rvArena.scrollToPosition(0)
         }// 최상단으로 스크롤
     }
+    private fun smoothScrollTop() = with(binding) {
+        //약간 딜레이를 주는것
+        rvArena.post {
+            rvArena.smoothScrollToPosition(0)
+        }// 최상단으로 스크롤
+    }
+
 }
