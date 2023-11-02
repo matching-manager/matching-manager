@@ -30,6 +30,18 @@
         app:layout_constraintStart_toEndOf="@+id/btn_cancel"
         app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:translationZ="10dp"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -387,7 +399,8 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:hint="ex.5000원/무료"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:inputType="number"/>
 
 
                 </LinearLayout>
@@ -544,7 +557,7 @@
                             android:id="@+id/iv_image"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="center"
+                            android:scaleType="centerCrop"
                             android:background="@color/common_gray" />
 
                     </androidx.cardview.widget.CardView>

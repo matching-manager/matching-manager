@@ -62,8 +62,8 @@
                 android:background="@color/common_point_grey"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_team_name"
-                app:layout_constraintStart_toStartOf="@+id/tv_detail"
-                app:layout_constraintTop_toBottomOf="@+id/tv_detail"
+                app:layout_constraintStart_toStartOf="@+id/tv_title2"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title2"
                 app:shapeAppearanceOverlay="@style/RoundedShape" />
 
             <TextView
@@ -348,10 +348,11 @@
 
                     <TextView
                         android:id="@+id/tv_pay"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="@string/team_detail_price"
+                        android:gravity="center"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="@+id/tv_fee"
@@ -390,12 +391,13 @@
 
                     <TextView
                         android:id="@+id/tv_team_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="@string/team_detail_team_name"
                         android:textSize="20sp"
                         android:textStyle="bold"
+                        android:gravity="center"
                         app:layout_constraintEnd_toEndOf="@+id/tv_team"
                         app:layout_constraintStart_toStartOf="@+id/tv_team"
                         app:layout_constraintTop_toBottomOf="@+id/tv_team" />
@@ -431,7 +433,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/common_gray"
-                    android:scaleType="center" />
+                    android:scaleType="centerCrop" />
             </androidx.cardview.widget.CardView>
 
             <View
@@ -443,17 +445,30 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
-                android:id="@+id/tv_detail"
+                android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:text="[배드민턴][축구] 10월 10일 (화) 오전 10:00"
+                android:text="[종목] 일정"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_title2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="장소"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
