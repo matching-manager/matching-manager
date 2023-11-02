@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.example.matching_manager.databinding.ArenaActivityBinding
 import com.example.matching_manager.ui.fcm.send.SendFcmFragment
 import com.example.matching_manager.ui.home.arena.bottomsheet.ArenaFilterCategory
@@ -57,18 +58,42 @@ class ArenaActivity : AppCompatActivity() {
         initModel()
     }
 
+    //스크롤 될 때
+    private var onScrollListener: RecyclerView.OnScrollListener =
+        object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val fabUpArrow = binding.fabTop
+                if (dy > 0) {
+                    fabUpArrow.show() // 아래로 스크롤하면 플로팅 버튼 보이기
+                } else {
+                    fabUpArrow.hide() // 위로 스크롤하면 플로팅 버튼 숨기기
+                }
+            }
+        }
+
+    //버튼 클릭시 최상단 화면으로 자동 스크롤
     private fun setButton() = with(binding) {
 
     }
 
+
+
     private fun initView() = with(binding) {
 
         rvArena.adapter = listAdapter
-        //색지정하기
 
         btnBack.setOnClickListener {
             onBackPressed()
         }
+
+        //fab 스크롤
+        rvArena.addOnScrollListener(onScrollListener)
+        fabTop.setOnClickListener {
+            rvArena.smoothScrollToPosition(0) // 최상단으로 스크롤
+        }
+
         btnFutsal.setOnClickListener {
             searchArena("풋살")
             binding.btnFutsal.isChecked = true
