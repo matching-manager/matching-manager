@@ -214,7 +214,8 @@ class SignInFragment : Fragment() {
 
     private fun startBlinkingAnimation() = with(binding){
         val startAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.blink_animation)
-        binding.tvContinueWithGoogle.startAnimation(startAnimation)
+        btnSingInGoogle.startAnimation(startAnimation)
+        ivGoogle.startAnimation(startAnimation)
     }
 
 
