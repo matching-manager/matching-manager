@@ -1,6 +1,7 @@
 package com.example.matching_manager.ui.team.bottomsheet
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.matching_manager.databinding.TeamCalenderBinding
 import com.example.matching_manager.ui.team.viewmodel.TeamSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import java.util.Calendar
 
 
@@ -36,12 +38,8 @@ class TeamCalender : BottomSheetDialogFragment() {
 
     private fun initView() = with(binding) {
         // 캘린더 날짜가 선택될 때의 리스너를 등록합니다.
-        btnSelect.setOnClickListener {
+        materialCalendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
-
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH) + 1 // 월은 0부터 시작하므로 +1 해줍니다.
-            val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
             val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
 
             val dayOfWeekString = when (dayOfWeek) {
@@ -54,12 +52,13 @@ class TeamCalender : BottomSheetDialogFragment() {
                 Calendar.SATURDAY -> "(토)"
                 else -> ""
             }
+            btnSelect.setOnClickListener {
+                sharedViewModel.updateCalendar(year, month+ 1, dayOfMonth, dayOfWeekString)
+                dismiss() // BottomSheet 닫기
+            }
 
-
-            sharedViewModel.updateCalendar(year, month, dayOfMonth, dayOfWeekString)
-
-            dismiss() // BottomSheet 닫기
         }
+
         btnCancel.setOnClickListener {
             dismiss()
         }
