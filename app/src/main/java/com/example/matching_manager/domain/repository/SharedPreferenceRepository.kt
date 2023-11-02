@@ -6,4 +6,6 @@ import com.example.matching_manager.ui.home.arena.alarm.AlarmModel
 interface SharedPreferenceRepository {
     fun saveFcmData(context: Context, values: List<AlarmModel>)
     fun loadFcmData(context: Context): List<AlarmModel>
+    fun saveUserType(context: Context, check: Boolean)
+    fun checkUserType(context: Context): Boolean
 }

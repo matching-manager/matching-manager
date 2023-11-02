@@ -86,23 +86,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
-            <TextView
-                android:id="@+id/tv_username_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sign_up_tv_Username_description"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_username" />
-
             <EditText
                 android:id="@+id/et_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="5dp"
                 android:background="@drawable/selector_common_et"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="15dp"
                 android:hint="@string/sign_up_et_hint_Username"
                 android:maxLength="8"
-                app:layout_constraintTop_toBottomOf="@id/tv_username_description" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_warning_username"
@@ -115,6 +108,13 @@
                 app:layout_constraintEnd_toEndOf="@id/et_user_name"
                 app:layout_constraintBottom_toBottomOf="@id/et_user_name"/>
 
+            <TextView
+                android:id="@+id/tv_username_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_up_tv_Username_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_user_name" />
 
             <TextView
                 android:id="@+id/tv_phone_number"
@@ -126,26 +126,20 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_user_name" />
-
-            <TextView
-                android:id="@+id/tv_phone_number_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sign_up_tv_phone_number_description"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_phone_number" />
+                app:layout_constraintTop_toBottomOf="@id/tv_username_description" />
 
             <EditText
                 android:id="@+id/et_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/selector_common_et"
                 android:hint="@string/sign_up_et_hint_phone_number"
                 android:inputType="phone"
                 android:maxLength="13"
-                app:layout_constraintTop_toBottomOf="@id/tv_phone_number_description" />
+                android:paddingHorizontal="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_phone_number"
+                tools:layout_editor_absoluteX="-15dp" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_warning_phone_number"
@@ -158,6 +152,14 @@
                 app:layout_constraintEnd_toEndOf="@id/et_phone_number"
                 app:layout_constraintBottom_toBottomOf="@id/et_phone_number"/>
 
+            <TextView
+                android:id="@+id/tv_phone_number_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_up_tv_phone_number_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_warning_phone_number" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_sign_up"
                 android:layout_width="match_parent"
@@ -167,7 +169,7 @@
                 android:background="@drawable/btn_background_green_fill"
                 android:text="@string/sign_up_btn"
                 android:textColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/et_phone_number" />
+                app:layout_constraintTop_toBottomOf="@id/tv_phone_number_description" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_cancel"

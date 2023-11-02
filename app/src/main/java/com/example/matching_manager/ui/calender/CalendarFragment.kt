@@ -55,7 +55,7 @@ class CalendarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initViewModel()
-
+        CalendarDay()
 
 //        val CalendarDataList = listOf(
 //            CalendarModel("1", "NOV", "Place A", "Division X", ""),

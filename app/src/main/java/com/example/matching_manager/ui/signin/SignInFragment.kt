@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.matching_manager.R
 import com.example.matching_manager.data.model.UserInfoModel
@@ -42,7 +41,11 @@ class SignInFragment : Fragment() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var progressDialog: ProgressDialog
 
-    private val viewModel: SignInSharedViewModel by activityViewModels { SignInViewModelFactory() }
+    private val viewModel: SignInSharedViewModel by activityViewModels {
+        SignInViewModelFactory(
+            requireContext()
+        )
+    }
 
     // ActivityResultLauncher 선언
     private lateinit var startGoogleLoginForResult: ActivityResultLauncher<Intent>
@@ -52,8 +55,7 @@ class SignInFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = SignInFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -75,6 +77,16 @@ class SignInFragment : Fragment() {
     }
 
     private fun initViewModel() = with(viewModel) {
+        checkUserType()
+
+        signInUserType.observe(viewLifecycleOwner, Observer { SignInType ->
+            if (SignInType) {
+                startSignInGoogle()
+            } else {
+                saveUserType()
+            }
+        })
+
         userType.observe(viewLifecycleOwner, Observer { type ->
             when (type) {
                 CheckUserType.NEW_USER.name -> {
@@ -123,16 +135,14 @@ class SignInFragment : Fragment() {
         // GoogleSignInOptions를 설정합니다.
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id)) // 이거를 꼭 넣어야됨!!
-            .requestEmail()
-            .build()
+            .requestEmail().build()
 
         // GoogleSignInClient를 초기화합니다.
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
         // 구글 로그인 버튼 클릭 시 Google 로그인 과정을 시작합니다.
         binding.btnSingInGoogle.setOnClickListener {
-            val signInIntent = mGoogleSignInClient.signInIntent
-            startGoogleLoginForResult.launch(signInIntent)
+            startSignInGoogle()
         }
 
         // ActivityResultLauncher 초기화
@@ -152,7 +162,7 @@ class SignInFragment : Fragment() {
                             Log.d(TAG, "firebaseAuthWithGoogle photoUrl:" + account.photoUrl)
                             Log.d(TAG, "firebaseAuthWithGoogle account:" + account)
                             firebaseAuthWithGoogle(account.idToken!!)
-                            Toast.makeText(context, "승인성공", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(context, "승인성공", Toast.LENGTH_SHORT).show()
 
                             //firebase realtime database에 user정보 등록
                             viewModel.checkUserinfo(
@@ -179,23 +189,31 @@ class SignInFragment : Fragment() {
             }
     }
 
+    private fun getFcmToken(function: () -> Unit) {
+
+    }
+
+    private fun startSignInGoogle() {
+        val signInIntent = mGoogleSignInClient.signInIntent
+        startGoogleLoginForResult.launch(signInIntent)
+    }
+
     private fun firebaseAuthWithGoogle(idToken: String) {
         // Google 로그인을 통해 받은 idToken을 사용하여 Firebase에 인증을 시도합니다.
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         // Firebase에 구글 계정 정보를 사용하여 로그인 시도를 합니다.
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    // 로그인이 성공한 경우, 사용자의 정보와 함께 UI를 업데이트합니다
-                    Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
-                    updateUI(user)
-                } else {
-                    // 로그인이 실패한 경우, 사용자에게 메시지를 표시합니다.
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    updateUI(null)
-                }
+        auth.signInWithCredential(credential).addOnCompleteListener(requireActivity()) { task ->
+            if (task.isSuccessful) {
+                // 로그인이 성공한 경우, 사용자의 정보와 함께 UI를 업데이트합니다
+                Log.d(TAG, "signInWithCredential:success")
+                val user = auth.currentUser
+                updateUI(user)
+            } else {
+                // 로그인이 실패한 경우, 사용자에게 메시지를 표시합니다.
+                Log.w(TAG, "signInWithCredential:failure", task.exception)
+                updateUI(null)
             }
+        }
     }
 
     private fun updateUI(user: FirebaseUser?) {
@@ -212,9 +230,10 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun startBlinkingAnimation() = with(binding){
+    private fun startBlinkingAnimation() = with(binding) {
         val startAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.blink_animation)
-        binding.tvContinueWithGoogle.startAnimation(startAnimation)
+        btnSingInGoogle.startAnimation(startAnimation)
+        ivGoogle.startAnimation(startAnimation)
     }
 
 
