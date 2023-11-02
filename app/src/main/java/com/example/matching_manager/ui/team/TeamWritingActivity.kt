@@ -1,6 +1,5 @@
 package com.example.matching_manager.ui.team
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -9,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -20,11 +20,19 @@ import com.example.matching_manager.ui.team.bottomsheet.TeamAge
 import com.example.matching_manager.ui.team.bottomsheet.TeamCalender
 import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
 import com.example.matching_manager.ui.team.bottomsheet.TeamTime
+import com.example.matching_manager.ui.team.viewmodel.TeamEvent
 import com.example.matching_manager.ui.team.viewmodel.TeamSharedViewModel
 import com.example.matching_manager.util.Spinners
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import com.example.matching_manager.ui.team.viewmodel.TeamViewModel
+import com.example.matching_manager.ui.team.viewmodel.TeamViewModelFactory
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.UUID
 
 
 class TeamWritingActivity : AppCompatActivity() {
@@ -37,7 +45,13 @@ class TeamWritingActivity : AppCompatActivity() {
     private var imageUri: Uri? = null
 
 
-    private val sheardViewModel: TeamSharedViewModel by viewModels()
+    private val sharedViewModel: TeamSharedViewModel by viewModels()
+
+    private val viewModel: TeamViewModel by viewModels {
+        TeamViewModelFactory()
+    }
+
+    private val reference: StorageReference = FirebaseStorage.getInstance().reference
 
     //진입타입 설정을 위함
     companion object {
@@ -82,7 +96,20 @@ class TeamWritingActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() = with(binding) {
-        with(sheardViewModel) {
+        with(viewModel) {
+            event.observe(this@TeamWritingActivity) {
+                when (it) {
+                    is TeamEvent.Finish -> {
+                        finish()
+                    }
+
+                    else -> {
+                    }
+                }
+            }
+        }
+
+        with(sharedViewModel) {
             number.observe(this@TeamWritingActivity, Observer {
                 Log.d("teamNumber", "activity = $it")
                 teamNumber.text = it.toString()
@@ -337,11 +364,6 @@ class TeamWritingActivity : AppCompatActivity() {
             }
         )
 
-        fun formatTimeString(): String? {
-            return SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
-                .format(Date())
-        }
-
         tvAddImage.setOnClickListener {
             val galleryIntent = Intent(Intent.ACTION_PICK)
             galleryIntent.type = "image/"
@@ -350,22 +372,20 @@ class TeamWritingActivity : AppCompatActivity() {
 
 
         btnSubmit.setOnClickListener {
-            val selectedGame = "[" + gameSpinner.selectedItem.toString() + "]"
-            val selectedArea =
-                "[" + citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString() + "]"
+            val teamId = UUID.randomUUID().toString()
+            val selectedGame = gameSpinner.selectedItem.toString()
+            val selectedArea = citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
             val selectedGender = genderSpinner.selectedItem.toString()
             val selectedLevel = levelSpinner.selectedItem.toString()
             val selectedApplicationTime = timeSpinner.selectedItem.toString()
             val selectedFee = tvFee.text.toString()
             val selectedTeamName = tvTeamName.text.toString()
             val setContent = etContent.text.toString()
-            val selectedNumber = sheardViewModel.number.value ?: 0 // 기본값을 0으로 설정
-            val selectedAge = sheardViewModel.age.value ?: 0 // 기본값을 0으로 설정
+            val selectedNumber = sharedViewModel.number.value ?: 0 // 기본값을 0으로 설정
+            val selectedAge = sharedViewModel.age.value ?: 0 // 기본값을 0으로 설정
             val selectedDate = tvMonthDate.text.toString()
             val selectedTime = tvTime.text.toString()
-
-            // 시간 포맷 변경 시작
-            val formattedTime = formatTimeString().toString()
+            val uploadTime = getCurrentTime()
 
 
             val recruitment = getString(R.string.team_fragment_recruitment)
@@ -390,59 +410,59 @@ class TeamWritingActivity : AppCompatActivity() {
 //                return@setOnClickListener
 //            }
 
+            val intent = Intent(this@TeamWritingActivity, TeamFragment::class.java)
+            setResult(RESULT_OK, intent)
+
             val teamItem = when (entryType) {
                 TeamAddType.RECRUIT -> {
-                    formattedTime?.let {
-                        TeamItem.RecruitmentItem(
-                            type = recruitment, // 임의의 값으로 설정 (용병모집)
-                            game = selectedGame,
-                            area = selectedArea,//지역 설정하기 스피너 추가해야함
-                            schedule = selectedDate + " " + selectedTime,//경기일정으로 되어있음 -> 달력바텀시트 만들어야함
-                            teamProfile = 0,
-                            playerNum = selectedNumber.toString() + "명",
-                            pay = selectedFee,
-                            teamName = selectedTeamName,
-                            gender = selectedGender,
-                            viewCount = 0,
-                            chatCount = 0,
-                            place = unfined,//경기장 추가해야함
-                            nicname = unfined,
-                            content = setContent,
-                            creationTime = formattedTime,//시간
-                            level = selectedLevel
-                        )
-                    }
+                    TeamItem.RecruitmentItem(
+                        type = recruitment, // 임의의 값으로 설정 (용병모집)
+                        teamId = teamId,
+                        userId = "testUser",
+                        nickname = "손흥민 손석구 손현준 레츠고",
+                        userImg = 0,
+                        description = setContent,
+                        gender = selectedGender,
+                        chatCount = 0,
+                        level = selectedLevel,
+                        playerNum = selectedNumber,
+                        schedule = "$selectedDate $selectedTime",//경기일정으로 되어있음 -> 달력바텀시트 만들어야함
+                        uploadTime = uploadTime,
+                        viewCount = 0,
+                        game = selectedGame,
+                        area = selectedArea,//지역 설정하기 스피너 추가해야함
+                        pay = selectedFee.toInt(),
+                        teamName = selectedTeamName
+                    )
+
                 }
 
                 TeamAddType.APPLICATION -> {
                     TeamItem.ApplicationItem(
                         type = application, // 임의의 값으로 설정 (용병신청)
-                        game = selectedGame,
-                        area = selectedArea,
-                        schedule = selectedApplicationTime,
-                        teamProfile = 0,
-                        playerNum = selectedNumber.toString() + "명",
-                        age = selectedAge.toString(),
+                        teamId = teamId,
+                        userId = "testUser",
+                        nickname = "손흥민 손석구 손현준 레츠고",
+                        userImg = 0,
+                        description = setContent,
                         gender = selectedGender,
-                        viewCount = 0,
                         chatCount = 0,
-                        nicname = unfined,
-                        content = setContent,
-                        creationTime = formattedTime,
-                        level = selectedLevel
+                        level = selectedLevel,
+                        playerNum = selectedNumber,
+                        schedule = selectedApplicationTime,//경기일정으로 되어있음 -> 달력바텀시트 만들어야함
+                        uploadTime = uploadTime,
+                        viewCount = 0,
+                        game = selectedGame,
+                        area = selectedArea,//지역 설정하기 스피너 추가해야함
+                        age = selectedAge
                     )
                 }
 
                 else -> null
             }
-
-            val intent = Intent().apply {
-                putExtra(EXTRA_TEAM_ENTRY_TYPE, entryType?.name)
-                putExtra(EXTRA_TEAM_MODEL, teamItem)
+            if (teamItem != null) {
+                uploadToFirebase(imageUri!!, teamItem)
             }
-            setResult(Activity.RESULT_OK, intent)
-            finish()
-
         }
 
     }
@@ -474,6 +494,49 @@ class TeamWritingActivity : AppCompatActivity() {
     private fun showAgePicker() {
         val bottomSheet = TeamAge()
         bottomSheet.show(supportFragmentManager, TEAM_AGE_BOTTOM_SHEET)
+    }
+
+    private fun uploadToFirebase(uri: Uri, data: TeamItem) {
+        var teamId = ""
+        if (data is TeamItem.RecruitmentItem) {
+            teamId = data.teamId
+        } else if (data is TeamItem.ApplicationItem) {
+            teamId = data.teamId
+        }
+        val fileRef = reference.child("Team/${teamId}")
+
+        fileRef.putFile(uri)
+            .addOnSuccessListener {
+                fileRef.downloadUrl
+                    .addOnSuccessListener { uri ->
+                        if (data is TeamItem.RecruitmentItem) {
+                            data.postImg = uri.toString()
+                            viewModel.addRecruitment(data)
+                        } else if (data is TeamItem.ApplicationItem) {
+                            data.postImg = uri.toString()
+                            viewModel.addApplication(data)
+                        }
+
+                        binding.progressBar.visibility = View.INVISIBLE
+
+                        Toast.makeText(this, "게시글이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+
+                    }
+            }
+            .addOnProgressListener { snapshot ->
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            .addOnFailureListener { e ->
+                binding.progressBar.visibility = View.INVISIBLE
+                Toast.makeText(this, "게시글 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun getCurrentTime(): String {
+        val currentTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+
+        return currentTime.format(formatter)
     }
 
 }
