@@ -46,21 +46,6 @@ class MyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-
-//        myFileDialog =
-//            MyFileDialog(editName, editImageUri) { newName, newLocation, newId, newImageUri ->
-//                // newName, newLocation, newId, newImageUri를 이곳에서 사용할 수 있습니다.
-//            }
-//
-//
-//        setFragmentResultListener("imageResult") { _, result ->
-//            val selectedImageUri = result.getParcelable<Uri>("selectedImageUri")
-//            if (selectedImageUri != null) {
-//                //dialogBinding.ivProfile.setImageURI(selectedImageUri) // 다이얼로그 내에서의 이미지 업데이트
-//                //binding.ivMypageFace.setImageURI(selectedImageUri) // ivMypageFace 이미지 업데이트
-//                Log.d("myFragment1", "After save click: selectedImageUri = $selectedImageUri")
-//            }
-//        }
     }
 
 
@@ -72,20 +57,24 @@ class MyFragment : Fragment() {
         tvPhoneNumber.text = userData.phoneNumber
         tvEmail.text = userData.email
 
-        cv1.setOnClickListener {
+        layoutMatch.setOnClickListener {
             val intent = Intent(requireContext(), MyMatchActivity::class.java)
             startActivity(intent)
         }
-        cv2.setOnClickListener {
+        layoutTeam.setOnClickListener {
             val intent = Intent(requireContext(), MyTeamActivity::class.java)
             startActivity(intent)
         }
+        layoutBookmark.setOnClickListener {
+            // 현준님 여기에 관심목록 저장하시면 됩니다~
+        }
 
-        btnLogout.setOnClickListener{
+        btnLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             Toast.makeText(context, "로그아웃", Toast.LENGTH_SHORT).show()
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
