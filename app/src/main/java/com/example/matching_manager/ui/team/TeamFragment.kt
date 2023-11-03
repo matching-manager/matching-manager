@@ -32,6 +32,8 @@ class TeamFragment : Fragment() {
 
     private val sharedViewModel: TeamSharedViewModel by activityViewModels()
 
+    private var game: String? = null
+    private var area: String? = null
 
     private val listAdapter by lazy {
         TeamListAdapter(onClick = { item ->
@@ -50,7 +52,12 @@ class TeamFragment : Fragment() {
     private val addContentLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                viewModel.fetchData(btnRecruitment.isChecked, btnApplication.isChecked)
+                viewModel.fetchData(
+                    binding.btnRecruitment.isChecked,
+                    binding.btnApplication.isChecked,
+                    game,
+                    area
+                )
             }
 
             binding.apply {
@@ -83,9 +90,10 @@ class TeamFragment : Fragment() {
 
 
     private fun initView() = with(binding) {
+
         progressBar.visibility = View.VISIBLE
 
-        viewModel.fetchData(btnRecruitment.isChecked, btnApplication.isChecked)
+        viewModel.fetchData(btnRecruitment.isChecked, btnApplication.isChecked, game, area)
 
         recyclerview.adapter = listAdapter
         val manager = LinearLayoutManager(requireContext())
@@ -100,6 +108,8 @@ class TeamFragment : Fragment() {
             } else if (!btnRecruitment.isChecked) {
                 viewModel.clearFilter() // 둘 다 체크 안되어 있을 때만 필터링 제거
                 tvFilter.text = "전체 글"
+                game = null
+                area = null
             }
         }
 
@@ -110,6 +120,8 @@ class TeamFragment : Fragment() {
             } else if (!btnApplication.isChecked) {
                 viewModel.clearFilter() // 둘 다 체크 안되어 있을 때만 필터링 제거
                 tvFilter.text = "전체 글"
+                game = null
+                area = null
             }
         }
 
@@ -147,6 +159,8 @@ class TeamFragment : Fragment() {
 
         swipeRefreshLayout.setOnRefreshListener {
             viewModel.fetchData(
+                area = area,
+                game = game,
                 isRecruitmentChecked = btnRecruitment.isChecked,
                 isApplicationChecked = btnApplication.isChecked
             )
@@ -162,8 +176,8 @@ class TeamFragment : Fragment() {
 
             setFragmentResultListener(CATEGORY_REQUEST_KEY) { _, bundle ->
                 //결과 값을 받는곳입니다.
-                val game = bundle.getString(TeamFilterCategory.SELECTED_GAME)
-                val area = bundle.getString(TeamFilterCategory.SELECTED_AREA)
+                game = bundle.getString(TeamFilterCategory.SELECTED_GAME)
+                area = bundle.getString(TeamFilterCategory.SELECTED_AREA)
 
                 //선택한 게임과 지역에 따라 아이템을 필터링합니다.
                 viewModel.filterItems(

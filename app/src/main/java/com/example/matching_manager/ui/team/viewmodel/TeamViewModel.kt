@@ -23,8 +23,6 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
 
     private var originalList: MutableList<TeamItem> = mutableListOf() // 원본 데이터를 보관할 리스트
 
-//    private var isRecruitmentChecked = false
-//    private var isApplicationChecked = false
 
     private val database =
         Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
@@ -33,14 +31,29 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
     private val _event: MutableLiveData<TeamEvent> = MutableLiveData()
     val event: LiveData<TeamEvent> get() = _event
 
-    fun fetchData(isRecruitmentChecked: Boolean, isApplicationChecked: Boolean) {
+    fun fetchData(
+        isRecruitmentChecked: Boolean,
+        isApplicationChecked: Boolean,
+        game: String?,
+        area: String?,
+    ) {
         viewModelScope.launch {
             val currentList = repository.getList(database)
             Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
 
             originalList.clear()
             originalList.addAll(currentList)
-            _list.value = originalList
+            Log.d("MatchViewModel", "game : ${game}" + " area : ${area}")
+            if (game == null && area == null) {
+                when {
+                    isRecruitmentChecked -> filterRecruitmentItems()
+                    isApplicationChecked -> filterApplicationItems()
+                    else -> _list.value = originalList
+                }
+            } else {
+                filterItems(area, game, isRecruitmentChecked, isApplicationChecked)
+
+            }
         }
     }
 
