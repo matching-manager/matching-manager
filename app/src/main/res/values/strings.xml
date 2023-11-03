@@ -185,6 +185,11 @@
     <string name="common_sign_out_button_text">SIGN OUT</string>
 
     <!-- [my] -->
+    <string name="my_profile">프로필</string>
+    <string name="my_test_username">봉선동손흥민</string>
+    <string name="my_test_real_name">추민수</string>
+    <string name="my_test_phone_number">01028179282</string>
+    <string name="my_test_email">sonny@gmail.com</string>
     <string name="dialog_edit_location">location</string>
     <string name="dialog_edit_nickname">nickname</string>
     <string name="dialog_edit_id">id</string>

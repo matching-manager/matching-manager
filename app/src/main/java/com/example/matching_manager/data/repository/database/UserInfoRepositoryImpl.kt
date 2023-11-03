@@ -42,7 +42,8 @@ class UserInfoRepositoryImpl : UserInfoRepository {
                         email = model?.email,
                         photoUrl = model?.photoUrl,
                         username = model?.username,
-                        phoneNUmber = model?.phoneNUmber
+                        phoneNumber = model?.phoneNumber,
+                        realName = model?.realName,
                     )
                     UserInformation.userInfo = updatedUserInfo
                 }
