@@ -69,7 +69,7 @@ class CalendarFragment : Fragment() {
 
             // 1. CalendarEditDialogFragment의 인스턴스 생성
             val editDialogFragment = CalendarEditDialogFragment()
-
+            CalendarDay()
             // 2. 필요한 데이터를 Bundle에 추가하여 전달
             val bundle = Bundle()
             bundle.putParcelable("calendarModel", calendarModel)
