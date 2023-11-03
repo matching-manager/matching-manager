@@ -2,6 +2,7 @@ package com.example.matching_manager.ui.my
 
 import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -20,10 +21,17 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.matching_manager.R
 import com.example.matching_manager.databinding.DialogEditBinding
 import com.example.matching_manager.databinding.MyFragmentBinding
 import com.example.matching_manager.ui.my.MyFragment.Companion.PICK_IMAGE_REQUEST
+import com.example.matching_manager.ui.signin.SignInActivity
+import com.example.matching_manager.ui.signin.SignInFragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+
 
 class MyFragment : Fragment() {
     private var _binding: MyFragmentBinding? = null
@@ -35,6 +43,7 @@ class MyFragment : Fragment() {
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private var editName: String? = null // editName 선언
     private var editImageUri: Uri? = null // editImageUri 선언
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     private val adapter by lazy {
         MyMatchListAdapter(
@@ -115,6 +124,12 @@ class MyFragment : Fragment() {
                 Log.d("myFragment1", "After save click: selectedImageUri = $selectedImageUri")
             }
         }
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+
+        // GoogleSignInClient를 초기화합니다.
+        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+
     }
 
 
@@ -198,11 +213,11 @@ class MyFragment : Fragment() {
 
         }
 
-        btnLogout.setOnClickListener{
-            FirebaseAuth.getInstance().signOut()
-            Toast.makeText(context, "로그아웃", Toast.LENGTH_SHORT).show()
+        binding.btnLogout.setOnClickListener {
+            logOut()
         }
     }
+
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -215,6 +230,50 @@ class MyFragment : Fragment() {
             putParcelable("selectedImageUri", imageUri)
             dialogBinding.ivProfile.setImageURI(imageUri)
             binding.ivMypageFace.setImageURI(imageUri)
+        }
+    }
+
+    private var logoutDialog: AlertDialog? = null
+
+    private fun createLogoutDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("구글 로그아웃")
+        builder.setMessage("로그 아웃 하시겠습니까?")
+        builder.setIcon(R.mipmap.ic_launcher)
+
+        val listener = DialogInterface.OnClickListener { _, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    logOut()
+                    FirebaseAuth.getInstance().signOut()
+                    mGoogleSignInClient.signOut()
+
+                    val currentContext = requireContext()
+                    Toast.makeText(currentContext, "로그아웃", Toast.LENGTH_SHORT).show()
+
+                    val intent = Intent(requireContext(), SignInActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                }
+
+                DialogInterface.BUTTON_NEGATIVE -> {
+                        logoutDialog?.dismiss()
+                }
+            }
+        }
+        builder.setPositiveButton("Logout", listener)
+        builder.setNegativeButton("Cancel", listener)
+
+        logoutDialog = builder.create()
+    }
+
+    private fun logOut() {
+        if (logoutDialog == null) {
+            createLogoutDialog()
+        }
+
+        if (!logoutDialog?.isShowing!!) {
+            logoutDialog?.show()
         }
     }
 

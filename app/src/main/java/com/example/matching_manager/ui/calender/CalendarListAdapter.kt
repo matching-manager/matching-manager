@@ -14,7 +14,7 @@ import java.util.Calendar
 import java.util.Locale
 
 class CalendarListAdapter(
-    private val onCalendarItemClick: (CalendarModel) -> Unit,
+    public var onCalendarItemClick: (CalendarModel) -> Unit,
     private val onCalendarItemLongClick: (CalendarModel, Int) -> Unit
 ) : ListAdapter<CalendarModel, CalendarListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<CalendarModel>() { // DiffUtil.ItemCallback을 사용하여 아이템 변경 감지
@@ -65,7 +65,6 @@ class CalendarListAdapter(
         onCalendarItemLongClick(item, position)
     }
 
-
     class ViewHolder(
         private val binding: CalendarRecyclerviewItemBinding,
         private val onCalendarItemClick: (CalendarModel) -> Unit,
@@ -91,6 +90,8 @@ class CalendarListAdapter(
             tvScheduleMonth.text = monthName
             tvScheduleYear.text = item.year.toString()
             tvScheduleMemo.text = item.memo
+            //tvSchedule.text = "${item.year}년 ${item.month}월 ${item.day}일"
+
             //item이라고 만든 이유
 
             itemView.setOnClickListener {
