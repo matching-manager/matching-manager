@@ -1,30 +1,24 @@
 package com.example.matching_manager.ui.my
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.DialogEditBinding
 import com.example.matching_manager.databinding.MyFragmentBinding
 import com.example.matching_manager.ui.signin.SignInActivity
 import com.example.matching_manager.ui.signin.UserInformation
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 class MyFragment : Fragment() {
@@ -59,6 +53,7 @@ class MyFragment : Fragment() {
 
         initView()
     }
+
     private fun initView() = with(binding) {
         val userData = UserInformation.userInfo
         ivPhoto.load(userData.photoUrl)
@@ -82,6 +77,7 @@ class MyFragment : Fragment() {
             logOut()
         }
     }
+
     private var logoutDialog: AlertDialog? = null
 
     private fun createLogoutDialog() {
@@ -106,7 +102,7 @@ class MyFragment : Fragment() {
                 }
 
                 DialogInterface.BUTTON_NEGATIVE -> {
-                        logoutDialog?.dismiss()
+                    logoutDialog?.dismiss()
                 }
             }
         }
@@ -125,6 +121,7 @@ class MyFragment : Fragment() {
             logoutDialog?.show()
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
