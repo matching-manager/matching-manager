@@ -117,9 +117,4 @@ class ArenaViewModel(
         return items
     }
 
-    fun filterItems(selectedArea: String?) {
-
-    }
-
-
 }

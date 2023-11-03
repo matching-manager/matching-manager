@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.example.matching_manager.databinding.ArenaActivityBinding
 import com.example.matching_manager.ui.fcm.send.SendFcmFragment
 import com.example.matching_manager.ui.home.arena.bottomsheet.ArenaFilterCategory
@@ -38,6 +39,20 @@ class ArenaActivity : AppCompatActivity() {
         )
     }
 
+    //스크롤 될 때
+    private var onScrollListener: RecyclerView.OnScrollListener =
+        object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val fabUpArrow = binding.fabTop
+                if (dy > 0) {
+                    fabUpArrow.show() // 아래로 스크롤하면 플로팅 버튼 보이기
+                } else {
+                    fabUpArrow.hide() // 위로 스크롤하면 플로팅 버튼 숨기기
+                }
+            }
+        }
 
     private
 
@@ -52,25 +67,23 @@ class ArenaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setButton()
         initView()
         initModel()
     }
 
-    private fun setButton() = with(binding) {
-
-    }
 
     private fun initView() = with(binding) {
-
         rvArena.adapter = listAdapter
-        //색지정하기
+        rvArena.addOnScrollListener(onScrollListener)
+
+        fabTop.setOnClickListener {
+            smoothScrollTop()
+        }
 
         btnBack.setOnClickListener {
             onBackPressed()
         }
         btnFutsal.setOnClickListener {
-            searchArena("풋살")
             binding.btnFutsal.isChecked = true
             binding.btnSoccer.isChecked = false
             binding.btnBowling.isChecked = false
@@ -109,6 +122,7 @@ class ArenaActivity : AppCompatActivity() {
             binding.btnBasketball.isChecked = false
             binding.btnBadminton.isChecked = true
         }
+
         btnFilter.setOnClickListener {
             val arenaFilterCategory = ArenaFilterCategory()
 
@@ -117,6 +131,7 @@ class ArenaActivity : AppCompatActivity() {
                 override fun onFilterSelected(selectedArea: String?) {
                     // 선택한 지역값을 받아왔으므로, 이를 ViewModel에 전달합니다.
                     selectedArea?.let { viewModel.setFilterArea(selectedArea) }
+                    scrollTop()
                 }
             })
 
@@ -135,7 +150,11 @@ class ArenaActivity : AppCompatActivity() {
                 listAdapter.submitList(it)
             } else {
                 binding.tvEmpty.visibility = (View.INVISIBLE)
-                listAdapter.submitList(it)
+                listAdapter.submitList(it){
+                    //{}아이템을 다 그리고 난후 콜백! 실행
+                    //리스트가 모든걸 생성후 최상단으로 스크롤
+                    scrollTop()
+                }
             }
         })
 
@@ -171,7 +190,17 @@ class ArenaActivity : AppCompatActivity() {
     }
 
     //최상단으로 스크롤
-    fun scrolltop() {
-
+    private fun scrollTop() = with(binding) {
+        //약간 딜레이를 주는것
+        rvArena.post {
+            rvArena.scrollToPosition(0)
+        }// 최상단으로 스크롤
     }
+    private fun smoothScrollTop() = with(binding) {
+        //약간 딜레이를 주는것
+        rvArena.post {
+            rvArena.smoothScrollToPosition(0)
+        }// 최상단으로 스크롤
+    }
+
 }
