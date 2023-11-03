@@ -24,6 +24,18 @@
         android:theme="@style/Theme.Matchingmanager"
         tools:targetApi="31">
         <activity
+            android:name=".ui.my.MyTeamRecruitEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.my.MyTeamRecruitDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.my.MyTeamApplicationDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.my.MyTeamApplicationEditActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.my.MyTeamActivity"
             android:exported="false" />
         <activity
