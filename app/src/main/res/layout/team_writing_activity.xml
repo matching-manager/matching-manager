@@ -345,6 +345,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
+                        android:backgroundTint="@android:color/transparent"
                         android:hint="팀 이름을 입력 해 주세요." />
 
 
@@ -386,6 +387,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
+                        android:backgroundTint="@android:color/transparent"
                         android:hint="ex.5000원/무료"
                         android:maxLines="1" />
 
@@ -495,6 +497,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
+                        android:backgroundTint="@android:color/transparent"
                         android:hint="내용을 입력해 주세요." />
                 </LinearLayout>
 
