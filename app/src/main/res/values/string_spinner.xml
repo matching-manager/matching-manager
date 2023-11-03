@@ -2,9 +2,9 @@
 <resources>
     <string-array name="time_array">
         <item>가능한 시간대를 선택해주세요</item>
-        <item>평일</item>
-        <item>주말</item>
-        <item>평일+주말</item>
+        <item>평일만 가능</item>
+        <item>주말만 가능</item>
+        <item>평일+주말 가능</item>
     </string-array>
 
     <string-array name="level_array">

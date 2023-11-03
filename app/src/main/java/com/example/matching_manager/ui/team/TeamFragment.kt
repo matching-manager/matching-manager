@@ -9,15 +9,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.ViewModelProvider
-import androidx.fragment.app.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamFragmentBinding
 import com.example.matching_manager.ui.match.MatchDeletedAlertDialog
-import com.example.matching_manager.ui.match.MatchFragment
 import com.example.matching_manager.ui.match.TeamListAdapter
 import com.example.matching_manager.ui.team.bottomsheet.TeamAddCategory
 import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategory
@@ -39,11 +36,10 @@ class TeamFragment : Fragment() {
     private val listAdapter by lazy {
         TeamListAdapter(onClick = { item ->
             val matchList = viewModel.realTimeList.value ?: emptyList()
-            if(matchList.any { it.teamId == item.teamId }) {
+            if (matchList.any { it.teamId == item.teamId }) {
                 val intent = TeamDetailActivity.newIntent(item, requireContext())
                 startActivity(intent)
-            }
-            else {
+            } else {
                 val dialog = MatchDeletedAlertDialog()
                 dialog.show(childFragmentManager, "matchDeletedAlertDialog")
             }
@@ -53,8 +49,8 @@ class TeamFragment : Fragment() {
 
     private val addContentLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK){
-                viewModel.fetchData()
+            if (result.resultCode == Activity.RESULT_OK) {
+                viewModel.fetchData(btnRecruitment.isChecked, btnApplication.isChecked)
             }
 
             binding.apply {
@@ -89,7 +85,7 @@ class TeamFragment : Fragment() {
     private fun initView() = with(binding) {
         progressBar.visibility = View.VISIBLE
 
-        viewModel.fetchData()
+        viewModel.fetchData(btnRecruitment.isChecked, btnApplication.isChecked)
 
         recyclerview.adapter = listAdapter
         val manager = LinearLayoutManager(requireContext())
@@ -103,6 +99,7 @@ class TeamFragment : Fragment() {
                 viewModel.filterApplicationItems() // 용병신청
             } else if (!btnRecruitment.isChecked) {
                 viewModel.clearFilter() // 둘 다 체크 안되어 있을 때만 필터링 제거
+                tvFilter.text = "전체 글"
             }
         }
 
@@ -112,6 +109,7 @@ class TeamFragment : Fragment() {
                 viewModel.filterRecruitmentItems() // 용병모집
             } else if (!btnApplication.isChecked) {
                 viewModel.clearFilter() // 둘 다 체크 안되어 있을 때만 필터링 제거
+                tvFilter.text = "전체 글"
             }
         }
 
@@ -148,8 +146,10 @@ class TeamFragment : Fragment() {
         }
 
         swipeRefreshLayout.setOnRefreshListener {
-
-            viewModel.fetchData()
+            viewModel.fetchData(
+                isRecruitmentChecked = btnRecruitment.isChecked,
+                isApplicationChecked = btnApplication.isChecked
+            )
             swipeRefreshLayout.isRefreshing = false
         }
         swipeRefreshLayout.setColorSchemeResources(R.color.common_point_green)
@@ -166,7 +166,12 @@ class TeamFragment : Fragment() {
                 val area = bundle.getString(TeamFilterCategory.SELECTED_AREA)
 
                 //선택한 게임과 지역에 따라 아이템을 필터링합니다.
-                viewModel.filterItems(area= area, game = game)
+                viewModel.filterItems(
+                    area = area,
+                    game = game,
+                    isRecruitmentChecked = btnRecruitment.isChecked,
+                    isApplicationChecked = btnApplication.isChecked
+                )
             }
         }
     }
@@ -178,7 +183,7 @@ class TeamFragment : Fragment() {
             list.observe(viewLifecycleOwner, Observer {
                 var smoothList = 0
                 listAdapter.submitList(it.toList())
-                if(it.size > 0) smoothList = it.size - 1
+                if (it.size > 0) smoothList = it.size - 1
                 else smoothList = 1
                 binding.progressBar.visibility = View.INVISIBLE
                 binding.recyclerview.smoothScrollToPosition(smoothList)
@@ -203,8 +208,7 @@ class TeamFragment : Fragment() {
                 if (area.contains("선택") && game.contains("선택")) {
                     tvFilter.text = "전체 글"
                     tvFilter.visibility = (View.VISIBLE)
-                }
-                else if (area.contains("선택")) {
+                } else if (area.contains("선택")) {
                     tvFilter.text = areaFilter
                     tvFilter.visibility = (View.VISIBLE)
                 } else if (game.contains("선택")) {

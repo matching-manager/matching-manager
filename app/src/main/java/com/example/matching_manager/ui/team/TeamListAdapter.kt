@@ -121,7 +121,7 @@ class TeamListAdapter(
                 )
                 ivProfile.setImageResource(item.userImg)
                 tvType.text = item.type
-                tvDetail.text = "${item.gender} ${item.playerNum}"
+                tvDetail.text = "${item.gender} ${item.playerNum}명"
                 tvSchedule.text = item.schedule
                 tvPlace.text = item.area
                 //제목 넣어야함

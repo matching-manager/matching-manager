@@ -39,8 +39,8 @@ class TeamNumber : BottomSheetDialogFragment() {
 
     private fun setNumber()= with(binding) {
         // NumberPicker의 범위 설정 (1명부터 20명까지)
-        pickerNumber.minValue = 0
-        pickerNumber.maxValue = 20
+        pickerNumber.minValue = 1
+        pickerNumber.maxValue = 15
     }
 
 

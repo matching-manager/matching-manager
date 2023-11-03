@@ -36,7 +36,7 @@ class TeamAge : BottomSheetDialogFragment() {
 
     private fun setNumber() = with(binding) {
         // NumberPicker의 범위 설정 (1명부터 20명까지)
-        pickerAge.minValue = 0
+        pickerAge.minValue = 1
         pickerAge.maxValue = 100
     }
 
