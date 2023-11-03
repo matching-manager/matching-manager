@@ -87,6 +87,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
+                        android:backgroundTint="@color/common_transparent"
                         android:hint="팀명을 입력해주세요." />
                 </LinearLayout>
 
@@ -257,6 +258,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
+                        android:backgroundTint="@color/common_transparent"
                         android:hint="위치를 입력해 주세요." />
 
                 </LinearLayout>
@@ -365,6 +367,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:hint="내용을 입력해 주세요."
+                        android:backgroundTint="@color/common_transparent"
                         android:inputType="number"/>
 
                 </LinearLayout>
@@ -403,6 +406,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
+                        android:backgroundTint="@color/common_transparent"
                         android:hint="내용을 입력해 주세요." />
                 </LinearLayout>
 
