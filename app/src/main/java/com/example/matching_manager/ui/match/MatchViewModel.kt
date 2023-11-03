@@ -15,8 +15,9 @@ import kotlinx.coroutines.launch
 
 class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
 
-    private val _list: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
     private var originalList: MutableList<MatchDataModel> = mutableListOf() // 원본 데이터를 보관할 리스트
+
+    private val _list: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
     val list: LiveData<List<MatchDataModel>> get() = _list
 
     private val _realTimeList: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
@@ -32,8 +33,11 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
         viewModelScope.launch {
             val currentList = repository.getList(database)
             Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
-            originalList = currentList.toMutableList()
-            _list.postValue(currentList)
+//            originalList = currentList.toMutableList()
+//            _list.postValue(currentList)
+            originalList.clear()
+            originalList.addAll(currentList)
+            _list.value = originalList
         }
     }
 
@@ -70,29 +74,28 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
             }
         }
         _list.value = filteredList
+    }
 
+    fun autoFetchData() {
+        Log.d("autoFetchData", "abcd")
+        matchRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dataList = mutableListOf<MatchDataModel>()
 
-        fun autoFetchData() {
-            Log.d("autoFetchData", "abcd")
-            matchRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val dataList = mutableListOf<MatchDataModel>()
-
-                    for (childSnapshot in dataSnapshot.children) {
-                        val matchData = childSnapshot.getValue(MatchDataModel::class.java)
-                        if (matchData != null) {
-                            dataList.add(matchData)
-                        }
+                for (childSnapshot in dataSnapshot.children) {
+                    val matchData = childSnapshot.getValue(MatchDataModel::class.java)
+                    if (matchData != null) {
+                        dataList.add(matchData)
                     }
-                    _realTimeList.value = dataList
-                    Log.d("autoFetchData", "${_realTimeList.value}")
                 }
+                _realTimeList.value = dataList
+                Log.d("autoFetchData", "${_realTimeList.value}")
+            }
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // 오류 처리
-                }
-            })
-        }
+            override fun onCancelled(databaseError: DatabaseError) {
+                // 오류 처리
+            }
+        })
     }
 
     sealed interface MatchEvent {

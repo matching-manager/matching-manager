@@ -111,7 +111,6 @@ class MatchFragment : Fragment() {
             resultLauncher.launch(writeIntent(requireContext(), "testUser"))
         }
         swipeRefreshLayout.setOnRefreshListener {
-
             viewModel.fetchData()
             swipeRefreshLayout.isRefreshing = false
         }
@@ -136,6 +135,7 @@ class MatchFragment : Fragment() {
 
     private fun initViewModel() = with(binding) {
         with(viewModel) {
+            autoFetchData()
             list.observe(viewLifecycleOwner, Observer {
                 if (it.isEmpty()) {
                     binding.tvEmpty.visibility = (View.VISIBLE)
