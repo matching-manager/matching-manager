@@ -12,8 +12,9 @@ import com.example.matching_manager.ui.team.TeamItem
 class TeamViewModel : ViewModel() {
 
     private val _list: MutableLiveData<List<TeamItem>?> = MutableLiveData()
-    private var originalList: MutableList<TeamItem> = mutableListOf() // 원본 데이터를 보관할 리스트
     val list: MutableLiveData<List<TeamItem>?> get() = _list
+
+    private var originalList: MutableList<TeamItem> = mutableListOf() // 원본 데이터를 보관할 리스트
     private var isRecruitmentChecked = false
     private var isApplicationChecked = false
 
@@ -74,7 +75,6 @@ class TeamViewModel : ViewModel() {
 
     //조회수를 업데이트하는 함수
     fun incrementViewCount(item: TeamItem) {
-
         if (item is TeamItem.RecruitmentItem) {
             val currentList = list.value.orEmpty().toMutableList()
             val updatedItem = item.copy(viewCount = item.viewCount + 1)
@@ -97,7 +97,7 @@ class TeamViewModel : ViewModel() {
     // 용병모집만 필터링하는 함수
     fun filterRecruitmentItems() {
         isRecruitmentChecked = true
-        if (isRecruitmentChecked) {
+        if (this.isRecruitmentChecked) {
             _list.value = originalList.filterIsInstance<TeamItem.RecruitmentItem>()
         }
     }
@@ -105,19 +105,26 @@ class TeamViewModel : ViewModel() {
     //용병신청만 필터링하는 함수
     fun filterApplicationItems() {
         isApplicationChecked = true
-        if (isApplicationChecked) {
+        if (this.isApplicationChecked) {
             _list.value = originalList.filterIsInstance<TeamItem.ApplicationItem>()
         }
     }
 
     fun filterItems(area: String?, game: String?) {
-        if ("선택" in game.orEmpty() && "선택" in area.orEmpty()) {
-            // 게임과 지역이 선택되지 않았을 경우, 필터링을 하지 않고 모든 아이템을 보여줍니다.
-            _list.value = originalList
-            return
+        val filteredList = mutableListOf<TeamItem>()
+
+        if (isRecruitmentChecked && !isApplicationChecked) {
+            // 용병모집 버튼만 체크된 경우
+            filteredList.addAll(originalList.filterIsInstance<TeamItem.RecruitmentItem>())
+        } else if (!isRecruitmentChecked && isApplicationChecked) {
+            // 용병신청 버튼만 체크된 경우
+            filteredList.addAll(originalList.filterIsInstance<TeamItem.ApplicationItem>())
+        } else {
+            // 둘 다 체크되지 않은 경우
+            filteredList.addAll(originalList)
         }
-        val filteredList = originalList.filter { item ->
-            // 선택된 게임 또는 지역이 있을 경우, 해당 조건에 맞는 아이템만 필터링합니다.
+
+        val result = filteredList.filter { item ->
             val isGameMatched = game.isNullOrBlank() || (item.game.contains(
                 game,
                 ignoreCase = true
@@ -131,12 +138,11 @@ class TeamViewModel : ViewModel() {
             } else if (game!!.contains("선택")) {
                 isAreaMatched
             } else {
-                //둘 다 체크되었을때
                 isGameMatched && isAreaMatched
             }
         }
-        _list.value = filteredList
 
+        _list.value = result
     }
 
     fun clearFilter() {
