@@ -1,14 +1,10 @@
 package com.example.matching_manager.ui.team.viewmodel
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.matching_manager.R
-import com.example.matching_manager.ui.team.TeamAddType
-import com.example.matching_manager.ui.match.MatchDataModel
 import com.example.matching_manager.ui.team.TeamItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -27,8 +23,6 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
 
     private var originalList: MutableList<TeamItem> = mutableListOf() // 원본 데이터를 보관할 리스트
 
-    private var isRecruitmentChecked = false
-    private var isApplicationChecked = false
 
     private val database =
         Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
@@ -37,14 +31,29 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
     private val _event: MutableLiveData<TeamEvent> = MutableLiveData()
     val event: LiveData<TeamEvent> get() = _event
 
-    fun fetchData() {
+    fun fetchData(
+        isRecruitmentChecked: Boolean,
+        isApplicationChecked: Boolean,
+        game: String?,
+        area: String?,
+    ) {
         viewModelScope.launch {
             val currentList = repository.getList(database)
             Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
 
             originalList.clear()
             originalList.addAll(currentList)
-            _list.value = originalList
+            Log.d("MatchViewModel", "game : ${game}" + " area : ${area}")
+            if (game == null && area == null) {
+                when {
+                    isRecruitmentChecked -> filterRecruitmentItems()
+                    isApplicationChecked -> filterApplicationItems()
+                    else -> _list.value = originalList
+                }
+            } else {
+                filterItems(area, game, isRecruitmentChecked, isApplicationChecked)
+
+            }
         }
     }
 
@@ -115,21 +124,20 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
 
     // 용병모집만 필터링하는 함수
     fun filterRecruitmentItems() {
-        isRecruitmentChecked = true
-        if (this.isRecruitmentChecked) {
-            _list.value = originalList.filterIsInstance<TeamItem.RecruitmentItem>()
-        }
+        _list.value = originalList.filterIsInstance<TeamItem.RecruitmentItem>()
     }
 
     //용병신청만 필터링하는 함수
     fun filterApplicationItems() {
-        isApplicationChecked = true
-        if (this.isApplicationChecked) {
-            _list.value = originalList.filterIsInstance<TeamItem.ApplicationItem>()
-        }
+        _list.value = originalList.filterIsInstance<TeamItem.ApplicationItem>()
     }
 
-    fun filterItems(area: String?, game: String?) {
+    fun filterItems(
+        area: String?,
+        game: String?,
+        isRecruitmentChecked: Boolean,
+        isApplicationChecked: Boolean,
+    ) {
         val filteredList = mutableListOf<TeamItem>()
 
         if (isRecruitmentChecked && !isApplicationChecked) {

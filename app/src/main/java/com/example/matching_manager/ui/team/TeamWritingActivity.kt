@@ -22,12 +22,9 @@ import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
 import com.example.matching_manager.ui.team.bottomsheet.TeamTime
 import com.example.matching_manager.ui.team.viewmodel.TeamEvent
 import com.example.matching_manager.ui.team.viewmodel.TeamSharedViewModel
-import com.example.matching_manager.util.Spinners
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import com.example.matching_manager.ui.team.viewmodel.TeamViewModel
 import com.example.matching_manager.ui.team.viewmodel.TeamViewModelFactory
+import com.example.matching_manager.util.Spinners
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.time.LocalDateTime
@@ -56,7 +53,6 @@ class TeamWritingActivity : AppCompatActivity() {
     //진입타입 설정을 위함
     companion object {
         const val EXTRA_TEAM_ENTRY_TYPE = "extra_team_entry_type"
-        const val EXTRA_TEAM_MODEL = "extra_team_model"
         const val TEAM_NUMBER_BOTTOM_SHEET = "team_number_bottom_sheet"
         const val TEAM_AGE_BOTTOM_SHEET = "team_age_bottom_sheet"
         const val TEAM_TIME_BOTTOM_SHEET = "team_time_bottom_sheet"
@@ -374,7 +370,8 @@ class TeamWritingActivity : AppCompatActivity() {
         btnSubmit.setOnClickListener {
             val teamId = UUID.randomUUID().toString()
             val selectedGame = gameSpinner.selectedItem.toString()
-            val selectedArea = citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
+            val selectedArea =
+                citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
             val selectedGender = genderSpinner.selectedItem.toString()
             val selectedLevel = levelSpinner.selectedItem.toString()
             val selectedApplicationTime = timeSpinner.selectedItem.toString()
@@ -386,15 +383,44 @@ class TeamWritingActivity : AppCompatActivity() {
             val selectedDate = tvMonthDate.text.toString()
             val selectedTime = tvTime.text.toString()
             val uploadTime = getCurrentTime()
-
-
             val recruitment = getString(R.string.team_fragment_recruitment)
             val application = getString(R.string.team_fragment_application)
-            val unfined = getString(R.string.undefined_test_value)
-
 
             val intent = Intent(this@TeamWritingActivity, TeamFragment::class.java)
             setResult(RESULT_OK, intent)
+
+
+            when (entryType) {
+                TeamAddType.RECRUIT -> {
+                    if (selectedGame == null || selectedGame.contains("선택") ||
+                        selectedArea == null || selectedArea.contains("선택") ||
+                        selectedGender == null || selectedGender.contains("선택") ||
+                        selectedLevel == null || selectedLevel.contains("선택") ||
+                        selectedTime == null || selectedTime.contains("선택") ||
+                        selectedTeamName.isBlank()
+                    ) {
+                        showToast("모든 항목을 선택해주세요")
+                        return@setOnClickListener
+                    }
+                }
+
+                TeamAddType.APPLICATION -> {
+                    if (selectedGame == null || selectedGame.contains("선택") ||
+                        selectedArea == null || selectedArea.contains("선택") ||
+                        selectedGender == null || selectedGender.contains("선택") ||
+                        selectedLevel == null || selectedLevel.contains("선택") ||
+                        selectedAge == null
+                    ) {
+                        showToast("모든 항목을 선택해주세요")
+                        return@setOnClickListener
+                    }
+                }
+
+                else -> {
+                    // 다른 타입의 처리
+                }
+            }
+
 
             val teamItem = when (entryType) {
                 TeamAddType.RECRUIT -> {
@@ -521,5 +547,10 @@ class TeamWritingActivity : AppCompatActivity() {
 
         return currentTime.format(formatter)
     }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this@TeamWritingActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
 
 }
