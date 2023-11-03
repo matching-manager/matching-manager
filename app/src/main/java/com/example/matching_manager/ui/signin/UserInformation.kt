@@ -1,7 +1,6 @@
 package com.example.matching_manager.ui.signin
 
 import com.example.matching_manager.data.model.UserInfoModel
-import com.google.firebase.firestore.auth.User
 
 object UserInformation {
     var userInfo: UserInfoModel = UserInfoModel(
@@ -11,6 +10,7 @@ object UserInformation {
         fcmToken = null,
         photoUrl = null,
         username = null,
-        phoneNUmber = null
+        phoneNumber = null,
+        realName = null
     )
 }

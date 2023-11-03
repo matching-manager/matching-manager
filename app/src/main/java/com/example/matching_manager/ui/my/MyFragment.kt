@@ -1,37 +1,25 @@
 package com.example.matching_manager.ui.my
 
-import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.DialogEditBinding
 import com.example.matching_manager.databinding.MyFragmentBinding
-import com.example.matching_manager.ui.my.MyFragment.Companion.PICK_IMAGE_REQUEST
 import com.example.matching_manager.ui.signin.SignInActivity
-import com.example.matching_manager.ui.signin.SignInFragment
-import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.example.matching_manager.ui.signin.UserInformation
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-
 
 class MyFragment : Fragment() {
     private var _binding: MyFragmentBinding? = null
@@ -49,10 +37,6 @@ class MyFragment : Fragment() {
 
     companion object {
         fun newInstance() = MyFragment()
-        val MY_IMAGE_POSITION = "my_image_position"
-        val MY_IMAGE_MODEL = "my_image_model"
-        const val PICK_IMAGE_REQUEST = 1
-
         const val OBJECT_DATA = "item_object"
     }
 
@@ -68,125 +52,29 @@ class MyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-
-        myFileDialog =
-            MyFileDialog(editName, editImageUri) { newName, newLocation, newId, newImageUri ->
-                // newName, newLocation, newId, newImageUri를 이곳에서 사용할 수 있습니다.
-            }
-
-
-        setFragmentResultListener("imageResult") { _, result ->
-            val selectedImageUri = result.getParcelable<Uri>("selectedImageUri")
-            if (selectedImageUri != null) {
-                //dialogBinding.ivProfile.setImageURI(selectedImageUri) // 다이얼로그 내에서의 이미지 업데이트
-                //binding.ivMypageFace.setImageURI(selectedImageUri) // ivMypageFace 이미지 업데이트
-                Log.d("myFragment1", "After save click: selectedImageUri = $selectedImageUri")
-            }
-        }
-
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-
-        // GoogleSignInClient를 초기화합니다.
-        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
-
     }
 
-
     private fun initView() = with(binding) {
-        cv1.setOnClickListener {
+        val userData = UserInformation.userInfo
+        ivPhoto.load(userData.photoUrl)
+        tvUsername.text = userData.username
+        tvRealName.text = userData.realName
+        tvPhoneNumber.text = userData.phoneNumber
+        tvEmail.text = userData.email
+
+        layoutMatch.setOnClickListener {
             val intent = Intent(requireContext(), MyMatchActivity::class.java)
             startActivity(intent)
         }
-        cv2.setOnClickListener {
+        layoutTeam.setOnClickListener {
             val intent = Intent(requireContext(), MyTeamActivity::class.java)
             startActivity(intent)
         }
-
-
-        resultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
-                    val data: Intent? = result.data
-                    selectedImageUri = data?.data
-                    if (selectedImageUri != null) {
-                        // 이미지를 선택한 후의 로직을 수행합니다.
-                        dialogBinding.ivProfile.setImageURI(selectedImageUri)
-
-                        //ivMypageFace.setImageURI(selectedImageUri)
-                        //setProfileImage(selectedImageUri)
-                        Log.d(
-                            "MyFragment", "After save click: selectedImageUri = $selectedImageUri"
-                        )
-                    }
-                }
-            }
-
-        btnEdit.setOnClickListener {
-            dialogBinding = DialogEditBinding.inflate(layoutInflater)
-            val dialogView = dialogBinding.root
-            //val dialogView = layoutInflater.inflate(R.layout.dialog_edit, null)
-            val builder = AlertDialog.Builder(requireContext()).setView(dialogView)
-            val dialog = builder.create()
-            dialog.show()
-
-            val et_content_nickname = dialogBinding.etContentNickname
-            val et_content_location = dialogBinding.etContentLocation
-            val et_content_id = dialogBinding.etContentId
-            val btn_save = dialogBinding.btnSave
-            val btn_cancle = dialogBinding.btnCancle
-            val iv_profile = dialogBinding.ivProfile
-
-            btn_save.setOnClickListener {
-                ivMypageFace.setImageURI(selectedImageUri)
-                with(binding) {
-                    val nickname = et_content_nickname.text.toString()
-                    val location = et_content_location.text.toString()
-                    val id = et_content_id.text.toString()
-                    if (nickname.isNullOrBlank() || location.isNullOrBlank() || id.isNullOrBlank()) {
-                        // btn_save.isEnabled
-                        Toast.makeText(
-                            requireContext(), "닉네임, 위치, 아이디를 입력해주세요.", Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        btnMypageNickname.text = nickname
-                        btnMypageLocation.text = location
-                        btnMypageId.text = id
-                        val newImageUri = selectedImageUri
-                        dialog.dismiss()
-                    }
-                }
-                dialog.dismiss()
-            }
-
-            btn_cancle.setOnClickListener {
-                dialogBinding.ivProfile.setImageURI(null)
-                dialog.dismiss()
-            }
-
-            iv_profile.setOnClickListener {
-                openGallery()
-            }
-
-
+        layoutBookmark.setOnClickListener {
+            // 현준님 여기에 관심목록 저장하시면 됩니다~
         }
-
         binding.btnLogout.setOnClickListener {
             logOut()
-        }
-    }
-
-
-    private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        resultLauncher.launch(intent)
-        //        startActivityForResult(intent, MyFragment.PICK_IMAGE_REQUEST)
-    }
-
-    private fun setProfileImage(imageUri: Uri?) {
-        val result = Bundle().apply {
-            putParcelable("selectedImageUri", imageUri)
-            dialogBinding.ivProfile.setImageURI(imageUri)
-            binding.ivMypageFace.setImageURI(imageUri)
         }
     }
 
@@ -214,7 +102,7 @@ class MyFragment : Fragment() {
                 }
 
                 DialogInterface.BUTTON_NEGATIVE -> {
-                        logoutDialog?.dismiss()
+                    logoutDialog?.dismiss()
                 }
             }
         }
@@ -234,21 +122,8 @@ class MyFragment : Fragment() {
         }
     }
 
-    private fun saveProfiledData(name: String, imageUri: Uri?) {
-        val sharedPreferences =
-            context?.getSharedPreferences("MyProfilePreferences", Context.MODE_PRIVATE)
-        val editor = sharedPreferences?.edit()
-
-        editor?.putString("profileName", name)
-        editor?.putString("profileImageUri", imageUri?.toString())
-
-        editor?.apply()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
-
 }

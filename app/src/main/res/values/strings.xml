@@ -142,6 +142,7 @@
 
     <!-- Alarm -->
     <string name="alarm">알림</string>
+    <string name="alarm_no_alarm">받은 알림 내역이 없습니다.</string>
     <string name="alarm_recyclerview_title">스파르타FC와 매칭이 성사되었습니다.</string>
     <string name="alarm_recyclerview_user_text">User : </string>
     <string name="alarm_recyclerview_phone_number_text">Phone : </string>
@@ -184,6 +185,12 @@
     <string name="common_sign_out_button_text">SIGN OUT</string>
 
     <!-- [my] -->
+    <string name="my_profile">프로필</string>
+    <string name="my_btn_Sign_Out">SIGN OUT</string>
+    <string name="my_test_username">봉선동손흥민</string>
+    <string name="my_test_real_name">추민수</string>
+    <string name="my_test_phone_number">01028179282</string>
+    <string name="my_test_email">sonny@gmail.com</string>
     <string name="dialog_edit_location">location</string>
     <string name="dialog_edit_nickname">nickname</string>
     <string name="dialog_edit_id">id</string>

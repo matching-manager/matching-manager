@@ -55,7 +55,8 @@ class SignInSharedViewModel(
                 fcmToken = userdata.fcmToken,
                 photoUrl = userdata.photoUrl,
                 username = userName,
-                phoneNUmber = userPhoneNumber
+                phoneNumber = userPhoneNumber,
+                realName = userdata.realName
             ), database)
         }
     }

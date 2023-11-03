@@ -160,7 +160,8 @@ class SignInFragment : Fragment() {
                             Log.d(TAG, "firebaseAuthWithGoogle id token:" + account.idToken)
                             Log.d(TAG, "firebaseAuthWithGoogle email:" + account.email)
                             Log.d(TAG, "firebaseAuthWithGoogle photoUrl:" + account.photoUrl)
-                            Log.d(TAG, "firebaseAuthWithGoogle account:" + account)
+                            Log.d(TAG, "firebaseAuthWithGoogle account:" + account.displayName)
+
                             firebaseAuthWithGoogle(account.idToken!!)
 //                            Toast.makeText(context, "승인성공", Toast.LENGTH_SHORT).show()
 
@@ -173,7 +174,8 @@ class SignInFragment : Fragment() {
                                     fcmToken = fcmToken.toString(),
                                     photoUrl = account.photoUrl.toString(),
                                     username = null,
-                                    phoneNUmber = null
+                                    phoneNumber = null,
+                                    realName = account.displayName
                                 )
                             )
                         } catch (e: ApiException) {
