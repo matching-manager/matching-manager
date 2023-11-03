@@ -15,7 +15,7 @@
     <color name="tab_btn_grey">#3F3F3F</color>
 
     <!-- calender -->
-    <color name="calendar_deep_green">#219653</color>
+    <color name="calendar_deep_green">#FF219653</color>
 
     <!-- signup -->
     <color name="signup_exception_red">#BA2930</color>
