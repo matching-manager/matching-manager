@@ -189,4 +189,27 @@
     <string name="dialog_edit_id">id</string>
     <string name="dialog_edit_btn_save">저장</string>
     <string name="dialog_edit_btn_cancel">취소</string>
+
+    <!-- [calendar_edit_dialog_fragment.xml] -->
+    <string name="calendar_edit_dialog_fragment_schedule_title">일정</string>
+    <string name="calendar_edit_dialog_fragment_schedule">2023년 10월 11일 14:00</string>
+    <string name="calendar_edit_dialog_fragment_location_title">장소</string>
+    <string name="calendar_edit_dialog_fragment_location">경기도 안양시 평촌중앙공원</string>
+    <string name="calendar_edit_dialog_fragment_memo_title">메모</string>
+    <string name="calendar_edit_dialog_fragment_memo">메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.</string>
+    <string name="calendar_edit_dialog_fragment_memo_btn_cancel">취소</string>
+    <string name="calendar_edit_dialog_fragment_memo_btn_save">저장</string>
+
+
+    <!-- [calendar_add_dialog_fragment.xml] -->
+    <string name="calendar_add_dialog_fragment_input_area">input area</string>
+    <string name="calendar_add_dialog_fragment_input_memo">input memo</string>
+    <string name="calendar_add_dialog_fragment_place">장소</string>
+    <string name="calendar_add_dialog_fragment_memo">메모</string>
+    <string name="calendar_add_dialog_fragment_memo_invisible_year">년</string>
+    <string name="calendar_add_dialog_fragment_memo_invisible_month">월</string>
+    <string name="calendar_add_dialog_fragment_memo_invisible_day">일</string>
+    <string name="calendar_add_dialog_fragment_btn_cancel">CANCEL</string>
+    <string name="calendar_add_dialog_fragment_btn_save">SAVE</string>
+
 </resources>
