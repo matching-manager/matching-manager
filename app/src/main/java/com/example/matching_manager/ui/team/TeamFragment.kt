@@ -2,7 +2,6 @@ package com.example.matching_manager.ui.team
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.fragment.app.viewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamFragmentBinding
@@ -91,11 +91,11 @@ class TeamFragment : Fragment() {
 
         viewModel.fetchData()
 
-        rv.adapter = listAdapter
+        recyclerview.adapter = listAdapter
         val manager = LinearLayoutManager(requireContext())
         manager.reverseLayout = true
         manager.stackFromEnd = true
-        rv.layoutManager = manager
+        recyclerview.layoutManager = manager
 
         btnApplication.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -181,7 +181,7 @@ class TeamFragment : Fragment() {
                 if(it.size > 0) smoothList = it.size - 1
                 else smoothList = 1
                 binding.progressBar.visibility = View.INVISIBLE
-                binding.rv.smoothScrollToPosition(smoothList)
+                binding.recyclerview.smoothScrollToPosition(smoothList)
 
                 if (it != null) {
                     if (it.isEmpty()) {

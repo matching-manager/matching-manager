@@ -36,13 +36,13 @@
             android:name=".ui.my.MyTeamApplicationEditActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.my.MyTeamActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.signin.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.my.MyTeamActivity"
             android:exported="false" />
         <activity
             android:name=".ui.my.MyMatchActivity"
