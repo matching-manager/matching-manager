@@ -108,8 +108,6 @@ class CalendarFragment : Fragment() {
         dateList.observe(viewLifecycleOwner, Observer { // 리스트 관찰
             listAdapter.submitList(it)
         })
-
-
     }
 
     private fun initView() = with(binding) {
