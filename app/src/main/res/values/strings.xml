@@ -142,6 +142,7 @@
 
     <!-- Alarm -->
     <string name="alarm">알림</string>
+    <string name="alarm_no_alarm">받은 알림 내역이 없습니다.</string>
     <string name="alarm_recyclerview_title">스파르타FC와 매칭이 성사되었습니다.</string>
     <string name="alarm_recyclerview_user_text">User : </string>
     <string name="alarm_recyclerview_phone_number_text">Phone : </string>
