@@ -9,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.matching_manager.R
 import com.example.matching_manager.ui.team.TeamAddType
 import com.example.matching_manager.ui.match.MatchDataModel
-import com.example.matching_manager.ui.match.MatchEvent
 import com.example.matching_manager.ui.team.TeamItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

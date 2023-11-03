@@ -2,6 +2,7 @@ package com.example.matching_manager.ui.team
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,6 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamFragmentBinding
@@ -173,8 +173,8 @@ class TeamFragment : Fragment() {
 
     //viewmodel init
     private fun initViewModel() = with(binding) {
-        autoFetchData()
         with(viewModel) {
+            autoFetchData()
             list.observe(viewLifecycleOwner, Observer {
                 var smoothList = 0
                 listAdapter.submitList(it.toList())
@@ -216,14 +216,6 @@ class TeamFragment : Fragment() {
                 }
 
             })
-        }
-    }
-
-    //글추가 로직
-    private fun setAddContent(item: TeamItem?) {
-        if (item != null) {
-            Log.d("setAddContent", "item value = $item")
-            viewModel.addContentItem(item)
         }
     }
 
