@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.example.matching_manager.databinding.AlarmActivityBinding
 import com.example.matching_manager.ui.fcm.send.SendFcmFragment
@@ -40,10 +41,13 @@ class AlarmActivity : AppCompatActivity() {
         initViewModel()
     }
 
-    private fun initViewModel() = with(viewModel) {
-        list.observe(this@AlarmActivity, Observer {
-            listAdapter.submitList(it)
-        })
+    private fun initViewModel() = with(binding) {
+        with(viewModel){
+            list.observe(this@AlarmActivity, Observer {
+                tvAlarm.isVisible = it.isEmpty()
+                listAdapter.submitList(it)
+            })
+        }
     }
 
     private fun initView() = with(binding) {
