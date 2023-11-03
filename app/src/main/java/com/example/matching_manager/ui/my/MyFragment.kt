@@ -58,30 +58,7 @@ class MyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-
-        myFileDialog =
-            MyFileDialog(editName, editImageUri) { newName, newLocation, newId, newImageUri ->
-                // newName, newLocation, newId, newImageUri를 이곳에서 사용할 수 있습니다.
-            }
-
-
-        setFragmentResultListener("imageResult") { _, result ->
-            val selectedImageUri = result.getParcelable<Uri>("selectedImageUri")
-            if (selectedImageUri != null) {
-                //dialogBinding.ivProfile.setImageURI(selectedImageUri) // 다이얼로그 내에서의 이미지 업데이트
-                //binding.ivMypageFace.setImageURI(selectedImageUri) // ivMypageFace 이미지 업데이트
-                Log.d("myFragment1", "After save click: selectedImageUri = $selectedImageUri")
-            }
-        }
-
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-
-        // GoogleSignInClient를 초기화합니다.
-        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
-
     }
-
-
     private fun initView() = with(binding) {
         val userData = UserInformation.userInfo
         ivPhoto.load(userData.photoUrl)
@@ -99,31 +76,7 @@ class MyFragment : Fragment() {
             startActivity(intent)
         }
         layoutBookmark.setOnClickListener {
-            // 현준님 여기에 관심목록 하시면 됩니다!
-        }
-
-        btnLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            Toast.makeText(context, "로그아웃", Toast.LENGTH_SHORT).show()
-
-            resultLauncher =
-                registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                    if (result.resultCode == Activity.RESULT_OK) {
-                        val data: Intent? = result.data
-                        selectedImageUri = data?.data
-                        if (selectedImageUri != null) {
-                            // 이미지를 선택한 후의 로직을 수행합니다.
-                            dialogBinding.ivProfile.setImageURI(selectedImageUri)
-
-                            //ivMypageFace.setImageURI(selectedImageUri)
-                            //setProfileImage(selectedImageUri)
-                            Log.d(
-                                "MyFragment",
-                                "After save click: selectedImageUri = $selectedImageUri"
-                            )
-                        }
-                    }
-                }
+            // 현준님 여기에 관심목록 저장하시면 됩니다~
         }
         binding.btnLogout.setOnClickListener {
             logOut()
