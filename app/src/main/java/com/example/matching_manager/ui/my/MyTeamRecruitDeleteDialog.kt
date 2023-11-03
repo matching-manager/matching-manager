@@ -13,10 +13,11 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import com.example.matching_manager.databinding.MyDeleteDialogBinding
+import com.example.matching_manager.databinding.MyTeamRecruitDeleteDialogBinding
+import com.example.matching_manager.ui.team.TeamItem
 
-class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
-    private var _binding: MyDeleteDialogBinding? = null
+class MyTeamRecruitDeleteDialog(private val item: TeamItem.RecruitmentItem) : DialogFragment() {
+    private var _binding: MyTeamRecruitDeleteDialogBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: MyViewModel by viewModels {
@@ -30,7 +31,7 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = MyDeleteDialogBinding.inflate(inflater, container, false)
+        _binding = MyTeamRecruitDeleteDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -38,8 +39,11 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initViewModel()
+    }
 
-        viewModel.event.observe(this) {
+    private fun initViewModel() = with(viewModel) {
+        event.observe(this@MyTeamRecruitDeleteDialog) {
             when (it) {
                 is MyEvent.Dismiss -> {
                     dismiss()
@@ -50,12 +54,11 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
             }
         }
     }
-
     private fun initView() = with(binding) {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         binding.dialBtn1.setOnClickListener {
-            viewModel.deleteMatch(item)
+            viewModel.deleteRecruit(item)
         }
 
         binding.dialBtn2.setOnClickListener {
@@ -96,19 +99,21 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
             window?.setLayout(x, y)
         }
     }
+
     interface OnDialogDismissListener {
         fun onDismiss()
     }
+
     fun setOnDismissListener(listener: OnDialogDismissListener) {
         dismissListener = listener
     }
+
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
 
         // 다이얼로그가 닫힐 때 작업을 수행한 후 액티비티에 알림
         dismissListener?.onDismiss()
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

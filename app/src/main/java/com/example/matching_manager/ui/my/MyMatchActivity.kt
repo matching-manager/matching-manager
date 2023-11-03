@@ -52,7 +52,7 @@ class MyMatchActivity : AppCompatActivity() {
 
     private fun initView() = with(binding) {
         progressBar.visibility = View.VISIBLE
-        viewModel.fetchData(viewModel.userId)
+        viewModel.fetchMatchData(viewModel.userId)
 
         rv.adapter = adapter
         val manager = LinearLayoutManager(this@MyMatchActivity)
@@ -66,9 +66,9 @@ class MyMatchActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() = with(viewModel) {
-        autoFetchData()
+        autoFetchMatchData()
 
-        list.observe(this@MyMatchActivity, Observer {
+        matchList.observe(this@MyMatchActivity, Observer {
             var smoothList = 0
             adapter.submitList(it.toList())
             if (it.size > 0) smoothList = it.size - 1

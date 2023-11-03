@@ -13,10 +13,11 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import com.example.matching_manager.databinding.MyDeleteDialogBinding
+import com.example.matching_manager.databinding.MyTeamApplicationDeleteDialogBinding
+import com.example.matching_manager.ui.team.TeamItem
 
-class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
-    private var _binding: MyDeleteDialogBinding? = null
+class MyTeamApplicationDeleteDialog(private val item: TeamItem.ApplicationItem) : DialogFragment() {
+    private var _binding: MyTeamApplicationDeleteDialogBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: MyViewModel by viewModels {
@@ -30,7 +31,7 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = MyDeleteDialogBinding.inflate(inflater, container, false)
+        _binding = MyTeamApplicationDeleteDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -38,8 +39,11 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initViewModel()
+    }
 
-        viewModel.event.observe(this) {
+    private fun initViewModel() = with(viewModel){
+        event.observe(this@MyTeamApplicationDeleteDialog) {
             when (it) {
                 is MyEvent.Dismiss -> {
                     dismiss()
@@ -55,7 +59,7 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         binding.dialBtn1.setOnClickListener {
-            viewModel.deleteMatch(item)
+            viewModel.deleteApplication(item)
         }
 
         binding.dialBtn2.setOnClickListener {

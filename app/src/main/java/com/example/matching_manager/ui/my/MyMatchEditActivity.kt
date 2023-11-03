@@ -160,10 +160,10 @@ class MyMatchEditActivity : AppCompatActivity() {
         with(viewModel) {
             event.observe(this@MyMatchEditActivity) {
                 when (it) {
-                    is MatchEvent.Finish -> {
+                    is MyEvent.Finish -> {
                         finish()
                     }
-                    is MatchEvent.Dismiss -> {
+                    is MyEvent.Dismiss -> {
                     }
                 }
             }
