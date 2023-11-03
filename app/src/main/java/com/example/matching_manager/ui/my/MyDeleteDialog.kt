@@ -41,11 +41,11 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
 
         viewModel.event.observe(this) {
             when (it) {
-                is MatchEvent.Dismiss -> {
+                is MyEvent.Dismiss -> {
                     dismiss()
                 }
 
-                is MatchEvent.Finish -> {
+                is MyEvent.Finish -> {
                 }
             }
         }
