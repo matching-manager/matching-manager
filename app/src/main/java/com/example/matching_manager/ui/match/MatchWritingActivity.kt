@@ -19,6 +19,7 @@ import com.example.matching_manager.databinding.MatchWritingActivityBinding
 import com.example.matching_manager.ui.match.bottomsheet.MatchCalender
 import com.example.matching_manager.ui.match.bottomsheet.MatchNumber
 import com.example.matching_manager.ui.match.bottomsheet.MatchTime
+import com.example.matching_manager.util.Spinners
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.time.LocalDateTime
@@ -40,6 +41,7 @@ class MatchWritingActivity : AppCompatActivity() {
     private var selectedGame: String? = null
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
+    private var selectedArea : String? = null
 
     companion object {
         const val ID_DATA = "item_userId"
@@ -82,6 +84,85 @@ class MatchWritingActivity : AppCompatActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Do nothing
+            }
+        }
+
+        //지역선택 스피너
+        val cityAdapter = Spinners.cityAdapter(context = this@MatchWritingActivity)
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        citySpinner.adapter = cityAdapter
+        citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                selectedArea = parent?.getItemAtPosition(position).toString()
+
+                // 선택된 시/도에 따라 동작을 추가합니다.
+                sigunguSpinner.visibility = (View.INVISIBLE)
+                dongSpinner.visibility = (View.INVISIBLE)
+                when (position) {
+                    // 시/도 별로 동작을 구현합니다.
+                    0 -> sigunguSpinner.adapter = null
+                    else ->// 시/도가 다른 경우의 동작
+                        // 예시로 setSigunguSpinnerAdapterItem 함수를 호출하는 코드를 추가합니다.
+                        Spinners.positionToCityResource(position)
+                            ?.let { setSigunguSpinnerAdapterItem(it) }
+
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+
+            fun setSigunguSpinnerAdapterItem(arrayResource: Int) {
+                if (citySpinner.selectedItemPosition > 1) {
+                    dongSpinner.adapter = null
+                }
+                val sigungnAdapter = ArrayAdapter(
+                    this@MatchWritingActivity,
+                    android.R.layout.simple_spinner_item,
+                    resources.getStringArray(arrayResource)
+                )
+                sigungnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                sigunguSpinner.adapter = sigungnAdapter
+            }
+        }
+
+        sigunguSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                // 서울특별시 선택시
+                sigunguSpinner.visibility = (View.VISIBLE)
+                if (citySpinner.selectedItemPosition == 1 && sigunguSpinner.selectedItemPosition > -1) {
+                    sigunguSpinner.visibility = (View.VISIBLE)
+                    dongSpinner.visibility = (View.VISIBLE)
+                    Spinners.positionToDongResource(position)
+                        ?.let {
+                            (setDongSpinnerAdapterItem(it))
+                        }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+
+            fun setDongSpinnerAdapterItem(arrayResource: Int) {
+                val dongAdapter = ArrayAdapter(
+                    this@MatchWritingActivity,
+                    android.R.layout.simple_spinner_item,
+                    resources.getStringArray(arrayResource)
+                )
+                dongAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                dongSpinner.adapter = dongAdapter
             }
         }
 
@@ -219,7 +300,7 @@ class MatchWritingActivity : AppCompatActivity() {
             val game = (gameSpinner?.selectedItem?.toString() ?: "")
             val schedule = "${tvMonthDate?.text?.toString()} ${tvTime?.text?.toString()}"
             val playerNum = sharedViewModel.number.value ?: 0
-            val matchPlace = etMatchPlace?.text?.toString() ?: ""
+            val matchPlace = citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
             val gender = genderSpinner?.selectedItem?.toString() ?: ""
             val level = levelSpinner?.selectedItem?.toString() ?: ""
             val entryFee = etEntryFee?.text?.toString()?.toInt() ?: 0
