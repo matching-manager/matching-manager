@@ -1,5 +1,6 @@
 package com.example.matching_manager.ui.team
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +10,10 @@ import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamDetailActivityBinding
 import com.example.matching_manager.ui.fcm.send.SendFcmFragment
 import com.example.matching_manager.ui.fcm.send.SendType
+import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.concurrent.TimeUnit
 
 
 class TeamDetailActivity : AppCompatActivity() {
@@ -44,19 +49,22 @@ class TeamDetailActivity : AppCompatActivity() {
             ivMatch.setImageResource(R.drawable.ic_recruitment)
             tvType.text = item.type
             tvDialogInfo.text = item.type
-            tvDetail.text = item.game + " " + item.area + " " + item.schedule
-            ivProfile.load(item.teamProfile)
-            tvPlayerNum.text = item.playerNum
-            tvFee.text = "회의비"
-            tvPay.text = item.pay
+            tvTitle.text = "[${item.game}] ${item.schedule}"
+            tvTitle2.text = item.area
+            ivProfile.load(item.userImg)
+            tvPlayerNum.text = "${item.playerNum}명"
+            tvFee.text = "회비"
+            tvPay.text = decimalFormat(item.pay)
             tvTeam.text = "팀이름"
             tvTeamName.text = item.teamName
             tvGender.text = item.gender
             tvChatCount.text = item.chatCount.toString()
-            tvNicname.text = item.nicname
-            tvContent.text = item.content
-            tvTime.text = item.creationTime
+            tvViewCount.text = item.viewCount.toString()
+            tvNicname.text = item.nickname
+            tvContent.text = item.description
+            tvTime.text = calculationTime(dateTimeToMillSec(item.uploadTime))
             tvLevel.text = item.level
+            ivImage.load(item.postImg)
             btnSubmit.setText(R.string.team_detail_recruitment)
             //경기장위치 추가해야함
 
@@ -65,19 +73,22 @@ class TeamDetailActivity : AppCompatActivity() {
             // 용병신청 아이템인 경우
             tvType.text = item.type
             tvDialogInfo.text = item.type
-            tvDetail.text = item.game + " " + item.area + " " + item.schedule
-            ivProfile.load(item.teamProfile)
-            tvPlayerNum.text = item.playerNum
+            tvTitle.text = "[${item.game}] ${item.schedule}"
+            tvTitle2.text = item.area
+            ivProfile.load(item.userImg)
+            tvPlayerNum.text = "${item.playerNum}명"
             tvFee.text = "나이"
-            tvPay.text = item.age//나이가 들어가야함
+            tvPay.text = "${item.age}살"//나이가 들어가야함
             tvTeam.text = "가능 시간"
             tvTeamName.text = item.schedule//가능시간이 들어가야함
             tvGender.text = item.gender
             tvChatCount.text = item.chatCount.toString()
-            tvNicname.text = item.nicname
-            tvContent.text = item.content
-            tvTime.text = item.creationTime
+            tvViewCount.text = item.viewCount.toString()
+            tvNicname.text = item.nickname
+            tvContent.text = item.description
+            tvTime.text = calculationTime(dateTimeToMillSec(item.uploadTime))
             tvLevel.text = item.level
+            ivImage.load(item.postImg)
             btnSubmit.setText(R.string.team_detail_application)
 
 
@@ -94,5 +105,53 @@ class TeamDetailActivity : AppCompatActivity() {
                 arguments = Bundle().apply { putString(SendFcmFragment.INPUT_TYPE, SendType.MERCENARY.name) }
             }.show(supportFragmentManager, "SampleDialog")
         }
+    }
+    private fun decimalFormat(entryFee : Int) : String {
+        val dec = DecimalFormat("#,###")
+
+        return "${dec.format(entryFee)}원"
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun dateTimeToMillSec(dateTime: String): Long{
+        var timeInMilliseconds: Long = 0
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+        val mDate = sdf.parse(dateTime)
+        if (mDate != null) {
+            timeInMilliseconds = mDate.time
+        }
+
+        return timeInMilliseconds
+    }
+
+    private fun calculationTime(createDateTime: Long): String{
+        val nowDateTime = Calendar.getInstance().timeInMillis //현재 시간 to millisecond
+        var value = ""
+        val differenceValue = nowDateTime - createDateTime //현재 시간 - 비교가 될 시간
+        when {
+            differenceValue < 60000 -> { //59초 보다 적다면
+                value = "방금 전"
+            }
+            differenceValue < 3600000 -> { //59분 보다 적다면
+                value =  TimeUnit.MILLISECONDS.toMinutes(differenceValue).toString() + "분 전"
+            }
+            differenceValue < 86400000 -> { //23시간 보다 적다면
+                value =  TimeUnit.MILLISECONDS.toHours(differenceValue).toString() + "시간 전"
+            }
+            differenceValue <  604800000 -> { //7일 보다 적다면
+                value =  TimeUnit.MILLISECONDS.toDays(differenceValue).toString() + "일 전"
+            }
+            differenceValue < 2419200000 -> { //3주 보다 적다면
+                value =  (TimeUnit.MILLISECONDS.toDays(differenceValue)/7).toString() + "주 전"
+            }
+            differenceValue < 31556952000 -> { //12개월 보다 적다면
+                value =  (TimeUnit.MILLISECONDS.toDays(differenceValue)/30).toString() + "개월 전"
+            }
+            else -> { //그 외
+                value =  (TimeUnit.MILLISECONDS.toDays(differenceValue)/365).toString() + "년 전"
+            }
+        }
+        return value
     }
 }

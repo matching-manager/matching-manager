@@ -3,8 +3,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- sign up -->
-    <string name="sign_up_et_hint_Username">&#160;&#160;&#160;Input username</string>
-    <string name="sign_up_et_hint_phone_number">&#160;&#160;&#160;Input phone number</string>
+    <string name="sign_up_et_hint_Username">Input username</string>
+    <string name="sign_up_et_hint_phone_number">Input phone number</string>
     <string name="sign_up_tv_username">Username</string>
     <string name="sign_up_tv_phone_number">Phone number</string>
     <string name="sign_up_tv_Username_description">Username은 최소 2자리 최대 8자리로 구성됩니다.</string>
