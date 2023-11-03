@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchFragmentBinding
 import com.example.matching_manager.ui.match.bottomsheet.MatchFilterCategory
-import com.example.matching_manager.ui.match.bottomsheet.MatchSortBottomSheet
 import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategory
 
 class MatchFragment : Fragment() {
@@ -99,13 +98,6 @@ class MatchFragment : Fragment() {
                     viewModel.fetchData()
                 }
             }
-
-        btnSort.setOnClickListener {
-            val matchSortBottomSheet = MatchSortBottomSheet()
-
-            val fragmentManager = requireActivity().supportFragmentManager
-            matchSortBottomSheet.show(fragmentManager, matchSortBottomSheet.tag)
-        }
 
         fabAdd.setOnClickListener {
             resultLauncher.launch(writeIntent(requireContext(), "testUser"))
