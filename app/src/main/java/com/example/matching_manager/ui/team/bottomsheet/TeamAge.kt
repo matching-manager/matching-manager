@@ -15,7 +15,7 @@ class TeamAge : BottomSheetDialogFragment() {
     private var _binding: TeamAgeBinding? = null
     private val binding get() = _binding!!
 
-    private val sharedViewModel : TeamSharedViewModel by activityViewModels()
+    private val sharedViewModel: TeamSharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,13 +36,13 @@ class TeamAge : BottomSheetDialogFragment() {
 
     private fun setNumber() = with(binding) {
         // NumberPicker의 범위 설정 (1명부터 20명까지)
-        pickerAge.minValue = 1
+        pickerAge.minValue = 8
         pickerAge.maxValue = 100
     }
 
     private fun initView() = with(binding) {
         btnSave.setOnClickListener {
-            var age =pickerAge.value
+            var age = pickerAge.value
             sharedViewModel.updateTeamAge(age)
             dismiss() // BottomSheet 닫기
         }
