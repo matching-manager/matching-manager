@@ -389,30 +389,113 @@ class TeamWritingActivity : AppCompatActivity() {
             val intent = Intent(this@TeamWritingActivity, TeamFragment::class.java)
             setResult(RESULT_OK, intent)
 
-
+            val tvMonthDateText = tvMonthDate.text?.toString()
+            val tvTimeText = tvTime.text?.toString()
+            val teamNumberText = teamNumber.text?.toString()
+            val teamAgeText = teamAge.text?.toString()
             when (entryType) {
+
                 TeamAddType.RECRUIT -> {
-                    if (selectedGame == null || selectedGame.contains("선택") ||
-                        selectedArea == null || selectedArea.contains("선택") ||
-                        selectedGender == null || selectedGender.contains("선택") ||
-                        selectedLevel == null || selectedLevel.contains("선택") ||
-                        selectedTime == null || selectedTime.contains("선택") ||
-                        selectedTeamName.isBlank()
-                    ) {
-                        showToast("모든 항목을 선택해주세요")
-                        return@setOnClickListener
+                    when {
+                        selectedGame.contains("선택") -> {
+                            showToast("경기 종목을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        selectedArea.contains("선택") -> {
+                            showToast("지역을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        tvMonthDateText.isNullOrEmpty() -> {
+                            showToast("일정을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        tvTimeText.isNullOrEmpty() -> {
+                            showToast("시간 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        teamNumberText.isNullOrEmpty() -> {
+                            showToast("인원을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        selectedTeamName.isBlank() -> {
+                            selectedTeamName.let {
+                                if (it.isBlank()) {
+                                    showToast("팀 이름을 입력해 주세요")
+                                    return@setOnClickListener
+                                } else if (it.length >= 10) {
+                                    showToast("팀 이름은 최대 10자까지 입니다")
+                                    return@setOnClickListener
+                                }
+                            }
+                        }
+                        selectedFee.isBlank()->{
+                            showToast("회비를 입력해 주세요")
+                            return@setOnClickListener
+                        }
+                        selectedGender.contains("선택") -> {
+                            showToast("성별을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        selectedLevel.contains("선택") -> {
+                            showToast("실력을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        setContent.isBlank() -> {
+                            selectedTeamName.let {
+                                if (it.isBlank()) {
+                                    showToast("내용을 입력해 주세요")
+                                    return@setOnClickListener
+                                } else if (setContent.length < 10) {
+                                    showToast("내용은 최소 10글자 이상 입력해 주세요")
+                                    return@setOnClickListener
+                                }
+                            }
+                        }
+                        else -> {}
                     }
                 }
-
                 TeamAddType.APPLICATION -> {
-                    if (selectedGame == null || selectedGame.contains("선택") ||
-                        selectedArea == null || selectedArea.contains("선택") ||
-                        selectedGender == null || selectedGender.contains("선택") ||
-                        selectedLevel == null || selectedLevel.contains("선택") ||
-                        selectedAge == null
-                    ) {
-                        showToast("모든 항목을 선택해주세요")
-                        return@setOnClickListener
+                    when {
+                        selectedGame.contains("선택") -> {
+                            showToast("종목을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        selectedArea.contains("선택") -> {
+                            showToast("지역을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        selectedApplicationTime.contains("선택") -> {
+                            showToast("일정을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        teamNumberText.isNullOrEmpty() -> {
+                            showToast("인원을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        teamAgeText.isNullOrEmpty() -> {
+                            showToast("나이을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        selectedGender.contains("선택") -> {
+                            showToast("성별을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        selectedLevel.contains("선택") -> {
+                            showToast("실력을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+                        setContent.isBlank() -> {
+                            selectedTeamName.let {
+                                if (it.isBlank()) {
+                                    showToast("내용을 입력해 주세요")
+                                    return@setOnClickListener
+                                } else if (setContent.length < 10) {
+                                    showToast("내용은 최소 10글자 이상 입력해 주세요")
+                                    return@setOnClickListener
+                                }
+                            }
+                        }
+                        else -> {}
                     }
                 }
 

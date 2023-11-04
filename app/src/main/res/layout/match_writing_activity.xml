@@ -88,6 +88,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:maxLines="1"
+                        android:maxLength="10"
                         android:layout_marginBottom="5dp"
                         android:backgroundTint="@android:color/transparent"
                         android:hint="팀명을 입력해주세요." />
@@ -248,22 +249,29 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="8dp"
                         android:text="위치"
                         android:textSize="18dp"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/et_match_place"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/city_spinner"
+                        android:layout_width="110dp"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="20dp"
-                        android:maxLines="2"
-                        android:backgroundTint="@android:color/transparent"
-                        android:layout_marginBottom="5dp"
-                        android:hint="위치를 입력해 주세요." />
+                        android:background="@drawable/spinner_selector" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/sigungu_spinner"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/spinner_selector" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/dong_spinner"
+                        android:layout_width="90dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/spinner_selector"
+                        android:visibility="invisible" />
 
                 </LinearLayout>
 
@@ -371,9 +379,10 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:maxLines="1"
+                        android:maxLength="10"
                         android:backgroundTint="@android:color/transparent"
                         android:inputType="number"
-                        android:hint="5,000원/무료" />
+                        android:hint="5000" />
 
                 </LinearLayout>
 

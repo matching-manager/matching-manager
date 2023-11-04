@@ -19,6 +19,7 @@ import com.example.matching_manager.databinding.MatchWritingActivityBinding
 import com.example.matching_manager.ui.match.bottomsheet.MatchCalender
 import com.example.matching_manager.ui.match.bottomsheet.MatchNumber
 import com.example.matching_manager.ui.match.bottomsheet.MatchTime
+import com.example.matching_manager.util.Spinners
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.time.LocalDateTime
@@ -40,6 +41,7 @@ class MatchWritingActivity : AppCompatActivity() {
     private var selectedGame: String? = null
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
+    private var selectedArea: String? = null
 
     companion object {
         const val ID_DATA = "item_userId"
@@ -82,6 +84,85 @@ class MatchWritingActivity : AppCompatActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Do nothing
+            }
+        }
+
+        //지역선택 스피너
+        val cityAdapter = Spinners.cityAdapter(context = this@MatchWritingActivity)
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        citySpinner.adapter = cityAdapter
+        citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                selectedArea = parent?.getItemAtPosition(position).toString()
+
+                // 선택된 시/도에 따라 동작을 추가합니다.
+                sigunguSpinner.visibility = (View.INVISIBLE)
+                dongSpinner.visibility = (View.INVISIBLE)
+                when (position) {
+                    // 시/도 별로 동작을 구현합니다.
+                    0 -> sigunguSpinner.adapter = null
+                    else ->// 시/도가 다른 경우의 동작
+                        // 예시로 setSigunguSpinnerAdapterItem 함수를 호출하는 코드를 추가합니다.
+                        Spinners.positionToCityResource(position)
+                            ?.let { setSigunguSpinnerAdapterItem(it) }
+
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+
+            fun setSigunguSpinnerAdapterItem(arrayResource: Int) {
+                if (citySpinner.selectedItemPosition > 1) {
+                    dongSpinner.adapter = null
+                }
+                val sigungnAdapter = ArrayAdapter(
+                    this@MatchWritingActivity,
+                    android.R.layout.simple_spinner_item,
+                    resources.getStringArray(arrayResource)
+                )
+                sigungnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                sigunguSpinner.adapter = sigungnAdapter
+            }
+        }
+
+        sigunguSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                // 서울특별시 선택시
+                sigunguSpinner.visibility = (View.VISIBLE)
+                if (citySpinner.selectedItemPosition == 1 && sigunguSpinner.selectedItemPosition > -1) {
+                    sigunguSpinner.visibility = (View.VISIBLE)
+                    dongSpinner.visibility = (View.VISIBLE)
+                    Spinners.positionToDongResource(position)
+                        ?.let {
+                            (setDongSpinnerAdapterItem(it))
+                        }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+
+            fun setDongSpinnerAdapterItem(arrayResource: Int) {
+                val dongAdapter = ArrayAdapter(
+                    this@MatchWritingActivity,
+                    android.R.layout.simple_spinner_item,
+                    resources.getStringArray(arrayResource)
+                )
+                dongAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                dongSpinner.adapter = dongAdapter
             }
         }
 
@@ -215,16 +296,90 @@ class MatchWritingActivity : AppCompatActivity() {
 
         btnSubmit.setOnClickListener {
             val matchId = UUID.randomUUID().toString()
-            val teamName = etTeamName?.text?.toString() ?: "" // Elvis 연산자를 사용하여 null일 경우 ""으로 초기화합니다.
+            val teamName =
+                etTeamName?.text?.toString() ?: "" // Elvis 연산자를 사용하여 null일 경우 ""으로 초기화합니다.
             val game = (gameSpinner?.selectedItem?.toString() ?: "")
             val schedule = "${tvMonthDate?.text?.toString()} ${tvTime?.text?.toString()}"
             val playerNum = sharedViewModel.number.value ?: 0
-            val matchPlace = etMatchPlace?.text?.toString() ?: ""
+            val selectedArea =
+                citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
             val gender = genderSpinner?.selectedItem?.toString() ?: ""
             val level = levelSpinner?.selectedItem?.toString() ?: ""
-            val entryFee = etEntryFee?.text?.toString()?.toInt() ?: 0
+            val entryFee = etEntryFee.text.toString()
             val description = etDiscription?.text?.toString() ?: ""
             val uploadTime = getCurrentTime()
+
+
+            val tvMonthDateText = tvMonthDate.text?.toString()
+            val tvTimeText = tvTime.text?.toString()
+            val teamNumberText = tvTeamNumber1.text?.toString()
+            when {
+                teamName.isBlank() -> {
+                    teamName.let {
+                        if (it.isBlank()) {
+                            showToast("팀 이름을 입력해 주세요")
+                            return@setOnClickListener
+                        } else if (it.length >= 10) {
+                            showToast("팀 이름은 최대 10자까지 입니다")
+                            return@setOnClickListener
+                        }
+                    }
+                }
+
+                game.contains("선택") -> {
+                    showToast("경기 종목을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                tvMonthDateText.isNullOrEmpty() -> {
+                    showToast("일정을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                tvTimeText.isNullOrEmpty() -> {
+                    showToast("시간 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                teamNumberText.isNullOrEmpty() -> {
+                    showToast("인원을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                selectedArea.contains("선택") -> {
+                    showToast("위치를 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                gender.contains("선택") -> {
+                    showToast("성별을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                level.contains("선택") -> {
+                    showToast("실력을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                entryFee.isBlank() -> {
+                    showToast("회비를 입력해 주세요")
+                    return@setOnClickListener
+                }
+
+                description.isBlank() -> {
+                    description.let {
+                        if (it.isBlank()) {
+                            showToast("내용을 입력해 주세요")
+                            return@setOnClickListener
+                        } else if (it.length < 10) {
+                            showToast("내용은 최소 10글자 이상 입력해 주세요")
+                            return@setOnClickListener
+                        }
+                    }
+                }
+
+                else -> {}
+            }
 
             //현재 유저 아이디 및 유저 닉네임은 임시, 나중에 로그인 기능 구현되면 추가해야함
             val match = MatchDataModel(
@@ -233,10 +388,10 @@ class MatchWritingActivity : AppCompatActivity() {
                 game = game,
                 schedule = schedule,
                 playerNum = playerNum,
-                matchPlace = matchPlace,
+                matchPlace = selectedArea,
                 gender = gender,
                 level = level,
-                entryFee = entryFee,
+                entryFee = entryFee.toInt(),
                 description = description,
                 viewCount = 0,
                 chatCount = 0,
@@ -245,23 +400,6 @@ class MatchWritingActivity : AppCompatActivity() {
 
             val intent = Intent(this@MatchWritingActivity, MatchFragment::class.java)
             setResult(RESULT_OK, intent)
-
-//            if (teamName.isBlank() || schedule.isBlank() || matchPlace.isBlank() || description.isBlank() || selectedGame.isBlank() || playerNum.isBlank()  || entryFee.isBlank()) {
-//                // 선택되지 않은 값이 있을 때 토스트 메시지를 띄웁니다.
-//                Toast.makeText(
-//                    this@MatchWritingActivity,
-//                    "모든 항목을 입력해주세요",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                return@setOnClickListener
-//            }
-            //사진 예외처리
-//            if (imageUri != null) {
-//                uploadToFirebase(imageUri!!, match)
-//            } else {
-//                Toast.makeText(this@MatchWritingActivity, "사진을 선택해 주세요.", Toast.LENGTH_SHORT).show()
-//            }
-            //현재는 예외처리는 전부 제외했기 때문에 전부 작성하고 글 올려야합니다!!
             uploadToFirebase(imageUri!!, match)
         }
 
@@ -311,5 +449,9 @@ class MatchWritingActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.INVISIBLE
                 Toast.makeText(this, "매치 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this@MatchWritingActivity, message, Toast.LENGTH_SHORT).show()
     }
 }
