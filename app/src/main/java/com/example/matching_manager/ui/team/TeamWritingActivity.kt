@@ -393,13 +393,12 @@ class TeamWritingActivity : AppCompatActivity() {
             val tvTimeText = tvTime.text?.toString()
             val teamNumberText = teamNumber.text?.toString()
             val teamAgeText = teamAge.text?.toString()
-            val teamFeeText=tvFee.text?.toString()
             when (entryType) {
 
                 TeamAddType.RECRUIT -> {
                     when {
                         selectedGame.contains("선택") -> {
-                            showToast("종목을 선택해 주세요")
+                            showToast("경기 종목을 선택해 주세요")
                             return@setOnClickListener
                         }
                         selectedArea.contains("선택") -> {
