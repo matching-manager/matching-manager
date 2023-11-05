@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.matching_manager.ui.my.MyMatchDataModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -96,6 +97,14 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
                 // 오류 처리
             }
         })
+    }
+
+    fun plusViewCount(data: MatchDataModel) {
+        if(data.userId != "로그인한 유저 아이디") {
+            viewModelScope.launch {
+                repository.editViewCount(data, database)
+            }
+        }
     }
 
     sealed interface MatchEvent {
