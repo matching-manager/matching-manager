@@ -553,7 +553,7 @@ class TeamWritingActivity : AppCompatActivity() {
                 else -> null
             }
             if (teamItem != null) {
-                uploadToFirebase(imageUri!!, teamItem)
+                uploadToFirebase(imageUri, teamItem)
             }
         }
 
@@ -588,7 +588,7 @@ class TeamWritingActivity : AppCompatActivity() {
         bottomSheet.show(supportFragmentManager, TEAM_AGE_BOTTOM_SHEET)
     }
 
-    private fun uploadToFirebase(uri: Uri, data: TeamItem) {
+    private fun uploadToFirebase(uri: Uri?, data: TeamItem) {
         var teamId = ""
         if (data is TeamItem.RecruitmentItem) {
             teamId = data.teamId
@@ -597,31 +597,43 @@ class TeamWritingActivity : AppCompatActivity() {
         }
         val fileRef = reference.child("Team/${teamId}")
 
-        fileRef.putFile(uri)
-            .addOnSuccessListener {
-                fileRef.downloadUrl
-                    .addOnSuccessListener { uri ->
-                        if (data is TeamItem.RecruitmentItem) {
-                            data.postImg = uri.toString()
-                            viewModel.addRecruitment(data)
-                        } else if (data is TeamItem.ApplicationItem) {
-                            data.postImg = uri.toString()
-                            viewModel.addApplication(data)
+        if (uri != null) {
+            fileRef.putFile(uri)
+                .addOnSuccessListener {
+                    fileRef.downloadUrl
+                        .addOnSuccessListener { uri ->
+                            if (data is TeamItem.RecruitmentItem) {
+                                data.postImg = uri.toString()
+                                viewModel.addRecruitment(data)
+                            } else if (data is TeamItem.ApplicationItem) {
+                                data.postImg = uri.toString()
+                                viewModel.addApplication(data)
+                            }
+
+                            binding.progressBar.visibility = View.INVISIBLE
+
+                            Toast.makeText(this, "게시글이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+
                         }
-
-                        binding.progressBar.visibility = View.INVISIBLE
-
-                        Toast.makeText(this, "게시글이 등록되었습니다.", Toast.LENGTH_SHORT).show()
-
-                    }
+                }
+                .addOnProgressListener { snapshot ->
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                .addOnFailureListener { e ->
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this, "게시글 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                }
+        }
+        else {
+            binding.progressBar.visibility = View.VISIBLE
+            if (data is TeamItem.RecruitmentItem) {
+                viewModel.addRecruitment(data)
+            } else if (data is TeamItem.ApplicationItem) {
+                viewModel.addApplication(data)
             }
-            .addOnProgressListener { snapshot ->
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            .addOnFailureListener { e ->
-                binding.progressBar.visibility = View.INVISIBLE
-                Toast.makeText(this, "게시글 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-            }
+            binding.progressBar.visibility = View.INVISIBLE
+            Toast.makeText(this, "게시글이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun getCurrentTime(): String {
