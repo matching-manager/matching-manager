@@ -362,7 +362,7 @@ class MyMatchEditActivity : AppCompatActivity() {
 //                Toast.makeText(this@MyMatchEditActivity, "사진을 선택해 주세요.", Toast.LENGTH_SHORT).show()
 //            }
             //현재는 예외처리는 전부 제외했기 때문에 전부 작성하고 글 올려야합니다!!
-            uploadToFirebase(imageUri!!, data!!, editData)
+            uploadToFirebase(imageUri, data!!, editData)
         }
     }
 
@@ -375,35 +375,36 @@ class MyMatchEditActivity : AppCompatActivity() {
         }
     }
 
-    private fun getCurrentTime(): String {
-        val currentTime = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-
-        return currentTime.format(formatter)
-    }
-
-    private fun uploadToFirebase(uri: Uri, data: MyMatchDataModel, newData: MyMatchDataModel) {
+    private fun uploadToFirebase(uri: Uri?, data: MyMatchDataModel, newData: MyMatchDataModel) {
         val fileRef = reference.child("Match/${data.matchId}")
 
-        fileRef.putFile(uri)
-            .addOnSuccessListener {
-                fileRef.downloadUrl
-                    .addOnSuccessListener { uri ->
-                        newData.postImg = uri.toString()
-                        viewModel.editMatch(data, newData)
+        if (uri != null) {
+            fileRef.putFile(uri)
+                .addOnSuccessListener {
+                    fileRef.downloadUrl
+                        .addOnSuccessListener { uri ->
+                            newData.postImg = uri.toString()
+                            viewModel.editMatch(data, newData)
 
-                        binding.progressBar.visibility = View.INVISIBLE
+                            binding.progressBar.visibility = View.INVISIBLE
 
-                        Toast.makeText(this, "매치가 등록되었습니다.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
 
-                    }
-            }
-            .addOnProgressListener { snapshot ->
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            .addOnFailureListener { e ->
-                binding.progressBar.visibility = View.INVISIBLE
-                Toast.makeText(this, "매치 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-            }
+                        }
+                }
+                .addOnProgressListener { snapshot ->
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                .addOnFailureListener { e ->
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                }
+        }
+        else {
+            binding.progressBar.visibility = View.VISIBLE
+            viewModel.editMatch(data, newData)
+            binding.progressBar.visibility = View.INVISIBLE
+            Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+        }
     }
 }
