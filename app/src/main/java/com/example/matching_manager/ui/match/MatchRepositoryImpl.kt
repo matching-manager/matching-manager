@@ -1,6 +1,7 @@
 package com.example.matching_manager.ui.match
 
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ServerValue
 import kotlinx.coroutines.tasks.await
 
 class MatchRepositoryImpl() : MatchRepository {
@@ -23,5 +24,22 @@ class MatchRepositoryImpl() : MatchRepository {
     override suspend fun addData(data: MatchDataModel, database: FirebaseDatabase) {
         val matchRef = database.getReference("Match")
         matchRef.push().setValue(data).await()
+    }
+
+    override suspend fun editViewCount(data: MatchDataModel, database: FirebaseDatabase) {
+        val matchRef = database.getReference("Match")
+        val query = matchRef.orderByChild("matchId").equalTo(data.matchId)
+
+        val updateValue = ServerValue.increment(1)
+
+        val dataToUpdate = hashMapOf(
+            "viewCount" to updateValue
+        )
+        val snapshot = query.get().await()
+        if (snapshot.exists()) {
+            for (childSnapshot in snapshot.children) {
+                childSnapshot.ref.updateChildren(dataToUpdate as Map<String, Any>)
+            }
+        }
     }
 }

@@ -34,6 +34,7 @@ class MatchFragment : Fragment() {
         MatchListAdapter { item ->
             val matchList = viewModel.realTimeList.value ?: emptyList()
             if(matchList.any { it.matchId == item.matchId }) {
+                viewModel.plusViewCount(item)
                 startActivity(detailIntent(requireContext(), item))
             }
             else {
