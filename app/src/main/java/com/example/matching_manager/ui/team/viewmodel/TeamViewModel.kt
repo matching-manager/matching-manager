@@ -94,22 +94,10 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
     }
 
     //조회수를 업데이트하는 함수
-    fun incrementViewCount(item: TeamItem) {
-        if (item is TeamItem.RecruitmentItem) {
-            val currentList = list.value.orEmpty().toMutableList()
-            val updatedItem = item.copy(viewCount = item.viewCount + 1)
-            val index = currentList.indexOf(item)
-            if (index != -1) {
-                currentList[index] = updatedItem
-                _list.value = currentList
-            }
-        } else if (item is TeamItem.ApplicationItem) {
-            val currentList = list.value.orEmpty().toMutableList()
-            val updatedItem = item.copy(viewCount = item.viewCount + 1)
-            val index = currentList.indexOf(item)
-            if (index != -1) {
-                currentList[index] = updatedItem
-                _list.value = currentList
+    fun plusViewCount(data: TeamItem) {
+        if(data.userId != "로그인한 유저의 아이디") {
+            viewModelScope.launch {
+                repository.editViewCount(data, database)
             }
         }
     }
