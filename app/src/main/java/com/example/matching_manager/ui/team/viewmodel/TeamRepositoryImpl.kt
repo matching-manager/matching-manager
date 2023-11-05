@@ -58,5 +58,21 @@ class TeamRepositoryImpl() : TeamRepository {
         }
     }
 
+    override suspend fun editChatCount(data: TeamItem, database: FirebaseDatabase) {
+        val matchRef = database.getReference("Team")
+        val query = matchRef.orderByChild("teamId").equalTo(data.teamId)
+
+        val updateValue = ServerValue.increment(1)
+
+        val dataToUpdate = hashMapOf(
+            "chatCount" to updateValue
+        )
+        val snapshot = query.get().await()
+        if (snapshot.exists()) {
+            for (childSnapshot in snapshot.children) {
+                childSnapshot.ref.updateChildren(dataToUpdate as Map<String, Any>)
+            }
+        }    }
+
 
 }

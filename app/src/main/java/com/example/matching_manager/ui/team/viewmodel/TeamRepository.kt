@@ -12,4 +12,6 @@ interface TeamRepository {
     suspend fun addApplicationData(data: TeamItem.ApplicationItem, database: FirebaseDatabase)
 
     suspend fun editViewCount(data: TeamItem, database: FirebaseDatabase)
+
+    suspend fun editChatCount(data: TeamItem, database: FirebaseDatabase)
 }
