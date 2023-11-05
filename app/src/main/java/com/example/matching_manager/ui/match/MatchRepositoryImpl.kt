@@ -42,4 +42,21 @@ class MatchRepositoryImpl() : MatchRepository {
             }
         }
     }
+
+    override suspend fun editChatCount(data: MatchDataModel, database: FirebaseDatabase) {
+        val matchRef = database.getReference("Match")
+        val query = matchRef.orderByChild("matchId").equalTo(data.matchId)
+
+        val updateValue = ServerValue.increment(1)
+
+        val dataToUpdate = hashMapOf(
+            "chatCount" to updateValue
+        )
+        val snapshot = query.get().await()
+        if (snapshot.exists()) {
+            for (childSnapshot in snapshot.children) {
+                childSnapshot.ref.updateChildren(dataToUpdate as Map<String, Any>)
+            }
+        }
+    }
 }
