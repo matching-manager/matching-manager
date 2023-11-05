@@ -127,6 +127,12 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
         }
     }
 
+    fun plusChatCount(data: MatchDataModel) {
+        viewModelScope.launch {
+            repository.editViewCount(data, database)
+        }
+    }
+
     sealed interface MatchEvent {
         object Finish : MatchEvent
     }

@@ -7,4 +7,7 @@ interface MatchRepository {
     suspend fun addData(data: MatchDataModel, database: FirebaseDatabase)
 
     suspend fun editViewCount(data : MatchDataModel, database: FirebaseDatabase)
+
+    suspend fun editChatCount(data : MatchDataModel, database: FirebaseDatabase)
+
 }
