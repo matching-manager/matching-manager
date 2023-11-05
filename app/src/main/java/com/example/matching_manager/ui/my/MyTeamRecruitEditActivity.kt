@@ -117,7 +117,7 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
                 teamName = selectedTeamName
             )
 
-            uploadToFirebase(imageUri!!, data!!, editTeam)
+            uploadToFirebase(imageUri, data!!, editTeam)
         }
     }
 
@@ -384,28 +384,36 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
         bottomSheet.show(supportFragmentManager, TeamWritingActivity.TEAM_NUMBER_BOTTOM_SHEET)
     }
 
-    private fun uploadToFirebase(uri: Uri, data: TeamItem.RecruitmentItem, newData: TeamItem.RecruitmentItem) {
+    private fun uploadToFirebase(uri: Uri?, data: TeamItem.RecruitmentItem, newData: TeamItem.RecruitmentItem) {
         val fileRef = reference.child("Match/${data.teamId}")
 
-        fileRef.putFile(uri)
-            .addOnSuccessListener {
-                fileRef.downloadUrl
-                    .addOnSuccessListener { uri ->
-                        newData.postImg = uri.toString()
-                        viewModel.editRecruit(data, newData)
+        if (uri != null) {
+            fileRef.putFile(uri)
+                .addOnSuccessListener {
+                    fileRef.downloadUrl
+                        .addOnSuccessListener { uri ->
+                            newData.postImg = uri.toString()
+                            viewModel.editRecruit(data, newData)
 
-                        binding.progressBar.visibility = View.INVISIBLE
+                            binding.progressBar.visibility = View.INVISIBLE
 
-                        Toast.makeText(this, "매치가 등록되었습니다.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "매치가 등록되었습니다.", Toast.LENGTH_SHORT).show()
 
-                    }
-            }
-            .addOnProgressListener { snapshot ->
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            .addOnFailureListener { e ->
-                binding.progressBar.visibility = View.INVISIBLE
-                Toast.makeText(this, "매치 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-            }
+                        }
+                }
+                .addOnProgressListener { snapshot ->
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                .addOnFailureListener { e ->
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this, "매치 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                }
+        }
+        else {
+            binding.progressBar.visibility = View.VISIBLE
+            viewModel.editRecruit(data, newData)
+            binding.progressBar.visibility = View.INVISIBLE
+            Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+        }
     }
 }

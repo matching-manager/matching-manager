@@ -6,6 +6,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.core.net.toUri
 import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MyTeamRecruitDetailActivityBinding
@@ -61,7 +63,8 @@ class MyTeamRecruitDetailActivity : AppCompatActivity() {
         tvContent.text = data!!.description
         tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
         tvLevel.text = data!!.level
-        ivImage.load(data!!.postImg)
+        if(data!!.postImg != "") ivImage.load(data!!.postImg.toUri())
+        else cvPhoto1.visibility = View.INVISIBLE
 
         btnCancel.setOnClickListener {
             finish()
