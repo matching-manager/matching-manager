@@ -39,6 +39,7 @@ class TeamFragment : Fragment() {
         TeamListAdapter(onClick = { item ->
             val matchList = viewModel.realTimeList.value ?: emptyList()
             if (matchList.any { it.teamId == item.teamId }) {
+                viewModel.plusViewCount(item)
                 val intent = TeamDetailActivity.newIntent(item, requireContext())
                 startActivity(intent)
             } else {
