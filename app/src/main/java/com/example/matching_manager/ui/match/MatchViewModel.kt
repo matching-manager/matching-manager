@@ -31,15 +31,35 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
         Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
     private val matchRef = database.getReference("Match")
     fun fetchData() {
-        viewModelScope.launch {
-            val currentList = repository.getList(database)
-            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
+//        viewModelScope.launch {
+//            val currentList = repository.getList(database)
+//            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
 //            originalList = currentList.toMutableList()
 //            _list.postValue(currentList)
-            originalList.clear()
-            originalList.addAll(currentList)
-            _list.value = originalList
-        }
+//            originalList.clear()
+//            originalList.addAll(currentList)
+//            _list.value = originalList
+//        }
+        matchRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dataList = mutableListOf<MatchDataModel>()
+
+                for (childSnapshot in dataSnapshot.children) {
+                    val matchData = childSnapshot.getValue(MatchDataModel::class.java)
+                    if (matchData != null) {
+                        dataList.add(matchData)
+                    }
+                }
+                val currentList = dataList
+                originalList.clear()
+                originalList.addAll(dataList)
+                _list.value = currentList
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // 오류 처리
+            }
+        })
     }
 
     fun addMatch(data: MatchDataModel) {
