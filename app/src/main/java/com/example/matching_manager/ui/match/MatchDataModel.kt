@@ -8,7 +8,10 @@ data class MatchDataModel(
     val matchId: String = "matchId",   //매치ID
     val userId: String = "testUser",    //유저ID
     var userNickname: String = "축구도사 손현준", //유저닉네임
-    var userImg: Int = 0,     //유저이미지
+    var userImg: String = "",     //유저이미지
+    var userEmail : String = "", //유저이메일
+    var fcmToken : String = "", //유저FCM토큰
+    var phoneNum : String = "", //유저전화번호
     var teamName: String = "team",  //팀이름
     var game: String = "축구", //경기종류 (축구, 풋살, 농구, 배드민턴, 볼링)
     var schedule: String = "10월 20일 오후 8시",  //경기시간
