@@ -9,6 +9,8 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.MyMatchActivityBinding
+import com.example.matching_manager.ui.match.MatchDataModel
+import com.example.matching_manager.ui.signin.UserInformation
 
 class MyMatchActivity : AppCompatActivity() {
 
@@ -33,7 +35,7 @@ class MyMatchActivity : AppCompatActivity() {
 
     companion object {
         fun detailIntent(
-            context: Context, item: MyMatchDataModel
+            context: Context, item: MatchDataModel
         ): Intent {
             val intent = Intent(context, MyMatchDetailActivity::class.java)
             intent.putExtra(MyFragment.OBJECT_DATA, item)
@@ -52,7 +54,7 @@ class MyMatchActivity : AppCompatActivity() {
 
     private fun initView() = with(binding) {
         progressBar.visibility = View.VISIBLE
-        viewModel.fetchMatchData(viewModel.userId)
+        viewModel.fetchMatchData(UserInformation.userInfo.uid!!)
 
         rv.adapter = adapter
         val manager = LinearLayoutManager(this@MyMatchActivity)
