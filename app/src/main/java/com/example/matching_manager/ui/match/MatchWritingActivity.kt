@@ -41,7 +41,7 @@ class MatchWritingActivity : AppCompatActivity() {
     private var selectedGame: String? = null
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
-    private var selectedArea : String? = null
+    private var selectedArea: String? = null
 
     companion object {
         const val ID_DATA = "item_userId"
@@ -144,6 +144,7 @@ class MatchWritingActivity : AppCompatActivity() {
                 if (citySpinner.selectedItemPosition == 1 && sigunguSpinner.selectedItemPosition > -1) {
                     sigunguSpinner.visibility = (View.VISIBLE)
                     dongSpinner.visibility = (View.VISIBLE)
+
                     Spinners.positionToDongResource(position)
                         ?.let {
                             (setDongSpinnerAdapterItem(it))
@@ -297,16 +298,16 @@ class MatchWritingActivity : AppCompatActivity() {
         btnSubmit.setOnClickListener {
             val matchId = UUID.randomUUID().toString()
             val teamName =
-                etTeamName?.text?.toString() ?: "" // Elvis 연산자를 사용하여 null일 경우 ""으로 초기화합니다.
-            val game = (gameSpinner?.selectedItem?.toString() ?: "")
-            val schedule = "${tvMonthDate?.text?.toString()} ${tvTime?.text?.toString()}"
+                etTeamName.text?.toString() ?: "" // Elvis 연산자를 사용하여 null일 경우 ""으로 초기화합니다.
+            val game = (gameSpinner.selectedItem?.toString() ?: "")
+            val schedule = "${tvMonthDate.text?.toString()} ${tvTime.text?.toString()}"
             val playerNum = sharedViewModel.number.value ?: 0
             val selectedArea =
                 citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
-            val gender = genderSpinner?.selectedItem?.toString() ?: ""
-            val level = levelSpinner?.selectedItem?.toString() ?: ""
+            val gender = genderSpinner.selectedItem?.toString() ?: ""
+            val level = levelSpinner.selectedItem?.toString() ?: ""
             val entryFee = etEntryFee.text.toString()
-            val description = etDiscription?.text?.toString() ?: ""
+            val description = etContent.text?.toString() ?: ""
             val uploadTime = getCurrentTime()
 
 
@@ -362,8 +363,15 @@ class MatchWritingActivity : AppCompatActivity() {
                 }
 
                 entryFee.isBlank() -> {
-                    showToast("회비를 입력해 주세요")
-                    return@setOnClickListener
+                    entryFee.let {
+                        val fee = it.toIntOrNull()
+                        if (it.isBlank()) {
+                            showToast("회비를 입력해 주세요")
+                            return@setOnClickListener
+                        } else if (fee != null && fee % 1000 != 0) {
+                            showToast("회비는 천원 단위로 입력해 주세요")
+                        }
+                    }
                 }
 
                 description.isBlank() -> {
@@ -443,15 +451,14 @@ class MatchWritingActivity : AppCompatActivity() {
 
                         }
                 }
-                .addOnProgressListener { snapshot ->
+                .addOnProgressListener {
                     binding.progressBar.visibility = View.VISIBLE
                 }
-                .addOnFailureListener { e ->
+                .addOnFailureListener { _ ->
                     binding.progressBar.visibility = View.INVISIBLE
                     Toast.makeText(this, "게시글 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
                 }
-        }
-        else {
+        } else {
             binding.progressBar.visibility = View.VISIBLE
             viewModel.addMatch(data)
             binding.progressBar.visibility = View.INVISIBLE

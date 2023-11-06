@@ -75,7 +75,7 @@ class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : Lis
         }
 
         private fun formatDetail(playerNum : Int, gender : String) : String {
-            return "${playerNum}:${playerNum} ${gender}"
+            return "$gender ${playerNum}:${playerNum}"
         }
     }
 
