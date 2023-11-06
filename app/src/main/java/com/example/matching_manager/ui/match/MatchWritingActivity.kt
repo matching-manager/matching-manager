@@ -1,6 +1,7 @@
 package com.example.matching_manager.ui.match
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.lifecycle.Observer
 import coil.load
 import com.example.matching_manager.R
@@ -19,7 +21,10 @@ import com.example.matching_manager.databinding.MatchWritingActivityBinding
 import com.example.matching_manager.ui.match.bottomsheet.MatchCalender
 import com.example.matching_manager.ui.match.bottomsheet.MatchNumber
 import com.example.matching_manager.ui.match.bottomsheet.MatchTime
+import com.example.matching_manager.ui.signin.UserInformation
 import com.example.matching_manager.util.Spinners
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.time.LocalDateTime
@@ -44,7 +49,9 @@ class MatchWritingActivity : AppCompatActivity() {
     private var selectedArea: String? = null
 
     companion object {
-        const val ID_DATA = "item_userId"
+        fun writeIntent(context: Context): Intent {
+            return Intent(context, MatchWritingActivity::class.java)
+        }
 
         //바텀시트호출
         const val MATCH_NUMBER_BOTTOM_SHEET = "match_number_bottom_sheet"
@@ -285,11 +292,6 @@ class MatchWritingActivity : AppCompatActivity() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun initView() = with(binding) {
-
-        //matchFragment에서 가져오는 userID
-        val userId = intent.getStringExtra(ID_DATA)
-        Log.d("userId", "${userId}")
-
         //back button
         btnCancel.setOnClickListener {
             finish() // 현재 Activity 종료
@@ -389,9 +391,14 @@ class MatchWritingActivity : AppCompatActivity() {
                 else -> {}
             }
 
-            //현재 유저 아이디 및 유저 닉네임은 임시, 나중에 로그인 기능 구현되면 추가해야함
             val match = MatchDataModel(
                 matchId = matchId,
+                userId = UserInformation.userInfo.uid!!,
+                userImg = UserInformation.userInfo.photoUrl!!,
+                userNickname = UserInformation.userInfo.username!!,
+                userEmail = UserInformation.userInfo.email!!,
+                phoneNum = UserInformation.userInfo.phoneNumber!!,
+                fcmToken = UserInformation.userInfo.fcmToken!!,
                 teamName = teamName,
                 game = game,
                 schedule = schedule,

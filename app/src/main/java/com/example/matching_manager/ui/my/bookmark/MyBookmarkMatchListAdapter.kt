@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchItemBinding
 import com.example.matching_manager.ui.match.MatchDataModel
@@ -43,7 +44,7 @@ class MyBookmarkMatchListAdapter (private val onItemClick: (MatchDataModel) -> U
 
         @SuppressLint("ResourceAsColor")
         fun bind(item : MatchDataModel, onItemClick: (MatchDataModel) -> Unit) = with(binding) {
-            ivProfile.setImageResource(item.userImg)
+            ivProfile.load(item.userImg)
             tvGame.text = item.game
             tvDetail.text = formatDetail(item.playerNum, item.gender)
             tvSchedule.text = item.schedule

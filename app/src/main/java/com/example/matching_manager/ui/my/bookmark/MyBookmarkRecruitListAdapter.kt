@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.matching_manager.databinding.MyRecruitItemBinding
 import com.example.matching_manager.ui.team.TeamItem
 
@@ -40,7 +41,7 @@ class MyBookmarkRecruitListAdapter (private val onItemClick: (TeamItem.Recruitme
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item : TeamItem.RecruitmentItem, onItemClick: (TeamItem.RecruitmentItem) -> Unit, onMenuClick : (TeamItem.RecruitmentItem) -> Unit) = with(binding) {
-            ivProfile.setImageResource(item.userImg)
+            ivProfile.load(item.userImg)
             tvType.text = item.type
             tvDetail.text = "${item.gender} ${item.playerNum}"
             tvSchedule.text = item.schedule

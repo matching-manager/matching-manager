@@ -14,8 +14,9 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.matching_manager.databinding.MyDeleteDialogBinding
+import com.example.matching_manager.ui.match.MatchDataModel
 
-class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
+class MyDeleteDialog(private val item: MatchDataModel) : DialogFragment() {
     private var _binding: MyDeleteDialogBinding? = null
     private val binding get() = _binding!!
 

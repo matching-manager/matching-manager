@@ -390,7 +390,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
     }
 
     private fun uploadToFirebase(uri: Uri?, data: TeamItem.ApplicationItem, newData: TeamItem.ApplicationItem) {
-        val fileRef = reference.child("Match/${data.teamId}")
+        val fileRef = reference.child("Team/${data.teamId}")
 
         if (uri != null) {
             fileRef.putFile(uri)
