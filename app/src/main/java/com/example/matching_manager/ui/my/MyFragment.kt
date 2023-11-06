@@ -16,6 +16,7 @@ import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.DialogEditBinding
 import com.example.matching_manager.databinding.MyFragmentBinding
+import com.example.matching_manager.ui.my.bookmark.MyBookmarkActivity
 import com.example.matching_manager.ui.signin.SignInActivity
 import com.example.matching_manager.ui.signin.UserInformation
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -71,7 +72,8 @@ class MyFragment : Fragment() {
             startActivity(intent)
         }
         layoutBookmark.setOnClickListener {
-            // 현준님 여기에 관심목록 저장하시면 됩니다~
+            val intent = Intent(requireContext(), MyBookmarkActivity::class.java)
+            startActivity(intent)
         }
         binding.btnLogout.setOnClickListener {
             logOut()
