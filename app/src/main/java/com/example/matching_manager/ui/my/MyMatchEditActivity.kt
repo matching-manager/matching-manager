@@ -357,7 +357,7 @@ class MyMatchEditActivity : AppCompatActivity() {
 //                Toast.makeText(this@MyMatchEditActivity, "사진을 선택해 주세요.", Toast.LENGTH_SHORT).show()
 //            }
             //현재는 예외처리는 전부 제외했기 때문에 전부 작성하고 글 올려야합니다!!
-            uploadToFirebase(imageUri, data!!, editData)
+            editFromFirebase(imageUri, data!!, editData)
         }
     }
 
@@ -370,7 +370,7 @@ class MyMatchEditActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadToFirebase(uri: Uri?, data: MatchDataModel, newData: MatchDataModel) {
+    private fun editFromFirebase(uri: Uri?, data: MatchDataModel, newData: MatchDataModel) {
         val fileRef = reference.child("Match/${data.matchId}")
 
         if (uri != null) {
@@ -397,9 +397,17 @@ class MyMatchEditActivity : AppCompatActivity() {
         }
         else {
             binding.progressBar.visibility = View.VISIBLE
-            viewModel.editMatch(data, newData)
-            binding.progressBar.visibility = View.INVISIBLE
-            Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+
+            fileRef.delete()
+                .addOnSuccessListener {
+                    viewModel.editMatch(data, newData)
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { exception ->
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 }
