@@ -8,7 +8,6 @@
     android:padding="15dp"
     tools:context=".ui.home.HomeFragment">
 
-
     <ImageView
         android:id="@+id/iv_runner"
         android:layout_width="25sp"
@@ -74,6 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_title_announcement">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_announcement"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rv_home_item_common_background_grey"
@@ -128,6 +128,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_title_match">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_match"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rv_home_item_common_background_grey"
@@ -136,7 +137,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/home_recyclerview_item" />
+            tools:listitem="@layout/home_recyclerview_item_match" />
 
     </androidx.cardview.widget.CardView>
 

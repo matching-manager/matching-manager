@@ -6,14 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.matching_manager.databinding.HomeFragmentBinding
 import com.example.matching_manager.ui.home.arena.alarm.AlarmActivity
 import com.example.matching_manager.ui.home.arena.ArenaActivity
 
 class HomeFragment : Fragment() {
+
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel : HomeViewModel by viewModels { HomeViewModelFactory() }
     companion object {
         fun newInstance() = HomeFragment()
     }
@@ -30,6 +33,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initViewModel()
+    }
+
+    private fun initViewModel() = with(viewModel){
+
     }
 
     private fun initView() = with(binding) {
