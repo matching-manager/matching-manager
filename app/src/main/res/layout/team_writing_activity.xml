@@ -58,15 +58,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
-                android:background="@color/common_point_green"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="10dp">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
+                    android:id="@+id/layout_game"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/selector_common_et"
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -82,6 +87,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/spinner_selector" />
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -106,16 +112,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
-                android:background="@color/common_point_green"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/cardview2"
                 app:layout_constraintStart_toStartOf="@+id/cardview2"
                 app:layout_constraintTop_toBottomOf="@+id/cardview2">
 
                 <LinearLayout
+                    android:id="@+id/layout_area"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/selector_common_et"
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -161,9 +169,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardview3">
 
                 <LinearLayout
+                    android:id="@+id/layout_application_time"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/selector_common_et"
+                    android:padding="5dp">
 
                     <TextView
                         android:id="@+id/tv_application_time"
@@ -199,9 +210,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardview3">
 
                 <LinearLayout
+                    android:id="@+id/layou_recruit_time"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/selector_common_et"
+                    android:padding="5dp">
 
                     <TextView
                         android:id="@+id/tv_recruit_time"
@@ -247,9 +261,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/cv_application_time">
 
                 <LinearLayout
+                    android:id="@+id/layout_team_number"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/selector_common_et"
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -292,9 +309,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardview5">
 
                 <LinearLayout
+                    android:id="@+id/layout_application_age"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/selector_common_et"
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -337,9 +357,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardview5">
 
                 <LinearLayout
+                    android:id="@+id/layout_team_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/selector_common_et"
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -382,9 +405,12 @@
                 tools:layout_editor_absoluteY="290dp">
 
                 <LinearLayout
+                    android:id="@+id/layout_fee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/selector_common_et"
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -425,9 +451,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/cv_fee">
 
                 <LinearLayout
+                    android:id="@+id/layout_gender"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/selector_common_et"
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -460,9 +489,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardview7">
 
                 <LinearLayout
+                    android:id="@+id/layout_level"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/selector_common_et"
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -494,15 +526,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardview8">
 
                 <LinearLayout
+                    android:id="@+id/layout_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/selector_common_et"
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="7dp"
                         android:text="내용"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -512,7 +547,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:layout_marginRight="20dp"
                         android:backgroundTint="@android:color/transparent"
@@ -534,7 +569,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    >
 
                     <TextView
                         android:id="@+id/textView4"

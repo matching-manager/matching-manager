@@ -362,8 +362,15 @@ class MatchWritingActivity : AppCompatActivity() {
                 }
 
                 entryFee.isBlank() -> {
-                    showToast("회비를 입력해 주세요")
-                    return@setOnClickListener
+                    entryFee.let {
+                        val fee = it.toIntOrNull()
+                        if (it.isBlank()) {
+                            showToast("회비를 입력해 주세요")
+                            return@setOnClickListener
+                        } else if (fee != null && fee % 1000 != 0) {
+                            showToast("회비는 천원 단위로 입력해 주세요")
+                        }
+                    }
                 }
 
                 description.isBlank() -> {

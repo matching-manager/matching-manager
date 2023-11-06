@@ -399,24 +399,31 @@ class TeamWritingActivity : AppCompatActivity() {
                     when {
                         selectedGame.contains("선택") -> {
                             showToast("경기 종목을 선택해 주세요")
+                            layoutGame.isSelected = true
+                            layoutGame.isFocusable = false
                             return@setOnClickListener
                         }
+
                         selectedArea.contains("선택") -> {
                             showToast("지역을 선택해 주세요")
                             return@setOnClickListener
                         }
+
                         tvMonthDateText.isNullOrEmpty() -> {
                             showToast("일정을 선택해 주세요")
                             return@setOnClickListener
                         }
+
                         tvTimeText.isNullOrEmpty() -> {
                             showToast("시간 선택해 주세요")
                             return@setOnClickListener
                         }
+
                         teamNumberText.isNullOrEmpty() -> {
                             showToast("인원을 선택해 주세요")
                             return@setOnClickListener
                         }
+
                         selectedTeamName.isBlank() -> {
                             selectedTeamName.let {
                                 if (it.isBlank()) {
@@ -428,18 +435,29 @@ class TeamWritingActivity : AppCompatActivity() {
                                 }
                             }
                         }
-                        selectedFee.isBlank()->{
-                            showToast("회비를 입력해 주세요")
-                            return@setOnClickListener
+
+                        selectedFee.isBlank() -> {
+                            selectedFee.let {
+                                val fee = it.toIntOrNull()
+                                if (it.isBlank()) {
+                                    showToast("회비를 입력해 주세요")
+                                    return@setOnClickListener
+                                } else if (fee != null && fee % 1000 != 0) {
+                                    showToast("회비는 천원 단위로 입력해 주세요")
+                                }
+                            }
                         }
+
                         selectedGender.contains("선택") -> {
                             showToast("성별을 선택해 주세요")
                             return@setOnClickListener
                         }
+
                         selectedLevel.contains("선택") -> {
                             showToast("실력을 선택해 주세요")
                             return@setOnClickListener
                         }
+
                         setContent.isBlank() -> {
                             selectedTeamName.let {
                                 if (it.isBlank()) {
@@ -451,39 +469,48 @@ class TeamWritingActivity : AppCompatActivity() {
                                 }
                             }
                         }
+
                         else -> {}
                     }
                 }
+
                 TeamAddType.APPLICATION -> {
                     when {
                         selectedGame.contains("선택") -> {
                             showToast("종목을 선택해 주세요")
                             return@setOnClickListener
                         }
+
                         selectedArea.contains("선택") -> {
                             showToast("지역을 선택해 주세요")
                             return@setOnClickListener
                         }
+
                         selectedApplicationTime.contains("선택") -> {
                             showToast("일정을 선택해 주세요")
                             return@setOnClickListener
                         }
+
                         teamNumberText.isNullOrEmpty() -> {
                             showToast("인원을 선택해 주세요")
                             return@setOnClickListener
                         }
+
                         teamAgeText.isNullOrEmpty() -> {
                             showToast("나이을 선택해 주세요")
                             return@setOnClickListener
                         }
+
                         selectedGender.contains("선택") -> {
                             showToast("성별을 선택해 주세요")
                             return@setOnClickListener
                         }
+
                         selectedLevel.contains("선택") -> {
                             showToast("실력을 선택해 주세요")
                             return@setOnClickListener
                         }
+
                         setContent.isBlank() -> {
                             selectedTeamName.let {
                                 if (it.isBlank()) {
@@ -495,6 +522,7 @@ class TeamWritingActivity : AppCompatActivity() {
                                 }
                             }
                         }
+
                         else -> {}
                     }
                 }
@@ -623,8 +651,7 @@ class TeamWritingActivity : AppCompatActivity() {
                     binding.progressBar.visibility = View.INVISIBLE
                     Toast.makeText(this, "게시글 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
                 }
-        }
-        else {
+        } else {
             binding.progressBar.visibility = View.VISIBLE
             if (data is TeamItem.RecruitmentItem) {
                 viewModel.addRecruitment(data)
