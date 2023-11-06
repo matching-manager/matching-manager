@@ -9,9 +9,12 @@ import com.example.matching_manager.databinding.HomeRecyclerviewItemAnnouncement
 import com.example.matching_manager.databinding.HomeRecyclerviewItemMatchBinding
 import com.example.matching_manager.ui.match.MatchDataModel
 
-class HomeMatchListAdapter(
+
+// 임시로 MatchDataModel로 넣어뒀습니다!
+// AnnouncementModel 구성 후에 변경 부탁드립니다~
+class HomeAnnouncementListAdapter(
     private val onClick: (MatchDataModel) -> Unit
-) : ListAdapter<MatchDataModel, HomeMatchListAdapter.ViewHolder>(
+) : ListAdapter<MatchDataModel, HomeAnnouncementListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<MatchDataModel>() {
         override fun areItemsTheSame(
             oldItem: MatchDataModel,
@@ -30,18 +33,22 @@ class HomeMatchListAdapter(
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            HomeRecyclerviewItemMatchBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            HomeRecyclerviewItemAnnouncementBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ),
             onClick
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) { 
         val item = getItem(position)
         holder.bind(item)
     }
 
     class ViewHolder(
-        private val binding: HomeRecyclerviewItemMatchBinding,
+        private val binding: HomeRecyclerviewItemAnnouncementBinding,
         private val onClick: (MatchDataModel) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MatchDataModel) = with(binding) {
