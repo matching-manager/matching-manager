@@ -19,6 +19,7 @@ import com.example.matching_manager.databinding.MyMatchEditActivityBinding
 import com.example.matching_manager.ui.my.bottomsheet.MyCalender
 import com.example.matching_manager.ui.my.bottomsheet.MyNumber
 import com.example.matching_manager.ui.my.bottomsheet.MyTime
+import com.example.matching_manager.util.Spinners
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.time.LocalDateTime
@@ -37,6 +38,8 @@ class MyMatchEditActivity : AppCompatActivity() {
     private var selectedGame: String? = null
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
+    private var selectedArea : String? = null
+
 
     private val data: MyMatchDataModel? by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -90,6 +93,85 @@ class MyMatchEditActivity : AppCompatActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Do nothing
+            }
+        }
+
+        //지역선택 스피너
+        val cityAdapter = Spinners.cityAdapter(context = this@MyMatchEditActivity)
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        citySpinner.adapter = cityAdapter
+        citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                selectedArea = parent?.getItemAtPosition(position).toString()
+
+                // 선택된 시/도에 따라 동작을 추가합니다.
+                sigunguSpinner.visibility = (View.INVISIBLE)
+                dongSpinner.visibility = (View.INVISIBLE)
+                when (position) {
+                    // 시/도 별로 동작을 구현합니다.
+                    0 -> sigunguSpinner.adapter = null
+                    else ->// 시/도가 다른 경우의 동작
+                        // 예시로 setSigunguSpinnerAdapterItem 함수를 호출하는 코드를 추가합니다.
+                        Spinners.positionToCityResource(position)
+                            ?.let { setSigunguSpinnerAdapterItem(it) }
+
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+
+            fun setSigunguSpinnerAdapterItem(arrayResource: Int) {
+                if (citySpinner.selectedItemPosition > 1) {
+                    dongSpinner.adapter = null
+                }
+                val sigungnAdapter = ArrayAdapter(
+                    this@MyMatchEditActivity,
+                    android.R.layout.simple_spinner_item,
+                    resources.getStringArray(arrayResource)
+                )
+                sigungnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                sigunguSpinner.adapter = sigungnAdapter
+            }
+        }
+
+        sigunguSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                // 서울특별시 선택시
+                sigunguSpinner.visibility = (View.VISIBLE)
+                if (citySpinner.selectedItemPosition == 1 && sigunguSpinner.selectedItemPosition > -1) {
+                    sigunguSpinner.visibility = (View.VISIBLE)
+                    dongSpinner.visibility = (View.VISIBLE)
+                    Spinners.positionToDongResource(position)
+                        ?.let {
+                            (setDongSpinnerAdapterItem(it))
+                        }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+
+            fun setDongSpinnerAdapterItem(arrayResource: Int) {
+                val dongAdapter = ArrayAdapter(
+                    this@MyMatchEditActivity,
+                    android.R.layout.simple_spinner_item,
+                    resources.getStringArray(arrayResource)
+                )
+                dongAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                dongSpinner.adapter = dongAdapter
             }
         }
 
@@ -237,7 +319,7 @@ class MyMatchEditActivity : AppCompatActivity() {
             val game = (gameSpinner?.selectedItem?.toString() ?: "")
             val schedule = "${tvMonthDate?.text?.toString()} ${tvTime?.text?.toString()}"
             val playerNum = sharedViewModel.number.value ?: 0
-            val matchPlace = etMatchPlace?.text?.toString() ?: ""
+            val matchPlace = citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
             val gender = genderSpinner?.selectedItem?.toString() ?: ""
             val level = levelSpinner?.selectedItem?.toString() ?: ""
             val entryFee = etEntryFee?.text?.toString()?.toInt() ?: 0
@@ -280,7 +362,7 @@ class MyMatchEditActivity : AppCompatActivity() {
 //                Toast.makeText(this@MyMatchEditActivity, "사진을 선택해 주세요.", Toast.LENGTH_SHORT).show()
 //            }
             //현재는 예외처리는 전부 제외했기 때문에 전부 작성하고 글 올려야합니다!!
-            uploadToFirebase(imageUri!!, data!!, editData)
+            uploadToFirebase(imageUri, data!!, editData)
         }
     }
 
@@ -293,35 +375,36 @@ class MyMatchEditActivity : AppCompatActivity() {
         }
     }
 
-    private fun getCurrentTime(): String {
-        val currentTime = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-
-        return currentTime.format(formatter)
-    }
-
-    private fun uploadToFirebase(uri: Uri, data: MyMatchDataModel, newData: MyMatchDataModel) {
+    private fun uploadToFirebase(uri: Uri?, data: MyMatchDataModel, newData: MyMatchDataModel) {
         val fileRef = reference.child("Match/${data.matchId}")
 
-        fileRef.putFile(uri)
-            .addOnSuccessListener {
-                fileRef.downloadUrl
-                    .addOnSuccessListener { uri ->
-                        newData.postImg = uri.toString()
-                        viewModel.editMatch(data, newData)
+        if (uri != null) {
+            fileRef.putFile(uri)
+                .addOnSuccessListener {
+                    fileRef.downloadUrl
+                        .addOnSuccessListener { uri ->
+                            newData.postImg = uri.toString()
+                            viewModel.editMatch(data, newData)
 
-                        binding.progressBar.visibility = View.INVISIBLE
+                            binding.progressBar.visibility = View.INVISIBLE
 
-                        Toast.makeText(this, "매치가 등록되었습니다.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
 
-                    }
-            }
-            .addOnProgressListener { snapshot ->
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            .addOnFailureListener { e ->
-                binding.progressBar.visibility = View.INVISIBLE
-                Toast.makeText(this, "매치 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-            }
+                        }
+                }
+                .addOnProgressListener { snapshot ->
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                .addOnFailureListener { e ->
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                }
+        }
+        else {
+            binding.progressBar.visibility = View.VISIBLE
+            viewModel.editMatch(data, newData)
+            binding.progressBar.visibility = View.INVISIBLE
+            Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+        }
     }
 }

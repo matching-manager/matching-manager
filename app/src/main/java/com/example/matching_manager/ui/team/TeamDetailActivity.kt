@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamDetailActivityBinding
@@ -64,8 +66,9 @@ class TeamDetailActivity : AppCompatActivity() {
             tvContent.text = item.description
             tvTime.text = calculationTime(dateTimeToMillSec(item.uploadTime))
             tvLevel.text = item.level
-            ivImage.load(item.postImg)
             btnSubmit.setText(R.string.team_detail_recruitment)
+            if(item.postImg != "") ivImage.load(item.postImg.toUri())
+            else cvPhoto1.visibility = View.INVISIBLE
             //경기장위치 추가해야함
 
 
@@ -88,7 +91,8 @@ class TeamDetailActivity : AppCompatActivity() {
             tvContent.text = item.description
             tvTime.text = calculationTime(dateTimeToMillSec(item.uploadTime))
             tvLevel.text = item.level
-            ivImage.load(item.postImg)
+            if(item.postImg != "") ivImage.load(item.postImg.toUri())
+            else cvPhoto1.visibility = View.INVISIBLE
             btnSubmit.setText(R.string.team_detail_application)
 
 

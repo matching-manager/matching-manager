@@ -3,6 +3,7 @@ package com.example.matching_manager.ui.match
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import coil.load
@@ -57,7 +58,8 @@ class MatchDetailActivity : AppCompatActivity() {
         tvPay.text = decimalFormat(data!!.entryFee)
         tvTeamName.text = data!!.teamName
         tvDescription.text = data!!.description
-        ivTeam.load(data!!.postImg.toUri())
+        if(data!!.postImg != "") ivTeam.load(data!!.postImg.toUri())
+        else cvPhoto1.visibility = View.INVISIBLE
 
         btnCancel.setOnClickListener {
             finish()

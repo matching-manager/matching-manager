@@ -41,7 +41,7 @@ class MatchWritingActivity : AppCompatActivity() {
     private var selectedGame: String? = null
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
-    private var selectedArea: String? = null
+    private var selectedArea : String? = null
 
     companion object {
         const val ID_DATA = "item_userId"
@@ -400,7 +400,7 @@ class MatchWritingActivity : AppCompatActivity() {
 
             val intent = Intent(this@MatchWritingActivity, MatchFragment::class.java)
             setResult(RESULT_OK, intent)
-            uploadToFirebase(imageUri!!, match)
+            uploadToFirebase(imageUri, match)
         }
 
         tvAddImage.setOnClickListener {
@@ -426,29 +426,37 @@ class MatchWritingActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadToFirebase(uri: Uri, data: MatchDataModel) {
+    private fun uploadToFirebase(uri: Uri?, data: MatchDataModel) {
         val fileRef = reference.child("Match/${data.matchId}")
 
-        fileRef.putFile(uri)
-            .addOnSuccessListener {
-                fileRef.downloadUrl
-                    .addOnSuccessListener { uri ->
-                        data.postImg = uri.toString()
-                        viewModel.addMatch(data)
+        if (uri != null) {
+            fileRef.putFile(uri)
+                .addOnSuccessListener {
+                    fileRef.downloadUrl
+                        .addOnSuccessListener { uri ->
+                            data.postImg = uri.toString()
+                            viewModel.addMatch(data)
 
-                        binding.progressBar.visibility = View.INVISIBLE
+                            binding.progressBar.visibility = View.INVISIBLE
 
-                        Toast.makeText(this, "매치가 등록되었습니다.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "게시글이 등록되었습니다.", Toast.LENGTH_SHORT).show()
 
-                    }
-            }
-            .addOnProgressListener { snapshot ->
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            .addOnFailureListener { e ->
-                binding.progressBar.visibility = View.INVISIBLE
-                Toast.makeText(this, "매치 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-            }
+                        }
+                }
+                .addOnProgressListener { snapshot ->
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                .addOnFailureListener { e ->
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this, "게시글 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                }
+        }
+        else {
+            binding.progressBar.visibility = View.VISIBLE
+            viewModel.addMatch(data)
+            binding.progressBar.visibility = View.INVISIBLE
+            Toast.makeText(this, "게시글이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun showToast(message: String) {
