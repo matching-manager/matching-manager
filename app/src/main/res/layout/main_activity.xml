@@ -34,7 +34,7 @@
             app:tabRippleColor="@color/common_selected"
             app:tabSelectedTextColor="@color/tab_btn_green"
             app:tabIndicatorColor="@color/tab_btn_green"
-            app:tabTextColor="@color/tab_btn_grey" />
+            app:tabTextColor="@color/common_edit_text" />
 
 
 
