@@ -41,7 +41,7 @@ class MatchWritingActivity : AppCompatActivity() {
     private var selectedGame: String? = null
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
-    private var selectedArea: String? = null
+    private var selectedArea : String? = null
 
     companion object {
         const val ID_DATA = "item_userId"
@@ -400,7 +400,7 @@ class MatchWritingActivity : AppCompatActivity() {
 
             val intent = Intent(this@MatchWritingActivity, MatchFragment::class.java)
             setResult(RESULT_OK, intent)
-            uploadToFirebase(imageUri!!, match)
+            uploadToFirebase(imageUri, match)
         }
 
         tvAddImage.setOnClickListener {
