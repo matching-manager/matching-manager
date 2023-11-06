@@ -333,32 +333,12 @@ class TeamWritingActivity : AppCompatActivity() {
                 else -> R.string.team_add_activity_application
             }
         )
-        //인포 이름 변경
-        tvDialogInfo.setText(
-            when (entryType) {
-                TeamAddType.RECRUIT -> {
-                    R.string.team_add_activity_recruit
-                }
-
-                else -> R.string.team_add_activity_application
-            }
-        )
 
         //back button
         btnCancel.setOnClickListener {
             finish() // 현재 Activity 종료
         }
 
-        //인포 이름 변경
-        tvDialogInfo.setText(
-            when (entryType) {
-                TeamAddType.RECRUIT -> {
-                    R.string.team_add_activity_recruit
-                }
-
-                else -> R.string.team_add_activity_application
-            }
-        )
 
         tvAddImage.setOnClickListener {
             val galleryIntent = Intent(Intent.ACTION_PICK)

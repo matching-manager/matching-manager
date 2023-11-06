@@ -249,29 +249,46 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginTop="18dp"
                         android:text="위치"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/city_spinner"
-                        android:layout_width="110dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
-                        android:background="@drawable/spinner_selector" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/sigungu_spinner"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/spinner_selector" />
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/city_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:background="@drawable/spinner_selector"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/sigungu_spinner"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/dong_spinner"
-                        android:layout_width="90dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/spinner_selector"
-                        android:visibility="invisible" />
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/sigungu_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_selector"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/dong_spinner"
+                            app:layout_constraintStart_toEndOf="@+id/city_spinner"
+                            app:layout_constraintTop_toTopOf="@+id/city_spinner" />
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/dong_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_selector"
+                            android:visibility="invisible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/sigungu_spinner" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
 
@@ -378,11 +395,12 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:maxLines="1"
-                        android:maxLength="10"
+                        android:layout_marginBottom="8dp"
                         android:backgroundTint="@android:color/transparent"
-                        android:inputType="number"
-                        android:hint="5000" />
+                        android:hint="5000"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:inputType="number"/>
 
                 </LinearLayout>
 
@@ -391,7 +409,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview10"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/common_point_green"
                 app:cardCornerRadius="10dp"
@@ -401,24 +419,25 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="7dp"
                         android:text="내용"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/et_discription"
+                        android:id="@+id/et_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="7dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginRight="20dp"
                         android:backgroundTint="@android:color/transparent"
                         android:hint="내용을 입력해 주세요." />

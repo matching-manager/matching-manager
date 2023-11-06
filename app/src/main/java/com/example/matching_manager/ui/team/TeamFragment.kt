@@ -104,6 +104,7 @@ class TeamFragment : Fragment() {
 
         btnApplication.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                tvFilter.text = "전체 글"
                 btnRecruitment.isChecked = false
                 viewModel.filterApplicationItems() // 용병신청
             } else if (!btnRecruitment.isChecked) {
@@ -116,6 +117,7 @@ class TeamFragment : Fragment() {
 
         btnRecruitment.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                tvFilter.text = "전체 글"
                 btnApplication.isChecked = false
                 viewModel.filterRecruitmentItems() // 용병모집
             } else if (!btnApplication.isChecked) {
