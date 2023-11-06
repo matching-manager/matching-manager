@@ -138,7 +138,6 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
             }
         }
     }
-
     fun plusChatCount(data: TeamItem) {
         viewModelScope.launch {
             repository.editViewCount(data, database)
