@@ -10,8 +10,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.example.matching_manager.R
 import com.example.matching_manager.databinding.ArenaActivityBinding
 import com.example.matching_manager.ui.fcm.send.SendFcmFragment
 import com.example.matching_manager.ui.home.arena.bottomsheet.ArenaFilterCategory
@@ -122,7 +124,6 @@ class ArenaActivity : AppCompatActivity() {
             binding.btnBasketball.isChecked = false
             binding.btnBadminton.isChecked = true
         }
-
         btnFilter.setOnClickListener {
             val arenaFilterCategory = ArenaFilterCategory()
 
