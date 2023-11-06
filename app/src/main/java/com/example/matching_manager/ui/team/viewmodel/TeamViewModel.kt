@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.matching_manager.ui.match.MatchDataModel
 import com.example.matching_manager.ui.team.TeamItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -37,24 +38,60 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
         game: String?,
         area: String?,
     ) {
-        viewModelScope.launch {
-            val currentList = repository.getList(database)
-            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
+//        viewModelScope.launch {
+//            val currentList = repository.getList(database)
+//            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
+//
+//            originalList.clear()
+//            originalList.addAll(currentList)
+//            Log.d("MatchViewModel", "game : ${game}" + " area : ${area}")
+//            if (game == null && area == null) {
+//                when {
+//                    isRecruitmentChecked -> filterRecruitmentItems()
+//                    isApplicationChecked -> filterApplicationItems()
+//                    else -> _list.value = currentList
+//                }
+//            } else {
+//                filterItems(area, game, isRecruitmentChecked, isApplicationChecked)
+//
+//            }
+//        }
+        teamRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dataList = mutableListOf<TeamItem>()
 
-            originalList.clear()
-            originalList.addAll(currentList)
-            Log.d("MatchViewModel", "game : ${game}" + " area : ${area}")
-            if (game == null && area == null) {
-                when {
-                    isRecruitmentChecked -> filterRecruitmentItems()
-                    isApplicationChecked -> filterApplicationItems()
-                    else -> _list.value = originalList
+                for (childSnapshot in dataSnapshot.children) {
+                    val type = childSnapshot.child("type").getValue(String::class.java)
+                    if (type == "용병모집") {
+                        childSnapshot.getValue(TeamItem.RecruitmentItem::class.java)?.let { teamData ->
+                            dataList.add(teamData)
+                        }
+                    }
+                    else {
+                        childSnapshot.getValue(TeamItem.ApplicationItem::class.java)?.let { teamData ->
+                            dataList.add(teamData)
+                        }
+                    }
                 }
-            } else {
-                filterItems(area, game, isRecruitmentChecked, isApplicationChecked)
+                val currentList = dataList
+                originalList.clear()
+                originalList.addAll(dataList)
+                if (game == null && area == null) {
+                    when {
+                        isRecruitmentChecked -> filterRecruitmentItems()
+                        isApplicationChecked -> filterApplicationItems()
+                        else -> _list.value = currentList
+                    }
+                } else {
+                    filterItems(area, game, isRecruitmentChecked, isApplicationChecked)
 
+                }
             }
-        }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // 오류 처리
+            }
+        })
     }
 
     fun autoFetchData() {
