@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="매치 글쓰기"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
         app:layout_constraintStart_toEndOf="@+id/btn_cancel"
@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="8dp"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:text="팀명"
                         android:textStyle="bold" />
 
@@ -117,7 +117,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="종목"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -151,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="일정"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -161,7 +161,7 @@
                         android:layout_marginLeft="20dp"
                         android:gravity="center"
                         android:hint="10월 10일 (화)"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_time"
@@ -169,7 +169,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:hint="오전 10:00"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
 
                 </LinearLayout>
@@ -198,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="인원"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -208,14 +208,14 @@
                         android:layout_marginLeft="20dp"
                         android:gravity="center"
                         android:hint="0"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:text="VS"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_team_number2"
@@ -223,7 +223,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:hint="0"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -250,7 +250,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="위치"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -298,7 +298,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="성별"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -333,7 +333,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="실력"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -368,7 +368,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="8dp"
                         android:text="회비"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -410,7 +410,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="8dp"
                         android:text="내용"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -448,7 +448,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="사진"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -502,7 +502,7 @@
                 android:backgroundTint="@color/tab_btn_green"
                 android:text="등록하기"
                 android:textColor="@color/white"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
