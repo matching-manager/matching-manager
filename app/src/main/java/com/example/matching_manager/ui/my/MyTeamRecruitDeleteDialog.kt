@@ -11,10 +11,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.matching_manager.databinding.MyTeamRecruitDeleteDialogBinding
 import com.example.matching_manager.ui.team.TeamItem
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class MyTeamRecruitDeleteDialog(private val item: TeamItem.RecruitmentItem) : DialogFragment() {
     private var _binding: MyTeamRecruitDeleteDialogBinding? = null
@@ -25,6 +28,8 @@ class MyTeamRecruitDeleteDialog(private val item: TeamItem.RecruitmentItem) : Di
     }
 
     private var dismissListener: OnDialogDismissListener? = null
+
+    private val reference: StorageReference = FirebaseStorage.getInstance().reference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +63,7 @@ class MyTeamRecruitDeleteDialog(private val item: TeamItem.RecruitmentItem) : Di
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         binding.dialBtn1.setOnClickListener {
-            viewModel.deleteRecruit(item)
+            deleteFromFireBase(item)
         }
 
         binding.dialBtn2.setOnClickListener {
@@ -66,9 +71,30 @@ class MyTeamRecruitDeleteDialog(private val item: TeamItem.RecruitmentItem) : Di
         }
     }
 
+    private fun deleteFromFireBase(item: TeamItem.RecruitmentItem) {
+        val fileRef = reference.child("Team/${item.teamId}")
+
+        if(item.postImg == "") {
+            viewModel.deleteRecruit(item)        }
+        else {
+            binding.progressBar.visibility = View.VISIBLE
+
+            fileRef.delete()
+                .addOnSuccessListener {
+                    viewModel.deleteRecruit(item)
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(requireContext(), "게시글이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { exception ->
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(requireContext(), "게시글 삭제를 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
-        context?.dialogFragmentResize(this, 0.7F, 0.2F)
+        context?.dialogFragmentResize(this, 0.9F, 0.2F)
     }
 
     private fun Context.dialogFragmentResize(dialogFragment: DialogFragment, width: Float, height: Float) {
