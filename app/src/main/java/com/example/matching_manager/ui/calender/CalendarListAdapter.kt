@@ -90,7 +90,7 @@ class CalendarListAdapter(
             tvScheduleMonth.text = monthName
             tvScheduleYear.text = item.year.toString()
             tvScheduleMemo.text = item.memo
-            //tvSchedule.text = "${item.year}년 ${item.month}월 ${item.day}일"
+            tvSchedule.text = "${item.year}년 ${item.month}월 ${item.day}일"
 
             //item이라고 만든 이유
 

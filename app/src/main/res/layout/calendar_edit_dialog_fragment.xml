@@ -37,6 +37,16 @@
             android:layout_marginEnd="150dp"
             android:background="@color/black" />
 
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/material_calendar_calendar_edit_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:mcv_headerTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+            app:layout_constraintTop_toTopOf="@+id/cl_calendar_add_dialog_fragment" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_calendar_edit_dialog_fragment"
             android:layout_width="match_parent"
@@ -50,7 +60,7 @@
                 android:id="@+id/iv_calendar_edit_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_alarm"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,9 +76,11 @@
 
             <EditText
                 android:id="@+id/edt_calendar_edit_schedule"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/calendar_add_dialog_fragment_button_gray_border"
                 android:hint="@string/calendar_edit_dialog_fragment_schedule"
                 android:textAlignment="center"
                 app:layout_constraintStart_toStartOf="@+id/iv_calendar_edit_alarm"
@@ -78,7 +90,7 @@
                 android:id="@+id/iv_calendar_edit_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/ic_location"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,10 +99,12 @@
 
             <EditText
                 android:id="@+id/edt_calendar_edit_place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:hint="@string/calendar_edit_dialog_fragment_location"
+                android:background="@drawable/calendar_add_dialog_fragment_button_gray_border"
                 android:textAlignment="center"
                 app:layout_constraintStart_toStartOf="@+id/iv_calendar_edit_location"
                 app:layout_constraintTop_toBottomOf="@+id/iv_calendar_edit_location" />
@@ -107,7 +121,7 @@
                 android:id="@+id/iv_calendar_edit_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/ic_menu"
                 app:layout_constraintStart_toStartOf="parent"
@@ -126,10 +140,12 @@
 
             <EditText
                 android:id="@+id/edt_calendar_edit_memo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:hint="@string/calendar_edit_dialog_fragment_memo"
+                android:background="@drawable/calendar_add_dialog_fragment_button_gray_border"
                 android:textAlignment="center"
                 app:layout_constraintTop_toBottomOf="@+id/iv_calendar_edit_menu"
                 app:layout_constraintStart_toStartOf="@+id/iv_calendar_edit_menu"

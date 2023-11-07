@@ -23,7 +23,7 @@ class CalendarViewModel(
         _dateList.value = filterData
         //전체 메모 데이터인
         //list.value 중에서 파라미터로 받아온 date의 날짜가 동일한 데이터만 받아온다.
-        //list/date 를비교
+        //list/date를비교
         // _dateList.value = //전체 메모 리스트에서 data와 날짜가 동일한 메모들만 가져온다.
     }
 
@@ -33,9 +33,15 @@ class CalendarViewModel(
         _list.value = currentList
     }
 
-    fun removeMemoItem(model: CalendarModel, position: Int) {
+    fun removeMemoItem(model:CalendarModel, position: Int) {
         val currentList = list.value.orEmpty().toMutableList() // 리스트 변경이 가능함
         currentList.removeAt(position)
+        _list.value = currentList
+    }
+
+    fun editMemoItem(model: CalendarModel) {
+        val currentList = list.value.orEmpty().toMutableList() // 리스트 변경이 가능함
+        currentList.add(model)
         _list.value = currentList
     }
 }

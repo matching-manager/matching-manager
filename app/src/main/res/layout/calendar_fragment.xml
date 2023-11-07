@@ -25,7 +25,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:mcv_arrowColor="@color/black"
-                app:mcv_selectionColor="#d2d2d2" />
+                app:mcv_selectionColor="#d2d2d2"
+                app:mcv_dateTextAppearance="@style/CustomCalendarTitleTextAppearance"
+                app:mcv_headerTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+                />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_calendar"
