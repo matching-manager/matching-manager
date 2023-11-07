@@ -5,10 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.matching_manager.ui.my.MyMatchDataModel
+import com.example.matching_manager.ui.signin.UserInformation
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -120,7 +119,8 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
     }
 
     fun plusViewCount(data: MatchDataModel) {
-        if(data.userId != "로그인한 유저 아이디") {
+        //게시물에 담긴 유저ID와 로그인한 유저의 UID가 달라야 countUp
+        if(data.userId != UserInformation.userInfo.uid) {
             viewModelScope.launch {
                 repository.editViewCount(data, database)
             }

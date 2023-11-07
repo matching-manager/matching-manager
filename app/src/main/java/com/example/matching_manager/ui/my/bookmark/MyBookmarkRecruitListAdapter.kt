@@ -1,4 +1,4 @@
-package com.example.matching_manager.ui.my
+package com.example.matching_manager.ui.my.bookmark
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,8 +9,8 @@ import coil.load
 import com.example.matching_manager.databinding.MyRecruitItemBinding
 import com.example.matching_manager.ui.team.TeamItem
 
-class MyTeamRecruitListAdapter (private val onItemClick: (TeamItem.RecruitmentItem) -> Unit,
-                          private val onMenuClick : (TeamItem.RecruitmentItem) -> Unit) : ListAdapter<TeamItem.RecruitmentItem, MyTeamRecruitListAdapter.ViewHolder>(
+class MyBookmarkRecruitListAdapter (private val onItemClick: (TeamItem.RecruitmentItem) -> Unit,
+                                private val onMenuClick : (TeamItem.RecruitmentItem) -> Unit) : ListAdapter<TeamItem.RecruitmentItem, MyBookmarkRecruitListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<TeamItem.RecruitmentItem>() {
         override fun areItemsTheSame(oldItem: TeamItem.RecruitmentItem, newItem: TeamItem.RecruitmentItem): Boolean {
             return oldItem.teamId == newItem.teamId

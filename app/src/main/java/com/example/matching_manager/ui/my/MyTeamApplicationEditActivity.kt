@@ -390,7 +390,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
     }
 
     private fun uploadToFirebase(uri: Uri?, data: TeamItem.ApplicationItem, newData: TeamItem.ApplicationItem) {
-        val fileRef = reference.child("Match/${data.teamId}")
+        val fileRef = reference.child("Team/${data.teamId}")
 
         if (uri != null) {
             fileRef.putFile(uri)
@@ -416,9 +416,17 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         }
         else {
             binding.progressBar.visibility = View.VISIBLE
-            viewModel.editApplication(data, newData)
-            binding.progressBar.visibility = View.INVISIBLE
-            Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+
+            fileRef.delete()
+                .addOnSuccessListener {
+                    viewModel.editApplication(data, newData)
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { exception ->
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 }

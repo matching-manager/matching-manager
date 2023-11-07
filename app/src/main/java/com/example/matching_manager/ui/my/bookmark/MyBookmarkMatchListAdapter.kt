@@ -1,19 +1,19 @@
-package com.example.matching_manager.ui.match
+package com.example.matching_manager.ui.my.bookmark
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchItemBinding
+import com.example.matching_manager.ui.match.MatchDataModel
 
-class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : ListAdapter<MatchDataModel, MatchListAdapter.ViewHolder> (
-    object :DiffUtil.ItemCallback<MatchDataModel>() {
+class MyBookmarkMatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : ListAdapter<MatchDataModel, MyBookmarkMatchListAdapter.ViewHolder>(
+    object : DiffUtil.ItemCallback<MatchDataModel>() {
         override fun areItemsTheSame(oldItem: MatchDataModel, newItem: MatchDataModel): Boolean {
             return oldItem.matchId == newItem.matchId
         }
@@ -22,7 +22,7 @@ class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : Lis
             return oldItem == newItem
         }
     }
-        ){
+){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -44,7 +44,7 @@ class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : Lis
 
         @SuppressLint("ResourceAsColor")
         fun bind(item : MatchDataModel, onItemClick: (MatchDataModel) -> Unit) = with(binding) {
-            ivProfile.load(item.userImg.toUri())
+            ivProfile.load(item.userImg)
             tvGame.text = item.game
             tvDetail.text = formatDetail(item.playerNum, item.gender)
             tvSchedule.text = item.schedule
@@ -77,7 +77,7 @@ class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : Lis
         }
 
         private fun formatDetail(playerNum : Int, gender : String) : String {
-            return "$gender ${playerNum}:${playerNum}"
+            return "${playerNum}:${playerNum} ${gender}"
         }
     }
 

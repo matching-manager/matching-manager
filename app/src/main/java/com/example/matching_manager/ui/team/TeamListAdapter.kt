@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamItemBinding
 import com.example.matching_manager.databinding.TeamUnknownItemBinding
@@ -94,7 +95,7 @@ class TeamListAdapter(
                         R.color.team_recruit_blue
                     )
                 )
-                ivProfile.setImageResource(item.userImg)
+                ivProfile.load(item.userImg)
                 tvType.text = item.type
                 tvDetail.text = "${item.gender} ${item.playerNum}명"
                 tvSchedule.text = item.schedule
@@ -119,7 +120,7 @@ class TeamListAdapter(
                         R.color.team_request_yellow
                     )
                 )
-                ivProfile.setImageResource(item.userImg)
+                ivProfile.load(item.userImg)
                 tvType.text = item.type
                 tvDetail.text = "${item.gender} ${item.playerNum}명"
                 tvSchedule.text = item.schedule

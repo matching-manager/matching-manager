@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.MyTeamRecruitFragmentBinding
 import com.example.matching_manager.ui.my.MyTeamRecruitDetailActivity.Companion.detailIntent
+import com.example.matching_manager.ui.signin.UserInformation
 import com.example.matching_manager.ui.team.TeamItem
 
 class MyTeamRecruitFragment : Fragment() {
@@ -54,7 +55,7 @@ class MyTeamRecruitFragment : Fragment() {
 
     private fun initView() = with(binding){
         progressBar.visibility = View.VISIBLE
-        viewModel.fetchRecruitData(viewModel.userId)
+        viewModel.fetchRecruitData(UserInformation.userInfo.uid!!)
 
         rv.adapter = adapter
         val manager = LinearLayoutManager(requireContext())

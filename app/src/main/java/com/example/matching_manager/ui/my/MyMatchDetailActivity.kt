@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import coil.load
 import com.example.matching_manager.databinding.MyMatchDetailActivityBinding
+import com.example.matching_manager.ui.match.MatchDataModel
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -16,11 +17,11 @@ import java.util.concurrent.TimeUnit
 class MyMatchDetailActivity : AppCompatActivity() {
     private lateinit var binding : MyMatchDetailActivityBinding
 
-    private val data: MyMatchDataModel? by lazy {
+    private val data: MatchDataModel? by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(MyFragment.OBJECT_DATA, MyMatchDataModel::class.java)
+            intent.getParcelableExtra(MyFragment.OBJECT_DATA, MatchDataModel::class.java)
         } else {
-            intent.getParcelableExtra<MyMatchDataModel>(MyFragment.OBJECT_DATA)
+            intent.getParcelableExtra<MatchDataModel>(MyFragment.OBJECT_DATA)
         }
     }
 
@@ -35,7 +36,7 @@ class MyMatchDetailActivity : AppCompatActivity() {
     private fun initView() = with(binding) {
         tvArenaTitle.text = "[${data!!.game}] [${data!!.schedule}]"
         tvArenaTitle2.text = data!!.matchPlace
-        data?.let { ivProfile.setImageResource(it.userImg) }
+        ivProfile.load(data!!.userImg)
         tvNickname.text = data!!.userNickname
         tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
         tvViewCount.text = data!!.viewCount.toString()
@@ -49,7 +50,6 @@ class MyMatchDetailActivity : AppCompatActivity() {
         tvDescription.text = data!!.description
         if(data!!.postImg != "") ivTeam.load(data!!.postImg.toUri())
         else cvPhoto1.visibility = View.INVISIBLE
-        data?.let { ivProfile.setImageResource(it.userImg) }
 
         btnCancel.setOnClickListener {
             finish()

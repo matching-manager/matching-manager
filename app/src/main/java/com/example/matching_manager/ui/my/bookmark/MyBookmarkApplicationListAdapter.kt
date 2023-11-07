@@ -1,4 +1,4 @@
-package com.example.matching_manager.ui.my
+package com.example.matching_manager.ui.my.bookmark
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,17 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.matching_manager.databinding.MyRecruitItemBinding
+import com.example.matching_manager.databinding.MyApplicationItemBinding
 import com.example.matching_manager.ui.team.TeamItem
 
-class MyTeamRecruitListAdapter (private val onItemClick: (TeamItem.RecruitmentItem) -> Unit,
-                          private val onMenuClick : (TeamItem.RecruitmentItem) -> Unit) : ListAdapter<TeamItem.RecruitmentItem, MyTeamRecruitListAdapter.ViewHolder>(
-    object : DiffUtil.ItemCallback<TeamItem.RecruitmentItem>() {
-        override fun areItemsTheSame(oldItem: TeamItem.RecruitmentItem, newItem: TeamItem.RecruitmentItem): Boolean {
+class MyBookmarkApplicationListAdapter (private val onItemClick: (TeamItem.ApplicationItem) -> Unit,
+                                    private val onMenuClick : (TeamItem.ApplicationItem) -> Unit) : ListAdapter<TeamItem.ApplicationItem, MyBookmarkApplicationListAdapter.ViewHolder>(
+    object : DiffUtil.ItemCallback<TeamItem.ApplicationItem>() {
+        override fun areItemsTheSame(oldItem: TeamItem.ApplicationItem, newItem: TeamItem.ApplicationItem): Boolean {
             return oldItem.teamId == newItem.teamId
         }
 
-        override fun areContentsTheSame(oldItem: TeamItem.RecruitmentItem, newItem: TeamItem.RecruitmentItem): Boolean {
+        override fun areContentsTheSame(oldItem: TeamItem.ApplicationItem, newItem: TeamItem.ApplicationItem): Boolean {
             return oldItem == newItem
         }
     }
@@ -24,7 +24,7 @@ class MyTeamRecruitListAdapter (private val onItemClick: (TeamItem.RecruitmentIt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            MyRecruitItemBinding.inflate(
+            MyApplicationItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -37,10 +37,10 @@ class MyTeamRecruitListAdapter (private val onItemClick: (TeamItem.RecruitmentIt
         holder.bind(item, onItemClick, onMenuClick)
     }
 
-    class ViewHolder(private val binding: MyRecruitItemBinding) :
+    class ViewHolder(private val binding: MyApplicationItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item : TeamItem.RecruitmentItem, onItemClick: (TeamItem.RecruitmentItem) -> Unit, onMenuClick : (TeamItem.RecruitmentItem) -> Unit) = with(binding) {
+        fun bind(item : TeamItem.ApplicationItem, onItemClick: (TeamItem.ApplicationItem) -> Unit, onMenuClick : (TeamItem.ApplicationItem) -> Unit) = with(binding) {
             ivProfile.load(item.userImg)
             tvType.text = item.type
             tvDetail.text = "${item.gender} ${item.playerNum}"

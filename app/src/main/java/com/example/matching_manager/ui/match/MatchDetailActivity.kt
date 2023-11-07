@@ -1,6 +1,8 @@
 package com.example.matching_manager.ui.match
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -10,7 +12,6 @@ import coil.load
 import com.example.matching_manager.databinding.MatchDetailActivityBinding
 import com.example.matching_manager.ui.fcm.send.SendFcmFragment
 import com.example.matching_manager.ui.fcm.send.SendType
-import com.example.matching_manager.ui.match.MatchFragment.Companion.OBJECT_DATA
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -20,18 +21,20 @@ class MatchDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: MatchDetailActivityBinding
 
-    //기능 버그로 임시 주석처리
-//    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-//
-//    private val bottomSheetLayout by lazy { findViewById<ConstraintLayout>(R.id.bottom_sheet_layout) }
-//    private val bottomSheetBookmarkButton by lazy { findViewById<ImageView>(R.id.iv_bookmark) }
-//    private val bottomSheetCallMatchButton by lazy { findViewById<Button>(R.id.btn_call_match) }
-
     private val data: MatchDataModel? by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(OBJECT_DATA, MatchDataModel::class.java)
         } else {
             intent.getParcelableExtra<MatchDataModel>(OBJECT_DATA)
+        }
+    }
+
+    companion object {
+        const val OBJECT_DATA = "item_object"
+        fun detailIntent(context: Context, item: MatchDataModel): Intent {
+            val intent = Intent(context, MatchDetailActivity::class.java)
+            intent.putExtra(OBJECT_DATA, item)
+            return intent
         }
     }
 
@@ -44,7 +47,7 @@ class MatchDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
-        data?.let { ivProfile.setImageResource(it.userImg) }
+        ivProfile.load(data!!.userImg.toUri())
         tvArenaTitle.text = "[${data!!.game}] [${data!!.schedule}]"
         tvArenaTitle2.text = data!!.matchPlace
         tvNickname.text = data!!.userNickname
@@ -70,66 +73,10 @@ class MatchDetailActivity : AppCompatActivity() {
                 arguments = Bundle().apply { putString(SendFcmFragment.INPUT_TYPE, SendType.MATCH.name) }
             }.show(supportFragmentManager, "SampleDialog")
         }
-        //기능 버그로 임시 주석처리
-//        initializePersistentBottomSheet()
+        ivBookmark.setOnClickListener {
 
-//        scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
-//            if (scrollY > 0) {
-//                // 아래로 스크롤 중
-//                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-//            } else {
-//                // 위로 스크롤 중
-//                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-//            }
-//            if (oldScrollY > scrollY) {
-//                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-//            }
-//        }
+        }
     }
-    //기능 버그로 임시 주석처리
-//    private fun initializePersistentBottomSheet() {
-//
-//        // BottomSheetBehavior에 layout 설정
-//        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
-//
-//        bottomSheetBehavior.addBottomSheetCallback(object :
-//            BottomSheetBehavior.BottomSheetCallback() {
-//            override fun onStateChanged(bottomSheet: View, newState: Int) {
-//
-//                // BottomSheetBehavior state에 따른 이벤트
-//                when (newState) {
-//                    BottomSheetBehavior.STATE_HIDDEN -> {
-//                        Log.d("MatchDetailActivity", "state: hidden")
-//                    }
-//
-//                    BottomSheetBehavior.STATE_EXPANDED -> {
-//                        Log.d("MatchDetailActivity", "state: expanded")
-//                    }
-//
-//                    BottomSheetBehavior.STATE_COLLAPSED -> {
-//                        Log.d("MatchDetailActivity", "state: collapsed")
-//                    }
-//
-//                    BottomSheetBehavior.STATE_DRAGGING -> {
-//                        Log.d("MatchDetailActivity", "state: dragging")
-//                    }
-//
-//                    BottomSheetBehavior.STATE_SETTLING -> {
-//                        Log.d("MatchDetailActivity", "state: settling")
-//                    }
-//
-//                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {
-//                        Log.d("MatchDetailActivity", "state: half expanded")
-//                    }
-//                }
-//
-//            }
-//
-//            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-//            }
-//
-//        })
-//    }
 
     private fun decimalFormat(entryFee : Int) : String {
         val dec = DecimalFormat("#,###")

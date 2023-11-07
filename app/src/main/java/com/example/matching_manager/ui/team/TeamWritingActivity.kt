@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamWritingActivityBinding
+import com.example.matching_manager.ui.signin.UserInformation
 import com.example.matching_manager.ui.team.bottomsheet.TeamAge
 import com.example.matching_manager.ui.team.bottomsheet.TeamCalender
 import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
@@ -518,9 +519,12 @@ class TeamWritingActivity : AppCompatActivity() {
                     TeamItem.RecruitmentItem(
                         type = recruitment, // 임의의 값으로 설정 (용병모집)
                         teamId = teamId,
-                        userId = "testUser",
-                        nickname = "손흥민 손석구 손현준 레츠고",
-                        userImg = 0,
+                        userId = UserInformation.userInfo.uid!!,
+                        nickname = UserInformation.userInfo.username!!,
+                        userImg = UserInformation.userInfo.photoUrl!!,
+                        userEmail = UserInformation.userInfo.email!!,
+                        phoneNum = UserInformation.userInfo.phoneNumber!!,
+                        fcmToken = UserInformation.userInfo.fcmToken!!,
                         description = setContent,
                         gender = selectedGender,
                         chatCount = 0,
@@ -541,9 +545,12 @@ class TeamWritingActivity : AppCompatActivity() {
                     TeamItem.ApplicationItem(
                         type = application, // 임의의 값으로 설정 (용병신청)
                         teamId = teamId,
-                        userId = "testUser",
-                        nickname = "손흥민 손석구 손현준 레츠고",
-                        userImg = 0,
+                        userId = UserInformation.userInfo.uid!!,
+                        nickname = UserInformation.userInfo.username!!,
+                        userImg = UserInformation.userInfo.photoUrl!!,
+                        userEmail = UserInformation.userInfo.email!!,
+                        phoneNum = UserInformation.userInfo.phoneNumber!!,
+                        fcmToken = UserInformation.userInfo.fcmToken!!,
                         description = setContent,
                         gender = selectedGender,
                         chatCount = 0,

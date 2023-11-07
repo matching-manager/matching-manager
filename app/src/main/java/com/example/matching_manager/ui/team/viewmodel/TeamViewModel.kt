@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.matching_manager.ui.match.MatchDataModel
+import com.example.matching_manager.ui.signin.UserInformation
 import com.example.matching_manager.ui.team.TeamItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -132,7 +133,7 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
 
     //조회수를 업데이트하는 함수
     fun plusViewCount(data: TeamItem) {
-        if(data.userId != "로그인한 유저의 아이디") {
+        if(data.userId != UserInformation.userInfo.uid) {
             viewModelScope.launch {
                 repository.editViewCount(data, database)
             }

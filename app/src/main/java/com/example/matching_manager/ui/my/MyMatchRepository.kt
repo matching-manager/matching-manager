@@ -1,14 +1,15 @@
 package com.example.matching_manager.ui.my
 
+import com.example.matching_manager.ui.match.MatchDataModel
 import com.example.matching_manager.ui.team.TeamItem
 import com.google.firebase.database.FirebaseDatabase
 
 interface MyMatchRepository {
-    suspend fun getMatchList(userId : String, database: FirebaseDatabase): List<MyMatchDataModel>
+    suspend fun getMatchList(userId : String, database: FirebaseDatabase): List<MatchDataModel>
 
-    suspend fun deleteMatchData(data : MyMatchDataModel, database: FirebaseDatabase)
+    suspend fun deleteMatchData(data : MatchDataModel, database: FirebaseDatabase)
 
-    suspend fun editMatchData(data : MyMatchDataModel, newData: MyMatchDataModel, database: FirebaseDatabase)
+    suspend fun editMatchData(data : MatchDataModel, newData: MatchDataModel, database: FirebaseDatabase)
 
     suspend fun getRecruitList(userId : String, database: FirebaseDatabase): List<TeamItem.RecruitmentItem>
 

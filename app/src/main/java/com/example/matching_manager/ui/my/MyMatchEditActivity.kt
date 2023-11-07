@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MyMatchEditActivityBinding
+import com.example.matching_manager.ui.match.MatchDataModel
 import com.example.matching_manager.ui.my.bottomsheet.MyCalender
 import com.example.matching_manager.ui.my.bottomsheet.MyNumber
 import com.example.matching_manager.ui.my.bottomsheet.MyTime
@@ -41,11 +42,11 @@ class MyMatchEditActivity : AppCompatActivity() {
     private var selectedArea : String? = null
 
 
-    private val data: MyMatchDataModel? by lazy {
+    private val data: MatchDataModel? by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(OBJECT_DATA, MyMatchDataModel::class.java)
+            intent.getParcelableExtra(OBJECT_DATA, MatchDataModel::class.java)
         } else {
-            intent.getParcelableExtra<MyMatchDataModel>(OBJECT_DATA)
+            intent.getParcelableExtra<MatchDataModel>(OBJECT_DATA)
         }
     }
 
@@ -326,10 +327,7 @@ class MyMatchEditActivity : AppCompatActivity() {
             val description = etDiscription?.text?.toString() ?: ""
 
 
-            val editData = MyMatchDataModel(
-                matchId = data!!.matchId,
-                userId = data!!.userId,
-                userNickname = data!!.userNickname,
+            val editData = MatchDataModel(
                 teamName = teamName,
                 game = game,
                 schedule = schedule,
@@ -338,10 +336,7 @@ class MyMatchEditActivity : AppCompatActivity() {
                 gender = gender,
                 level = level,
                 entryFee = entryFee,
-                description = description,
-                viewCount = data!!.viewCount,
-                chatCount = data!!.chatCount,
-                uploadTime = data!!.uploadTime
+                description = description
             )
             //예외처리 임시 주석처리
 //            if (teamName.isBlank() || schedule.isBlank() || matchPlace.isBlank() || description.isBlank() || playerNum.toString()
@@ -362,7 +357,7 @@ class MyMatchEditActivity : AppCompatActivity() {
 //                Toast.makeText(this@MyMatchEditActivity, "사진을 선택해 주세요.", Toast.LENGTH_SHORT).show()
 //            }
             //현재는 예외처리는 전부 제외했기 때문에 전부 작성하고 글 올려야합니다!!
-            uploadToFirebase(imageUri, data!!, editData)
+            editFromFirebase(imageUri, data!!, editData)
         }
     }
 
@@ -375,7 +370,7 @@ class MyMatchEditActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadToFirebase(uri: Uri?, data: MyMatchDataModel, newData: MyMatchDataModel) {
+    private fun editFromFirebase(uri: Uri?, data: MatchDataModel, newData: MatchDataModel) {
         val fileRef = reference.child("Match/${data.matchId}")
 
         if (uri != null) {
@@ -402,9 +397,17 @@ class MyMatchEditActivity : AppCompatActivity() {
         }
         else {
             binding.progressBar.visibility = View.VISIBLE
-            viewModel.editMatch(data, newData)
-            binding.progressBar.visibility = View.INVISIBLE
-            Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+
+            fileRef.delete()
+                .addOnSuccessListener {
+                    viewModel.editMatch(data, newData)
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { exception ->
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 }

@@ -7,8 +7,11 @@ import kotlinx.android.parcel.Parcelize
 sealed class TeamItem(
     open val teamId: String = "",   //게시글ID
     open val userId: String = "testUser",   //유저ID
-    open val userImg: Int = 0,  //유저 이미지
+    open val userImg: String = "",  //유저 이미지
     open val nickname: String = "또 너냐 손현준?",//닉네임
+    open val userEmail: String = "",    //유저이메일
+    open val fcmToken: String = "",     //FCM토큰
+    open val phoneNum: String = "",     //전화번호
     open val type: String = "",//용병모집
     open var game: String = "축구",//경기종목
     open var area: String = "경기도 안양시",//지역
@@ -27,7 +30,10 @@ sealed class TeamItem(
         override val teamId: String = "",
         override val userId: String = "testUser",
         override val nickname: String = "또 너냐 손현준?",
-        override val userImg: Int = 0,
+        override val userImg: String = "",
+        override val userEmail: String = "",
+        override val phoneNum: String = "",
+        override val fcmToken: String = "",
         override var description: String = "아오 졸려",
         override var gender: String = "남성",
         override var chatCount: Int = 0,
@@ -46,6 +52,9 @@ sealed class TeamItem(
         userId,
         userImg,
         nickname,
+        userEmail,
+        fcmToken,
+        phoneNum,
         type,
         game,
         area,
@@ -65,7 +74,10 @@ sealed class TeamItem(
         override val teamId: String = "",
         override val userId: String = "testUser",
         override val nickname: String = "또 너냐 손현준?",
-        override val userImg: Int = 0,
+        override val userImg: String = "",
+        override val userEmail: String = "",
+        override val phoneNum: String = "",
+        override val fcmToken: String = "",
         override var description: String = "아오 졸려",
         override var gender: String = "남성",
         override var chatCount: Int = 0,
@@ -83,6 +95,9 @@ sealed class TeamItem(
         userId,
         userImg,
         nickname,
+        userEmail,
+        fcmToken,
+        phoneNum,
         type,
         game,
         area,
