@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="매치 글쓰기"
+        android:fontFamily="@font/pretendardbold"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
@@ -248,15 +249,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="18dp"
+                        android:layout_marginLeft="23dp"
+                        android:layout_marginTop="15dp"
                         android:text="위치"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp">
 
                         <androidx.appcompat.widget.AppCompatSpinner
                             android:id="@+id/city_spinner"

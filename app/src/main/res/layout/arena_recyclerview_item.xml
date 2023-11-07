@@ -40,6 +40,7 @@
                 app:layout_constraintBottom_toTopOf="@id/tv_arena_address"
                 android:textStyle="bold"
                 android:textSize="18sp"
+                android:fontFamily="@font/pretendardbold"
                 app:layout_constraintVertical_chainStyle="spread"
                 android:text="@string/arena_name"/>
 
