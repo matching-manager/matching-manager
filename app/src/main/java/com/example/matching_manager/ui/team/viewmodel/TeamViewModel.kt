@@ -143,7 +143,6 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
             repository.editViewCount(data, database)
         }
     }
-
     fun addApplication(data: TeamItem.ApplicationItem) {
         viewModelScope.launch {
             repository.addApplicationData(data, database)
