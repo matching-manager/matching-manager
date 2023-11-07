@@ -19,10 +19,10 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/logo"
-                android:layout_width="25sp"
-                android:layout_height="25sp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginTop="1dp"
-                android:src="@drawable/logo_handshake_green"
+                android:src="@drawable/logo_matching_manager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
