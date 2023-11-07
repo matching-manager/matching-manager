@@ -32,6 +32,9 @@
     <color name="team_recruit_blue">#859FE1</color>
 
     <!--home -->
+    <color name="home_rv_item">#E1EEFF</color>
+    <color name="home_rv_item_green">#EAFDF4</color>
+    <color name="home_rv_item_grey">#F4F4F4</color>
 
     <!--myPage -->
     <color name="common_gray">#BDBDBD</color>

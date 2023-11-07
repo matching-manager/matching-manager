@@ -2,50 +2,49 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/singnin_fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/common_gradient_background"
     android:padding="30dp"
-    tools:context=".ui.signin.SignInFragment"
-    android:id="@+id/singnin_fragment_container"
-    >
+    tools:context=".ui.signin.SignInFragment">
 
     <ImageView
         android:id="@+id/iv_singnin_logo"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="5dp"
-        android:src="@drawable/logo_handshake_green"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tv_signin_logo"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/logo_matching_manager"
+        app:layout_constraintBottom_toTopOf="@id/tv_signin_logo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/tv_signin_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
         android:text="@string/app_name"
         android:textColor="@color/common_point_green"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/iv_singnin_logo"
+        app:layout_constraintBottom_toTopOf="@id/iv_google"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@id/iv_singnin_logo"
-        app:layout_constraintTop_toTopOf="@id/iv_singnin_logo" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_singnin_logo"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_google"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/ic_google"
         android:layout_marginStart="15dp"
+        android:src="@drawable/ic_google"
         app:layout_constraintBottom_toBottomOf="@id/btn_sing_in_google"
-        app:layout_constraintTop_toTopOf="@id/btn_sing_in_google"
-        app:layout_constraintStart_toStartOf="@id/btn_sing_in_google" />
+        app:layout_constraintStart_toStartOf="@id/btn_sing_in_google"
+        app:layout_constraintTop_toTopOf="@id/btn_sing_in_google" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_sing_in_google"
