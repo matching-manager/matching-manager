@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="@string/team_add_activity_recruit"
+        android:fontFamily="@font/pretendardbold"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
@@ -108,7 +109,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dp"
+                        android:layout_marginLeft="23dp"
                         android:layout_marginTop="15dp"
                         android:text="위치"
                         android:textSize="18sp"
@@ -116,13 +117,13 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp">
 
                         <androidx.appcompat.widget.AppCompatSpinner
                             android:id="@+id/city_spinner"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="20dp"
                             android:background="@drawable/spinner_selector"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/sigungu_spinner"
@@ -131,7 +132,7 @@
 
                         <androidx.appcompat.widget.AppCompatSpinner
                             android:id="@+id/sigungu_spinner"
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
                             android:background="@drawable/spinner_selector"
                             android:visibility="invisible"
@@ -142,7 +143,7 @@
 
                         <androidx.appcompat.widget.AppCompatSpinner
                             android:id="@+id/dong_spinner"
-                            android:layout_width="0dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
                             android:background="@drawable/spinner_selector"
                             android:visibility="invisible"
