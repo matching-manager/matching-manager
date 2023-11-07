@@ -49,13 +49,6 @@ class MatchDetailActivity : AppCompatActivity() {
 
     private fun initView() = with(binding) {
         ivProfile.load(data!!.userImg.toUri())
-        tvArenaTitle.text = "[${data!!.game}] [${data!!.schedule}]"
-        tvArenaTitle2.text = data!!.matchPlace
-        tvNickname.text = data!!.userNickname
-        tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
-        tvViewCount.text = data!!.viewCount.toString()
-        tvChatCount.text = data!!.chatCount.toString()
-        tvType.text = data!!.game
         when (data?.game) {
             "풋살" -> ivGame.setImageResource(R.drawable.ic_futsal2)
             "축구" -> ivGame.setImageResource(R.drawable.ic_soccerball)
@@ -63,18 +56,25 @@ class MatchDetailActivity : AppCompatActivity() {
             "배드민턴" -> ivGame.setImageResource(R.drawable.ic_badminton2)
             "볼링" -> ivGame.setImageResource(R.drawable.ic_bowlingball)
         }
-        tvPlayerNum.text = "${data!!.playerNum} VS ${data!!.playerNum}"
         when (data?.gender) {
             "여성" -> ivGender.setImageResource(R.drawable.ic_female)
             "남성" -> ivGender.setImageResource(R.drawable.ic_male)
             "혼성" -> ivGender.setImageResource(R.drawable.ic_mix)
         }
         tvLevel.text = data!!.level
-        when (data?.gender) {
+        when (data?.level) {
             "하(Lv1-3)" -> ivLevel.setImageResource(R.drawable.ic_level3)
             "중(Lv4-6)" -> ivLevel.setImageResource(R.drawable.ic_level2)
             "상(Lv7-10)" -> ivLevel.setImageResource(R.drawable.ic_level1)
         }
+        tvArenaTitle.text = "[${data!!.game}] [${data!!.schedule}]"
+        tvArenaTitle2.text = data!!.matchPlace
+        tvNickname.text = data!!.userNickname
+        tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
+        tvViewCount.text = data!!.viewCount.toString()
+        tvChatCount.text = data!!.chatCount.toString()
+        tvType.text = data!!.game
+        tvPlayerNum.text = "${data!!.playerNum} VS ${data!!.playerNum}"
         tvPay.text = decimalFormat(data!!.entryFee)
         tvTeamName.text = data!!.teamName
         tvDescription.text = data!!.description
