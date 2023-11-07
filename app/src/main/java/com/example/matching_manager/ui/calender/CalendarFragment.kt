@@ -74,7 +74,6 @@ class CalendarFragment : Fragment() {
             showAddMemoDialog()
             //showEditMemoDialog()
         }
-
     }
 
 

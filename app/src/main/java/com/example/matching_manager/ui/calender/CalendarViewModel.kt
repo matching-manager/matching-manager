@@ -14,7 +14,6 @@ class CalendarViewModel(
     private val _dateList: MutableLiveData<List<CalendarModel>?> = MutableLiveData() // 날짜만 뿌려줄 리스트
     val dateList: MutableLiveData<List<CalendarModel>?> get() = _dateList // 읽기전용 리스트
 
-
     fun setCalendarDate(date: CalendarDay) {
         val filterData = list.value?.filter { memoItem ->
             memoItem.day == date.day && memoItem.month == date.month && memoItem.year == date.year
