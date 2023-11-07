@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.matching_manager.ui.match.MatchDataModel
+import com.example.matching_manager.ui.signin.UserInformation
 import com.example.matching_manager.ui.team.TeamItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -23,6 +24,15 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
 
     private val _applicationList: MutableLiveData<List<TeamItem.ApplicationItem>> = MutableLiveData()
     val applicationList: LiveData<List<TeamItem.ApplicationItem>> get() = _applicationList
+
+    private val _bookmarkMatchList: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
+    val bookmarkMatchList: LiveData<List<MatchDataModel>> get() = _bookmarkMatchList
+
+    private val _bookmarkRecruitList: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
+    val bookmarkRecruitList: LiveData<List<MatchDataModel>> get() = _bookmarkRecruitList
+
+    private val _bookmarkApplicationList: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
+    val bookmarkApplicationList: LiveData<List<MatchDataModel>> get() = _bookmarkApplicationList
 
     private val _event: MutableLiveData<MyEvent> = MutableLiveData()
     val event: LiveData<MyEvent> get() = _event
@@ -54,9 +64,9 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
             _event.postValue(MyEvent.Finish)
         }
     }
-
     fun autoFetchMatchData() {
-        matchRef.addValueEventListener(object : ValueEventListener {
+        val query = matchRef.orderByChild("userId").equalTo(UserInformation.userInfo.uid)
+        query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataList = mutableListOf<MatchDataModel>()
 
@@ -105,9 +115,9 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
                 val dataList = mutableListOf<TeamItem.RecruitmentItem>()
 
                 for (childSnapshot in dataSnapshot.children) {
-                    val matchData = childSnapshot.getValue(TeamItem.RecruitmentItem::class.java)
-                    if (matchData != null) {
-                        dataList.add(matchData)
+                    val recruitData = childSnapshot.getValue(TeamItem.RecruitmentItem::class.java)
+                    if (recruitData != null && recruitData.userId == UserInformation.userInfo.uid) {
+                        dataList.add(recruitData)
                     }
                 }
                 _recruitList.value = dataList
@@ -149,9 +159,9 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
                 val dataList = mutableListOf<TeamItem.ApplicationItem>()
 
                 for (childSnapshot in dataSnapshot.children) {
-                    val matchData = childSnapshot.getValue(TeamItem.ApplicationItem::class.java)
-                    if (matchData != null) {
-                        dataList.add(matchData)
+                    val applicationData = childSnapshot.getValue(TeamItem.ApplicationItem::class.java)
+                    if (applicationData != null && applicationData.userId == UserInformation.userInfo.uid) {
+                        dataList.add(applicationData)
                     }
                 }
                 _applicationList.value = dataList
