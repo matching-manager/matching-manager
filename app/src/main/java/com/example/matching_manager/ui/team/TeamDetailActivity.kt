@@ -48,7 +48,7 @@ class TeamDetailActivity : AppCompatActivity() {
 
         if (item is TeamItem.RecruitmentItem) {
             // 용병모집 아이템인 경우
-            ivMatch.setImageResource(R.drawable.ic_recruitment)
+            ivType.setImageResource(R.drawable.ic_recruitment)
             tvType.text = item.type
             tvDialogInfo.text = item.type
             tvTitle.text = "[${item.game}] ${item.schedule}"
@@ -59,7 +59,6 @@ class TeamDetailActivity : AppCompatActivity() {
             tvPay.text = decimalFormat(item.pay)
             tvTeam.text = "팀이름"
             tvTeamName.text = item.teamName
-            tvGender.text = item.gender
             tvChatCount.text = item.chatCount.toString()
             tvViewCount.text = item.viewCount.toString()
             tvNicname.text = item.nickname
@@ -75,6 +74,7 @@ class TeamDetailActivity : AppCompatActivity() {
         } else if (item is TeamItem.ApplicationItem) {
             // 용병신청 아이템인 경우
             tvType.text = item.type
+            ivType.setImageResource(R.drawable.ic_application)
             tvDialogInfo.text = item.type
             tvTitle.text = "[${item.game}] ${item.schedule}"
             tvTitle2.text = item.area
@@ -84,7 +84,6 @@ class TeamDetailActivity : AppCompatActivity() {
             tvPay.text = "${item.age}살"//나이가 들어가야함
             tvTeam.text = "가능 시간"
             tvTeamName.text = item.schedule//가능시간이 들어가야함
-            tvGender.text = item.gender
             tvChatCount.text = item.chatCount.toString()
             tvViewCount.text = item.viewCount.toString()
             tvNicname.text = item.nickname
@@ -93,6 +92,16 @@ class TeamDetailActivity : AppCompatActivity() {
             tvLevel.text = item.level
             if(item.postImg != "") ivImage.load(item.postImg.toUri())
             else cvPhoto1.visibility = View.INVISIBLE
+            when (item?.gender) {
+                "여성" -> ivGender.setImageResource(R.drawable.ic_female)
+                "남성" -> ivGender.setImageResource(R.drawable.ic_male)
+                "혼성" -> ivGender.setImageResource(R.drawable.ic_mix)
+            }
+            when (item?.gender) {
+                "하(Lv1-3)" -> ivLevel.setImageResource(R.drawable.ic_level3)
+                "중(Lv4-6)" -> ivLevel.setImageResource(R.drawable.ic_level2)
+                "상(Lv7-10)" -> ivLevel.setImageResource(R.drawable.ic_level1)
+            }
             btnSubmit.setText(R.string.team_detail_application)
 
 
