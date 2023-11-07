@@ -75,8 +75,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_cl2">
+            app:layout_constraintStart_toStartOf="parent">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_arena_futsal"

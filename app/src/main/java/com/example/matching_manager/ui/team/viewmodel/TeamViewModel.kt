@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.matching_manager.ui.match.MatchDataModel
 import com.example.matching_manager.ui.signin.UserInformation
 import com.example.matching_manager.ui.team.TeamItem
 import com.google.firebase.database.DataSnapshot
@@ -144,7 +143,6 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
             repository.editViewCount(data, database)
         }
     }
-
     fun addApplication(data: TeamItem.ApplicationItem) {
         viewModelScope.launch {
             repository.addApplicationData(data, database)
