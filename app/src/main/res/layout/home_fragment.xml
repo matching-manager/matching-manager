@@ -10,41 +10,40 @@
 
     <ImageView
         android:id="@+id/iv_runner"
-        android:layout_width="25sp"
-        android:layout_height="25sp"
-        android:src="@drawable/logo_handshake_green"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/logo_matching_manager"
+        app:layout_constraintBottom_toBottomOf="@id/tv_home_logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/tv_home_logo" />
 
     <TextView
         android:id="@+id/tv_home_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
+        android:layout_marginStart="5dp"
         android:text="@string/app_name"
         android:textColor="@color/common_point_green"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/iv_runner"
-        app:layout_constraintTop_toTopOf="@id/iv_runner" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_arena"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginEnd="5dp"
-        android:src="@drawable/ic_arena"
+        android:background="@drawable/ic_arena_color"
         app:layout_constraintBottom_toBottomOf="@id/btn_home_noti"
         app:layout_constraintEnd_toStartOf="@+id/btn_home_noti"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_home_noti"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/common_transparent"
-        android:src="@drawable/ic_bell"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/ic_bell"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,6 +78,7 @@
             android:background="@drawable/rv_home_item_common_background_grey"
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/home_recyclerview_item_announcement" />
     </androidx.cardview.widget.CardView>
 
@@ -99,20 +99,20 @@
         android:id="@+id/tv_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/home_tv_more_information"
         android:textColor="@color/common_point_grey"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/tv_title_match"
-        android:text="@string/home_tv_more_information"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_more_information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/tv_more"
+        android:background="@color/common_transparent"
         app:layout_constraintBottom_toBottomOf="@id/tv_more"
-        app:layout_constraintStart_toStartOf="@id/tv_more"
         app:layout_constraintEnd_toEndOf="@id/tv_more"
-        android:background="@color/common_transparent"/>
+        app:layout_constraintStart_toStartOf="@id/tv_more"
+        app:layout_constraintTop_toTopOf="@id/tv_more" />
 
 
     <androidx.cardview.widget.CardView
@@ -134,12 +134,11 @@
             android:background="@drawable/rv_home_item_common_background_grey"
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:listitem="@layout/home_recyclerview_item_match" />
 
     </androidx.cardview.widget.CardView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,12 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.matching_manager.databinding.HomeRecyclerviewItemAnnouncementBinding
-import com.example.matching_manager.databinding.HomeRecyclerviewItemMatchBinding
 import com.example.matching_manager.ui.match.MatchDataModel
 
-
-// 임시로 MatchDataModel로 넣어뒀습니다!
-// AnnouncementModel 구성 후에 변경 부탁드립니다~
+// TODO : 임시로 MatchDataModel로 넣어뒀습니다!
+// TODO : AnnouncementModel 구성 후에 변경 부탁드립니다~
 class HomeAnnouncementListAdapter(
     private val onClick: (MatchDataModel) -> Unit
 ) : ListAdapter<MatchDataModel, HomeAnnouncementListAdapter.ViewHolder>(
@@ -42,7 +40,7 @@ class HomeAnnouncementListAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) { 
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
     }
@@ -53,7 +51,7 @@ class HomeAnnouncementListAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MatchDataModel) = with(binding) {
 
-            //item 화면에 뿌려주는 코드 넣어주세요
+            // TODO : item 화면에 뿌려주는 코드 넣어주세요
 
             itemView.setOnClickListener {
                 onClick(item)

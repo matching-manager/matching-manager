@@ -46,7 +46,7 @@ class HomeMatchListAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MatchDataModel) = with(binding) {
 
-            //item 화면에 뿌려주는 코드 넣어주세요
+            // TODO : item 화면에 뿌려주는 코드 넣어주세요
 
             itemView.setOnClickListener {
                 onClick(item)
