@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/common_gradient_background">
@@ -144,7 +145,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/textView20"
+                        android:id="@+id/tv_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -155,17 +156,15 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
 
-                    <TextView
-                        android:id="@+id/tv_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/match_detail_match_type"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/textView20"
-                        app:layout_constraintStart_toStartOf="@+id/textView20"
-                        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+                    <ImageView
+                        android:id="@+id/iv_game"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_soccerball"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_type"
+                        app:layout_constraintStart_toStartOf="@+id/tv_type"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_type" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -242,14 +241,12 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_gender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/team_detail_gender"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
+                    <ImageView
+                        android:id="@+id/iv_gender"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_male"
                         app:layout_constraintEnd_toEndOf="@+id/textView14"
                         app:layout_constraintStart_toStartOf="@+id/textView14"
                         app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -274,28 +271,25 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/textView16"
+                        android:id="@+id/tv_level"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:textStyle="bold"
-
                         android:text="@string/team_detail_skill_title"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_level"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/team_detail_skill"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/textView16"
-                        app:layout_constraintStart_toStartOf="@+id/textView16"
-                        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+                    <ImageView
+                        android:id="@+id/iv_level"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_level2"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_level"
+                        app:layout_constraintStart_toStartOf="@+id/tv_level"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_level" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -378,7 +372,8 @@
                         android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:text="@string/team_detail_team_name"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
+                        android:textAlignment="center"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="@+id/tv_team"
                         app:layout_constraintStart_toStartOf="@+id/tv_team"
