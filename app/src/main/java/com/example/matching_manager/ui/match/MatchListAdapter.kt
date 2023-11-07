@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchItemBinding
 
@@ -42,7 +44,7 @@ class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : Lis
 
         @SuppressLint("ResourceAsColor")
         fun bind(item : MatchDataModel, onItemClick: (MatchDataModel) -> Unit) = with(binding) {
-            ivProfile.setImageResource(item.userImg)
+            ivProfile.load(item.userImg.toUri())
             tvGame.text = item.game
             tvDetail.text = formatDetail(item.playerNum, item.gender)
             tvSchedule.text = item.schedule
@@ -75,7 +77,7 @@ class MatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : Lis
         }
 
         private fun formatDetail(playerNum : Int, gender : String) : String {
-            return "${playerNum}:${playerNum} ${gender}"
+            return "$gender ${playerNum}:${playerNum}"
         }
     }
 

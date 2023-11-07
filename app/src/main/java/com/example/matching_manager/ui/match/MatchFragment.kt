@@ -17,8 +17,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchFragmentBinding
+import com.example.matching_manager.ui.match.MatchDetailActivity.Companion.detailIntent
+import com.example.matching_manager.ui.match.MatchWritingActivity.Companion.writeIntent
 import com.example.matching_manager.ui.match.bottomsheet.MatchFilterCategory
-import com.example.matching_manager.ui.match.bottomsheet.MatchSortBottomSheet
+import com.example.matching_manager.ui.signin.UserInformation
 import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategory
 
 class MatchFragment : Fragment() {
@@ -35,6 +37,7 @@ class MatchFragment : Fragment() {
         MatchListAdapter { item ->
             val matchList = viewModel.realTimeList.value ?: emptyList()
             if(matchList.any { it.matchId == item.matchId }) {
+                viewModel.plusViewCount(item)
                 startActivity(detailIntent(requireContext(), item))
             }
             else {
@@ -48,22 +51,8 @@ class MatchFragment : Fragment() {
 
     companion object {
         fun newInstance() = MatchFragment()
-        const val OBJECT_DATA = "item_object"
-        const val ID_DATA = "item_userId"
+
         const val CATEGORY_REQUEST_KEY = "category_key"
-
-        fun detailIntent(context: Context, item: MatchDataModel): Intent {
-            val intent = Intent(context, MatchDetailActivity::class.java)
-            intent.putExtra(OBJECT_DATA, item)
-            return intent
-        }
-
-        //로그인 기능 구현 후 유저 아이디 보내줘야함
-        fun writeIntent(context: Context, userId: String): Intent {
-            val intent = Intent(context, MatchWritingActivity::class.java)
-            intent.putExtra(ID_DATA, userId)
-            return intent
-        }
     }
 
     override fun onCreateView(
@@ -100,15 +89,8 @@ class MatchFragment : Fragment() {
                 }
             }
 
-        btnSort.setOnClickListener {
-            val matchSortBottomSheet = MatchSortBottomSheet()
-
-            val fragmentManager = requireActivity().supportFragmentManager
-            matchSortBottomSheet.show(fragmentManager, matchSortBottomSheet.tag)
-        }
-
         fabAdd.setOnClickListener {
-            resultLauncher.launch(writeIntent(requireContext(), "testUser"))
+            resultLauncher.launch(writeIntent(requireContext()))
         }
         swipeRefreshLayout.setOnRefreshListener {
             viewModel.fetchData()

@@ -9,9 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.matching_manager.databinding.MyMatchMenuBottomSheetBinding
+import com.example.matching_manager.ui.match.MatchDataModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class MyMatchMenuBottomSheet(private val item : MyMatchDataModel) : BottomSheetDialogFragment() {
+class MyMatchMenuBottomSheet(private val item : MatchDataModel) : BottomSheetDialogFragment() {
 
     private var _binding: MyMatchMenuBottomSheetBinding? = null
     private val binding get() = _binding!!
@@ -56,7 +57,7 @@ class MyMatchMenuBottomSheet(private val item : MyMatchDataModel) : BottomSheetD
     }
 
 
-    private fun editIntent(context: Context, item: MyMatchDataModel): Intent {
+    private fun editIntent(context: Context, item: MatchDataModel): Intent {
         val intent = Intent(context, MyMatchEditActivity::class.java)
         intent.putExtra(MyFragment.OBJECT_DATA, item)
         return intent

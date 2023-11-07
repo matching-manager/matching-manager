@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="매치 글쓰기"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
         app:layout_constraintStart_toEndOf="@+id/btn_cancel"
@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="8dp"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:text="팀명"
                         android:textStyle="bold" />
 
@@ -88,6 +88,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:maxLines="1"
+                        android:maxLength="10"
                         android:layout_marginBottom="5dp"
                         android:backgroundTint="@android:color/transparent"
                         android:hint="팀명을 입력해주세요." />
@@ -116,7 +117,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="종목"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -150,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="일정"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -160,7 +161,7 @@
                         android:layout_marginLeft="20dp"
                         android:gravity="center"
                         android:hint="10월 10일 (화)"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_time"
@@ -168,7 +169,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:hint="오전 10:00"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
 
                 </LinearLayout>
@@ -197,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="인원"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -207,14 +208,14 @@
                         android:layout_marginLeft="20dp"
                         android:gravity="center"
                         android:hint="0"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:text="VS"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_team_number2"
@@ -222,7 +223,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:hint="0"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -248,22 +249,46 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="18dp"
                         android:text="위치"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/et_match_place"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="20dp"
-                        android:maxLines="2"
-                        android:backgroundTint="@android:color/transparent"
-                        android:layout_marginBottom="5dp"
-                        android:hint="위치를 입력해 주세요." />
+                        android:layout_height="match_parent">
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/city_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:background="@drawable/spinner_selector"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/sigungu_spinner"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/sigungu_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_selector"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/dong_spinner"
+                            app:layout_constraintStart_toEndOf="@+id/city_spinner"
+                            app:layout_constraintTop_toTopOf="@+id/city_spinner" />
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/dong_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/spinner_selector"
+                            android:visibility="invisible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/sigungu_spinner" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
 
@@ -290,7 +315,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="성별"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -325,7 +350,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="실력"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -360,7 +385,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="8dp"
                         android:text="회비"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -370,10 +395,12 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:maxLines="1"
+                        android:layout_marginBottom="8dp"
                         android:backgroundTint="@android:color/transparent"
-                        android:inputType="number"
-                        android:hint="5,000원/무료" />
+                        android:hint="5000"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:inputType="number"/>
 
                 </LinearLayout>
 
@@ -382,7 +409,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview10"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/common_point_green"
                 app:cardCornerRadius="10dp"
@@ -392,24 +419,25 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="7dp"
                         android:text="내용"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/et_discription"
+                        android:id="@+id/et_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="7dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginRight="20dp"
                         android:backgroundTint="@android:color/transparent"
                         android:hint="내용을 입력해 주세요." />
@@ -439,7 +467,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="사진"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -493,7 +521,7 @@
                 android:backgroundTint="@color/tab_btn_green"
                 android:text="등록하기"
                 android:textColor="@color/white"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

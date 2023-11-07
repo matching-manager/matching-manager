@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.matching_manager.ui.my.MyMatchDataModel
+import com.example.matching_manager.ui.signin.UserInformation
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -30,15 +30,35 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
         Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
     private val matchRef = database.getReference("Match")
     fun fetchData() {
-        viewModelScope.launch {
-            val currentList = repository.getList(database)
-            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
+//        viewModelScope.launch {
+//            val currentList = repository.getList(database)
+//            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
 //            originalList = currentList.toMutableList()
 //            _list.postValue(currentList)
-            originalList.clear()
-            originalList.addAll(currentList)
-            _list.value = originalList
-        }
+//            originalList.clear()
+//            originalList.addAll(currentList)
+//            _list.value = originalList
+//        }
+        matchRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dataList = mutableListOf<MatchDataModel>()
+
+                for (childSnapshot in dataSnapshot.children) {
+                    val matchData = childSnapshot.getValue(MatchDataModel::class.java)
+                    if (matchData != null) {
+                        dataList.add(matchData)
+                    }
+                }
+                val currentList = dataList
+                originalList.clear()
+                originalList.addAll(dataList)
+                _list.value = currentList
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // 오류 처리
+            }
+        })
     }
 
     fun addMatch(data: MatchDataModel) {
@@ -96,6 +116,21 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
                 // 오류 처리
             }
         })
+    }
+
+    fun plusViewCount(data: MatchDataModel) {
+        //게시물에 담긴 유저ID와 로그인한 유저의 UID가 달라야 countUp
+        if(data.userId != UserInformation.userInfo.uid) {
+            viewModelScope.launch {
+                repository.editViewCount(data, database)
+            }
+        }
+    }
+
+    fun plusChatCount(data: MatchDataModel) {
+        viewModelScope.launch {
+            repository.editViewCount(data, database)
+        }
     }
 
     sealed interface MatchEvent {

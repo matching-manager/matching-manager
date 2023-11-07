@@ -1,19 +1,20 @@
 package com.example.matching_manager.ui.my
 
+import com.example.matching_manager.ui.match.MatchDataModel
 import com.example.matching_manager.ui.team.TeamItem
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 
 class MyMatchRepositoryImpl() : MyMatchRepository {
 
-    override suspend fun getMatchList(userId : String, database: FirebaseDatabase): List<MyMatchDataModel> {
+    override suspend fun getMatchList(userId : String, database: FirebaseDatabase): List<MatchDataModel> {
         val matchRef = database.getReference("Match")
-        val items = arrayListOf<MyMatchDataModel>()
+        val items = arrayListOf<MatchDataModel>()
         val query = matchRef.orderByChild("userId").equalTo(userId)
         val snapshot = query.get().await()
         if (snapshot.exists()) {
             for (childSnapshot in snapshot.children) {
-                childSnapshot.getValue(MyMatchDataModel::class.java)?.let { matchData ->
+                childSnapshot.getValue(MatchDataModel::class.java)?.let { matchData ->
                     items.add(matchData)
                 }
             }
@@ -21,7 +22,7 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
         return items
     }
 
-    override suspend fun deleteMatchData(data: MyMatchDataModel, database: FirebaseDatabase) {
+    override suspend fun deleteMatchData(data: MatchDataModel, database: FirebaseDatabase) {
         val matchRef = database.getReference("Match")
         val query = matchRef.orderByChild("matchId").equalTo(data.matchId)
         val snapshot = query.get().await()
@@ -32,7 +33,7 @@ class MyMatchRepositoryImpl() : MyMatchRepository {
         }
     }
 
-    override suspend fun editMatchData(data: MyMatchDataModel, newData: MyMatchDataModel, database: FirebaseDatabase) {
+    override suspend fun editMatchData(data: MatchDataModel, newData: MatchDataModel, database: FirebaseDatabase) {
         val matchRef = database.getReference("Match")
         val query = matchRef.orderByChild("matchId").equalTo(data.matchId)
 

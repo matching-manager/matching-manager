@@ -22,17 +22,19 @@
 
     <!-- match -->
     <color name="match_soccer_pink">#E18585</color>
-    <color name="match_futsal_purple">#FFAAFF</color>
-    <color name="match_basketball_orange">#53C28D</color>
-    <color name="match_badminton_brown">#DC9146</color>
-    <color name="match_bowling_skyblue">#B8D7FF</color>
-    
+    <color name="match_futsal_purple">#53C28D</color>
+    <color name="match_basketball_orange">#F4C785</color>
+    <color name="match_badminton_brown">#6573C3</color>
+    <color name="match_bowling_skyblue">#A87BAF</color>
 
     <!-- team -->
     <color name="team_request_yellow">#D9D68D</color>
     <color name="team_recruit_blue">#859FE1</color>
 
     <!--home -->
+    <color name="home_rv_item">#E1EEFF</color>
+    <color name="home_rv_item_green">#EAFDF4</color>
+    <color name="home_rv_item_grey">#F4F4F4</color>
 
     <!--myPage -->
     <color name="common_gray">#BDBDBD</color>

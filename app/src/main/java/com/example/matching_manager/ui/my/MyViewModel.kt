@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.matching_manager.ui.match.MatchDataModel
 import com.example.matching_manager.ui.team.TeamItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -14,16 +15,14 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
 
-    private val _matchList: MutableLiveData<List<MyMatchDataModel>> = MutableLiveData()
-    val matchList: LiveData<List<MyMatchDataModel>> get() = _matchList
+    private val _matchList: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
+    val matchList: LiveData<List<MatchDataModel>> get() = _matchList
 
     private val _recruitList: MutableLiveData<List<TeamItem.RecruitmentItem>> = MutableLiveData()
     val recruitList: LiveData<List<TeamItem.RecruitmentItem>> get() = _recruitList
 
     private val _applicationList: MutableLiveData<List<TeamItem.ApplicationItem>> = MutableLiveData()
     val applicationList: LiveData<List<TeamItem.ApplicationItem>> get() = _applicationList
-
-    val userId = "testUser"
 
     private val _event: MutableLiveData<MyEvent> = MutableLiveData()
     val event: LiveData<MyEvent> get() = _event
@@ -42,14 +41,14 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
         }
     }
 
-    fun deleteMatch(data: MyMatchDataModel) {
+    fun deleteMatch(data: MatchDataModel) {
         viewModelScope.launch {
             repository.deleteMatchData(data, database)
             _event.postValue(MyEvent.Dismiss)
         }
     }
 
-    fun editMatch(data: MyMatchDataModel, newData : MyMatchDataModel) {
+    fun editMatch(data: MatchDataModel, newData : MatchDataModel) {
         viewModelScope.launch {
             repository.editMatchData(data, newData, database)
             _event.postValue(MyEvent.Finish)
@@ -59,10 +58,10 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
     fun autoFetchMatchData() {
         matchRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val dataList = mutableListOf<MyMatchDataModel>()
+                val dataList = mutableListOf<MatchDataModel>()
 
                 for (childSnapshot in dataSnapshot.children) {
-                    val matchData = childSnapshot.getValue(MyMatchDataModel::class.java)
+                    val matchData = childSnapshot.getValue(MatchDataModel::class.java)
                     if (matchData != null) {
                         dataList.add(matchData)
                     }

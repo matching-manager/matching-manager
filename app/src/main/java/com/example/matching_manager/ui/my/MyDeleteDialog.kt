@@ -11,11 +11,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.matching_manager.databinding.MyDeleteDialogBinding
+import com.example.matching_manager.ui.match.MatchDataModel
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
-class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
+class MyDeleteDialog(private val item: MatchDataModel) : DialogFragment() {
     private var _binding: MyDeleteDialogBinding? = null
     private val binding get() = _binding!!
 
@@ -24,6 +28,8 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
     }
 
     private var dismissListener: OnDialogDismissListener? = null
+
+    private val reference: StorageReference = FirebaseStorage.getInstance().reference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +61,7 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         binding.dialBtn1.setOnClickListener {
-            viewModel.deleteMatch(item)
+            deleteFromFireBase(item)
         }
 
         binding.dialBtn2.setOnClickListener {
@@ -65,7 +71,7 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        context?.dialogFragmentResize(this, 0.7F, 0.2F)
+        context?.dialogFragmentResize(this, 0.9F, 0.2F)
     }
 
     private fun Context.dialogFragmentResize(dialogFragment: DialogFragment, width: Float, height: Float) {
@@ -94,6 +100,28 @@ class MyDeleteDialog(private val item: MyMatchDataModel) : DialogFragment() {
             val y = (rect.height() * height).toInt()
 
             window?.setLayout(x, y)
+        }
+    }
+
+    private fun deleteFromFireBase(item: MatchDataModel) {
+        val fileRef = reference.child("Match/${item.matchId}")
+
+        if(item.postImg == "") {
+            viewModel.deleteMatch(item)
+        }
+        else {
+            binding.progressBar.visibility = View.VISIBLE
+
+            fileRef.delete()
+                .addOnSuccessListener {
+                    viewModel.deleteMatch(item)
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(requireContext(), "게시글이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { exception ->
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(requireContext(), "게시글 삭제를 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                }
         }
     }
     interface OnDialogDismissListener {

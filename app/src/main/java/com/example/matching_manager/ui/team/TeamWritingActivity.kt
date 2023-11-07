@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamWritingActivityBinding
+import com.example.matching_manager.ui.signin.UserInformation
 import com.example.matching_manager.ui.team.bottomsheet.TeamAge
 import com.example.matching_manager.ui.team.bottomsheet.TeamCalender
 import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
@@ -333,32 +334,12 @@ class TeamWritingActivity : AppCompatActivity() {
                 else -> R.string.team_add_activity_application
             }
         )
-        //인포 이름 변경
-        tvDialogInfo.setText(
-            when (entryType) {
-                TeamAddType.RECRUIT -> {
-                    R.string.team_add_activity_recruit
-                }
-
-                else -> R.string.team_add_activity_application
-            }
-        )
 
         //back button
         btnCancel.setOnClickListener {
             finish() // 현재 Activity 종료
         }
 
-        //인포 이름 변경
-        tvDialogInfo.setText(
-            when (entryType) {
-                TeamAddType.RECRUIT -> {
-                    R.string.team_add_activity_recruit
-                }
-
-                else -> R.string.team_add_activity_application
-            }
-        )
 
         tvAddImage.setOnClickListener {
             val galleryIntent = Intent(Intent.ACTION_PICK)
@@ -389,30 +370,141 @@ class TeamWritingActivity : AppCompatActivity() {
             val intent = Intent(this@TeamWritingActivity, TeamFragment::class.java)
             setResult(RESULT_OK, intent)
 
-
+            val tvMonthDateText = tvMonthDate.text?.toString()
+            val tvTimeText = tvTime.text?.toString()
+            val teamNumberText = teamNumber.text?.toString()
+            val teamAgeText = teamAge.text?.toString()
             when (entryType) {
+
                 TeamAddType.RECRUIT -> {
-                    if (selectedGame == null || selectedGame.contains("선택") ||
-                        selectedArea == null || selectedArea.contains("선택") ||
-                        selectedGender == null || selectedGender.contains("선택") ||
-                        selectedLevel == null || selectedLevel.contains("선택") ||
-                        selectedTime == null || selectedTime.contains("선택") ||
-                        selectedTeamName.isBlank()
-                    ) {
-                        showToast("모든 항목을 선택해주세요")
-                        return@setOnClickListener
+                    when {
+                        selectedGame.contains("선택") -> {
+                            showToast("경기 종목을 선택해 주세요")
+                            layoutGame.isSelected = true
+                            layoutGame.isFocusable = false
+                            return@setOnClickListener
+                        }
+
+                        selectedArea.contains("선택") -> {
+                            showToast("지역을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+
+                        tvMonthDateText.isNullOrEmpty() -> {
+                            showToast("일정을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+
+                        tvTimeText.isNullOrEmpty() -> {
+                            showToast("시간 선택해 주세요")
+                            return@setOnClickListener
+                        }
+
+                        teamNumberText.isNullOrEmpty() -> {
+                            showToast("인원을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+
+                        selectedTeamName.isBlank() -> {
+                            selectedTeamName.let {
+                                if (it.isBlank()) {
+                                    showToast("팀 이름을 입력해 주세요")
+                                    return@setOnClickListener
+                                } else if (it.length >= 10) {
+                                    showToast("팀 이름은 최대 10자까지 입니다")
+                                    return@setOnClickListener
+                                }
+                            }
+                        }
+
+                        selectedFee.isBlank() -> {
+                            selectedFee.let {
+                                val fee = it.toIntOrNull()
+                                if (it.isBlank()) {
+                                    showToast("회비를 입력해 주세요")
+                                    return@setOnClickListener
+                                } else if (fee != null && fee % 1000 != 0) {
+                                    showToast("회비는 천원 단위로 입력해 주세요")
+                                }
+                            }
+                        }
+
+                        selectedGender.contains("선택") -> {
+                            showToast("성별을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+
+                        selectedLevel.contains("선택") -> {
+                            showToast("실력을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+
+                        setContent.isBlank() -> {
+                            selectedTeamName.let {
+                                if (it.isBlank()) {
+                                    showToast("내용을 입력해 주세요")
+                                    return@setOnClickListener
+                                } else if (setContent.length < 10) {
+                                    showToast("내용은 최소 10글자 이상 입력해 주세요")
+                                    return@setOnClickListener
+                                }
+                            }
+                        }
+
+                        else -> {}
                     }
                 }
 
                 TeamAddType.APPLICATION -> {
-                    if (selectedGame == null || selectedGame.contains("선택") ||
-                        selectedArea == null || selectedArea.contains("선택") ||
-                        selectedGender == null || selectedGender.contains("선택") ||
-                        selectedLevel == null || selectedLevel.contains("선택") ||
-                        selectedAge == null
-                    ) {
-                        showToast("모든 항목을 선택해주세요")
-                        return@setOnClickListener
+                    when {
+                        selectedGame.contains("선택") -> {
+                            showToast("종목을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+
+                        selectedArea.contains("선택") -> {
+                            showToast("지역을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+
+                        selectedApplicationTime.contains("선택") -> {
+                            showToast("일정을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+
+                        teamNumberText.isNullOrEmpty() -> {
+                            showToast("인원을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+
+                        teamAgeText.isNullOrEmpty() -> {
+                            showToast("나이을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+
+                        selectedGender.contains("선택") -> {
+                            showToast("성별을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+
+                        selectedLevel.contains("선택") -> {
+                            showToast("실력을 선택해 주세요")
+                            return@setOnClickListener
+                        }
+
+                        setContent.isBlank() -> {
+                            selectedTeamName.let {
+                                if (it.isBlank()) {
+                                    showToast("내용을 입력해 주세요")
+                                    return@setOnClickListener
+                                } else if (setContent.length < 10) {
+                                    showToast("내용은 최소 10글자 이상 입력해 주세요")
+                                    return@setOnClickListener
+                                }
+                            }
+                        }
+
+                        else -> {}
                     }
                 }
 
@@ -427,9 +519,12 @@ class TeamWritingActivity : AppCompatActivity() {
                     TeamItem.RecruitmentItem(
                         type = recruitment, // 임의의 값으로 설정 (용병모집)
                         teamId = teamId,
-                        userId = "testUser",
-                        nickname = "손흥민 손석구 손현준 레츠고",
-                        userImg = 0,
+                        userId = UserInformation.userInfo.uid!!,
+                        nickname = UserInformation.userInfo.username!!,
+                        userImg = UserInformation.userInfo.photoUrl!!,
+                        userEmail = UserInformation.userInfo.email!!,
+                        phoneNum = UserInformation.userInfo.phoneNumber!!,
+                        fcmToken = UserInformation.userInfo.fcmToken!!,
                         description = setContent,
                         gender = selectedGender,
                         chatCount = 0,
@@ -450,9 +545,12 @@ class TeamWritingActivity : AppCompatActivity() {
                     TeamItem.ApplicationItem(
                         type = application, // 임의의 값으로 설정 (용병신청)
                         teamId = teamId,
-                        userId = "testUser",
-                        nickname = "손흥민 손석구 손현준 레츠고",
-                        userImg = 0,
+                        userId = UserInformation.userInfo.uid!!,
+                        nickname = UserInformation.userInfo.username!!,
+                        userImg = UserInformation.userInfo.photoUrl!!,
+                        userEmail = UserInformation.userInfo.email!!,
+                        phoneNum = UserInformation.userInfo.phoneNumber!!,
+                        fcmToken = UserInformation.userInfo.fcmToken!!,
                         description = setContent,
                         gender = selectedGender,
                         chatCount = 0,
@@ -470,7 +568,7 @@ class TeamWritingActivity : AppCompatActivity() {
                 else -> null
             }
             if (teamItem != null) {
-                uploadToFirebase(imageUri!!, teamItem)
+                uploadToFirebase(imageUri, teamItem)
             }
         }
 
@@ -505,7 +603,7 @@ class TeamWritingActivity : AppCompatActivity() {
         bottomSheet.show(supportFragmentManager, TEAM_AGE_BOTTOM_SHEET)
     }
 
-    private fun uploadToFirebase(uri: Uri, data: TeamItem) {
+    private fun uploadToFirebase(uri: Uri?, data: TeamItem) {
         var teamId = ""
         if (data is TeamItem.RecruitmentItem) {
             teamId = data.teamId
@@ -514,31 +612,42 @@ class TeamWritingActivity : AppCompatActivity() {
         }
         val fileRef = reference.child("Team/${teamId}")
 
-        fileRef.putFile(uri)
-            .addOnSuccessListener {
-                fileRef.downloadUrl
-                    .addOnSuccessListener { uri ->
-                        if (data is TeamItem.RecruitmentItem) {
-                            data.postImg = uri.toString()
-                            viewModel.addRecruitment(data)
-                        } else if (data is TeamItem.ApplicationItem) {
-                            data.postImg = uri.toString()
-                            viewModel.addApplication(data)
+        if (uri != null) {
+            fileRef.putFile(uri)
+                .addOnSuccessListener {
+                    fileRef.downloadUrl
+                        .addOnSuccessListener { uri ->
+                            if (data is TeamItem.RecruitmentItem) {
+                                data.postImg = uri.toString()
+                                viewModel.addRecruitment(data)
+                            } else if (data is TeamItem.ApplicationItem) {
+                                data.postImg = uri.toString()
+                                viewModel.addApplication(data)
+                            }
+
+                            binding.progressBar.visibility = View.INVISIBLE
+
+                            Toast.makeText(this, "게시글이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+
                         }
-
-                        binding.progressBar.visibility = View.INVISIBLE
-
-                        Toast.makeText(this, "게시글이 등록되었습니다.", Toast.LENGTH_SHORT).show()
-
-                    }
+                }
+                .addOnProgressListener { snapshot ->
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                .addOnFailureListener { e ->
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this, "게시글 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            binding.progressBar.visibility = View.VISIBLE
+            if (data is TeamItem.RecruitmentItem) {
+                viewModel.addRecruitment(data)
+            } else if (data is TeamItem.ApplicationItem) {
+                viewModel.addApplication(data)
             }
-            .addOnProgressListener { snapshot ->
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            .addOnFailureListener { e ->
-                binding.progressBar.visibility = View.INVISIBLE
-                Toast.makeText(this, "게시글 등록을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-            }
+            binding.progressBar.visibility = View.INVISIBLE
+            Toast.makeText(this, "게시글이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun getCurrentTime(): String {
