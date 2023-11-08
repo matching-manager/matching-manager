@@ -12,4 +12,16 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
+    <style name="CustomCalendarTitleTextAppearance">
+        <item name="android:textSize">24sp</item> <!-- 원하는 크기로 설정 -->
+    </style>
+
+    <style name="CustomHeaderTextAppearance">
+        <item name="android:textSize">30sp</item> <!-- 원하는 크기로 설정 -->
+        <item name="android:textStyle">bold</item> <!-- 텍스트 스타일 설정 (옵션) -->
+        <item name="android:textColor">@color/black</item> <!-- 텍스트 색상 설정 (옵션) -->
+    </style>
+
+
 </resources>
