@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchItemBinding
+import com.example.matching_manager.databinding.MyItemBinding
 import com.example.matching_manager.ui.match.MatchDataModel
 
-class MyBookmarkMatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit) : ListAdapter<MatchDataModel, MyBookmarkMatchListAdapter.ViewHolder>(
+class MyBookmarkMatchListAdapter (private val onItemClick: (MatchDataModel) -> Unit, private val onDeleteClick: (MatchDataModel) -> Unit) : ListAdapter<MatchDataModel, MyBookmarkMatchListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<MatchDataModel>() {
         override fun areItemsTheSame(oldItem: MatchDataModel, newItem: MatchDataModel): Boolean {
             return oldItem.matchId == newItem.matchId
@@ -26,7 +27,7 @@ class MyBookmarkMatchListAdapter (private val onItemClick: (MatchDataModel) -> U
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            MatchItemBinding.inflate(
+            MyItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -36,22 +37,27 @@ class MyBookmarkMatchListAdapter (private val onItemClick: (MatchDataModel) -> U
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, onItemClick)
+        holder.bind(item, onItemClick, onDeleteClick)
     }
 
-    class ViewHolder(private val binding: MatchItemBinding) :
+    class ViewHolder(private val binding: MyItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("ResourceAsColor")
-        fun bind(item : MatchDataModel, onItemClick: (MatchDataModel) -> Unit) = with(binding) {
+        fun bind(item : MatchDataModel, onItemClick: (MatchDataModel) -> Unit, onDeleteClick: (MatchDataModel) -> Unit) = with(binding) {
             ivProfile.load(item.userImg)
             tvGame.text = item.game
             tvDetail.text = formatDetail(item.playerNum, item.gender)
             tvSchedule.text = item.schedule
             tvPlace.text = item.matchPlace
+            btnMenu.setImageResource(R.drawable.ic_trash)
 
             itemView.setOnClickListener {
                 onItemClick(item)
+            }
+
+            btnMenu.setOnClickListener {
+                onDeleteClick(item)
             }
 
             when (item.game) {
