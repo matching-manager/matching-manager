@@ -99,17 +99,19 @@ class MatchDetailActivity : AppCompatActivity() {
         btnCallMatch.setOnClickListener {
             SendFcmFragment().apply {
                 arguments =
-                    Bundle().apply { putString(SendFcmFragment.INPUT_TYPE, SendType.MATCH.name) }
+                    Bundle().apply {
+                        putString(SendFcmFragment.INPUT_TYPE, SendType.MATCH.name)
+                        putString(SendFcmFragment.FCM_TOKEN, data!!.fcmToken)
+                    }
             }.show(supportFragmentManager, "SampleDialog")
         }
         ivBookmark.setOnClickListener {
-            if(!isLiked) {
+            if (!isLiked) {
                 addMatchBookmark()
                 getMatchBookmark()
                 ivBookmark.setImageResource(R.drawable.ic_heart_filled)
                 isLiked = true
-            }
-            else {
+            } else {
                 deleteMatchBookmark()
                 getMatchBookmark()
                 ivBookmark.setImageResource(R.drawable.ic_heart)
@@ -121,7 +123,7 @@ class MatchDetailActivity : AppCompatActivity() {
         val keys = bookmarkPref.all.keys
 
         for (key in keys) {
-            if(key == "Match_${data!!.matchId}") {
+            if (key == "Match_${data!!.matchId}") {
                 ivBookmark.setImageResource(R.drawable.ic_heart_filled)
                 isLiked = true
             }
