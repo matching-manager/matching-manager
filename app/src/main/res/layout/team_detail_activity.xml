@@ -501,7 +501,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_bookmark" />
+                app:srcCompat="@drawable/ic_heart" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_submit"
