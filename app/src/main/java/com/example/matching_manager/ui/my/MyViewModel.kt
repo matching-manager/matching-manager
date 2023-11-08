@@ -28,11 +28,11 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
     private val _bookmarkMatchList: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
     val bookmarkMatchList: LiveData<List<MatchDataModel>> get() = _bookmarkMatchList
 
-    private val _bookmarkRecruitList: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
-    val bookmarkRecruitList: LiveData<List<MatchDataModel>> get() = _bookmarkRecruitList
+    private val _bookmarkRecruitList: MutableLiveData<List<TeamItem.RecruitmentItem>> = MutableLiveData()
+    val bookmarkRecruitList: LiveData<List<TeamItem.RecruitmentItem>> get() = _bookmarkRecruitList
 
-    private val _bookmarkApplicationList: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
-    val bookmarkApplicationList: LiveData<List<MatchDataModel>> get() = _bookmarkApplicationList
+    private val _bookmarkApplicationList: MutableLiveData<List<TeamItem.ApplicationItem>> = MutableLiveData()
+    val bookmarkApplicationList: LiveData<List<TeamItem.ApplicationItem>> get() = _bookmarkApplicationList
 
     private val _event: MutableLiveData<MyEvent> = MutableLiveData()
     val event: LiveData<MyEvent> get() = _event
@@ -41,6 +41,17 @@ class MyViewModel(private val repository: MyMatchRepository) : ViewModel() {
     private val matchRef = database.getReference("Match")
     private val teamRef = database.getReference("Team")
 
+    fun addBookmarkMatchLiveData(dataList : MutableList<MatchDataModel>) {
+        _bookmarkMatchList.value = dataList
+    }
+
+    fun addBookmarkRecruitLiveData(dataList : MutableList<TeamItem.RecruitmentItem>) {
+        _bookmarkRecruitList.value = dataList
+    }
+
+    fun addBookmarkApplicationLiveData(dataList : MutableList<TeamItem.ApplicationItem>) {
+        _bookmarkApplicationList.value = dataList
+    }
 
     fun fetchMatchData(userId : String) {
         viewModelScope.launch {
