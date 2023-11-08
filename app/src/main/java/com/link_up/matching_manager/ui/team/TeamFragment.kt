@@ -18,9 +18,9 @@ import com.link_up.matching_manager.databinding.TeamFragmentBinding
 import com.link_up.matching_manager.ui.match.MatchDeletedAlertDialog
 import com.link_up.matching_manager.ui.team.bottomsheet.TeamAddCategoryBottomSheet
 import com.link_up.matching_manager.ui.team.bottomsheet.TeamFilterCategoryBottomSheet
-import com.link_up.matching_manager.ui.team.viewmodel.TeamSharedViewModel
-import com.link_up.matching_manager.ui.team.viewmodel.TeamViewModel
-import com.link_up.matching_manager.ui.team.viewmodel.TeamViewModelFactory
+import com.link_up.matching_manager.ui.team.view_model.TeamSharedViewModel
+import com.link_up.matching_manager.ui.team.view_model.TeamViewModel
+import com.link_up.matching_manager.ui.team.view_model.TeamViewModelFactory
 
 class TeamFragment : Fragment() {
     private var _binding: TeamFragmentBinding? = null

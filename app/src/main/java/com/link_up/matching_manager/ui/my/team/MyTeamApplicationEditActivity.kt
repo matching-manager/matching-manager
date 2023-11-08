@@ -25,7 +25,7 @@ import com.link_up.matching_manager.ui.team.TeamItem
 import com.link_up.matching_manager.ui.team.TeamWritingActivity
 import com.link_up.matching_manager.ui.team.bottomsheet.TeamAgeBottomSheet
 import com.link_up.matching_manager.ui.team.bottomsheet.TeamNumberBottomSheet
-import com.link_up.matching_manager.ui.team.viewmodel.TeamSharedViewModel
+import com.link_up.matching_manager.ui.team.view_model.TeamSharedViewModel
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 

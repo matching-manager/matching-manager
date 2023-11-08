@@ -21,10 +21,10 @@ import com.link_up.matching_manager.ui.team.bottomsheet.TeamAgeBottomSheet
 import com.link_up.matching_manager.ui.team.bottomsheet.TeamCalenderBottomSheet
 import com.link_up.matching_manager.ui.team.bottomsheet.TeamNumberBottomSheet
 import com.link_up.matching_manager.ui.team.bottomsheet.TeamTimeBottomSheet
-import com.link_up.matching_manager.ui.team.viewmodel.TeamEvent
-import com.link_up.matching_manager.ui.team.viewmodel.TeamSharedViewModel
-import com.link_up.matching_manager.ui.team.viewmodel.TeamViewModel
-import com.link_up.matching_manager.ui.team.viewmodel.TeamViewModelFactory
+import com.link_up.matching_manager.ui.team.view_model.TeamEvent
+import com.link_up.matching_manager.ui.team.view_model.TeamSharedViewModel
+import com.link_up.matching_manager.ui.team.view_model.TeamViewModel
+import com.link_up.matching_manager.ui.team.view_model.TeamViewModelFactory
 import com.link_up.matching_manager.util.Spinners
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference

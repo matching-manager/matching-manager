@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.link_up.matching_manager.databinding.TeamAgeBinding
-import com.link_up.matching_manager.ui.team.viewmodel.TeamSharedViewModel
+import com.link_up.matching_manager.ui.team.view_model.TeamSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 

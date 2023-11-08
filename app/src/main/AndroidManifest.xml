@@ -69,7 +69,7 @@
             android:name=".ui.match.MatchDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.team.viewmodel.TeamViewModel"
+            android:name=".ui.team.view_model.TeamViewModel"
             android:exported="false" />
         <activity
             android:name=".ui.team.TeamDetailActivity"

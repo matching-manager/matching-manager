@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.link_up.matching_manager.databinding.TeamCalenderBinding
-import com.link_up.matching_manager.ui.team.viewmodel.TeamSharedViewModel
+import com.link_up.matching_manager.ui.team.view_model.TeamSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.Calendar
 

@@ -1,4 +1,4 @@
-package com.link_up.matching_manager.ui.team.viewmodel
+package com.link_up.matching_manager.ui.team.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

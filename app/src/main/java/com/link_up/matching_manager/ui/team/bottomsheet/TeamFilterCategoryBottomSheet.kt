@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import com.link_up.matching_manager.databinding.TeamFilterCategoryBinding
 import com.link_up.matching_manager.ui.match.MatchFragment
-import com.link_up.matching_manager.ui.team.viewmodel.TeamSharedViewModel
+import com.link_up.matching_manager.ui.team.view_model.TeamSharedViewModel
 import com.link_up.matching_manager.util.Spinners
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
