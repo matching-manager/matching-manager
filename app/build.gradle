@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.matching_manager'
+    namespace 'com.link_up.matching_manager'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.matching_manager"
+        applicationId "com.link_up.matching_manager"
         minSdk 26
         targetSdk 33
         versionCode 1
