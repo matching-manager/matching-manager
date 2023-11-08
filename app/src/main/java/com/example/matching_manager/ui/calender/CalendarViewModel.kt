@@ -32,15 +32,21 @@ class CalendarViewModel(
         _list.value = currentList
     }
 
-    fun removeMemoItem(model:CalendarModel, position: Int) {
+    fun removeMemoItem(model: CalendarModel, position: Int) {
         val currentList = list.value.orEmpty().toMutableList() // 리스트 변경이 가능함
         currentList.removeAt(position)
         _list.value = currentList
     }
 
     fun editMemoItem(model: CalendarModel) {
-        val currentList = list.value.orEmpty().toMutableList() // 리스트 변경이 가능함
-        currentList.add(model)
-        _list.value = currentList
+        val currentList = list.value.orEmpty().toMutableList()
+        val index = currentList.indexOfFirst { it.id == model.id }
+        if (index != -1) {
+            currentList[index] = model
+            _list.value = currentList
+            //        val currentList = list.value.orEmpty().toMutableList() // 리스트 변경이 가능함
+//        currentList.add(model)
+//        _list.value = currentList
+        }
     }
 }
