@@ -8,24 +8,26 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import coil.load
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.MyMatchEditActivityBinding
 import com.link_up.matching_manager.ui.match.MatchDataModel
-import com.link_up.matching_manager.ui.my.my.MyEvent
-import com.link_up.matching_manager.ui.my.my.MySharedViewModel
-import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.ui.my.bottomsheet.MyCalenderBottomSheet
 import com.link_up.matching_manager.ui.my.bottomsheet.MyNumberBottomSheet
 import com.link_up.matching_manager.ui.my.bottomsheet.MyTimeBottomSheet
+import com.link_up.matching_manager.ui.my.my.MyEvent
+import com.link_up.matching_manager.ui.my.my.MySharedViewModel
+import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.util.Spinners
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
+
 
 class MyMatchEditActivity : AppCompatActivity() {
     private lateinit var binding: MyMatchEditActivityBinding
@@ -97,11 +99,19 @@ class MyMatchEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+        //기존 데이터 선택값으로 시작
+        gameSpinner.setSelection(gameAdapter.getPosition(data!!.game))
+
+        //기존 지역 데이터에서 시, 구 분리
+        val areaParts = data!!.matchPlace.split("/")
+        val city = areaParts[0]
+        val gu = areaParts[1]
 
         //지역선택 스피너
         val cityAdapter = Spinners.cityAdapter(context = this@MyMatchEditActivity)
         cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         citySpinner.adapter = cityAdapter
+        citySpinner.setSelection(cityAdapter.getPosition(city))
         citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -133,13 +143,14 @@ class MyMatchEditActivity : AppCompatActivity() {
                 if (citySpinner.selectedItemPosition > 1) {
                     dongSpinner.adapter = null
                 }
-                val sigungnAdapter = ArrayAdapter(
+                val sigunguAdapter = ArrayAdapter(
                     this@MyMatchEditActivity,
                     android.R.layout.simple_spinner_item,
                     resources.getStringArray(arrayResource)
                 )
-                sigungnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                sigunguSpinner.adapter = sigungnAdapter
+                sigunguAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                sigunguSpinner.adapter = sigunguAdapter
+                sigunguSpinner.setSelection(sigunguAdapter.getPosition(gu))
             }
         }
 
@@ -200,6 +211,9 @@ class MyMatchEditActivity : AppCompatActivity() {
             }
         }
 
+        //기존 데이터 선택값으로 시작
+        genderSpinner.setSelection(genderAdapter.getPosition(data!!.gender))
+
 
         //실력 스피너
         val levelAdapter = ArrayAdapter.createFromResource(
@@ -223,6 +237,9 @@ class MyMatchEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+
+        //기존 데이터 선택값으로 시작
+        levelSpinner.setSelection(levelAdapter.getPosition(data!!.level))
 
         //date
         tvMonthDate.setOnClickListener {
@@ -291,6 +308,21 @@ class MyMatchEditActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
+        //기존 매치 데이터 불러옴(스피너는 setSpinner에)
+        etTeamName.setText(data!!.teamName)
+        etEntryFee.setText(data!!.entryFee.toString())
+        etDiscription.setText(data!!.description)
+
+        if(data!!.postImg != "") {
+            ivTeam.load(data!!.postImg)
+            btnCancelImage.visibility = View.VISIBLE
+        }
+
+        btnCancelImage.setOnClickListener {
+            imageUri = null
+            ivTeam.setImageDrawable(null)
+            btnCancelImage.visibility = View.INVISIBLE
+        }
 
         val intent = Intent(this@MyMatchEditActivity, MyMatchMenuBottomSheet::class.java)
         setResult(RESULT_OK, intent)
@@ -304,17 +336,6 @@ class MyMatchEditActivity : AppCompatActivity() {
             galleryIntent.type = "image/"
             imageResult.launch(galleryIntent)
         }
-
-//        etTeamName.setText(data!!.teamName)
-//        etSchedule.setText(data!!.schedule)
-//        gameSpinner.setSelection(gameAdapter.getPosition(data!!.game))
-//        etPlayerNum.setText(data!!.playerNum)
-//        etMatchPlace.setText(data!!.matchPlace)
-//        genderSpinner.setSelection(gameAdapter.getPosition(data!!.gender))
-//        etEntryFee.setText(data!!.entryFee)
-//        etDiscription.setText(data!!.description)
-//        ivTeam.setImageURI(data!!.postImg.toUri())
-
 
         btnSubmit.setOnClickListener {
             val teamName = etTeamName?.text?.toString() ?: "" // Elvis 연산자를 사용하여 null일 경우 ""으로 초기화합니다.
@@ -368,6 +389,7 @@ class MyMatchEditActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK && result.data != null) {
             imageUri = result.data?.data!!
             binding.ivTeam.load(imageUri)
+            binding.btnCancelImage.visibility = View.VISIBLE
         }
     }
 
