@@ -27,19 +27,19 @@
             android:name=".ui.my.bookmark.MyBookmarkActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.my.MyTeamRecruitEditActivity"
+            android:name=".ui.my.team.MyTeamRecruitEditActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.my.MyTeamRecruitDetailActivity"
+            android:name=".ui.my.team.MyTeamRecruitDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.my.MyTeamApplicationDetailActivity"
+            android:name=".ui.my.team.MyTeamApplicationDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.my.MyTeamApplicationEditActivity"
+            android:name=".ui.my.team.MyTeamApplicationEditActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.my.MyTeamActivity"
+            android:name=".ui.my.team.MyTeamActivity"
             android:exported="false" />
         <activity
             android:name=".ui.signin.SignUpActivity"
@@ -48,16 +48,16 @@
             android:name=".ui.main.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.my.MyMatchActivity"
+            android:name=".ui.my.match.MyMatchActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.my.MyMatchEditActivity"
+            android:name=".ui.my.match.MyMatchEditActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.my.MyMatchDetailActivity"
+            android:name=".ui.my.match.MyMatchDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.arena.alarm.AlarmActivity"
+            android:name=".ui.home.alarm.AlarmActivity"
             android:exported="false" />
         <activity
             android:name=".ui.match.MatchWritingActivity"

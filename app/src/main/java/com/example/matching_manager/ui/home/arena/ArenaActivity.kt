@@ -1,28 +1,16 @@
 package com.example.matching_manager.ui.home.arena
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
-import com.example.matching_manager.R
 import com.example.matching_manager.databinding.ArenaActivityBinding
-import com.example.matching_manager.ui.fcm.send.SendFcmFragment
-import com.example.matching_manager.ui.home.arena.bottomsheet.ArenaFilterCategory
+import com.example.matching_manager.ui.home.arena.bottomsheet.ArenaFilterCategoryBottomSheet
 import com.example.matching_manager.ui.home.arena.detail_dialog.ArenaDetailFragment
-import com.example.matching_manager.ui.team.TeamAddType
-import com.example.matching_manager.ui.team.TeamFragment
-import com.example.matching_manager.ui.team.TeamItem
-import com.example.matching_manager.ui.team.TeamWritingActivity
-import com.example.matching_manager.ui.team.bottomsheet.TeamAddCategory
 
 class ArenaActivity : AppCompatActivity() {
 
@@ -125,10 +113,10 @@ class ArenaActivity : AppCompatActivity() {
             binding.btnBadminton.isChecked = true
         }
         btnFilter.setOnClickListener {
-            val arenaFilterCategory = ArenaFilterCategory()
+            val arenaFilterCategory = ArenaFilterCategoryBottomSheet()
 
             arenaFilterCategory.setOnFilterSelectedListener(object :
-                ArenaFilterCategory.OnFilterSelectedListener {
+                ArenaFilterCategoryBottomSheet.OnFilterSelectedListener {
                 override fun onFilterSelected(selectedArea: String?) {
                     // 선택한 지역값을 받아왔으므로, 이를 ViewModel에 전달합니다.
                     selectedArea?.let { viewModel.setFilterArea(selectedArea) }

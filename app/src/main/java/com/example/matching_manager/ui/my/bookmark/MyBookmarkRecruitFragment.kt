@@ -12,9 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.MyBookmarkRecruitFragmentBinding
-import com.example.matching_manager.ui.match.MatchDeletedAlertDialog
-import com.example.matching_manager.ui.my.MyMatchViewModelFactory
-import com.example.matching_manager.ui.my.MyViewModel
+import com.example.matching_manager.ui.my.match.MyMatchViewModelFactory
+import com.example.matching_manager.ui.my.my.MyViewModel
 import com.example.matching_manager.ui.team.TeamDetailActivity
 import com.example.matching_manager.ui.team.TeamItem
 import com.google.gson.Gson

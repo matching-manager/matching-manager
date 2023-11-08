@@ -16,8 +16,8 @@ import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamFragmentBinding
 import com.example.matching_manager.ui.match.MatchDeletedAlertDialog
 import com.example.matching_manager.ui.match.TeamListAdapter
-import com.example.matching_manager.ui.team.bottomsheet.TeamAddCategory
-import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategory
+import com.example.matching_manager.ui.team.bottomsheet.TeamAddCategoryBottomSheet
+import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategoryBottomSheet
 import com.example.matching_manager.ui.team.viewmodel.TeamSharedViewModel
 import com.example.matching_manager.ui.team.viewmodel.TeamViewModel
 import com.example.matching_manager.ui.team.viewmodel.TeamViewModelFactory
@@ -131,7 +131,7 @@ class TeamFragment : Fragment() {
 
         //add btn
         fabAdd.setOnClickListener {
-            val teamAddCategory = TeamAddCategory()
+            val teamAddCategory = TeamAddCategoryBottomSheet()
             teamAddCategory.show(childFragmentManager, teamAddCategory.tag)
             //프래그먼트의 childFragmentManager를 쓰면 같은 라이프사이클을 사용 해야함
             childFragmentManager.setFragmentResultListener(
@@ -140,7 +140,7 @@ class TeamFragment : Fragment() {
                 val result = bundle.getString(FRAGMENT_RETURN_TYPE)
 
                 when (result) {
-                    TeamAddCategory.RETURN_TYPE_RECRUITMENT -> {
+                    TeamAddCategoryBottomSheet.RETURN_TYPE_RECRUITMENT -> {
                         val intent = TeamWritingActivity.newIntentForAddRecruit(
                             requireContext(),
                             TeamAddType.RECRUIT.name
@@ -148,7 +148,7 @@ class TeamFragment : Fragment() {
                         addContentLauncher.launch(intent)
                     }
 
-                    TeamAddCategory.RETURN_TYPE_APPLICATION -> {
+                    TeamAddCategoryBottomSheet.RETURN_TYPE_APPLICATION -> {
                         val intent = TeamWritingActivity.newIntentForAddApplication(
                             requireContext(),
                             TeamAddType.APPLICATION.name
@@ -173,14 +173,14 @@ class TeamFragment : Fragment() {
 
         //filtr btn
         btnFilter.setOnClickListener {
-            val teamFilterCategory = TeamFilterCategory()
+            val teamFilterCategory = TeamFilterCategoryBottomSheet()
             val fragmentManager = requireActivity().supportFragmentManager
             teamFilterCategory.show(fragmentManager, teamFilterCategory.tag)
 
             setFragmentResultListener(CATEGORY_REQUEST_KEY) { _, bundle ->
                 //결과 값을 받는곳입니다.
-                game = bundle.getString(TeamFilterCategory.SELECTED_GAME)
-                area = bundle.getString(TeamFilterCategory.SELECTED_AREA)
+                game = bundle.getString(TeamFilterCategoryBottomSheet.SELECTED_GAME)
+                area = bundle.getString(TeamFilterCategoryBottomSheet.SELECTED_AREA)
 
                 //선택한 게임과 지역에 따라 아이템을 필터링합니다.
                 viewModel.filterItems(

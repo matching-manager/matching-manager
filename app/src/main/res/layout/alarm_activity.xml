@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/common_gradient_background"
     android:padding="20dp"
-    tools:context=".ui.home.arena.alarm.AlarmActivity">
+    tools:context=".ui.home.alarm.AlarmActivity">
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_back"

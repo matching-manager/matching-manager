@@ -2,7 +2,7 @@ package com.example.matching_manager.data.repository
 
 import android.content.Context
 import com.example.matching_manager.domain.repository.SharedPreferenceRepository
-import com.example.matching_manager.ui.home.arena.alarm.AlarmModel
+import com.example.matching_manager.ui.home.alarm.AlarmModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

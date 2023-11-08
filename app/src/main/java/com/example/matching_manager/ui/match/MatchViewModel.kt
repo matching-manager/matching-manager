@@ -5,6 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.matching_manager.domain.usecase.match.MatchAddDataUseCase
+import com.example.matching_manager.domain.usecase.match.MatchEditChatCountUseCase
+import com.example.matching_manager.domain.usecase.match.MatchEditViewCountUseCase
+import com.example.matching_manager.domain.usecase.match.MatchGetListUseCase
 import com.example.matching_manager.ui.signin.UserInformation
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -13,7 +17,12 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
-class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
+class MatchViewModel(
+    val addData: MatchAddDataUseCase,
+    val getList: MatchGetListUseCase,
+    val editChatCount: MatchEditChatCountUseCase,
+    val editViewCount: MatchEditViewCountUseCase
+) : ViewModel() {
 
     private var originalList: MutableList<MatchDataModel> = mutableListOf() // 원본 데이터를 보관할 리스트
 
@@ -63,7 +72,7 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
 
     fun addMatch(data: MatchDataModel) {
         viewModelScope.launch {
-            repository.addData(data, database)
+            addData(data, database)
             _event.postValue(MatchEvent.Finish)
         }
     }
@@ -122,14 +131,14 @@ class MatchViewModel(private val repository: MatchRepository) : ViewModel() {
         //게시물에 담긴 유저ID와 로그인한 유저의 UID가 달라야 countUp
         if(data.userId != UserInformation.userInfo.uid) {
             viewModelScope.launch {
-                repository.editViewCount(data, database)
+                editViewCount(data, database)
             }
         }
     }
 
     fun plusChatCount(data: MatchDataModel) {
         viewModelScope.launch {
-            repository.editViewCount(data, database)
+            editViewCount(data, database)
         }
     }
 

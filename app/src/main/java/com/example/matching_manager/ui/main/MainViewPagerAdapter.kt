@@ -5,9 +5,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.matching_manager.R
 import com.example.matching_manager.ui.calender.CalendarFragment
-import com.example.matching_manager.ui.home.HomeFragment
+import com.example.matching_manager.ui.home.home.HomeFragment
 import com.example.matching_manager.ui.match.MatchFragment
-import com.example.matching_manager.ui.my.MyFragment
+import com.example.matching_manager.ui.my.my.MyFragment
 import com.example.matching_manager.ui.team.TeamFragment
 
 class MainViewPagerAdapter(private val activity: FragmentActivity) :

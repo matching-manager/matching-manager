@@ -13,14 +13,8 @@ import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamDetailActivityBinding
 import com.example.matching_manager.ui.fcm.send.SendFcmFragment
 import com.example.matching_manager.ui.fcm.send.SendType
-import com.example.matching_manager.ui.match.MatchDataModel
-import com.example.matching_manager.ui.my.MyMatchViewModelFactory
-import com.example.matching_manager.ui.my.MyViewModel
-import com.example.matching_manager.ui.my.bookmark.BookmarkRecruitDataModel
-import com.example.matching_manager.ui.my.bookmark.MyBookmarkApplicationFragment
-import com.example.matching_manager.ui.my.bookmark.MyBookmarkMatchFragment
-import com.example.matching_manager.ui.my.bookmark.MyBookmarkRecruitFragment
-import com.google.gson.Gson
+import com.example.matching_manager.ui.my.match.MyMatchViewModelFactory
+import com.example.matching_manager.ui.my.my.MyViewModel
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
