@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matching_manager.databinding.MyBookmarkMatchFragmentBinding
 import com.example.matching_manager.ui.match.MatchDataModel
 import com.example.matching_manager.ui.match.MatchDetailActivity.Companion.detailIntent
-import com.example.matching_manager.ui.my.MyMatchViewModelFactory
-import com.example.matching_manager.ui.my.MyViewModel
+import com.example.matching_manager.ui.my.match.MyMatchViewModelFactory
+import com.example.matching_manager.ui.my.my.MyViewModel
 import com.google.gson.Gson
 
 class MyBookmarkMatchFragment : Fragment() {

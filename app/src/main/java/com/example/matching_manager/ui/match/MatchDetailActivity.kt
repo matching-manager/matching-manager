@@ -14,8 +14,8 @@ import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MatchDetailActivityBinding
 import com.example.matching_manager.ui.fcm.send.SendFcmFragment
 import com.example.matching_manager.ui.fcm.send.SendType
-import com.example.matching_manager.ui.my.MyMatchViewModelFactory
-import com.example.matching_manager.ui.my.MyViewModel
+import com.example.matching_manager.ui.my.match.MyMatchViewModelFactory
+import com.example.matching_manager.ui.my.my.MyViewModel
 import com.example.matching_manager.ui.my.bookmark.MyBookmarkMatchFragment
 import com.google.gson.Gson
 import java.text.DecimalFormat

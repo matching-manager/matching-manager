@@ -1,7 +1,6 @@
 package com.example.matching_manager.ui.match
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,8 +19,7 @@ import com.example.matching_manager.databinding.MatchFragmentBinding
 import com.example.matching_manager.ui.match.MatchDetailActivity.Companion.detailIntent
 import com.example.matching_manager.ui.match.MatchWritingActivity.Companion.writeIntent
 import com.example.matching_manager.ui.match.bottomsheet.MatchFilterCategory
-import com.example.matching_manager.ui.signin.UserInformation
-import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategory
+import com.example.matching_manager.ui.team.bottomsheet.TeamFilterCategoryBottomSheet
 
 class MatchFragment : Fragment() {
     private var _binding: MatchFragmentBinding? = null
@@ -106,8 +104,8 @@ class MatchFragment : Fragment() {
 
             setFragmentResultListener(CATEGORY_REQUEST_KEY) { _, bundle ->
                 //결과 값을 받는곳입니다.
-                val area = bundle.getString(TeamFilterCategory.SELECTED_AREA)
-                val game = bundle.getString(TeamFilterCategory.SELECTED_GAME)
+                val area = bundle.getString(TeamFilterCategoryBottomSheet.SELECTED_AREA)
+                val game = bundle.getString(TeamFilterCategoryBottomSheet.SELECTED_GAME)
 
                 //선택한 게임과 지역에 따라 아이템을 필터링합니다.
                 viewModel.filterItems(area = area,game = game)

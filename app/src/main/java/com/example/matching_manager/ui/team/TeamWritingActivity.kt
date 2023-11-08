@@ -17,10 +17,10 @@ import coil.load
 import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamWritingActivityBinding
 import com.example.matching_manager.ui.signin.UserInformation
-import com.example.matching_manager.ui.team.bottomsheet.TeamAge
-import com.example.matching_manager.ui.team.bottomsheet.TeamCalender
-import com.example.matching_manager.ui.team.bottomsheet.TeamNumber
-import com.example.matching_manager.ui.team.bottomsheet.TeamTime
+import com.example.matching_manager.ui.team.bottomsheet.TeamAgeBottomSheet
+import com.example.matching_manager.ui.team.bottomsheet.TeamCalenderBottomSheet
+import com.example.matching_manager.ui.team.bottomsheet.TeamNumberBottomSheet
+import com.example.matching_manager.ui.team.bottomsheet.TeamTimeBottomSheet
 import com.example.matching_manager.ui.team.viewmodel.TeamEvent
 import com.example.matching_manager.ui.team.viewmodel.TeamSharedViewModel
 import com.example.matching_manager.ui.team.viewmodel.TeamViewModel
@@ -584,22 +584,22 @@ class TeamWritingActivity : AppCompatActivity() {
     }
 
     private fun showCalenderPicker() {
-        val bottomSheet = TeamCalender()
+        val bottomSheet = TeamCalenderBottomSheet()
         bottomSheet.show(supportFragmentManager, TEAM_CALENDER_BOTTOM_SHEET)
     }
 
     private fun showTimePicker() {
-        val bottomSheet = TeamTime()
+        val bottomSheet = TeamTimeBottomSheet()
         bottomSheet.show(supportFragmentManager, TEAM_TIME_BOTTOM_SHEET)
     }
 
     private fun showNumberPicker() {
-        val bottomSheet = TeamNumber()
+        val bottomSheet = TeamNumberBottomSheet()
         bottomSheet.show(supportFragmentManager, TEAM_NUMBER_BOTTOM_SHEET)
     }
 
     private fun showAgePicker() {
-        val bottomSheet = TeamAge()
+        val bottomSheet = TeamAgeBottomSheet()
         bottomSheet.show(supportFragmentManager, TEAM_AGE_BOTTOM_SHEET)
     }
 

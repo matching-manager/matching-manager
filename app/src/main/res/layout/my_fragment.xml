@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/common_gradient_background"
-    tools:context=".ui.my.MyFragment">
+    tools:context=".ui.my.my.MyFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
