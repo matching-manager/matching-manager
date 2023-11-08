@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import coil.load
@@ -12,6 +13,14 @@ import com.example.matching_manager.R
 import com.example.matching_manager.databinding.TeamDetailActivityBinding
 import com.example.matching_manager.ui.fcm.send.SendFcmFragment
 import com.example.matching_manager.ui.fcm.send.SendType
+import com.example.matching_manager.ui.match.MatchDataModel
+import com.example.matching_manager.ui.my.MyMatchViewModelFactory
+import com.example.matching_manager.ui.my.MyViewModel
+import com.example.matching_manager.ui.my.bookmark.BookmarkRecruitDataModel
+import com.example.matching_manager.ui.my.bookmark.MyBookmarkApplicationFragment
+import com.example.matching_manager.ui.my.bookmark.MyBookmarkMatchFragment
+import com.example.matching_manager.ui.my.bookmark.MyBookmarkRecruitFragment
+import com.google.gson.Gson
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -20,6 +29,12 @@ import java.util.concurrent.TimeUnit
 
 class TeamDetailActivity : AppCompatActivity() {
     private lateinit var binding: TeamDetailActivityBinding
+
+    private val viewModel: MyViewModel by viewModels {
+        MyMatchViewModelFactory()
+    }
+
+    private var isLiked = false
 
     companion object {
         private const val TAG = "TeamDetailActivity"
@@ -128,7 +143,111 @@ class TeamDetailActivity : AppCompatActivity() {
                 arguments = Bundle().apply { putString(SendFcmFragment.INPUT_TYPE, SendType.MERCENARY.name) }
             }.show(supportFragmentManager, "SampleDialog")
         }
+//
+//        ivBookmark.setOnClickListener {
+//            if(!isLiked) {
+//                addTeamBookmark()
+//                getTeamBookmark()
+//                ivBookmark.setImageResource(R.drawable.ic_heart_filled)
+//                isLiked = true
+//            }
+//            else {
+//                deleteTeamBookmark()
+//                getTeamBookmark()
+//                ivBookmark.setImageResource(R.drawable.ic_heart)
+//                isLiked = false
+//            }
+//        }
+//        val bookmarkPref = getSharedPreferences("Bookmark", Context.MODE_PRIVATE)
+//        val keys = bookmarkPref.all.keys
+//
+//        for (key in keys) {
+//            if(key == "Recruit_${item!!.teamId}" || key == "Application_${item!!.teamId}") {
+//                ivBookmark.setImageResource(R.drawable.ic_heart_filled)
+//                isLiked = true
+//            }
+//        }
+//
+//        val recruitIntent = Intent(this@TeamDetailActivity, MyBookmarkRecruitFragment::class.java)
+//        setResult(RESULT_OK, recruitIntent)
+//        val applicationIntent = Intent(this@TeamDetailActivity, MyBookmarkApplicationFragment::class.java)
+//        setResult(RESULT_OK, applicationIntent)
+//    }
+//
+//    private fun addTeamBookmark() {
+//        val item: TeamItem? = intent.getParcelableExtra(OBJECT_DATA)
+//
+//        val bookmarkPref = getSharedPreferences("Bookmark", Context.MODE_PRIVATE)
+//        val editor = bookmarkPref.edit()
+//
+//        val gson = Gson()
+//
+//        if(item!!.type == "용병모집") {
+//            val recruitItem = BookmarkRecruitDataModel()
+//            val teamDataJson = gson.toJson(recruitItem)
+//
+//            editor.putString("Recruit_${item.teamId}", teamDataJson)
+//            editor.apply()
+//        }
+//        else {
+//            val applicationItem = item as TeamItem.ApplicationItem
+//            val teamDataJson = gson.toJson(applicationItem)
+//
+//            editor.putString("Application_${item.teamId}", teamDataJson)
+//            editor.apply()
+//        }
+//    }
+//
+//    private fun deleteTeamBookmark() {
+//        val item: TeamItem? = intent.getParcelableExtra(OBJECT_DATA)
+//        val bookmarkPref = getSharedPreferences("Bookmark", Context.MODE_PRIVATE)
+//        val editor = bookmarkPref.edit()
+//
+//        if(item!!.type == "용병모집") {
+//            editor.remove("Recruit_${item.teamId}")
+//            editor.apply()
+//        }
+//        else {
+//            editor.remove("Application_${item.teamId}")
+//            editor.apply()
+//        }
+//    }
+//
+//    private fun getTeamBookmark() {
+//        val item: TeamItem? = intent.getParcelableExtra(OBJECT_DATA)
+//        val bookmarkPref = getSharedPreferences("Bookmark", Context.MODE_PRIVATE)
+//        val gson = Gson()
+//        val keys = bookmarkPref.all.keys
+//
+//        if(item!!.type == "용병모집") {
+//            val dataList = mutableListOf<TeamItem.RecruitmentItem>()
+//            for (key in keys) {
+//                if (key.startsWith("Recruit_")) {
+//                    val json = bookmarkPref.getString(key, null)
+//                    if (!json.isNullOrBlank()) {
+//                        val data = gson.fromJson(json, TeamItem.RecruitmentItem::class.java)
+//                        dataList.add(data)
+//                    }
+//                }
+//            }
+//            viewModel.addBookmarkRecruitLiveData(dataList)
+//        }
+//        else {
+//            val dataList = mutableListOf<TeamItem.ApplicationItem>()
+//            for (key in keys) {
+//                if (key.startsWith("Application_")) {
+//                    val json = bookmarkPref.getString(key, null)
+//                    if (!json.isNullOrBlank()) {
+//                        val data = gson.fromJson(json, TeamItem.ApplicationItem::class.java)
+//                        dataList.add(data)
+//                    }
+//                }
+//            }
+//            viewModel.addBookmarkApplicationLiveData(dataList)
+//        }
+//
     }
+
     private fun decimalFormat(entryFee : Int) : String {
         val dec = DecimalFormat("#,###")
 

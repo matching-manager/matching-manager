@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.matching_manager.R
 import com.example.matching_manager.databinding.MyApplicationItemBinding
 import com.example.matching_manager.ui.team.TeamItem
 
 class MyBookmarkApplicationListAdapter (private val onItemClick: (TeamItem.ApplicationItem) -> Unit,
-                                    private val onMenuClick : (TeamItem.ApplicationItem) -> Unit) : ListAdapter<TeamItem.ApplicationItem, MyBookmarkApplicationListAdapter.ViewHolder>(
+                                    private val onDeleteClick : (TeamItem.ApplicationItem) -> Unit) : ListAdapter<TeamItem.ApplicationItem, MyBookmarkApplicationListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<TeamItem.ApplicationItem>() {
         override fun areItemsTheSame(oldItem: TeamItem.ApplicationItem, newItem: TeamItem.ApplicationItem): Boolean {
             return oldItem.teamId == newItem.teamId
@@ -34,21 +35,22 @@ class MyBookmarkApplicationListAdapter (private val onItemClick: (TeamItem.Appli
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, onItemClick, onMenuClick)
+        holder.bind(item, onItemClick, onDeleteClick)
     }
 
     class ViewHolder(private val binding: MyApplicationItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item : TeamItem.ApplicationItem, onItemClick: (TeamItem.ApplicationItem) -> Unit, onMenuClick : (TeamItem.ApplicationItem) -> Unit) = with(binding) {
+        fun bind(item : TeamItem.ApplicationItem, onItemClick: (TeamItem.ApplicationItem) -> Unit, onDeleteClick : (TeamItem.ApplicationItem) -> Unit) = with(binding) {
             ivProfile.load(item.userImg)
             tvType.text = item.type
             tvDetail.text = "${item.gender} ${item.playerNum}"
             tvSchedule.text = item.schedule
             tvPlace.text = item.area
+            btnMenu.setImageResource(R.drawable.ic_trash)
 
             btnMenu.setOnClickListener {
-                onMenuClick(item)
+                onDeleteClick(item)
             }
 
             itemView.setOnClickListener {
