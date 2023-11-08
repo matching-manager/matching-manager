@@ -1,6 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Matchingmanager" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Matchingmanager" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/common_point_green</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowBackground">@drawable/common_gradient_background</item>
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>

@@ -12,5 +12,14 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {url 'https://jitpack.io'} // cardview 사용시에 필요한 maven
+    }
+}
+
 rootProject.name = "matching-manager"
 include ':app'

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RoundedShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="Theme.AppCompat.Transparent.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="CustomCalendarTitleTextAppearance">
+        <item name="android:textSize">24sp</item> <!-- 원하는 크기로 설정 -->
+    </style>
+
+    <style name="CustomHeaderTextAppearance">
+        <item name="android:textSize">30sp</item> <!-- 원하는 크기로 설정 -->
+        <item name="android:textStyle">bold</item> <!-- 텍스트 스타일 설정 (옵션) -->
+        <item name="android:textColor">@color/black</item> <!-- 텍스트 색상 설정 (옵션) -->
+    </style>
+
+
+</resources>

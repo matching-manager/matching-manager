@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#ffffff" /> <!-- 버튼 내부 배경색 (흰색으로 설정) -->
+    <stroke android:color="#808080" android:width="1dp" /> <!-- 테두리 설정 (회색, 두께 1dp) -->
+    <corners android:radius="20dp" /> <!-- 버튼의 모서리 둥글기 설정 (선택적) -->
+</shape>
