@@ -20,6 +20,7 @@ import com.link_up.matching_manager.ui.my.bookmark.MyBookmarkApplicationFragment
 import com.link_up.matching_manager.ui.my.bookmark.MyBookmarkRecruitFragment
 import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
 import com.link_up.matching_manager.ui.my.my.MyViewModel
+import com.link_up.matching_manager.ui.signin.UserInformation
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -129,6 +130,10 @@ class TeamDetailActivity : AppCompatActivity() {
             btnSubmit.setText(R.string.team_detail_application)
 
 
+        }
+
+        if(item!!.userId == UserInformation.userInfo.uid) {
+            bottomSheetLayout.visibility = View.GONE
         }
 
         //back button
