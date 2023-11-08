@@ -65,6 +65,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK && result.data != null) {
             imageUri = result.data?.data!!
             binding.ivImage.load(imageUri)
+            binding.btnCancelImage.visibility = View.VISIBLE
         }
     }
 
@@ -92,6 +93,19 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
+        etContent.setText(data!!.description)
+
+        if(data!!.postImg != "") {
+            ivImage.load(data!!.postImg)
+            btnCancelImage.visibility = View.VISIBLE
+        }
+
+        btnCancelImage.setOnClickListener {
+            imageUri = null
+            ivImage.setImageDrawable(null)
+            btnCancelImage.visibility = View.INVISIBLE
+        }
+
         val intent = Intent(this@MyTeamApplicationEditActivity, MyMatchMenuBottomSheet::class.java)
         setResult(RESULT_OK, intent)
 
@@ -183,6 +197,13 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+        //기존 데이터 선택값으로 시작
+        gameSpinner.setSelection(gameAdapter.getPosition(data!!.game))
+
+        //기존 지역 데이터에서 시, 구 분리
+        val areaParts = data!!.area.split("/")
+        val city = areaParts[0]
+        val gu = areaParts[1]
 
         //지역선택 스피너
         val arrayAdapter = ArrayAdapter.createFromResource(
@@ -192,6 +213,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         )
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         citySpinner.adapter = arrayAdapter
+        citySpinner.setSelection(arrayAdapter.getPosition(city))
         citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -242,6 +264,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                 )
                 arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 sigunguSpinner.adapter = arrayAdapter1
+                sigunguSpinner.setSelection(arrayAdapter1.getPosition(gu))
             }
         }
 
@@ -324,6 +347,8 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+        //기존 데이터 선택값으로 시작
+        genderSpinner.setSelection(genderAdapter.getPosition(data!!.gender))
 
 
         //실력 스피너
@@ -348,6 +373,8 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+        //기존 데이터 선택값으로 시작
+        levelSpinner.setSelection(levelAdapter.getPosition(data!!.level))
 
         //일정 스피너
         val timeAdapter = ArrayAdapter.createFromResource(
@@ -371,6 +398,8 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+        //기존 데이터 선택값으로 시작
+        timeSpinner.setSelection(timeAdapter.getPosition(data!!.schedule))
 
         //number
         teamNumber.setOnClickListener {
