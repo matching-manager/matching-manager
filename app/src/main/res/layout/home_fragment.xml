@@ -52,11 +52,11 @@
         android:id="@+id/tv_title_announcement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/pretendardbold"
         android:text="@string/home_tv_announcement"
-        android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_runner" />
 
@@ -96,11 +96,11 @@
         android:id="@+id/tv_title_match"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/pretendardbold"
         android:text="@string/home_tv_title_match"
-        android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_announcement" />
 

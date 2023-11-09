@@ -14,7 +14,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import coil.load
 import com.link_up.matching_manager.R
-import com.link_up.matching_manager.databinding.DialogEditBinding
 import com.link_up.matching_manager.databinding.MyFragmentBinding
 import com.link_up.matching_manager.ui.my.bookmark.MyBookmarkActivity
 import com.link_up.matching_manager.ui.my.match.MyMatchActivity
@@ -27,16 +26,9 @@ import com.google.firebase.auth.FirebaseAuth
 class MyFragment : Fragment() {
     private var _binding: MyFragmentBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
-    private var editName: String? = null // editName 선언
-    private var editImageUri: Uri? = null // editImageUri 선언
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
 
-    private var context: Context? = null
-    private lateinit var dialogBinding: DialogEditBinding
-    private var selectedImageUri: Uri? = null
 
     companion object {
         fun newInstance() = MyFragment()
@@ -50,7 +42,6 @@ class MyFragment : Fragment() {
         return binding.root
     }
 
-    private lateinit var myFileDialog: MyFileDialog
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

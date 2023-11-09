@@ -38,7 +38,6 @@
                 android:textSize="13sp"
                 android:textStyle="bold"
                 android:text="@string/home_test_announcement"
-                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@id/iv_announcement"
                 app:layout_constraintStart_toEndOf="@id/iv_announcement"
                 app:layout_constraintTop_toTopOf="@id/iv_announcement" />

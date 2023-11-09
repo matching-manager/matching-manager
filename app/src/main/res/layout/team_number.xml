@@ -42,7 +42,7 @@
             android:textColor="@color/white"
             android:textSize="15dp"
             android:backgroundTint="@color/common_grey"
-            android:textStyle="bold"
+            android:fontFamily="@font/pretendardbold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/picker_number" />
@@ -56,7 +56,7 @@
             android:backgroundTint="@color/common_point_green"
             android:text="확인"
             android:textColor="@color/white"
-            android:textStyle="bold"
+            android:fontFamily="@font/pretendardbold"
             app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_cancel"
