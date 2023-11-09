@@ -42,7 +42,7 @@ class MyMatchEditActivity : AppCompatActivity() {
     private var selectedGame: String? = null
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
-    private var selectedArea : String? = null
+    private var selectedArea: String? = null
 
 
     private val data: MatchDataModel? by lazy {
@@ -75,7 +75,7 @@ class MyMatchEditActivity : AppCompatActivity() {
 
     }
 
-    private fun setSpinner()  = with(binding) {
+    private fun setSpinner() = with(binding) {
         // spinner adapter
         //종목 스피너
         val gameAdapter = ArrayAdapter.createFromResource(
@@ -257,13 +257,14 @@ class MyMatchEditActivity : AppCompatActivity() {
         tvTeamNumber2.setOnClickListener(clickListener)
     }
 
-    private fun initViewModel()  = with(binding){
+    private fun initViewModel() = with(binding) {
         with(viewModel) {
             event.observe(this@MyMatchEditActivity) {
                 when (it) {
                     is MyEvent.Finish -> {
                         finish()
                     }
+
                     is MyEvent.Dismiss -> {
                     }
                 }
@@ -313,7 +314,7 @@ class MyMatchEditActivity : AppCompatActivity() {
         etEntryFee.setText(data!!.entryFee.toString())
         etDiscription.setText(data!!.description)
 
-        if(data!!.postImg != "") {
+        if (data!!.postImg != "") {
             ivTeam.load(data!!.postImg)
             btnCancelImage.visibility = View.VISIBLE
         }
@@ -338,11 +339,13 @@ class MyMatchEditActivity : AppCompatActivity() {
         }
 
         btnSubmit.setOnClickListener {
-            val teamName = etTeamName?.text?.toString() ?: "" // Elvis 연산자를 사용하여 null일 경우 ""으로 초기화합니다.
+            val teamName =
+                etTeamName?.text?.toString() ?: "" // Elvis 연산자를 사용하여 null일 경우 ""으로 초기화합니다.
             val game = (gameSpinner?.selectedItem?.toString() ?: "")
             val schedule = "${tvMonthDate?.text?.toString()} ${tvTime?.text?.toString()}"
             val playerNum = sharedViewModel.number.value ?: 0
-            val matchPlace = citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
+            val matchPlace =
+                citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
             val gender = genderSpinner?.selectedItem?.toString() ?: ""
             val level = levelSpinner?.selectedItem?.toString() ?: ""
             val entryFee = etEntryFee?.text?.toString()?.toInt() ?: 0
@@ -358,7 +361,8 @@ class MyMatchEditActivity : AppCompatActivity() {
                 gender = gender,
                 level = level,
                 entryFee = entryFee,
-                description = description
+                description = description,
+                postImg = ""
             )
             //예외처리 임시 주석처리
 //            if (teamName.isBlank() || schedule.isBlank() || matchPlace.isBlank() || description.isBlank() || playerNum.toString()
@@ -417,20 +421,27 @@ class MyMatchEditActivity : AppCompatActivity() {
                     binding.progressBar.visibility = View.INVISIBLE
                     Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
                 }
-        }
-        else {
-            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            if (data.postImg == "") {
+                binding.progressBar.visibility = View.VISIBLE
+                viewModel.editMatch(data, newData)
+                binding.progressBar.visibility = View.INVISIBLE
+                Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.progressBar.visibility = View.VISIBLE
 
-            fileRef.delete()
-                .addOnSuccessListener {
-                    viewModel.editMatch(data, newData)
-                    binding.progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener { exception ->
-                    binding.progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-                }
+                fileRef.delete()
+                    .addOnSuccessListener {
+                        viewModel.editMatch(data, newData)
+                        binding.progressBar.visibility = View.INVISIBLE
+                        Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener { exception ->
+                        binding.progressBar.visibility = View.INVISIBLE
+                        Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+            }
         }
     }
 }
