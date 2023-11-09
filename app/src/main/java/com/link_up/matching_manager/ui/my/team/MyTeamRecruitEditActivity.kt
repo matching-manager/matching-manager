@@ -119,7 +119,7 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
             val selectedFee = tvFee.text.toString()
             val selectedTeamName = tvTeamName.text.toString()
             val setContent = etContent.text.toString()
-            val selectedNumber = sharedViewModel.number.value ?: 0 // 기본값을 0으로 설정
+            val selectedNumber = teamNumber.text.toString().toIntOrNull() ?: 0 // 기본값을 0으로 설정
             val selectedDate = tvMonthDate.text.toString()
             val selectedTime = tvTime.text.toString()
 
@@ -304,6 +304,7 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
         val cityAdapter = Spinners.cityAdapter(context = this@MyTeamRecruitEditActivity)
         cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         citySpinner.adapter = cityAdapter
+        citySpinner.setSelection(cityAdapter.getPosition(city))
         citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -335,13 +336,14 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
                 if (citySpinner.selectedItemPosition > 1) {
                     dongSpinner.adapter = null
                 }
-                val sigungnAdapter = ArrayAdapter(
+                val sigunguAdapter = ArrayAdapter(
                     this@MyTeamRecruitEditActivity,
                     android.R.layout.simple_spinner_item,
                     resources.getStringArray(arrayResource)
                 )
-                sigungnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                sigunguSpinner.adapter = sigungnAdapter
+                sigunguAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                sigunguSpinner.adapter = sigunguAdapter
+                sigunguSpinner.setSelection(sigunguAdapter.getPosition(gu))
             }
         }
 
@@ -428,6 +430,14 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
         }
         //기존 데이터 선택값으로 시작
         levelSpinner.setSelection(levelAdapter.getPosition(data!!.level))
+
+
+        val schedule = data!!.schedule.split(") ")
+        var date = schedule[0] + ")"
+        var time = schedule[1]
+        tvMonthDate.text = date
+        tvTime.text = time
+        teamNumber.text = data!!.playerNum.toString()
 
         //date
         tvMonthDate.setOnClickListener {
