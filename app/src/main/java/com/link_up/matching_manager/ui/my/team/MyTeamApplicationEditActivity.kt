@@ -28,10 +28,11 @@ import com.link_up.matching_manager.ui.team.bottomsheet.TeamNumberBottomSheet
 import com.link_up.matching_manager.ui.team.view_model.TeamSharedViewModel
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.link_up.matching_manager.ui.team.TeamAddType
 import com.link_up.matching_manager.util.Spinners
 
 class MyTeamApplicationEditActivity : AppCompatActivity() {
-    private lateinit var binding : MyTeamApplicationEditActivityBinding
+    private lateinit var binding: MyTeamApplicationEditActivityBinding
 
     private var selectedGame: String? = null
     private var selectedArea: String? = null
@@ -74,7 +75,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         const val OBJECT_DATA = "item_object"
 
         fun editIntent(
-            context: Context, item: TeamItem.ApplicationItem
+            context: Context, item: TeamItem.ApplicationItem,
         ): Intent {
             val intent = Intent(context, MyTeamApplicationEditActivity::class.java)
             intent.putExtra(OBJECT_DATA, item)
@@ -94,9 +95,10 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
+        tvDialogInfo.setText(R.string.team_add_activity_application)
         etContent.setText(data!!.description)
 
-        if(data!!.postImg != "") {
+        if (data!!.postImg != "") {
             ivImage.load(data!!.postImg)
             btnCancelImage.visibility = View.VISIBLE
         }
@@ -124,17 +126,17 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
 
         btnSubmit.setOnClickListener {
             val selectedGame = gameSpinner.selectedItem.toString()
-            val selectedArea = citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
+            val selectedArea =
+                citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
             val selectedGender = genderSpinner.selectedItem.toString()
             val selectedLevel = levelSpinner.selectedItem.toString()
             val selectedApplicationTime = timeSpinner.selectedItem.toString()
             val setContent = etContent.text.toString()
-            val selectedNumber = sharedViewModel.number.value ?: 0 // 기본값을 0으로 설정
-            val selectedAge = sharedViewModel.age.value ?: 0 // 기본값을 0으로 설정
+            val selectedNumber = teamNumber.text.toString().toIntOrNull() ?: 0 // 기본값을 0으로 설정
+            val selectedAge = teamAge.text.toString().toIntOrNull() ?: 0 // 기본값을 0으로 설정
 
             val teamNumberText = teamNumber.text?.toString()
             val teamAgeText = teamAge.text?.toString()
-
             when {
                 selectedGame.contains("선택") -> {
                     showToast("종목을 선택해 주세요")
@@ -263,6 +265,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         val cityAdapter = Spinners.cityAdapter(context = this@MyTeamApplicationEditActivity)
         cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         citySpinner.adapter = cityAdapter
+        citySpinner.setSelection(cityAdapter.getPosition(city))
         citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -294,13 +297,14 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                 if (citySpinner.selectedItemPosition > 1) {
                     dongSpinner.adapter = null
                 }
-                val sigungnAdapter = ArrayAdapter(
+                val sigunguAdapter = ArrayAdapter(
                     this@MyTeamApplicationEditActivity,
                     android.R.layout.simple_spinner_item,
                     resources.getStringArray(arrayResource)
                 )
-                sigungnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                sigunguSpinner.adapter = sigungnAdapter
+                sigunguAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                sigunguSpinner.adapter = sigunguAdapter
+                sigunguSpinner.setSelection(sigunguAdapter.getPosition(gu))
             }
         }
 
@@ -418,12 +422,15 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         teamNumber.setOnClickListener {
             showNumberPicker()
         }
+        teamNumber.text = data!!.playerNum.toString()
         //age
         teamAge.setOnClickListener {
             showAgePicker()
         }
+        teamAge.text = data!!.age.toString()
 
     }
+
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
@@ -438,7 +445,11 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         bottomSheet.show(supportFragmentManager, TeamWritingActivity.TEAM_AGE_BOTTOM_SHEET)
     }
 
-    private fun uploadToFirebase(uri: Uri?, data: TeamItem.ApplicationItem, newData: TeamItem.ApplicationItem) {
+    private fun uploadToFirebase(
+        uri: Uri?,
+        data: TeamItem.ApplicationItem,
+        newData: TeamItem.ApplicationItem,
+    ) {
         val fileRef = reference.child("Team/${data.teamId}")
 
         if (uri != null) {
