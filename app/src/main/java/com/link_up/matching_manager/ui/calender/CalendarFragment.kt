@@ -37,7 +37,6 @@ class CalendarFragment : Fragment() {
 
     private val listAdapter = CalendarListAdapter(
         onCalendarItemClick = { calendarModel ->  /* 항목 클릭 시 동작 */ },
-
         onCalendarItemLongClick = { calendarModel, position
             ->
             showDeleteConfirmationDialog(calendarModel, position)
@@ -77,9 +76,6 @@ class CalendarFragment : Fragment() {
 
     private fun initViewModel() = with(viewModel) {
 
-//        list.observe(viewLifecycleOwner, Observer { // 리스트 관찰
-//            listAdapter.submitList(it)
-//        })
 
         dateList.observe(viewLifecycleOwner, Observer { // 리스트 관찰
             listAdapter.submitList(it)
@@ -95,7 +91,6 @@ class CalendarFragment : Fragment() {
             viewModel.setCalendarDate(date)
             Toast.makeText(requireContext(), "${date}", Toast.LENGTH_SHORT).show()
         }
-
 
     }
 
@@ -180,7 +175,7 @@ class CalendarFragment : Fragment() {
             )
 
             viewModel.addMemoItem(calendarModel)
-            memoMap[CalendarDay(calendarYear, calendarMonth, calendarDay)] = memoText
+            memoMap[CalendarDay.from(calendarYear, calendarMonth, calendarDay)] = memoText
 
             if (memoText != null && memoText.isNotEmpty()) { // 만약 memoText가 null이 아니고 비어있지 않다면, 메모 텍스트가 존재한다는 것입니다.
                 val datesWithMemo = memoMap.keys.toSet()  // memoMap에서 메모가 있는 날짜들의 집합을 가져옵니다.
@@ -191,7 +186,7 @@ class CalendarFragment : Fragment() {
             } else {
                 val memoDecorator =
                     CalendarMemoDecorator(emptySet()) // 데코레이터를 빈 집합으로 초기화하여 아무 점도 표시되지 않도록 합니다.
-            materialCalendarView.removeDecorator(memoDecorator) // 데코레이터를 제거합니다.
+                materialCalendarView.removeDecorator(memoDecorator) // 데코레이터를 제거합니다.
                 //materialCalendarView.invalidateDecorators() // 데코레이터를 다시 그립니다.
             }
         }
@@ -213,6 +208,7 @@ class CalendarFragment : Fragment() {
                 viewLifecycleOwner
             ) { request_edit_Key, edit_result ->
                 if (request_edit_Key == CalendarEditDialogFragment.EDIT_REQUEST_KEY) {
+
                     val memoText =
                         edit_result.getString(CalendarEditDialogFragment.EDIT_RESULT_KEY_TEXT)
                     val memoPlace =
@@ -246,7 +242,7 @@ class CalendarFragment : Fragment() {
                     )
 
                     viewModel.editMemoItem(editCalendarModel)
-                    memoMap[CalendarDay(calendarYear, calendarMonth, calendarDay)] =
+                    memoMap[CalendarDay.from(calendarYear, calendarMonth, calendarDay)] =
                         memoText.toString()
 
                     if (memoText != null && memoText.isNotEmpty()) { // 만약 memoText가 null이 아니고 비어있지 않다면, 메모 텍스트가 존재한다는 것입니다.
@@ -264,6 +260,29 @@ class CalendarFragment : Fragment() {
                 }
             }
         }
+    }
+    fun deleteSpan(calendarModel: CalendarModel){
+        val deletedDate =
+            calendarModel.year?.let { it ->
+                calendarModel.month?.let { it1 ->
+                    calendarModel.day?.let { it2 ->
+                        CalendarDay.from(
+                            it,
+                            it1,
+                            it2,
+                        )
+                    }
+                }
+            }
+
+        if (deletedDate != null) {
+            memoMap.remove(deletedDate)
+        }
+        val datesWithMemo = memoMap.keys.toSet()
+        val memoDecorator = CalendarMemoDecorator(datesWithMemo)
+
+        materialCalendarView.removeDecorators()
+        materialCalendarView.addDecorator(memoDecorator)
     }
 
     override fun onDestroy() {

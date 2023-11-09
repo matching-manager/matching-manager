@@ -3,7 +3,11 @@ package com.link_up.matching_manager.ui.calender
 import CalendarAddDialogFragment.Companion.ADD_REQUEST_KEY
 import CalendarAddDialogFragment.Companion.ADD_RESULT_KEY_PLACE
 import CalendarAddDialogFragment.Companion.ADD_RESULT_KEY_TEXT
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +17,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.link_up.matching_manager.databinding.CalendarEditDialogFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 
 
@@ -48,64 +53,82 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-    }
 
+
+    }
 
     private fun initView() = with(binding) {
         val calendarModel = arguments?.getParcelable<CalendarModel>("calendarModel")
 
         if (calendarModel != null) {
-            val memoText = calendarModel.memo
-            val memoPlace = calendarModel.place
-            val schedule = "${calendarModel.year}년 ${calendarModel.month}월 ${calendarModel.day}일"
+            val memoYear = calendarModel.year ?: 0
+            val memoMonth = calendarModel.month ?: 0
+            val memoDay = calendarModel.day ?: 0
 
-            edtCalendarEditMemo.setText(memoText)
-            edtCalendarEditPlace.setText(memoPlace)
-            edtCalendarEditSchedule.setText(schedule)
+            // 선택한 날짜에 점을 표시하는 데코레이터 생성
+            val selectedDate = CalendarDay.from(memoYear, memoMonth, memoDay)
+            val memoDecorator = CalendarMemoDecorator(setOf(selectedDate))
 
-            btnCalendarEditSave.setOnClickListener {
-                val memoText = edtCalendarEditMemo.text.toString()
-                val memoPlace = edtCalendarEditPlace.text.toString()
+            // 캘린더에 데코레이터 추가
+            materialCalendarCalendarEditView.addDecorator(memoDecorator)
 
-                val selectedDate = materialCalendarCalendarEditView.selectedDate
-                if (selectedDate != null) {
-                    val memoYear = binding.materialCalendarCalendarEditView.selectedDate.year
-                    val memoMonth = binding.materialCalendarCalendarEditView.selectedDate.month
-                    val memoDay = binding.materialCalendarCalendarEditView.selectedDate.day
+            if (calendarModel != null) {
+                val memoText = calendarModel.memo
+                val memoPlace = calendarModel.place
+                val schedule =
+                    "${calendarModel.year}년 ${calendarModel.month}월 ${calendarModel.day}일"
 
-                    if (memoText.isNotBlank() && memoPlace.isNotBlank()) {
-                        // 메모 데이터를 부모 Fragment로 전달합니다.
-                        setFragmentResult(
-                            EDIT_REQUEST_KEY,
-                            bundleOf(
-                                EDIT_RESULT_KEY_TEXT to memoText,
-                                EDIT_RESULT_KEY_PLACE to memoPlace,
-                                EDIT_RESULT_KEY_YEAR to memoYear,
-                                EDIT_RESULT_KEY_MONTH to memoMonth,
-                                EDIT_RESULT_KEY_DAY to memoDay,
+                edtCalendarEditMemo.setText(memoText)
+                edtCalendarEditPlace.setText(memoPlace)
+                //edtCalendarEditSchedule.setText(schedule)
+
+                btnCalendarEditSave.setOnClickListener {
+                    val memoText = edtCalendarEditMemo.text.toString()
+                    val memoPlace = edtCalendarEditPlace.text.toString()
+
+                    val selectedDate = materialCalendarCalendarEditView.selectedDate
+                    if (selectedDate != null) {
+                        val memoYear = binding.materialCalendarCalendarEditView.selectedDate.year
+                        val memoMonth = binding.materialCalendarCalendarEditView.selectedDate.month
+                        val memoDay = binding.materialCalendarCalendarEditView.selectedDate.day
+
+                        if (memoText.isNotBlank() && memoPlace.isNotBlank()) {
+
+                            // 메모 데이터를 부모 Fragment로 전달합니다.
+                            setFragmentResult(
+                                EDIT_REQUEST_KEY,
+                                bundleOf(
+                                    EDIT_RESULT_KEY_TEXT to memoText,
+                                    EDIT_RESULT_KEY_PLACE to memoPlace,
+                                    EDIT_RESULT_KEY_YEAR to memoYear,
+                                    EDIT_RESULT_KEY_MONTH to memoMonth,
+                                    EDIT_RESULT_KEY_DAY to memoDay,
+                                )
+
                             )
+                            dismiss() // 다이얼로그 닫기
 
-                        )
-                        dismiss() // 다이얼로그 닫기
-
-                    } else {
-                        // `memoText`와 `memoPlace` 중 하나라도 입력되지 않았을 때 클릭 비활성화
-                        Toast.makeText(requireContext(), "메모, 장소를 꼭 입력하세요", Toast.LENGTH_SHORT)
-                            .show()
-                        btnCalendarEditCancel.isEnabled = true
+                        } else {
+                            // `memoText`와 `memoPlace` 중 하나라도 입력되지 않았을 때 클릭 비활성화
+                            Toast.makeText(requireContext(), "메모, 장소를 꼭 입력하세요", Toast.LENGTH_SHORT)
+                                .show()
+                            btnCalendarEditCancel.isEnabled = true
+                        }
                     }
                 }
-            }
 
-            btnCalendarEditCancel.setOnClickListener {
-                dismiss() // 다이얼로그 닫기
+                btnCalendarEditCancel.setOnClickListener {
+                    dismiss() // 다이얼로그 닫기
+                }
             }
         }
     }
-        override fun onDestroyView() {
-            super.onDestroyView()
-            _binding = null
-        }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
+
+
+}
+

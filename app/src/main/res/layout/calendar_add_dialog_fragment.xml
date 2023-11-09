@@ -52,6 +52,7 @@
                     android:padding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:mcv_monthLabels="@array/custom_month_labels"
                     app:mcv_headerTextAppearance="@style/TextAppearance.Material3.TitleLarge"
                     app:layout_constraintTop_toTopOf="@+id/cl_calendar_add_dialog_fragment" />
 
