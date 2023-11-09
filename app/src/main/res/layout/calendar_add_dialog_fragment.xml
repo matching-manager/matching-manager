@@ -63,8 +63,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/cl_calendar_add_dialog_fragment"
-                    app:mcv_monthLabels="@array/custom_month_labels"
-                    app:mcv_headerTextAppearance="@style/TextAppearance.Material3.TitleLarge" />
+                    app:mcv_headerTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+                    app:mcv_monthLabels="@array/custom_month_labels" />
 
                 <ImageView
                     android:id="@+id/iv_calendar_edit_location"

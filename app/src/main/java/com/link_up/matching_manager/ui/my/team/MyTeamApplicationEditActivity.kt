@@ -211,6 +211,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                     is MyEvent.Finish -> {
                         finish()
                     }
+
                     is MyEvent.Dismiss -> {
                     }
                 }
@@ -393,6 +394,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         //기존 데이터 선택값으로 시작
         levelSpinner.setSelection(levelAdapter.getPosition(data!!.level))
 
+
         //일정 스피너
         val timeAdapter = ArrayAdapter.createFromResource(
             this@MyTeamApplicationEditActivity,
@@ -496,7 +498,6 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                         Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
                     }
             }
-
         }
     }
 }

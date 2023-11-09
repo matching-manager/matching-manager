@@ -274,6 +274,7 @@ class MyMatchEditActivity : AppCompatActivity() {
                     is MyEvent.Finish -> {
                         finish()
                     }
+
                     is MyEvent.Dismiss -> {
                     }
                 }
@@ -435,10 +436,8 @@ class MyMatchEditActivity : AppCompatActivity() {
                         }
                     }
                 }
-
                 else -> {}
             }
-
             val editData = MatchDataModel(
                 teamName = teamName,
                 game = game,
@@ -451,7 +450,6 @@ class MyMatchEditActivity : AppCompatActivity() {
                 description = description,
                 postImg = ""
             )
-
             editFromFirebase(imageUri, data!!, editData)
         }
     }
@@ -502,7 +500,6 @@ class MyMatchEditActivity : AppCompatActivity() {
                 Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
             } else {
                 binding.progressBar.visibility = View.VISIBLE
-
                 fileRef.delete()
                     .addOnSuccessListener {
                         viewModel.editMatch(data, newData)
