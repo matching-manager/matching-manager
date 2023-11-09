@@ -1,24 +1,15 @@
 package com.link_up.matching_manager.ui.calender
 
-import CalendarAddDialogFragment.Companion.ADD_REQUEST_KEY
-import CalendarAddDialogFragment.Companion.ADD_RESULT_KEY_PLACE
-import CalendarAddDialogFragment.Companion.ADD_RESULT_KEY_TEXT
-import android.graphics.Color
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import com.link_up.matching_manager.databinding.CalendarEditDialogFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.link_up.matching_manager.databinding.CalendarEditDialogFragmentBinding
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 
 
 class CalendarEditDialogFragment : BottomSheetDialogFragment() {
@@ -53,9 +44,8 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-
-
     }
+
 
     private fun initView() = with(binding) {
         val calendarModel = arguments?.getParcelable<CalendarModel>("calendarModel")
@@ -123,12 +113,9 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
             }
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }
 

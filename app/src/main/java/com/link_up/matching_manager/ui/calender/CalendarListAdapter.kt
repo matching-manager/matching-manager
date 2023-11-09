@@ -1,15 +1,12 @@
 package com.link_up.matching_manager.ui.calender
 
-import android.content.ClipData
 import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.link_up.matching_manager.databinding.CalendarRecyclerviewItemBinding
-import com.prolificinteractive.materialcalendarview.CalendarDay
 import java.util.Calendar
 import java.util.Locale
 
