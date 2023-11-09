@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.link_up.matching_manager.databinding.HomeRecyclerviewItemAnnouncementBinding
+import com.link_up.matching_manager.databinding.AnnouncementItemBinding
 
-class HomeAnnouncementListAdapter(
+class AnnouncementListAdapter(
     private val onClick: (AnnouncementDataModel) -> Unit
-) : ListAdapter<AnnouncementDataModel, HomeAnnouncementListAdapter.ViewHolder>(
+) : ListAdapter<AnnouncementDataModel, AnnouncementListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<AnnouncementDataModel>() {
         override fun areItemsTheSame(
             oldItem: AnnouncementDataModel,
@@ -28,7 +28,7 @@ class HomeAnnouncementListAdapter(
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            HomeRecyclerviewItemAnnouncementBinding.inflate(
+            AnnouncementItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -43,12 +43,12 @@ class HomeAnnouncementListAdapter(
     }
 
     class ViewHolder(
-        private val binding: HomeRecyclerviewItemAnnouncementBinding,
+        private val binding: AnnouncementItemBinding,
         private val onClick: (AnnouncementDataModel) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: AnnouncementDataModel) = with(binding) {
-            tvAnnouncement.text = item.title
-
+            tvTitle.text = item.title
+            tvDate.text = item.uploadDate
             itemView.setOnClickListener {
                 onClick(item)
             }

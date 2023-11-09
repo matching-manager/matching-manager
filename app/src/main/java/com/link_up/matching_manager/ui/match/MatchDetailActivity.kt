@@ -18,6 +18,7 @@ import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
 import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.ui.my.bookmark.MyBookmarkMatchFragment
 import com.google.gson.Gson
+import com.link_up.matching_manager.ui.signin.UserInformation
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -91,6 +92,10 @@ class MatchDetailActivity : AppCompatActivity() {
         tvDescription.text = data!!.description
         if (data!!.postImg != "") ivTeam.load(data!!.postImg.toUri())
         else cvPhoto1.visibility = View.INVISIBLE
+
+        if(data!!.userId == UserInformation.userInfo.uid) {
+            bottomSheetLayout.visibility = View.GONE
+        }
 
         btnCancel.setOnClickListener {
             finish()

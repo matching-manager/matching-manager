@@ -75,14 +75,27 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
         binding = MyTeamRecruitEditActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSpinner()
         initView()
         initViewModel()
-        setSpinner()
-
-
     }
 
     private fun initView() = with(binding) {
+        etTeamName.setText(data!!.teamName)
+        etFee.setText(data!!.pay.toString())
+        etContent.setText(data!!.description)
+
+        if(data!!.postImg != "") {
+            ivImage.load(data!!.postImg)
+            btnCancelImage.visibility = View.VISIBLE
+        }
+
+        btnCancelImage.setOnClickListener {
+            imageUri = null
+            ivImage.setImageDrawable(null)
+            btnCancelImage.visibility = View.INVISIBLE
+        }
+
         val intent = Intent(this@MyTeamRecruitEditActivity, MyMatchMenuBottomSheet::class.java)
         setResult(RESULT_OK, intent)
 
@@ -102,8 +115,8 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
                 citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
             val selectedGender = genderSpinner.selectedItem.toString()
             val selectedLevel = levelSpinner.selectedItem.toString()
-            val selectedFee = tvFee.text.toString()
-            val selectedTeamName = tvTeamName.text.toString()
+            val selectedFee = etFee.text.toString()
+            val selectedTeamName = etTeamName.text.toString()
             val setContent = etContent.text.toString()
             val selectedNumber = sharedViewModel.number.value ?: 0 // 기본값을 0으로 설정
             val selectedDate = tvMonthDate.text.toString()
@@ -131,6 +144,7 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK && result.data != null) {
             imageUri = result.data?.data!!
             binding.ivImage.load(imageUri)
+            binding.btnCancelImage.visibility = View.VISIBLE
         }
     }
 
@@ -192,6 +206,13 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+        //기존 데이터 선택값으로 시작
+        gameSpinner.setSelection(gameAdapter.getPosition(data!!.game))
+
+        //기존 지역 데이터에서 시, 구 분리
+        val areaParts = data!!.area.split("/")
+        val city = areaParts[0]
+        val gu = areaParts[1]
 
         //지역선택 스피너
         val arrayAdapter = ArrayAdapter.createFromResource(
@@ -201,6 +222,7 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
         )
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         citySpinner.adapter = arrayAdapter
+        citySpinner.setSelection(arrayAdapter.getPosition(city))
         citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -251,6 +273,7 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
                 )
                 arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 sigunguSpinner.adapter = arrayAdapter1
+                sigunguSpinner.setSelection(arrayAdapter1.getPosition(gu))
             }
         }
 
@@ -333,7 +356,8 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
-
+        //기존 데이터 선택값으로 시작
+        genderSpinner.setSelection(genderAdapter.getPosition(data!!.gender))
 
         //실력 스피너
         val levelAdapter = ArrayAdapter.createFromResource(
@@ -357,6 +381,8 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+        //기존 데이터 선택값으로 시작
+        levelSpinner.setSelection(levelAdapter.getPosition(data!!.level))
 
         //date
         tvMonthDate.setOnClickListener {
@@ -414,18 +440,26 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
                 }
         }
         else {
-            binding.progressBar.visibility = View.VISIBLE
+            if (data.postImg == "") {
+                binding.progressBar.visibility = View.VISIBLE
+                viewModel.editRecruit(data, newData)
+                binding.progressBar.visibility = View.INVISIBLE
+                Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                binding.progressBar.visibility = View.VISIBLE
 
-            fileRef.delete()
-                .addOnSuccessListener {
-                    viewModel.editRecruit(data, newData)
-                    binding.progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener { exception ->
-                    binding.progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-                }
+                fileRef.delete()
+                    .addOnSuccessListener {
+                        viewModel.editRecruit(data, newData)
+                        binding.progressBar.visibility = View.INVISIBLE
+                        Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener { exception ->
+                        binding.progressBar.visibility = View.INVISIBLE
+                        Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
     }
 }
