@@ -114,6 +114,8 @@
                 android:id="@+id/tv_username_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/pretendardregular"
                 android:text="@string/sign_up_tv_Username_description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_user_name" />
@@ -159,6 +161,7 @@
                 android:id="@+id/tv_phone_number_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:text="@string/sign_up_tv_phone_number_description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_warning_phone_number" />
@@ -171,6 +174,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/btn_background_green_fill"
                 android:text="@string/sign_up_btn"
+                android:fontFamily="@font/pretendardbold"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/tv_phone_number_description" />
 
@@ -182,6 +186,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/btn_background_green_stroke"
                 android:text="@string/cancel_btn"
+                android:fontFamily="@font/pretendardbold"
                 android:textColor="@color/common_point_green"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_sign_up" />

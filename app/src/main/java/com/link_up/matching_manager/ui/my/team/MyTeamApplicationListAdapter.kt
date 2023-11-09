@@ -43,7 +43,7 @@ class MyTeamApplicationListAdapter (private val onItemClick: (TeamItem.Applicati
         fun bind(item : TeamItem.ApplicationItem, onItemClick: (TeamItem.ApplicationItem) -> Unit, onMenuClick : (TeamItem.ApplicationItem) -> Unit) = with(binding) {
             ivProfile.load(item.userImg)
             tvType.text = item.type
-            tvDetail.text = "${item.gender} ${item.playerNum}"
+            tvDetail.text = "${item.gender} ${item.playerNum}명"
             tvSchedule.text = item.schedule
             tvPlace.text = item.area
 

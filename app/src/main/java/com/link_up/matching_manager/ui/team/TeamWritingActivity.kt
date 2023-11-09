@@ -440,7 +440,7 @@ class TeamWritingActivity : AppCompatActivity() {
                         }
 
                         setContent.isBlank() -> {
-                            selectedTeamName.let {
+                            setContent.let {
                                 if (it.isBlank()) {
                                     showToast("내용을 입력해 주세요")
                                     return@setOnClickListener
@@ -493,7 +493,7 @@ class TeamWritingActivity : AppCompatActivity() {
                         }
 
                         setContent.isBlank() -> {
-                            selectedTeamName.let {
+                            setContent.let {
                                 if (it.isBlank()) {
                                     showToast("내용을 입력해 주세요")
                                     return@setOnClickListener

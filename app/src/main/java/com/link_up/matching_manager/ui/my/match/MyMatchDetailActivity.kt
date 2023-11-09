@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import coil.load
+import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.MyMatchDetailActivityBinding
 import com.link_up.matching_manager.ui.match.MatchDataModel
 import com.link_up.matching_manager.ui.my.my.MyFragment
@@ -35,21 +36,37 @@ class MyMatchDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
+        ivProfile.load(data!!.userImg.toUri())
+        when (data?.game) {
+            "풋살" -> ivGame.setImageResource(R.drawable.ic_futsal2)
+            "축구" -> ivGame.setImageResource(R.drawable.ic_soccerball)
+            "농구" -> ivGame.setImageResource(R.drawable.ic_basketball2)
+            "배드민턴" -> ivGame.setImageResource(R.drawable.ic_badminton2)
+            "볼링" -> ivGame.setImageResource(R.drawable.ic_bowlingball)
+        }
+        when (data?.gender) {
+            "여성" -> ivGender.setImageResource(R.drawable.ic_female)
+            "남성" -> ivGender.setImageResource(R.drawable.ic_male)
+            "혼성" -> ivGender.setImageResource(R.drawable.ic_mix)
+        }
+        tvLevel.text = data!!.level
+        when (data?.level) {
+            "하(Lv1-3)" -> ivLevel.setImageResource(R.drawable.ic_level3)
+            "중(Lv4-6)" -> ivLevel.setImageResource(R.drawable.ic_level2)
+            "상(Lv7-10)" -> ivLevel.setImageResource(R.drawable.ic_level1)
+        }
         tvArenaTitle.text = "[${data!!.game}] [${data!!.schedule}]"
         tvArenaTitle2.text = data!!.matchPlace
-        ivProfile.load(data!!.userImg)
         tvNickname.text = data!!.userNickname
         tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
         tvViewCount.text = data!!.viewCount.toString()
         tvChatCount.text = data!!.chatCount.toString()
         tvType.text = data!!.game
         tvPlayerNum.text = "${data!!.playerNum} VS ${data!!.playerNum}"
-        tvGender.text = data!!.gender
-        tvLevel.text = data!!.level
         tvPay.text = decimalFormat(data!!.entryFee)
         tvTeamName.text = data!!.teamName
         tvDescription.text = data!!.description
-        if(data!!.postImg != "") ivTeam.load(data!!.postImg.toUri())
+        if (data!!.postImg != "") ivTeam.load(data!!.postImg.toUri())
         else cvPhoto1.visibility = View.INVISIBLE
 
         btnCancel.setOnClickListener {

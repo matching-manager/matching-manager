@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottomsheet_background">
 
 
     <LinearLayout
@@ -14,24 +15,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <View
-            android:id="@+id/divider2"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="150dp"
-            android:background="@color/black" />
+            android:layout_height="50dp">
 
-        <View
-            android:id="@+id/divider3"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="150dp"
-            android:background="@color/black" />
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="80dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="35dp"
+                android:background="@color/common_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="80dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/common_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -45,7 +53,6 @@
                 android:id="@+id/materialCalendar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -67,7 +74,7 @@
 
         <Button
             android:id="@+id/btn_cancel"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="60dp"
             android:layout_marginLeft="5dp"
             android:backgroundTint="@color/common_grey"

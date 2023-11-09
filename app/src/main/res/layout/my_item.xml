@@ -9,12 +9,14 @@
         android:id="@+id/cv_team"
         android:layout_width="0dp"
         android:layout_height="120dp"
-        android:layout_margin="10dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -37,8 +39,8 @@
                 android:id="@+id/cv_type"
                 android:layout_width="70dp"
                 android:layout_height="25dp"
-                app:cardBackgroundColor="@color/common_point_green"
                 android:layout_marginStart="20dp"
+                app:cardBackgroundColor="@color/common_point_green"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintStart_toEndOf="@+id/iv_profile"
                 app:layout_constraintTop_toTopOf="@+id/iv_profile">
@@ -51,9 +53,9 @@
                         android:id="@+id/tv_game"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/pretendardbold"
                         android:text="@string/match_item_type"
                         android:textColor="@color/white"
-                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -82,9 +84,9 @@
                         android:id="@+id/tv_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/pretendardbold"
                         android:text="@string/match_item_detail"
                         android:textColor="@color/white"
-                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -99,32 +101,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textSize="15sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/pretendardbold"
                 android:text="@string/match_item_schedule"
+                android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="@+id/cv_type"
                 app:layout_constraintTop_toBottomOf="@+id/cv_type" />
 
             <TextView
                 android:id="@+id/tv_place"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textSize="15sp"
-                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:fontFamily="@font/pretendardbold"
                 android:text="@string/match_item_place"
+                android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="@+id/tv_schedule"
                 app:layout_constraintTop_toBottomOf="@+id/tv_schedule" />
 
             <ImageView
                 android:id="@+id/btn_menu"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginEnd="10dp"
+                android:alpha="0.6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/cv_detail"
-                app:srcCompat="@drawable/ic_dots"
-                android:alpha="0.6"/>
+                app:srcCompat="@drawable/ic_dots" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

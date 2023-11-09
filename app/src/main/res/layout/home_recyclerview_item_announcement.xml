@@ -32,13 +32,14 @@
 
             <TextView
                 android:id="@+id/tv_announcement"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:textSize="13sp"
-                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:fontFamily="@font/pretendardbold"
                 android:text="@string/home_test_announcement"
-                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@id/iv_announcement"
                 app:layout_constraintStart_toEndOf="@id/iv_announcement"
                 app:layout_constraintTop_toTopOf="@id/iv_announcement" />

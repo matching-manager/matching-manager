@@ -1,31 +1,21 @@
 package com.link_up.matching_manager.ui.calender
 
-import CalendarAddDialogFragment.Companion.ADD_REQUEST_KEY
-import CalendarAddDialogFragment.Companion.ADD_RESULT_KEY_PLACE
-import CalendarAddDialogFragment.Companion.ADD_RESULT_KEY_TEXT
-import android.graphics.Color
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import com.link_up.matching_manager.databinding.CalendarEditDialogFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.link_up.matching_manager.databinding.CalendarEditDialogFragmentBinding
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 
 
 class CalendarEditDialogFragment : BottomSheetDialogFragment() {
 
     private var _binding: CalendarEditDialogFragmentBinding? = null
     private val binding get() = _binding!!
-
 
     companion object {
         const val EDIT_REQUEST_KEY = "edit_request_key" // EDIT 다이얼로그 요청 키
@@ -43,7 +33,7 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = CalendarEditDialogFragmentBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
@@ -53,9 +43,8 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-
-
     }
+
 
     private fun initView() = with(binding) {
         val calendarModel = arguments?.getParcelable<CalendarModel>("calendarModel")
@@ -75,12 +64,9 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
             if (calendarModel != null) {
                 val memoText = calendarModel.memo
                 val memoPlace = calendarModel.place
-                val schedule =
-                    "${calendarModel.year}년 ${calendarModel.month}월 ${calendarModel.day}일"
 
                 edtCalendarEditMemo.setText(memoText)
                 edtCalendarEditPlace.setText(memoPlace)
-                //edtCalendarEditSchedule.setText(schedule)
 
                 btnCalendarEditSave.setOnClickListener {
                     val memoText = edtCalendarEditMemo.text.toString()
@@ -88,8 +74,10 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
 
                     val selectedDate = materialCalendarCalendarEditView.selectedDate
                     if (selectedDate != null) {
-                        val memoYear = binding.materialCalendarCalendarEditView.selectedDate.year
-                        val memoMonth = binding.materialCalendarCalendarEditView.selectedDate.month
+                        val memoYear =
+                            binding.materialCalendarCalendarEditView.selectedDate.year
+                        val memoMonth =
+                            binding.materialCalendarCalendarEditView.selectedDate.month
                         val memoDay = binding.materialCalendarCalendarEditView.selectedDate.day
 
                         if (memoText.isNotBlank() && memoPlace.isNotBlank()) {
@@ -110,13 +98,16 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
 
                         } else {
                             // `memoText`와 `memoPlace` 중 하나라도 입력되지 않았을 때 클릭 비활성화
-                            Toast.makeText(requireContext(), "메모, 장소를 꼭 입력하세요", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                requireContext(),
+                                "메모, 장소를 꼭 입력하세요",
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                             btnCalendarEditCancel.isEnabled = true
                         }
                     }
                 }
-
                 btnCalendarEditCancel.setOnClickListener {
                     dismiss() // 다이얼로그 닫기
                 }
@@ -128,7 +119,5 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }
 

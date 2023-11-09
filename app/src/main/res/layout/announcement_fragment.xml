@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:text="@string/announcement_tv_title"
-            android:textColor="@color/black"
+            android:fontFamily="@font/pretendardbold"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

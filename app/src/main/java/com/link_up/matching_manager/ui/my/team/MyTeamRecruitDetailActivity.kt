@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.net.toUri
 import coil.load
+import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.MyTeamRecruitDetailActivityBinding
 import com.link_up.matching_manager.ui.team.TeamItem
 import java.text.DecimalFormat
@@ -47,21 +48,53 @@ class MyTeamRecruitDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
+//        tvTitle.text = "[${data!!.game}] ${data!!.schedule}"
+//        tvTitle2.text = data!!.area
+//        ivProfile.load(data!!.userImg)
+//        tvPlayerNum.text = "${data!!.playerNum}명"
+//        tvPay.text = decimalFormat(data!!.pay)
+//        tvTeamName.text = data!!.teamName
+//        tvGender.text = data!!.gender
+//        tvChatCount.text = data!!.chatCount.toString()
+//        tvViewCount.text = data!!.viewCount.toString()
+//        tvNicname.text = data!!.nickname
+//        tvContent.text = data!!.description
+//        tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
+//        tvLevel.text = data!!.level
+//        if(data!!.postImg != "") ivImage.load(data!!.postImg.toUri())
+//        else cvPhoto1.visibility = View.INVISIBLE
+        // 용병모집 아이템인 경우
+        ivType.setImageResource(R.drawable.ic_recruitment)
+        when (data!!.gender) {
+            "여성" -> ivGender.setImageResource(R.drawable.ic_female)
+            "남성" -> ivGender.setImageResource(R.drawable.ic_male)
+            "혼성" -> ivGender.setImageResource(R.drawable.ic_mix)
+        }
+        when (data!!.level) {
+            "하(Lv1-3)" -> ivLevel.setImageResource(R.drawable.ic_level3)
+            "중(Lv4-6)" -> ivLevel.setImageResource(R.drawable.ic_level2)
+            "상(Lv7-10)" -> ivLevel.setImageResource(R.drawable.ic_level1)
+        }
+        tvType.text = data!!.type
+        tvDialogInfo.text = data!!.type
         tvTitle.text = "[${data!!.game}] ${data!!.schedule}"
         tvTitle2.text = data!!.area
         ivProfile.load(data!!.userImg)
         tvPlayerNum.text = "${data!!.playerNum}명"
+        tvFee.text = "회비"
         tvPay.text = decimalFormat(data!!.pay)
+        tvTeam.text = "팀이름"
         tvTeamName.text = data!!.teamName
-        tvGender.text = data!!.gender
         tvChatCount.text = data!!.chatCount.toString()
         tvViewCount.text = data!!.viewCount.toString()
         tvNicname.text = data!!.nickname
         tvContent.text = data!!.description
         tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
         tvLevel.text = data!!.level
-        if(data!!.postImg != "") ivImage.load(data!!.postImg.toUri())
+        btnSubmit.setText(R.string.team_detail_recruitment)
+        if (data!!.postImg != "") ivImage.load(data!!.postImg.toUri())
         else cvPhoto1.visibility = View.INVISIBLE
+        //경기장위치 추가해야함
 
         btnCancel.setOnClickListener {
             finish()
