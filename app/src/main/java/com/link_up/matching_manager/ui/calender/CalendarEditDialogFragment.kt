@@ -60,70 +60,61 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
 
             // 캘린더에 데코레이터 추가
             materialCalendarCalendarEditView.addDecorator(memoDecorator)
-            edtCalendarEditMemo.setText(memoText)
-            edtCalendarEditPlace.setText(memoPlace)
-            btnCalendarEditSave.setOnClickListener {
-                val memoText = edtCalendarEditMemo.text.toString()
-                val memoPlace = edtCalendarEditPlace.text.toString()
 
-                if (calendarModel != null) {
-                    val memoText = calendarModel.memo
-                    val memoPlace = calendarModel.place
-                    val schedule =
-                        "${calendarModel.year}년 ${calendarModel.month}월 ${calendarModel.day}일"
+            if (calendarModel != null) {
+                val memoText = calendarModel.memo
+                val memoPlace = calendarModel.place
 
-                    edtCalendarEditMemo.setText(memoText)
-                    edtCalendarEditPlace.setText(memoPlace)
-                    //edtCalendarEditSchedule.setText(schedule)
+                edtCalendarEditMemo.setText(memoText)
+                edtCalendarEditPlace.setText(memoPlace)
 
-                    btnCalendarEditSave.setOnClickListener {
-                        val memoText = edtCalendarEditMemo.text.toString()
-                        val memoPlace = edtCalendarEditPlace.text.toString()
+                btnCalendarEditSave.setOnClickListener {
+                    val memoText = edtCalendarEditMemo.text.toString()
+                    val memoPlace = edtCalendarEditPlace.text.toString()
 
-                        val selectedDate = materialCalendarCalendarEditView.selectedDate
-                        if (selectedDate != null) {
-                            val memoYear =
-                                binding.materialCalendarCalendarEditView.selectedDate.year
-                            val memoMonth =
-                                binding.materialCalendarCalendarEditView.selectedDate.month
-                            val memoDay = binding.materialCalendarCalendarEditView.selectedDate.day
+                    val selectedDate = materialCalendarCalendarEditView.selectedDate
+                    if (selectedDate != null) {
+                        val memoYear =
+                            binding.materialCalendarCalendarEditView.selectedDate.year
+                        val memoMonth =
+                            binding.materialCalendarCalendarEditView.selectedDate.month
+                        val memoDay = binding.materialCalendarCalendarEditView.selectedDate.day
 
-                            if (memoText.isNotBlank() && memoPlace.isNotBlank()) {
+                        if (memoText.isNotBlank() && memoPlace.isNotBlank()) {
 
-                                // 메모 데이터를 부모 Fragment로 전달합니다.
-                                setFragmentResult(
-                                    EDIT_REQUEST_KEY,
-                                    bundleOf(
-                                        EDIT_RESULT_KEY_TEXT to memoText,
-                                        EDIT_RESULT_KEY_PLACE to memoPlace,
-                                        EDIT_RESULT_KEY_YEAR to memoYear,
-                                        EDIT_RESULT_KEY_MONTH to memoMonth,
-                                        EDIT_RESULT_KEY_DAY to memoDay,
-                                    )
-
+                            // 메모 데이터를 부모 Fragment로 전달합니다.
+                            setFragmentResult(
+                                EDIT_REQUEST_KEY,
+                                bundleOf(
+                                    EDIT_RESULT_KEY_TEXT to memoText,
+                                    EDIT_RESULT_KEY_PLACE to memoPlace,
+                                    EDIT_RESULT_KEY_YEAR to memoYear,
+                                    EDIT_RESULT_KEY_MONTH to memoMonth,
+                                    EDIT_RESULT_KEY_DAY to memoDay,
                                 )
-                                dismiss() // 다이얼로그 닫기
 
-                            } else {
-                                // `memoText`와 `memoPlace` 중 하나라도 입력되지 않았을 때 클릭 비활성화
-                                Toast.makeText(
-                                    requireContext(),
-                                    "메모, 장소를 꼭 입력하세요",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
-                                btnCalendarEditCancel.isEnabled = true
-                            }
+                            )
+                            dismiss() // 다이얼로그 닫기
+
+                        } else {
+                            // `memoText`와 `memoPlace` 중 하나라도 입력되지 않았을 때 클릭 비활성화
+                            Toast.makeText(
+                                requireContext(),
+                                "메모, 장소를 꼭 입력하세요",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                            btnCalendarEditCancel.isEnabled = true
                         }
                     }
-
-                    btnCalendarEditCancel.setOnClickListener {
-                        dismiss() // 다이얼로그 닫기
-                    }
+                }
+                btnCalendarEditCancel.setOnClickListener {
+                    dismiss() // 다이얼로그 닫기
                 }
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
