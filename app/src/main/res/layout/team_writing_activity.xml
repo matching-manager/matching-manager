@@ -109,8 +109,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="23dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginTop="17dp"
                         android:text="위치"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -181,7 +181,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="3dp"
                         android:text="일정"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -362,7 +362,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="3dp"
                         android:text="팀명"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -390,7 +390,7 @@
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
                 android:background="@color/common_point_green"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/cv_application_age"
                 app:layout_constraintStart_toStartOf="@+id/cv_application_age"
@@ -454,6 +454,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="성별"
+                        android:layout_marginTop="2dp"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -490,6 +491,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginTop="2dp"
                         android:text="실력"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -534,7 +536,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="7dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginRight="20dp"
                     android:backgroundTint="@android:color/transparent"
@@ -569,6 +571,8 @@
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cv_photo1"
