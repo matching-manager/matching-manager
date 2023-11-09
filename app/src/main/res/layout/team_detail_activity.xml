@@ -31,17 +31,6 @@
         app:layout_constraintStart_toEndOf="@+id/btn_cancel"
         app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/btn_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:background="@color/common_transparent"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_cancel"
-        app:srcCompat="@drawable/ic_share" />
 
     <ScrollView
         android:layout_width="match_parent"

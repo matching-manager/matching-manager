@@ -12,7 +12,8 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bottomsheet_background">
 
         <View
             android:id="@+id/divider2"
@@ -38,7 +39,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/tv_area"
@@ -109,7 +111,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout1">
+        app:layout_constraintTop_toBottomOf="@id/linearLayout1"
+        android:background="@color/white">
 
         <Button
             android:id="@+id/btn_cancel"

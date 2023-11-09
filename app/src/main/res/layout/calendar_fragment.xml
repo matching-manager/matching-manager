@@ -16,6 +16,17 @@
             android:layout_height="match_parent"
             android:padding="16dp">
 
+            <TextView
+                android:id="@+id/tv_mypage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendardbold"
+                android:text="일정 관리"
+                android:textColor="@color/common_point_green"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                 android:id="@+id/materialCalendar"
                 android:layout_width="match_parent"
