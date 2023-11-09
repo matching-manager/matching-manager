@@ -37,16 +37,18 @@
                 android:layout_marginStart="10dp"
                 android:textSize="13sp"
                 android:text="@string/team_item_schedule"
-                android:fontFamily="@font/pretendardregular"
+                android:fontFamily="@font/pretendardbold"
                 app:layout_constraintBottom_toTopOf="@id/tv_place"
                 app:layout_constraintStart_toEndOf="@id/iv_profile"
                 app:layout_constraintTop_toTopOf="@id/iv_profile" />
 
             <TextView
                 android:id="@+id/tv_place"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="@string/team_item_place"
                 android:textSize="13sp"
                 android:fontFamily="@font/pretendardregular"

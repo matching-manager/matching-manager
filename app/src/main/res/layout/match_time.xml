@@ -11,7 +11,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bottomsheet_background">
 
         <TimePicker
             android:id="@+id/picker_time"
@@ -24,7 +25,7 @@
 
         <Button
             android:id="@+id/btn_cancel"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="16dp"
