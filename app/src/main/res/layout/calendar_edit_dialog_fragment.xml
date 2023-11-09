@@ -54,7 +54,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/iv_calendar_edit_alarm"
@@ -69,7 +70,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:text="@string/calendar_edit_dialog_fragment_schedule_title"
+                android:textSize="18sp"
+                android:fontFamily="@font/pretendardbold"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_calendar_edit_alarm"
                 app:layout_constraintStart_toEndOf="@+id/iv_calendar_edit_alarm"
                 app:layout_constraintTop_toTopOf="@+id/iv_calendar_edit_alarm" />
@@ -112,7 +116,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:text="@string/calendar_edit_dialog_fragment_location_title"
+                android:textSize="18sp"
+                android:fontFamily="@font/pretendardbold"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_calendar_edit_location"
                 app:layout_constraintStart_toEndOf="@+id/iv_calendar_edit_location"
                 app:layout_constraintTop_toTopOf="@+id/iv_calendar_edit_location" />
@@ -130,26 +137,27 @@
 
             <TextView
                 android:id="@+id/tv_calendar_edit_memo_title"
+                android:textSize="18sp"
+                android:fontFamily="@font/pretendardbold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/calendar_edit_dialog_fragment_memo_title"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_calendar_edit_menu"
+                android:layout_marginStart="5dp"
+                android:text="@string/calendar_edit_dialog_fragment_memo_title" app:layout_constraintBottom_toBottomOf="@+id/iv_calendar_edit_menu"
                 app:layout_constraintStart_toEndOf="@+id/iv_calendar_edit_menu"
                 app:layout_constraintTop_toTopOf="@+id/iv_calendar_edit_menu" />
 
             <EditText
                 android:id="@+id/edt_calendar_edit_memo"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:hint="@string/calendar_edit_dialog_fragment_memo"
                 android:background="@drawable/calendar_add_dialog_fragment_button_gray_border"
+                android:hint="메모 할 내용을 입력해주세요."
                 android:textAlignment="center"
-                app:layout_constraintTop_toBottomOf="@+id/iv_calendar_edit_menu"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/iv_calendar_edit_menu"
-                tools:layout_editor_absoluteY="651dp" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_calendar_edit_menu" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -166,7 +174,7 @@
 
         <Button
             android:id="@+id/btn_calendar_edit_cancel"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="60dp"
             android:layout_marginLeft="5dp"
             android:backgroundTint="@color/common_grey"
@@ -178,9 +186,9 @@
 
         <Button
             android:id="@+id/btn_calendar_edit_save"
-            android:layout_width="220dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:backgroundTint="@color/common_point_green"
             android:text="@string/calendar_edit_dialog_fragment_memo_btn_save"

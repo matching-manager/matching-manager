@@ -36,9 +36,7 @@
                 app:layout_constraintTop_toTopOf="@id/iv_arena"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toEndOf="@id/iv_arena"
-                android:textColor="@color/black"
                 app:layout_constraintBottom_toTopOf="@id/tv_arena_address"
-                android:textStyle="bold"
                 android:textSize="18sp"
                 android:fontFamily="@font/pretendardbold"
                 app:layout_constraintVertical_chainStyle="spread"
@@ -52,7 +50,8 @@
                 app:layout_constraintStart_toStartOf="@id/tv_arena_title"
                 app:layout_constraintBottom_toBottomOf="@id/iv_arena"
                 android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:fontFamily="@font/pretendardregular"
                 app:layout_constraintVertical_chainStyle="spread"
                 android:text="@string/arena_adress"/>
         </androidx.constraintlayout.widget.ConstraintLayout>

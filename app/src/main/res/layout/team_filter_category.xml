@@ -47,8 +47,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
                 android:text="지역"
-                android:textSize="17dp"
-                android:textStyle="bold"
+                android:textSize="17sp"
+                android:fontFamily="@font/pretendardbold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -105,8 +105,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="경기 종목"
-                android:textSize="17dp"
-                android:textStyle="bold"
+                android:textSize="17sp"
+                android:fontFamily="@font/pretendardbold"
                 app:layout_constraintStart_toStartOf="@+id/tv_area"
                 app:layout_constraintTop_toBottomOf="@+id/cardView4" />
 
@@ -151,7 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_height="60dp"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textAlignment="center"
             android:backgroundTint="@color/common_grey"
             android:text="모두 취소"
