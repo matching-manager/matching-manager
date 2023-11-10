@@ -27,7 +27,6 @@
     <string name="announcement_tv_title">공지사항</string>
     <string name="announcement_btn_close">CLOSE</string>
 
-
     <!-- signin -->
     <string name="sign_in_continue_with_google">Continue With Google</string>
     <string name="default_web_client_id">677718539523-47ds99rnc0eupphgjm4rnbmkojntg506.apps.googleusercontent.com</string>

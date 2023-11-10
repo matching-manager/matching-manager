@@ -11,7 +11,7 @@ import java.util.Calendar
 import java.util.Locale
 
 class CalendarListAdapter(
-    public var onCalendarItemClick: (CalendarModel) -> Unit,
+    var onCalendarItemClick: (CalendarModel,Int) -> Unit,
     private val onCalendarItemLongClick: (CalendarModel, Int) -> Unit
 ) : ListAdapter<CalendarModel, CalendarListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<CalendarModel>() { // DiffUtil.ItemCallback을 사용하여 아이템 변경 감지
@@ -21,15 +21,12 @@ class CalendarListAdapter(
         ): Boolean {
             return oldItem == newItem
         }
-
         override fun areContentsTheSame(
             oldItem: CalendarModel,
             newItem: CalendarModel
         ): Boolean {
             return oldItem == newItem
         }
-
-
     }
 ) {
     override fun onCreateViewHolder(
@@ -44,9 +41,7 @@ class CalendarListAdapter(
             ),
             onCalendarItemClick,
             onCalendarItemLongClick
-            //onCalendarItemClick
         )
-
     }
 
     override fun onBindViewHolder(
@@ -57,26 +52,17 @@ class CalendarListAdapter(
         holder.bind(item)
     }
 
-    fun onLongClick(position: Int) {
-        val item = getItem(position)
-        onCalendarItemLongClick(item, position)
-    }
 
     class ViewHolder(
         private val binding: CalendarRecyclerviewItemBinding,
-        private val onCalendarItemClick: (CalendarModel) -> Unit,
+        private val onCalendarItemClick: (CalendarModel,Int) -> Unit,
         private val onCalendarItemLongClick: (CalendarModel, Int) -> Unit // 긴 클릭 처리를 위한 콜백 함수 추가
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
             item: CalendarModel,
         ) = with(binding) {
-
             tvSchedulePlace.text = item.place
-            //tvScheduleDay.text = it.day
-            //tvScheduleMonth.text = it.month
-            //tvScheduleDivision.text = item.division
-
             tvScheduleDay.text = item.day.toString()
 
             val simpleDataFormat = SimpleDateFormat("MMM", Locale.ENGLISH)
@@ -90,9 +76,8 @@ class CalendarListAdapter(
             tvSchedule.text = "${item.year}년 ${item.month}월 ${item.day}일"
 
             //item이라고 만든 이유
-
             itemView.setOnClickListener {
-                onCalendarItemClick(item)
+                onCalendarItemClick(item,adapterPosition)
             }
 
             // 아이템을 길게 클릭할 때 처리
@@ -100,10 +85,7 @@ class CalendarListAdapter(
                 onCalendarItemLongClick(item, adapterPosition)
                 true
             }
-
         }
-
     }
-
 }
 
