@@ -11,7 +11,5 @@ data class CalendarModel(
     val year: Int?,
     var place: String?,
     var memo: String?,
-    var schedule: String,
-    val id: String,
 ) : Parcelable
 
