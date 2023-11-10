@@ -153,8 +153,6 @@ class MatchFragment : Fragment() {
                 }
             })
         }
-
-
     }
     override fun onDestroyView() {
         super.onDestroyView()
