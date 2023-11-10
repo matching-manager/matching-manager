@@ -75,6 +75,7 @@
         android:layout_marginStart="10dp"
         android:ellipsize="end"
         android:maxLines="3"
+        android:fontFamily="@font/pretendardregular"
         android:text="@string/arena_dialog_location_text"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +116,7 @@
         app:layout_constraintStart_toEndOf="@id/tv_call_text"
         app:layout_constraintTop_toTopOf="@id/tv_call_text" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    ㅎ<androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_call"
         android:layout_width="0dp"
         android:layout_height="50dp"

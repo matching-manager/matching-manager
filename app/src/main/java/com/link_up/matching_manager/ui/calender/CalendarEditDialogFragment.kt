@@ -57,7 +57,7 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
             edtCalendarEditMemo.setText(oldModel.memo)
             edtCalendarEditPlace.setText(oldModel.place)
 
-            btnCalendarEditSave.setOnClickListener {
+            btnSave.setOnClickListener {
                 val memoText = edtCalendarEditMemo.text.toString()
                 val memoPlace = edtCalendarEditPlace.text.toString()
                 val date = materialCalendarCalendarEditView.selectedDate
@@ -81,11 +81,11 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
                         "메모, 장소를 꼭 입력하세요",
                         Toast.LENGTH_SHORT
                     ).show()
-                    btnCalendarEditCancel.isEnabled = true
+                    btnCancel.isEnabled = true
                 }
             }
         }
-        btnCalendarEditCancel.setOnClickListener {
+        btnCancel.setOnClickListener {
             dismiss() // 다이얼로그 닫기
         }
     }
