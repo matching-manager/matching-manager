@@ -12,7 +12,7 @@ import com.link_up.matching_manager.databinding.MyTeamRecruitFragmentBinding
 import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.ui.my.team.MyTeamRecruitDetailActivity.Companion.detailIntent
 import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
-import com.link_up.matching_manager.ui.signin.UserInformation
+import com.link_up.matching_manager.util.UserInformation
 
 class MyTeamRecruitFragment : Fragment() {
 

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.link_up.matching_manager.domain.repository.TeamRepository
-import com.link_up.matching_manager.ui.signin.UserInformation
+import com.link_up.matching_manager.util.UserInformation
 import com.link_up.matching_manager.ui.team.TeamItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

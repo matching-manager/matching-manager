@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
 import androidx.lifecycle.Observer
 import coil.load
 import com.link_up.matching_manager.R
@@ -21,10 +20,8 @@ import com.link_up.matching_manager.databinding.MatchWritingActivityBinding
 import com.link_up.matching_manager.ui.match.bottomsheet.MatchCalender
 import com.link_up.matching_manager.ui.match.bottomsheet.MatchNumber
 import com.link_up.matching_manager.ui.match.bottomsheet.MatchTime
-import com.link_up.matching_manager.ui.signin.UserInformation
+import com.link_up.matching_manager.util.UserInformation
 import com.link_up.matching_manager.util.Spinners
-import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.Tasks
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.time.LocalDateTime

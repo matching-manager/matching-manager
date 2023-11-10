@@ -12,7 +12,7 @@ import com.link_up.matching_manager.databinding.MyMatchActivityBinding
 import com.link_up.matching_manager.ui.match.MatchDataModel
 import com.link_up.matching_manager.ui.my.my.MyFragment
 import com.link_up.matching_manager.ui.my.my.MyViewModel
-import com.link_up.matching_manager.ui.signin.UserInformation
+import com.link_up.matching_manager.util.UserInformation
 
 class MyMatchActivity : AppCompatActivity() {
 
