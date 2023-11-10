@@ -14,6 +14,7 @@ import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.HomeFragmentBinding
 import com.link_up.matching_manager.ui.home.alarm.AlarmActivity
 import com.link_up.matching_manager.ui.home.arena.ArenaActivity
+import com.link_up.matching_manager.ui.main.MainActivity
 import com.link_up.matching_manager.ui.match.MatchDetailActivity
 
 class HomeFragment : Fragment() {
@@ -74,13 +75,12 @@ class HomeFragment : Fragment() {
         })
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private fun initView() = with(binding) {
         rvAnnouncement.adapter = announcementListAdapter
         rvMatch.adapter = matchListAdapter
 
-        rvAnnouncement.setOnTouchListener { _, _ -> true}
-        rvMatch.setOnTouchListener { _, _ -> true}
+        rvAnnouncement.isVerticalScrollBarEnabled = false
+        rvMatch.isVerticalScrollBarEnabled = false
 
         val announcementListManager = LinearLayoutManager(requireContext())
         announcementListManager.reverseLayout = true
@@ -94,6 +94,7 @@ class HomeFragment : Fragment() {
         rvMatch.layoutManager = matchListManager
 
         btnMoreInformation.setOnClickListener {
+            (activity as? MainActivity)?.navigateToMatch()
         }
         btnArena.setOnClickListener {
             val intent = Intent(requireContext(), ArenaActivity::class.java)
@@ -108,6 +109,7 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
