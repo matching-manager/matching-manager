@@ -74,6 +74,7 @@ class ArenaActivity : AppCompatActivity() {
             onBackPressed()
         }
         btnFutsal.setOnClickListener {
+            searchArena("풋살")
             binding.btnFutsal.isChecked = true
             binding.btnSoccer.isChecked = false
             binding.btnBowling.isChecked = false

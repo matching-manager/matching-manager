@@ -38,13 +38,12 @@
                 app:mcv_arrowColor="@color/black"
                 app:mcv_headerTextAppearance="@style/TextAppearance.Material3.TitleLarge"
                 app:mcv_monthLabels="@array/custom_month_labels"
-                app:mcv_weekDayTextAppearance=""
                 app:mcv_selectionColor="#d2d2d2" />
 
             <View
                 android:id="@+id/view"
                 android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_height="50dp"
                 app:layout_constraintBottom_toBottomOf="@id/materialCalendar"
                 app:layout_constraintEnd_toEndOf="@id/materialCalendar"
                 app:layout_constraintStart_toStartOf="@id/materialCalendar" />
