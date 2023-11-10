@@ -1,13 +1,11 @@
 package com.link_up.matching_manager.ui.calender
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.link_up.matching_manager.databinding.CalendarEditDialogFragmentBinding
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -18,7 +16,7 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
     private var _binding: CalendarEditDialogFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel : CalendarViewModel by activityViewModels()
+    private val viewModel : CalendarViewModel by activityViewModels{CalendarViewModelFactory(requireContext()) }
 
     companion object {
         const val EDIT_CALENDAR_MODEL = "edit_calendar_model"

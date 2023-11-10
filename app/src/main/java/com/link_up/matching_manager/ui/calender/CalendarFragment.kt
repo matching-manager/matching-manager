@@ -21,7 +21,11 @@ class CalendarFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var materialCalendarView: MaterialCalendarView
     private lateinit var calendarRecyclerviewItemBinding: CalendarRecyclerviewItemBinding
-    private val viewModel: CalendarViewModel by activityViewModels() //뷰모델 생성
+    private val viewModel: CalendarViewModel by activityViewModels {
+        CalendarViewModelFactory(
+            requireContext()
+        )
+    } //뷰모델 생성
 
     private val listAdapter = CalendarListAdapter(
         onCalendarItemClick = { calendarModel, position ->
@@ -41,7 +45,8 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = CalendarFragmentBinding.inflate(inflater, container, false)
-        calendarRecyclerviewItemBinding = CalendarRecyclerviewItemBinding.inflate(inflater, container, false)
+        calendarRecyclerviewItemBinding =
+            CalendarRecyclerviewItemBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -58,9 +63,11 @@ class CalendarFragment : Fragment() {
 
 
     private fun initViewModel() = with(viewModel) {
+        loadCalendarData()
+
         list.observe(viewLifecycleOwner, Observer { // 전체 리스트를 관찰해 span관리
             updateSpan(it)
-            Log.d("calendarFragment",": $it")
+            saveCalendarData()
         })
 
         dateList.observe(viewLifecycleOwner, Observer { // 리스트 관찰
@@ -155,7 +162,9 @@ class CalendarFragment : Fragment() {
             )
             materialCalendarView.addDecorator(memoDecorator)
         }
-        viewModel.setCalendarDate(materialCalendar.selectedDate)
+        materialCalendar.selectedDate?.let {
+            viewModel.setCalendarDate(it)
+        }
     }
 
     override fun onDestroy() {

@@ -1,12 +1,18 @@
 package com.link_up.matching_manager.ui.calender
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.link_up.matching_manager.domain.usecase.sharedpreference.LoadCalendarDataUseCase
+import com.link_up.matching_manager.domain.usecase.sharedpreference.SaveCalendarDataUseCase
 import com.prolificinteractive.materialcalendarview.CalendarDay
 
 class CalendarViewModel(
+    private val saveData: SaveCalendarDataUseCase,
+    private val loadData: LoadCalendarDataUseCase,
+    private val context: Context
 ) : ViewModel() {
     private val _list: MutableLiveData<List<CalendarModel>> = MutableLiveData() // 뷰모델 내에서만 변경가능
     val list: LiveData<List<CalendarModel>> get() = _list // 읽기전용 리스트
@@ -47,5 +53,16 @@ class CalendarViewModel(
 
         currentList[index] = model
         _list.value = currentList
+    }
+
+    fun saveCalendarData(){
+        list.value?.let { saveData(context, it)
+            Log.d("saveCalendarData"," it ->  $it")}
+
+    }
+
+    fun loadCalendarData(){
+        _list.value = loadData(context)
+        Log.d("loadCalendarData"," value ->  $loadData(context)")
     }
 }
