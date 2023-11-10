@@ -9,7 +9,7 @@ import com.link_up.matching_manager.domain.usecase.match.MatchAddDataUseCase
 import com.link_up.matching_manager.domain.usecase.match.MatchEditChatCountUseCase
 import com.link_up.matching_manager.domain.usecase.match.MatchEditViewCountUseCase
 import com.link_up.matching_manager.domain.usecase.match.MatchGetListUseCase
-import com.link_up.matching_manager.ui.signin.UserInformation
+import com.link_up.matching_manager.util.UserInformation
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener

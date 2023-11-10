@@ -1,9 +1,8 @@
 package com.link_up.matching_manager.data.repository.database
 
 import android.util.Log
-import com.link_up.matching_manager.data.model.UserInfoModel
 import com.link_up.matching_manager.domain.repository.database.UserInfoRepository
-import com.link_up.matching_manager.ui.signin.UserInformation
+import com.link_up.matching_manager.util.UserInformation
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 

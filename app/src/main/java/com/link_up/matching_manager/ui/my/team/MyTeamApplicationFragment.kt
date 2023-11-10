@@ -12,7 +12,7 @@ import com.link_up.matching_manager.databinding.MyTeamApplicationFragmentBinding
 import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.ui.my.team.MyTeamApplicationDetailActivity.Companion.detailIntent
 import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
-import com.link_up.matching_manager.ui.signin.UserInformation
+import com.link_up.matching_manager.util.UserInformation
 
 class MyTeamApplicationFragment : Fragment() {
 

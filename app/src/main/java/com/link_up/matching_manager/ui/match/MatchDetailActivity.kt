@@ -18,7 +18,7 @@ import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
 import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.ui.my.bookmark.MyBookmarkMatchFragment
 import com.google.gson.Gson
-import com.link_up.matching_manager.ui.signin.UserInformation
+import com.link_up.matching_manager.util.UserInformation
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
