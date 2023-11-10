@@ -15,9 +15,6 @@ class HomeViewModel : ViewModel() {
     private val _announcementList : MutableLiveData<List<AnnouncementDataModel>> = MutableLiveData()
     val announcementList : LiveData<List<AnnouncementDataModel>> get() = _announcementList
 
-    private val _announceModel : MutableLiveData<AnnouncementDataModel> = MutableLiveData()
-    val announceModel : LiveData<AnnouncementDataModel> get() = _announceModel
-
     // 추천 경기매칭 리스트
     private val _matchList : MutableLiveData<List<MatchDataModel>> = MutableLiveData()
     val matchList : LiveData<List<MatchDataModel>> get() = _matchList
@@ -26,11 +23,6 @@ class HomeViewModel : ViewModel() {
         Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
     private val matchRef = database.getReference("Match")
     private val announceRef = database.getReference("Announcement")
-
-    fun announcementData(item : AnnouncementDataModel) {
-        _announceModel.value = item
-    }
-
 
     fun fetchMatchData() {
         matchRef.addValueEventListener(object : ValueEventListener {
