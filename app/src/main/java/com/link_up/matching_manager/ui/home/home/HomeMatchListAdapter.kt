@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.link_up.matching_manager.databinding.HomeRecyclerviewItemMatchBinding
 import com.link_up.matching_manager.ui.match.MatchDataModel
 
@@ -45,7 +46,9 @@ class HomeMatchListAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MatchDataModel) = with(binding) {
 
-            // TODO : item 화면에 뿌려주는 코드 넣어주세요
+            ivProfile.load(item.userImg)
+            tvSchedule.text = item.schedule
+            tvPlace.text = item.matchPlace
 
             itemView.setOnClickListener {
                 onClick(item)

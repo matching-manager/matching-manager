@@ -6,24 +6,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.link_up.matching_manager.databinding.HomeRecyclerviewItemAnnouncementBinding
-import com.link_up.matching_manager.ui.match.MatchDataModel
 
-// TODO : 임시로 MatchDataModel로 넣어뒀습니다!
-// TODO : AnnouncementModel 구성 후에 변경 부탁드립니다~
 class HomeAnnouncementListAdapter(
-    private val onClick: (MatchDataModel) -> Unit
-) : ListAdapter<MatchDataModel, HomeAnnouncementListAdapter.ViewHolder>(
-    object : DiffUtil.ItemCallback<MatchDataModel>() {
+    private val onClick: (AnnouncementDataModel) -> Unit
+) : ListAdapter<AnnouncementDataModel, HomeAnnouncementListAdapter.ViewHolder>(
+    object : DiffUtil.ItemCallback<AnnouncementDataModel>() {
         override fun areItemsTheSame(
-            oldItem: MatchDataModel,
-            newItem: MatchDataModel
+            oldItem: AnnouncementDataModel,
+            newItem: AnnouncementDataModel
         ): Boolean {
-            return oldItem.matchId == newItem.matchId
+            return oldItem.announceNum == newItem.announceNum
         }
 
         override fun areContentsTheSame(
-            oldItem: MatchDataModel,
-            newItem: MatchDataModel
+            oldItem: AnnouncementDataModel,
+            newItem: AnnouncementDataModel
         ): Boolean {
             return oldItem == newItem
         }
@@ -47,11 +44,10 @@ class HomeAnnouncementListAdapter(
 
     class ViewHolder(
         private val binding: HomeRecyclerviewItemAnnouncementBinding,
-        private val onClick: (MatchDataModel) -> Unit
+        private val onClick: (AnnouncementDataModel) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: MatchDataModel) = with(binding) {
-
-            // TODO : item 화면에 뿌려주는 코드 넣어주세요
+        fun bind(item: AnnouncementDataModel) = with(binding) {
+            tvAnnouncement.text = item.title
 
             itemView.setOnClickListener {
                 onClick(item)

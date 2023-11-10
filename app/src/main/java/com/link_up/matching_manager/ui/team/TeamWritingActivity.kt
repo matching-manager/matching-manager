@@ -16,7 +16,7 @@ import androidx.lifecycle.Observer
 import coil.load
 import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.TeamWritingActivityBinding
-import com.link_up.matching_manager.ui.signin.UserInformation
+import com.link_up.matching_manager.util.UserInformation
 import com.link_up.matching_manager.ui.team.bottomsheet.TeamAgeBottomSheet
 import com.link_up.matching_manager.ui.team.bottomsheet.TeamCalenderBottomSheet
 import com.link_up.matching_manager.ui.team.bottomsheet.TeamNumberBottomSheet
@@ -440,7 +440,7 @@ class TeamWritingActivity : AppCompatActivity() {
                         }
 
                         setContent.isBlank() -> {
-                            selectedTeamName.let {
+                            setContent.let {
                                 if (it.isBlank()) {
                                     showToast("내용을 입력해 주세요")
                                     return@setOnClickListener
@@ -493,7 +493,7 @@ class TeamWritingActivity : AppCompatActivity() {
                         }
 
                         setContent.isBlank() -> {
-                            selectedTeamName.let {
+                            setContent.let {
                                 if (it.isBlank()) {
                                     showToast("내용을 입력해 주세요")
                                     return@setOnClickListener

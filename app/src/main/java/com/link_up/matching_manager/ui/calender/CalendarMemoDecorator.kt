@@ -22,10 +22,10 @@ class CalendarMemoDecorator(private val datesWithMemo: Set<CalendarDay>) : DayVi
         if (datesWithMemo.isNotEmpty()) {
             view.addSpan(DotSpan(10F, Color.parseColor("#FF219653")))
         } else {
-            view.addSpan(DotSpan(0F, Color.parseColor("#FFFFFF")))
+                view.addSpan(DotSpan(0F, Color.parseColor("#FFFFFF")))
+            }
         }
-
     }
-}
+
 
 

@@ -32,18 +32,6 @@
         app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
 
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/btn_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:background="@color/common_transparent"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_cancel"
-        app:srcCompat="@drawable/ic_share" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -76,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:textSize="18sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/pretendardbold"
                 android:text="@string/match_detail_nickName"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
                 app:layout_constraintStart_toEndOf="@+id/iv_profile"
@@ -151,7 +139,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="@string/match_detail_match_title"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/pretendardbold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -193,7 +181,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="@string/team_detail_people_number_title"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/pretendardbold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -205,7 +193,7 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/match_detail_people_number"
                         android:textSize="18sp"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/pretendardbold"
                         app:layout_constraintEnd_toEndOf="@+id/textView12"
                         app:layout_constraintStart_toStartOf="@+id/textView12"
                         app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -237,7 +225,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="@string/team_detail_gender_title"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/pretendardbold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -276,7 +264,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/pretendardbold"
                         android:text="@string/team_detail_skill_title"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -318,7 +306,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="@string/team_detail_pay"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/pretendardbold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -333,7 +321,7 @@
                         android:gravity="center"
                         android:text="@string/team_detail_price"
                         android:textSize="18sp"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/pretendardbold"
                         app:layout_constraintEnd_toEndOf="@+id/tv_fee"
                         app:layout_constraintStart_toStartOf="@+id/tv_fee"
                         app:layout_constraintTop_toBottomOf="@+id/tv_fee" />
@@ -362,7 +350,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/pretendardbold"
                         android:text="@string/team_detail_team_name_title"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -379,7 +367,7 @@
                         android:text="@string/team_detail_team_name"
                         android:textAlignment="center"
                         android:textSize="17sp"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/pretendardbold"
                         app:layout_constraintEnd_toEndOf="@+id/tv_team"
                         app:layout_constraintStart_toStartOf="@+id/tv_team"
                         app:layout_constraintTop_toBottomOf="@+id/tv_team" />
@@ -394,10 +382,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/pretendardbold"
                 android:text="@string/match_detail_description"
-                android:textStyle="bold"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardview4" />
@@ -437,7 +424,7 @@
                 android:layout_marginEnd="20dp"
                 android:text="[종목] 일정"
                 android:textSize="20sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/pretendardbold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -450,7 +437,7 @@
                 android:layout_marginEnd="20dp"
                 android:text="장소"
                 android:textSize="20sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/pretendardbold"
                 app:layout_constraintEnd_toEndOf="@+id/tv_arena_title"
                 app:layout_constraintStart_toStartOf="@+id/tv_arena_title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_arena_title" />

@@ -84,8 +84,8 @@ class MyBookmarkRecruitFragment : Fragment() {
             if (key.startsWith("Recruit")) {
                 val json = bookmarkPref.getString(key, null)
                 if (!json.isNullOrBlank()) {
-                    val data = gson.fromJson(json, TeamItem.RecruitmentItem::class.java)
-                    dataList.add(data)
+                    val data = gson.fromJson(json, BookmarkRecruitDataModel::class.java)
+                    dataList.add(bookmarkRecruitToTeamItem(data))
                 }
             }
         }
@@ -96,6 +96,32 @@ class MyBookmarkRecruitFragment : Fragment() {
         bookmarkRecruitList.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
+    }
+
+    private fun bookmarkRecruitToTeamItem(item : BookmarkRecruitDataModel) : TeamItem.RecruitmentItem {
+        return TeamItem.RecruitmentItem(
+            type = item.type,
+            teamId = item.teamId,
+            userId = item.userId,
+            nickname = item.nickname,
+            userImg = item.userImg,
+            userEmail = item.userEmail,
+            phoneNum = item.phoneNum,
+            fcmToken = item.fcmToken,
+            description = item.description,
+            gender = item.gender,
+            chatCount = item.chatCount,
+            level = item.level,
+            playerNum = item.playerNum,
+            postImg = item.postImg,
+            schedule = item.schedule,
+            uploadTime = item.uploadTime,
+            viewCount = item.viewCount,
+            game = item.game,
+            area = item.area,
+            pay = item.pay,
+            teamName = item.teamName
+        )
     }
 
     override fun onDestroy() {

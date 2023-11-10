@@ -2,15 +2,19 @@ package com.link_up.matching_manager.ui.home.home
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.link_up.matching_manager.databinding.HomeFragmentBinding
 import com.link_up.matching_manager.ui.home.alarm.AlarmActivity
 import com.link_up.matching_manager.ui.home.arena.ArenaActivity
+import com.link_up.matching_manager.ui.home.home.AnnouncementFragment.Companion.OBJECT_DATA
+import com.link_up.matching_manager.ui.main.MainActivity
+import com.link_up.matching_manager.ui.match.MatchDetailActivity
 
 class HomeFragment : Fragment() {
 
@@ -25,19 +29,22 @@ class HomeFragment : Fragment() {
 
     private val announcementListAdapter: HomeAnnouncementListAdapter by lazy {
         HomeAnnouncementListAdapter(
-            onClick = {
-                // TODO : 공지사항 모델 클릭 시 이벤트 처리
-                AnnouncementFragment().apply {
-                    // arguments = Bundle().apply { } -> 넘겨줄 값을 Bundle or ViewModel을 통해서 넘겨준다.
-                }.show(requireActivity().supportFragmentManager, "SampleDialog")
+            onClick = {item ->
+                val bundle = Bundle()
+                bundle.putParcelable(OBJECT_DATA, item)
+
+                val announcementFragment = AnnouncementFragment()
+                announcementFragment.arguments = bundle
+
+                announcementFragment.show(parentFragmentManager, "AnnouncementFragment")
             }
         )
     }
 
     private val matchListAdapter: HomeMatchListAdapter by lazy {
         HomeMatchListAdapter(
-            onClick = {
-                // TODO : 추천 경기매칭 모델 클릭 시 이벤트 처리
+            onClick = {item ->
+                startActivity(MatchDetailActivity.detailIntent(requireContext(), item))
             }
         )
     }
@@ -58,6 +65,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun initViewModel() = with(viewModel) {
+        fetchMatchData()
+        fetchAnnounceData()
         // viewModel 리스트 변경시 화면에 출력
         announcementList.observe(viewLifecycleOwner, Observer {
             announcementListAdapter.submitList(it)
@@ -71,8 +80,22 @@ class HomeFragment : Fragment() {
         rvAnnouncement.adapter = announcementListAdapter
         rvMatch.adapter = matchListAdapter
 
-        btnMoreInformation.setOnClickListener {
+        rvAnnouncement.isVerticalScrollBarEnabled = false
+        rvMatch.isVerticalScrollBarEnabled = false
 
+        val announcementListManager = LinearLayoutManager(requireContext())
+        announcementListManager.reverseLayout = true
+        announcementListManager.stackFromEnd = true
+
+        val matchListManager = LinearLayoutManager(requireContext())
+        matchListManager.reverseLayout = true
+        matchListManager.stackFromEnd = true
+
+        rvAnnouncement.layoutManager = announcementListManager
+        rvMatch.layoutManager = matchListManager
+
+        btnMoreInformation.setOnClickListener {
+            (activity as? MainActivity)?.navigateToMatch()
         }
         btnArena.setOnClickListener {
             val intent = Intent(requireContext(), ArenaActivity::class.java)
@@ -82,7 +105,12 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), AlarmActivity::class.java)
             startActivity(intent)
         }
+        tvMoreAnnouncement.setOnClickListener {
+            val intent = Intent(requireContext(), AnnouncementActivity::class.java)
+            startActivity(intent)
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

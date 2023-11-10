@@ -28,9 +28,11 @@ import com.link_up.matching_manager.ui.team.bottomsheet.TeamNumberBottomSheet
 import com.link_up.matching_manager.ui.team.view_model.TeamSharedViewModel
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.link_up.matching_manager.ui.team.TeamAddType
+import com.link_up.matching_manager.util.Spinners
 
 class MyTeamApplicationEditActivity : AppCompatActivity() {
-    private lateinit var binding : MyTeamApplicationEditActivityBinding
+    private lateinit var binding: MyTeamApplicationEditActivityBinding
 
     private var selectedGame: String? = null
     private var selectedArea: String? = null
@@ -65,6 +67,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK && result.data != null) {
             imageUri = result.data?.data!!
             binding.ivImage.load(imageUri)
+            binding.btnCancelImage.visibility = View.VISIBLE
         }
     }
 
@@ -72,7 +75,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         const val OBJECT_DATA = "item_object"
 
         fun editIntent(
-            context: Context, item: TeamItem.ApplicationItem
+            context: Context, item: TeamItem.ApplicationItem,
         ): Intent {
             val intent = Intent(context, MyTeamApplicationEditActivity::class.java)
             intent.putExtra(OBJECT_DATA, item)
@@ -92,6 +95,20 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
+        tvDialogInfo.setText(R.string.team_add_activity_application)
+        etContent.setText(data!!.description)
+
+        if (data!!.postImg != "") {
+            ivImage.load(data!!.postImg)
+            btnCancelImage.visibility = View.VISIBLE
+        }
+
+        btnCancelImage.setOnClickListener {
+            imageUri = null
+            ivImage.setImageDrawable(null)
+            btnCancelImage.visibility = View.INVISIBLE
+        }
+
         val intent = Intent(this@MyTeamApplicationEditActivity, MyMatchMenuBottomSheet::class.java)
         setResult(RESULT_OK, intent)
 
@@ -109,13 +126,67 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
 
         btnSubmit.setOnClickListener {
             val selectedGame = gameSpinner.selectedItem.toString()
-            val selectedArea = citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
+            val selectedArea =
+                citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
             val selectedGender = genderSpinner.selectedItem.toString()
             val selectedLevel = levelSpinner.selectedItem.toString()
             val selectedApplicationTime = timeSpinner.selectedItem.toString()
             val setContent = etContent.text.toString()
-            val selectedNumber = sharedViewModel.number.value ?: 0 // 기본값을 0으로 설정
-            val selectedAge = sharedViewModel.age.value ?: 0 // 기본값을 0으로 설정
+            val selectedNumber = teamNumber.text.toString().toIntOrNull() ?: 0 // 기본값을 0으로 설정
+            val selectedAge = teamAge.text.toString().toIntOrNull() ?: 0 // 기본값을 0으로 설정
+
+            val teamNumberText = teamNumber.text?.toString()
+            val teamAgeText = teamAge.text?.toString()
+            when {
+                selectedGame.contains("선택") -> {
+                    showToast("종목을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                selectedArea.contains("선택") -> {
+                    showToast("지역을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                selectedApplicationTime.contains("선택") -> {
+                    showToast("일정을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                teamNumberText.isNullOrEmpty() -> {
+                    showToast("인원을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                teamAgeText.isNullOrEmpty() -> {
+                    showToast("나이을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                selectedGender.contains("선택") -> {
+                    showToast("성별을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                selectedLevel.contains("선택") -> {
+                    showToast("실력을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                setContent.isBlank() -> {
+                    setContent.let {
+                        if (it.isBlank()) {
+                            showToast("내용을 입력해 주세요")
+                            return@setOnClickListener
+                        } else if (setContent.length < 10) {
+                            showToast("내용은 최소 10글자 이상 입력해 주세요")
+                            return@setOnClickListener
+                        }
+                    }
+                }
+
+                else -> {}
+            }
 
             val editTeam = TeamItem.ApplicationItem(
                 description = setContent,
@@ -140,12 +211,12 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                     is MyEvent.Finish -> {
                         finish()
                     }
+
                     is MyEvent.Dismiss -> {
                     }
                 }
             }
         }
-
         with(sharedViewModel) {
             number.observe(this@MyTeamApplicationEditActivity, Observer {
                 Log.d("teamNumber", "activity = $it")
@@ -183,15 +254,19 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+        //기존 데이터 선택값으로 시작
+        gameSpinner.setSelection(gameAdapter.getPosition(data!!.game))
+
+        //기존 지역 데이터에서 시, 구 분리
+        val areaParts = data!!.area.split("/")
+        val city = areaParts[0]
+        val gu = areaParts[1]
 
         //지역선택 스피너
-        val arrayAdapter = ArrayAdapter.createFromResource(
-            this@MyTeamApplicationEditActivity,
-            R.array.spinner_region,
-            android.R.layout.simple_spinner_item
-        )
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        citySpinner.adapter = arrayAdapter
+        val cityAdapter = Spinners.cityAdapter(context = this@MyTeamApplicationEditActivity)
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        citySpinner.adapter = cityAdapter
+        citySpinner.setSelection(cityAdapter.getPosition(city))
         citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -201,29 +276,17 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
             ) {
                 selectedArea = parent?.getItemAtPosition(position).toString()
 
-//                // 선택된 시/도에 따라 동작을 추가합니다.
+                // 선택된 시/도에 따라 동작을 추가합니다.
                 sigunguSpinner.visibility = (View.INVISIBLE)
                 dongSpinner.visibility = (View.INVISIBLE)
                 when (position) {
                     // 시/도 별로 동작을 구현합니다.
                     0 -> sigunguSpinner.adapter = null
-                    1 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_seoul)
-                    2 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_busan)
-                    3 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_daegu)
-                    4 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_incheon)
-                    5 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gwangju)
-                    6 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_daejeon)
-                    7 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_ulsan)
-                    8 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_sejong)
-                    9 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeonggi)
-                    10 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gangwon)
-                    11 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_buk)
-                    12 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_nam)
-                    13 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_buk)
-                    14 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_nam)
-                    15 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_buk)
-                    16 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_nam)
-                    17 -> setSigunguSpinnerAdapterItem(R.array.spinner_region_jeju)
+                    else ->// 시/도가 다른 경우의 동작
+                        // 예시로 setSigunguSpinnerAdapterItem 함수를 호출하는 코드를 추가합니다.
+                        Spinners.positionToCityResource(position)
+                            ?.let { setSigunguSpinnerAdapterItem(it) }
+
                 }
             }
 
@@ -235,13 +298,14 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                 if (citySpinner.selectedItemPosition > 1) {
                     dongSpinner.adapter = null
                 }
-                val arrayAdapter1 = ArrayAdapter(
+                val sigunguAdapter = ArrayAdapter(
                     this@MyTeamApplicationEditActivity,
                     android.R.layout.simple_spinner_item,
                     resources.getStringArray(arrayResource)
                 )
-                arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                sigunguSpinner.adapter = arrayAdapter1
+                sigunguAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                sigunguSpinner.adapter = sigunguAdapter
+                sigunguSpinner.setSelection(sigunguAdapter.getPosition(gu))
             }
         }
 
@@ -257,33 +321,10 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                 if (citySpinner.selectedItemPosition == 1 && sigunguSpinner.selectedItemPosition > -1) {
                     sigunguSpinner.visibility = (View.VISIBLE)
                     dongSpinner.visibility = (View.VISIBLE)
-                    when (position) {
-                        0 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangnam)
-                        1 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangdong)
-                        2 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangbuk)
-                        3 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gangseo)
-                        4 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gwanak)
-                        5 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_gwangjin)
-                        6 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_guro)
-                        7 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_geumcheon)
-                        8 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_nowon)
-                        9 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_dobong)
-                        10 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_dongdaemun)
-                        11 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_dongjag)
-                        12 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_mapo)
-                        13 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_seodaemun)
-                        14 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_seocho)
-                        15 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_seongdong)
-                        16 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_seongbuk)
-                        17 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_songpa)
-                        18 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_yangcheon)
-                        19 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_yeongdeungpo)
-                        20 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_yongsan)
-                        21 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_eunpyeong)
-                        22 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_jongno)
-                        23 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_jung)
-                        24 -> setDongSpinnerAdapterItem(R.array.spinner_region_seoul_jungnanggu)
-                    }
+                    Spinners.positionToDongResource(position)
+                        ?.let {
+                            (setDongSpinnerAdapterItem(it))
+                        }
                 }
             }
 
@@ -292,13 +333,13 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
             }
 
             fun setDongSpinnerAdapterItem(arrayResource: Int) {
-                val arrayAdapter = ArrayAdapter(
+                val dongAdapter = ArrayAdapter(
                     this@MyTeamApplicationEditActivity,
                     android.R.layout.simple_spinner_item,
                     resources.getStringArray(arrayResource)
                 )
-                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                dongSpinner.adapter = arrayAdapter
+                dongAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                dongSpinner.adapter = dongAdapter
             }
         }
 
@@ -324,6 +365,8 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+        //기존 데이터 선택값으로 시작
+        genderSpinner.setSelection(genderAdapter.getPosition(data!!.gender))
 
 
         //실력 스피너
@@ -348,6 +391,9 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+        //기존 데이터 선택값으로 시작
+        levelSpinner.setSelection(levelAdapter.getPosition(data!!.level))
+
 
         //일정 스피너
         val timeAdapter = ArrayAdapter.createFromResource(
@@ -371,16 +417,24 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+        //기존 데이터 선택값으로 시작
+        timeSpinner.setSelection(timeAdapter.getPosition(data!!.schedule))
 
         //number
         teamNumber.setOnClickListener {
             showNumberPicker()
         }
+        teamNumber.text = data!!.playerNum.toString()
         //age
         teamAge.setOnClickListener {
             showAgePicker()
         }
+        teamAge.text = data!!.age.toString()
 
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun showNumberPicker() {
@@ -393,7 +447,11 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         bottomSheet.show(supportFragmentManager, TeamWritingActivity.TEAM_AGE_BOTTOM_SHEET)
     }
 
-    private fun uploadToFirebase(uri: Uri?, data: TeamItem.ApplicationItem, newData: TeamItem.ApplicationItem) {
+    private fun uploadToFirebase(
+        uri: Uri?,
+        data: TeamItem.ApplicationItem,
+        newData: TeamItem.ApplicationItem,
+    ) {
         val fileRef = reference.child("Team/${data.teamId}")
 
         if (uri != null) {
@@ -419,18 +477,27 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                 }
         }
         else {
-            binding.progressBar.visibility = View.VISIBLE
+            if (data.postImg == "") {
+                binding.progressBar.visibility = View.VISIBLE
+                viewModel.editApplication(data, newData)
+                binding.progressBar.visibility = View.INVISIBLE
+                Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
 
-            fileRef.delete()
-                .addOnSuccessListener {
-                    viewModel.editApplication(data, newData)
-                    binding.progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener { exception ->
-                    binding.progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-                }
+            }
+            else {
+                binding.progressBar.visibility = View.VISIBLE
+
+                fileRef.delete()
+                    .addOnSuccessListener {
+                        viewModel.editApplication(data, newData)
+                        binding.progressBar.visibility = View.INVISIBLE
+                        Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener { exception ->
+                        binding.progressBar.visibility = View.INVISIBLE
+                        Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
     }
 }

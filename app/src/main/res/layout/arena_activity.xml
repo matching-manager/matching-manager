@@ -22,7 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/arena_title"
-        android:textColor="@color/black"
         android:textSize="20dp"
         android:fontFamily="@font/pretendardbold"
         android:textStyle="bold"

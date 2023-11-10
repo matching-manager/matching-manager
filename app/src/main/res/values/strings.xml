@@ -1,6 +1,8 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">matching-manager</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="common_btn_submit">확인</string>
+    <string name="common_btn_cancel">취소</string>
 
     <!-- sign up -->
     <string name="sign_up_et_hint_Username">Input username</string>
@@ -24,7 +26,6 @@
     <!-- announcement -->
     <string name="announcement_tv_title">공지사항</string>
     <string name="announcement_btn_close">CLOSE</string>
-
 
     <!-- signin -->
     <string name="sign_in_continue_with_google">Continue With Google</string>
@@ -185,8 +186,11 @@
     <!-- Send -->
     <string name="send_dialog_btn_cancel">CANCEL</string>
     <string name="send_dialog_btn_submit">SUBMIT</string>
-    <string name="send_dialog_hint_id">&#160;&#160;&#160;Username or user id</string>
-    <string name="send_dialog_hint_pw">&#160;&#160;&#160;Mobile number</string>
+    <string name="send_message_matching">경기 매칭을 신청 하시겠습니까?</string>
+    <string name="send_message_recruit">용병을 신청 하시겠습니까?</string>
+    <string name="send_fcm_body_matching">경기 매칭 신청입니다.</string>
+    <string name="send_fcm_body_recruit">용병 신청입니다.</string>
+    <string name="send_missing_user_information">사용자 정보가 일치하지 않습니다.</string>
 
     <!-- [calendar_item.xml] -->
     <string name="calendar_item_schedule_match">경기일정</string>
@@ -231,5 +235,22 @@
     <string name="calendar_add_dialog_fragment_memo_invisible_day">일</string>
     <string name="calendar_add_dialog_fragment_btn_cancel">CANCEL</string>
     <string name="calendar_add_dialog_fragment_btn_save">SAVE</string>
+
+    <!-- [calendar_common_month_label] -->
+    <string-array name="custom_month_labels">
+        <item>1월</item>
+        <item>2월</item>
+        <item>3월</item>
+        <item>4월</item>
+        <item>5월</item>
+        <item>6월</item>
+        <item>7월</item>
+        <item>8월</item>
+        <item>9월</item>
+        <item>10월</item>
+        <item>11월</item>
+        <item>12월</item>
+        <!-- 다른 월 추가 -->
+    </string-array>
 
 </resources>

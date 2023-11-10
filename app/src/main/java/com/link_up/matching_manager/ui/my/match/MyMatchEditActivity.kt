@@ -8,24 +8,27 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import coil.load
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.MyMatchEditActivityBinding
 import com.link_up.matching_manager.ui.match.MatchDataModel
-import com.link_up.matching_manager.ui.my.my.MyEvent
-import com.link_up.matching_manager.ui.my.my.MySharedViewModel
-import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.ui.my.bottomsheet.MyCalenderBottomSheet
 import com.link_up.matching_manager.ui.my.bottomsheet.MyNumberBottomSheet
 import com.link_up.matching_manager.ui.my.bottomsheet.MyTimeBottomSheet
+import com.link_up.matching_manager.ui.my.my.MyEvent
+import com.link_up.matching_manager.ui.my.my.MySharedViewModel
+import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.util.Spinners
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
+import java.util.UUID
+
 
 class MyMatchEditActivity : AppCompatActivity() {
     private lateinit var binding: MyMatchEditActivityBinding
@@ -40,7 +43,7 @@ class MyMatchEditActivity : AppCompatActivity() {
     private var selectedGame: String? = null
     private var selectedGender: String? = null
     private var selectedLevel: String? = null
-    private var selectedArea : String? = null
+    private var selectedArea: String? = null
 
 
     private val data: MatchDataModel? by lazy {
@@ -73,7 +76,7 @@ class MyMatchEditActivity : AppCompatActivity() {
 
     }
 
-    private fun setSpinner()  = with(binding) {
+    private fun setSpinner() = with(binding) {
         // spinner adapter
         //종목 스피너
         val gameAdapter = ArrayAdapter.createFromResource(
@@ -97,11 +100,19 @@ class MyMatchEditActivity : AppCompatActivity() {
                 // Do nothing
             }
         }
+        //기존 데이터 선택값으로 시작
+        gameSpinner.setSelection(gameAdapter.getPosition(data!!.game))
+
+        //기존 지역 데이터에서 시, 구 분리
+        val areaParts = data!!.matchPlace.split("/")
+        val city = areaParts[0]
+        val gu = areaParts[1]
 
         //지역선택 스피너
         val cityAdapter = Spinners.cityAdapter(context = this@MyMatchEditActivity)
         cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         citySpinner.adapter = cityAdapter
+        citySpinner.setSelection(cityAdapter.getPosition(city))
         citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -133,13 +144,14 @@ class MyMatchEditActivity : AppCompatActivity() {
                 if (citySpinner.selectedItemPosition > 1) {
                     dongSpinner.adapter = null
                 }
-                val sigungnAdapter = ArrayAdapter(
+                val sigunguAdapter = ArrayAdapter(
                     this@MyMatchEditActivity,
                     android.R.layout.simple_spinner_item,
                     resources.getStringArray(arrayResource)
                 )
-                sigungnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                sigunguSpinner.adapter = sigungnAdapter
+                sigunguAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                sigunguSpinner.adapter = sigunguAdapter
+                sigunguSpinner.setSelection(sigunguAdapter.getPosition(gu))
             }
         }
 
@@ -200,6 +212,9 @@ class MyMatchEditActivity : AppCompatActivity() {
             }
         }
 
+        //기존 데이터 선택값으로 시작
+        genderSpinner.setSelection(genderAdapter.getPosition(data!!.gender))
+
 
         //실력 스피너
         val levelAdapter = ArrayAdapter.createFromResource(
@@ -224,29 +239,42 @@ class MyMatchEditActivity : AppCompatActivity() {
             }
         }
 
+        //기존 데이터 선택값으로 시작
+        levelSpinner.setSelection(levelAdapter.getPosition(data!!.level))
+
+        //일정 데이터 분리
+        val schedule = data!!.schedule.split(") ")
+        var date = schedule[0] + ")"
+        var time = schedule[1]
+
         //date
         tvMonthDate.setOnClickListener {
             showCalenderPicker()
         }
+        tvMonthDate.text = date
         //time
         tvTime.setOnClickListener {
             showTimePicker()
         }
+        tvTime.text = time
         //number
         val clickListener = View.OnClickListener {
             showNumberPicker()
         }
+        tvTeamNumber1.text = data!!.playerNum.toString()
+        tvTeamNumber2.text = data!!.playerNum.toString()
         tvTeamNumber1.setOnClickListener(clickListener)
         tvTeamNumber2.setOnClickListener(clickListener)
     }
 
-    private fun initViewModel()  = with(binding){
+    private fun initViewModel() = with(binding) {
         with(viewModel) {
             event.observe(this@MyMatchEditActivity) {
                 when (it) {
                     is MyEvent.Finish -> {
                         finish()
                     }
+
                     is MyEvent.Dismiss -> {
                     }
                 }
@@ -291,6 +319,21 @@ class MyMatchEditActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
+        //기존 매치 데이터 불러옴(스피너는 setSpinner에)
+        etTeamName.setText(data!!.teamName)
+        etEntryFee.setText(data!!.entryFee.toString())
+        etContent.setText(data!!.description)
+
+        if (data!!.postImg != "") {
+            ivTeam.load(data!!.postImg)
+            btnCancelImage.visibility = View.VISIBLE
+        }
+
+        btnCancelImage.setOnClickListener {
+            imageUri = null
+            ivTeam.setImageDrawable(null)
+            btnCancelImage.visibility = View.INVISIBLE
+        }
 
         val intent = Intent(this@MyMatchEditActivity, MyMatchMenuBottomSheet::class.java)
         setResult(RESULT_OK, intent)
@@ -305,61 +348,114 @@ class MyMatchEditActivity : AppCompatActivity() {
             imageResult.launch(galleryIntent)
         }
 
-//        etTeamName.setText(data!!.teamName)
-//        etSchedule.setText(data!!.schedule)
-//        gameSpinner.setSelection(gameAdapter.getPosition(data!!.game))
-//        etPlayerNum.setText(data!!.playerNum)
-//        etMatchPlace.setText(data!!.matchPlace)
-//        genderSpinner.setSelection(gameAdapter.getPosition(data!!.gender))
-//        etEntryFee.setText(data!!.entryFee)
-//        etDiscription.setText(data!!.description)
-//        ivTeam.setImageURI(data!!.postImg.toUri())
-
-
         btnSubmit.setOnClickListener {
-            val teamName = etTeamName?.text?.toString() ?: "" // Elvis 연산자를 사용하여 null일 경우 ""으로 초기화합니다.
-            val game = (gameSpinner?.selectedItem?.toString() ?: "")
-            val schedule = "${tvMonthDate?.text?.toString()} ${tvTime?.text?.toString()}"
-            val playerNum = sharedViewModel.number.value ?: 0
-            val matchPlace = citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
-            val gender = genderSpinner?.selectedItem?.toString() ?: ""
-            val level = levelSpinner?.selectedItem?.toString() ?: ""
-            val entryFee = etEntryFee?.text?.toString()?.toInt() ?: 0
-            val description = etDiscription?.text?.toString() ?: ""
+            val teamName =
+                etTeamName.text?.toString() ?: "" // Elvis 연산자를 사용하여 null일 경우 ""으로 초기화합니다.
+            val game = (gameSpinner.selectedItem?.toString() ?: "")
+            val schedule = "${tvMonthDate.text?.toString()} ${tvTime.text?.toString()}"
+            val playerNum = tvTeamNumber1.text.toString().toIntOrNull() ?: 0
+            val selectedArea =
+                citySpinner.selectedItem.toString() + "/" + sigunguSpinner.selectedItem.toString()
+            val gender = genderSpinner.selectedItem?.toString() ?: ""
+            val level = levelSpinner.selectedItem?.toString() ?: ""
+            val entryFee = etEntryFee.text.toString()
+            val description = etContent.text?.toString() ?: ""
 
 
+            val tvMonthDateText = tvMonthDate.text?.toString()
+            val tvTimeText = tvTime.text?.toString()
+            val teamNumberText = tvTeamNumber1.text?.toString()
+            when {
+                teamName.isBlank() -> {
+                    teamName.let {
+                        if (it.isBlank()) {
+                            showToast("팀 이름을 입력해 주세요")
+                            return@setOnClickListener
+                        } else if (it.length >= 10) {
+                            showToast("팀 이름은 최대 10자까지 입니다")
+                            return@setOnClickListener
+                        }
+                    }
+                }
+
+                game.contains("선택") -> {
+                    showToast("경기 종목을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                tvMonthDateText.isNullOrEmpty() -> {
+                    showToast("일정을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                tvTimeText.isNullOrEmpty() -> {
+                    showToast("시간 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                teamNumberText.isNullOrEmpty() -> {
+                    showToast("인원을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                selectedArea.contains("선택") -> {
+                    showToast("위치를 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                gender.contains("선택") -> {
+                    showToast("성별을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                level.contains("선택") -> {
+                    showToast("실력을 선택해 주세요")
+                    return@setOnClickListener
+                }
+
+                entryFee.isBlank() -> {
+                    entryFee.let {
+                        val fee = it.toIntOrNull()
+                        if (it.isBlank()) {
+                            showToast("회비를 입력해 주세요")
+                            return@setOnClickListener
+                        } else if (fee != null && fee % 1000 != 0) {
+                            showToast("회비는 천원 단위로 입력해 주세요")
+                        }
+                    }
+                }
+
+                description.isBlank() -> {
+                    description.let {
+                        if (it.isBlank()) {
+                            showToast("내용을 입력해 주세요")
+                            return@setOnClickListener
+                        } else if (it.length < 10) {
+                            showToast("내용은 최소 10글자 이상 입력해 주세요")
+                            return@setOnClickListener
+                        }
+                    }
+                }
+                else -> {}
+            }
             val editData = MatchDataModel(
                 teamName = teamName,
                 game = game,
                 schedule = schedule,
                 playerNum = playerNum,
-                matchPlace = matchPlace,
+                matchPlace = selectedArea,
                 gender = gender,
                 level = level,
-                entryFee = entryFee,
-                description = description
+                entryFee = entryFee.toInt(),
+                description = description,
+                postImg = ""
             )
-            //예외처리 임시 주석처리
-//            if (teamName.isBlank() || schedule.isBlank() || matchPlace.isBlank() || description.isBlank() || playerNum.toString()
-//                    .isBlank() || entryFee.toString().isBlank()
-//            ) {
-//                // 선택되지 않은 값이 있을 때 토스트 메시지를 띄웁니다.
-//                Toast.makeText(
-//                    this@MyMatchEditActivity,
-//                    "모든 항목을 입력해주세요",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                return@setOnClickListener
-//            }
-
-//            if (imageUri != null) {
-//                uploadToFirebase(imageUri!!, data!!, dummyEditData)
-//            } else {
-//                Toast.makeText(this@MyMatchEditActivity, "사진을 선택해 주세요.", Toast.LENGTH_SHORT).show()
-//            }
-            //현재는 예외처리는 전부 제외했기 때문에 전부 작성하고 글 올려야합니다!!
             editFromFirebase(imageUri, data!!, editData)
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private val imageResult = registerForActivityResult(
@@ -368,6 +464,7 @@ class MyMatchEditActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK && result.data != null) {
             imageUri = result.data?.data!!
             binding.ivTeam.load(imageUri)
+            binding.btnCancelImage.visibility = View.VISIBLE
         }
     }
 
@@ -395,20 +492,26 @@ class MyMatchEditActivity : AppCompatActivity() {
                     binding.progressBar.visibility = View.INVISIBLE
                     Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
                 }
-        }
-        else {
-            binding.progressBar.visibility = View.VISIBLE
-
-            fileRef.delete()
-                .addOnSuccessListener {
-                    viewModel.editMatch(data, newData)
-                    binding.progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener { exception ->
-                    binding.progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-                }
+        } else {
+            if (data.postImg == "") {
+                binding.progressBar.visibility = View.VISIBLE
+                viewModel.editMatch(data, newData)
+                binding.progressBar.visibility = View.INVISIBLE
+                Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.progressBar.visibility = View.VISIBLE
+                fileRef.delete()
+                    .addOnSuccessListener {
+                        viewModel.editMatch(data, newData)
+                        binding.progressBar.visibility = View.INVISIBLE
+                        Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener { exception ->
+                        binding.progressBar.visibility = View.INVISIBLE
+                        Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+            }
         }
     }
 }

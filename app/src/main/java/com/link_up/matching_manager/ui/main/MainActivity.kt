@@ -37,6 +37,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun navigateToMatch() = with(binding) {
+        viewPager.currentItem = 1
+    }
+
 //    override fun onNewIntent(intent: Intent?) {
 //        super.onNewIntent(intent)
 //        Log.d("MainActivity","intent")

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.net.toUri
 import coil.load
+import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.MyTeamApplicationDetailActivityBinding
 import com.link_up.matching_manager.ui.team.TeamItem
 import java.text.SimpleDateFormat
@@ -48,21 +49,37 @@ class MyTeamApplicationDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
+        // 용병신청 아이템인 경우
+        ivType.setImageResource(R.drawable.ic_application)
+        when (data!!.gender) {
+            "여성" -> ivGender.setImageResource(R.drawable.ic_female)
+            "남성" -> ivGender.setImageResource(R.drawable.ic_male)
+            "혼성" -> ivGender.setImageResource(R.drawable.ic_mix)
+        }
+        when (data!!.level) {
+            "하(Lv1-3)" -> ivLevel.setImageResource(R.drawable.ic_level3)
+            "중(Lv4-6)" -> ivLevel.setImageResource(R.drawable.ic_level2)
+            "상(Lv7-10)" -> ivLevel.setImageResource(R.drawable.ic_level1)
+        }
+        tvType.text = data!!.type
+        tvDialogInfo.text = data!!.type
         tvTitle.text = "[${data!!.game}] ${data!!.schedule}"
         tvTitle2.text = data!!.area
         ivProfile.load(data!!.userImg)
         tvPlayerNum.text = "${data!!.playerNum}명"
+        tvFee.text = "나이"
         tvPay.text = "${data!!.age}살"//나이가 들어가야함
+        tvTeam.text = "가능 시간"
         tvTeamName.text = data!!.schedule//가능시간이 들어가야함
-        tvGender.text = data!!.gender
         tvChatCount.text = data!!.chatCount.toString()
         tvViewCount.text = data!!.viewCount.toString()
         tvNicname.text = data!!.nickname
         tvContent.text = data!!.description
         tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
         tvLevel.text = data!!.level
-        if(data!!.postImg != "") ivImage.load(data!!.postImg.toUri())
+        if (data!!.postImg != "") ivImage.load(data!!.postImg.toUri())
         else cvPhoto1.visibility = View.INVISIBLE
+        btnSubmit.setText(R.string.team_detail_application)
 
         btnCancel.setOnClickListener {
             finish()

@@ -1,10 +1,10 @@
-package com.link_up.matching_manager.ui.signin
+package com.link_up.matching_manager.util
 
 import com.link_up.matching_manager.data.model.UserInfoModel
 
 object UserInformation {
-    var userInfo: com.link_up.matching_manager.data.model.UserInfoModel =
-        com.link_up.matching_manager.data.model.UserInfoModel(
+    var userInfo: UserInfoModel =
+        UserInfoModel(
             uid = null,
             uidToken = null,
             email = null,

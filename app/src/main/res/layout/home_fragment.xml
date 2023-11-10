@@ -52,13 +52,22 @@
         android:id="@+id/tv_title_announcement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/pretendardbold"
         android:text="@string/home_tv_announcement"
-        android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_runner" />
+
+    <TextView
+        android:id="@+id/tv_moreAnnouncement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_tv_more_information"
+        android:textColor="@color/common_point_grey"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title_announcement"
+        app:layout_constraintEnd_toEndOf="@+id/btn_home_noti" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_announcement"
@@ -87,11 +96,11 @@
         android:id="@+id/tv_title_match"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/pretendardbold"
         android:text="@string/home_tv_title_match"
-        android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_announcement" />
 
@@ -99,6 +108,7 @@
         android:id="@+id/tv_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
         android:text="@string/home_tv_more_information"
         android:textColor="@color/common_point_grey"
         app:layout_constraintBottom_toBottomOf="@id/tv_title_match"
