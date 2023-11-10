@@ -501,7 +501,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/match_detail_persistent_bottom_sheet_confirm_button"
+                android:background="@drawable/btn_background_green_fill"
                 android:text="신청하기"
                 android:textColor="@color/white"
                 android:textSize="17sp"

@@ -68,7 +68,7 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
                 edtCalendarEditMemo.setText(memoText)
                 edtCalendarEditPlace.setText(memoPlace)
 
-                btnCalendarEditSave.setOnClickListener {
+                btnSave.setOnClickListener {
                     val memoText = edtCalendarEditMemo.text.toString()
                     val memoPlace = edtCalendarEditPlace.text.toString()
 
@@ -104,11 +104,11 @@ class CalendarEditDialogFragment : BottomSheetDialogFragment() {
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
-                            btnCalendarEditCancel.isEnabled = true
+                            btnCancel.isEnabled = true
                         }
                     }
                 }
-                btnCalendarEditCancel.setOnClickListener {
+                btnCancel.setOnClickListener {
                     dismiss() // 다이얼로그 닫기
                 }
             }

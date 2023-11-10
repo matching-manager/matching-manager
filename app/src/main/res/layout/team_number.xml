@@ -9,11 +9,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bottomsheet_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/bottomsheet_background">
+        app:layout_constraintTop_toTopOf="parent">
 
         <NumberPicker
             android:id="@+id/picker_number"
@@ -33,31 +33,31 @@
             app:layout_constraintStart_toEndOf="@+id/picker_number"
             app:layout_constraintTop_toTopOf="@+id/picker_number" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_cancel"
             android:layout_width="100dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="16dp"
-            android:text="취소"
-            android:textColor="@color/white"
-            android:textSize="15dp"
-            android:backgroundTint="@color/common_grey"
+            android:background="@drawable/btn_background_green_stroke"
             android:fontFamily="@font/pretendardbold"
+            android:text="취소"
+            android:textColor="@color/common_point_green"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/picker_number" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_save"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/common_point_green"
+            android:background="@drawable/btn_background_green_fill"
+            android:fontFamily="@font/pretendardbold"
             android:text="확인"
             android:textColor="@color/white"
-            android:fontFamily="@font/pretendardbold"
             app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_cancel"
