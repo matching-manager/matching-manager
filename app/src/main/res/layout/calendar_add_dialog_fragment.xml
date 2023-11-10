@@ -150,9 +150,13 @@
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearLayout1">
 
             <androidx.appcompat.widget.AppCompatButton
@@ -161,12 +165,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/calendar_add_dialog_fragment_button_green_border"
+                android:background="@drawable/btn_background_green_fill"
                 android:backgroundTint="@color/tab_btn_green"
+                android:fontFamily="@font/pretendardbold"
                 android:text="@string/calendar_edit_dialog_fragment_memo_btn_save"
                 android:textColor="@color/white"
-                android:textSize="15dp"
-                android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/btn_save" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -177,10 +180,10 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/calendar_add_dialog_fragment_button_green_border"
+                android:background="@drawable/btn_background_green_stroke"
+                android:fontFamily="@font/pretendardbold"
                 android:text="@string/calendar_edit_dialog_fragment_memo_btn_cancel"
                 android:textColor="@color/common_point_green"
-                android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
         </LinearLayout>

@@ -526,16 +526,18 @@
 
             </androidx.cardview.widget.CardView>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/tab_btn_green"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/btn_background_green_fill"
+                android:fontFamily="@font/pretendardbold"
                 android:text="등록하기"
                 android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
