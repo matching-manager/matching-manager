@@ -22,19 +22,8 @@ class AnnouncementFragment : DialogFragment() {
     private var _binding: AnnouncementFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: HomeViewModel by viewModels { HomeViewModelFactory() }
-
-    private val receivedData = arguments?.getParcelable<AnnouncementDataModel>(OBJECT_DATA)
-
     companion object {
         const val OBJECT_DATA = "item_object"
-        fun newInstance(data: AnnouncementDataModel): AnnouncementFragment {
-            val fragment = AnnouncementFragment()
-            val args = Bundle()
-            args.putParcelable(OBJECT_DATA, data)
-            fragment.arguments = args
-            return fragment
-        }
     }
 
     override fun onCreateView(
@@ -48,20 +37,12 @@ class AnnouncementFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        initViewModel()
-    }
-
-    private fun initViewModel() = with(viewModel){
-        announceModel.observe(viewLifecycleOwner, Observer {
-            // TODO : 요기서 가져온 아이템으로 데이터를 뿌려주시면 됩니다.
-        })
     }
 
     private fun initView() = with(binding) {
+        val receivedData = arguments?.getParcelable<AnnouncementDataModel>(OBJECT_DATA)
         // Dialog의 배경을 투명으로 설정
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        Log.d("1234", "${receivedData?.announceNum}")
 
         tvTitle.text = receivedData?.title
         tvDate.text = receivedData?.uploadDate
