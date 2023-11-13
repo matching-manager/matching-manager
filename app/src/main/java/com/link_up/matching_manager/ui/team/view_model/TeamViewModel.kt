@@ -90,19 +90,19 @@ class TeamViewModel(
     }
 
     fun autoFetchData() {
-        autoGetList(database, _realTimeList)
+        autoGetList(teamRef, _realTimeList)
     }
 
     fun addRecruitment(data: TeamItem.RecruitmentItem) {
         viewModelScope.launch {
-            addRecruitmentData(data, database)
+            addRecruitmentData(teamRef, data)
             _event.postValue(TeamEvent.Finish)
         }
     }
 
     fun addApplication(data: TeamItem.ApplicationItem) {
         viewModelScope.launch {
-            addApplicationData(data, database)
+            addApplicationData(teamRef, data)
             _event.postValue(TeamEvent.Finish)
 
         }
@@ -112,7 +112,7 @@ class TeamViewModel(
     fun plusViewCount(data: TeamItem) {
         if (data.userId != UserInformation.userInfo.uid) {
             viewModelScope.launch {
-                editViewCount(data, database)
+                editViewCount(teamRef, data)
             }
         }
     }
@@ -120,7 +120,7 @@ class TeamViewModel(
     fun plusChatCount(data: TeamItem) {
         if (data.userId != UserInformation.userInfo.uid) {
             viewModelScope.launch {
-                editChatCount(data, database)
+                editChatCount(teamRef, data)
             }
         }
     }

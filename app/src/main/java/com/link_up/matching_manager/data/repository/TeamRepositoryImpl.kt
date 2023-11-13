@@ -3,6 +3,7 @@ package com.link_up.matching_manager.data.repository
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.link_up.matching_manager.ui.team.TeamItem
 import com.link_up.matching_manager.domain.repository.TeamRepository
 import com.google.firebase.database.FirebaseDatabase
@@ -11,9 +12,8 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.tasks.await
 
 class TeamRepositoryImpl() : TeamRepository {
-    override fun autoGetList(database: FirebaseDatabase, list: MutableLiveData<List<TeamItem>>) {
-        val teamRef = database.getReference("Team")
-        teamRef.addValueEventListener(object : ValueEventListener {
+    override fun autoGetList(databaseRef : DatabaseReference, list: MutableLiveData<List<TeamItem>>) {
+        databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataList = mutableListOf<TeamItem>()
 
@@ -41,19 +41,16 @@ class TeamRepositoryImpl() : TeamRepository {
     }
 
 
-    override suspend fun addRecruitmentData(data: TeamItem.RecruitmentItem, database: FirebaseDatabase) {
-        val matchRef = database.getReference("Team")
-        matchRef.push().setValue(data).await()
+    override suspend fun addRecruitmentData(databaseRef : DatabaseReference, data: TeamItem.RecruitmentItem) {
+        databaseRef.push().setValue(data).await()
     }
 
-    override suspend fun addApplicationData(data: TeamItem.ApplicationItem, database: FirebaseDatabase) {
-        val matchRef = database.getReference("Team")
-        matchRef.push().setValue(data).await()
+    override suspend fun addApplicationData(databaseRef : DatabaseReference, data: TeamItem.ApplicationItem) {
+        databaseRef.push().setValue(data).await()
     }
 
-    override suspend fun editViewCount(data: TeamItem, database: FirebaseDatabase) {
-        val matchRef = database.getReference("Team")
-        val query = matchRef.orderByChild("teamId").equalTo(data.teamId)
+    override suspend fun editViewCount(databaseRef : DatabaseReference, data: TeamItem) {
+        val query = databaseRef.orderByChild("teamId").equalTo(data.teamId)
 
         val updateValue = ServerValue.increment(1)
 
@@ -68,9 +65,8 @@ class TeamRepositoryImpl() : TeamRepository {
         }
     }
 
-    override suspend fun editChatCount(data: TeamItem, database: FirebaseDatabase) {
-        val matchRef = database.getReference("Team")
-        val query = matchRef.orderByChild("teamId").equalTo(data.teamId)
+    override suspend fun editChatCount(databaseRef : DatabaseReference, data: TeamItem) {
+        val query = databaseRef.orderByChild("teamId").equalTo(data.teamId)
 
         val updateValue = ServerValue.increment(1)
 
@@ -82,7 +78,6 @@ class TeamRepositoryImpl() : TeamRepository {
             for (childSnapshot in snapshot.children) {
                 childSnapshot.ref.updateChildren(dataToUpdate as Map<String, Any>)
             }
-        }    }
-
-
+        }
+    }
 }
