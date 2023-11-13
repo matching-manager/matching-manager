@@ -459,7 +459,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
                     fileRef.downloadUrl
                         .addOnSuccessListener { uri ->
                             newData.postImg = uri.toString()
-                            viewModel.editApplication(data, newData)
+                            viewModel.editTeam(data, newData)
 
                             binding.progressBar.visibility = View.INVISIBLE
 

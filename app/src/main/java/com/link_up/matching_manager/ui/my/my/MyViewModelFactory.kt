@@ -11,8 +11,7 @@ import com.link_up.matching_manager.domain.usecase.team.TeamAutoGetApplicationLi
 import com.link_up.matching_manager.domain.usecase.team.TeamAutoGetRecruitListUseCase
 import com.link_up.matching_manager.domain.usecase.team.TeamDeleteApplicationDataUseCase
 import com.link_up.matching_manager.domain.usecase.team.TeamDeleteRecruitDataUseCase
-import com.link_up.matching_manager.domain.usecase.team.TeamEditApplicationDataUseCase
-import com.link_up.matching_manager.domain.usecase.team.TeamEditRecruitDataUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamEditDataUseCase
 
 class MyViewModelFactory() : ViewModelProvider.Factory{
     private val matchRepository = MatchRepositoryImpl()
@@ -28,8 +27,7 @@ class MyViewModelFactory() : ViewModelProvider.Factory{
                 TeamAutoGetApplicationListUseCase(teamRepository),
                 TeamDeleteRecruitDataUseCase(teamRepository),
                 TeamDeleteApplicationDataUseCase(teamRepository),
-                TeamEditRecruitDataUseCase(teamRepository),
-                TeamEditApplicationDataUseCase(teamRepository)
+                TeamEditDataUseCase(teamRepository)
             ) as T
         } else {
             throw IllegalArgumentException("Not found ViewModel class.")

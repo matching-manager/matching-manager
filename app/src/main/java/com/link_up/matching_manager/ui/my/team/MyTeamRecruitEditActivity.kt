@@ -478,7 +478,7 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
                     fileRef.downloadUrl
                         .addOnSuccessListener { uri ->
                             newData.postImg = uri.toString()
-                            viewModel.editRecruit(data, newData)
+                            viewModel.editTeam(data, newData)
 
                             binding.progressBar.visibility = View.INVISIBLE
 
@@ -497,7 +497,7 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
         else {
             if (data.postImg == "") {
                 binding.progressBar.visibility = View.VISIBLE
-                viewModel.editRecruit(data, newData)
+                viewModel.editTeam(data, newData)
                 binding.progressBar.visibility = View.INVISIBLE
                 Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
             }
@@ -506,7 +506,7 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
 
                 fileRef.delete()
                     .addOnSuccessListener {
-                        viewModel.editRecruit(data, newData)
+                        viewModel.editTeam(data, newData)
                         binding.progressBar.visibility = View.INVISIBLE
                         Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
                     }

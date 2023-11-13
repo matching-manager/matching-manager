@@ -6,7 +6,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.link_up.matching_manager.ui.team.TeamItem
 import com.link_up.matching_manager.domain.repository.TeamRepository
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.database.ValueEventListener
 import com.link_up.matching_manager.util.UserInformation
@@ -124,51 +123,31 @@ class TeamRepositoryImpl() : TeamRepository {
         }
     }
 
-    override suspend fun editRecruitData(
+    override suspend fun editTeamData(
         databaseRef: DatabaseReference,
-        data: TeamItem.RecruitmentItem,
-        newData: TeamItem.RecruitmentItem
+        data: TeamItem,
+        newData: TeamItem
     ) {
         val query = databaseRef.orderByChild("teamId").equalTo(data.teamId)
-
         val dataToUpdate = hashMapOf(
-            "teamName" to newData.teamName,
             "game" to newData.game,
             "schedule" to newData.schedule,
             "playerNum" to newData.playerNum,
             "area" to newData.area,
             "gender" to newData.gender,
             "level" to newData.level,
-            "pay" to newData.pay,
             "description" to newData.description,
             "postImg" to newData.postImg
         )
-        val snapshot = query.get().await()
-        if (snapshot.exists()) {
-            for (childSnapshot in snapshot.children) {
-                childSnapshot.ref.updateChildren(dataToUpdate as Map<String, Any>)
-            }
+        if(data is TeamItem.RecruitmentItem) {
+            newData as TeamItem.RecruitmentItem
+            dataToUpdate["teamName"] = newData.teamName
+            dataToUpdate["pay"] = newData.pay
         }
-    }
-
-    override suspend fun editApplicationData(
-        databaseRef: DatabaseReference,
-        data: TeamItem.ApplicationItem,
-        newData: TeamItem.ApplicationItem
-    ) {
-        val query = databaseRef.orderByChild("teamId").equalTo(data.teamId)
-
-        val dataToUpdate = hashMapOf(
-            "game" to newData.game,
-            "schedule" to newData.schedule,
-            "playerNum" to newData.playerNum,
-            "area" to newData.area,
-            "gender" to newData.gender,
-            "level" to newData.level,
-            "description" to newData.description,
-            "postImg" to newData.postImg,
-            "age" to newData.age,
-        )
+        else if(data is TeamItem.ApplicationItem) {
+            newData as TeamItem.ApplicationItem
+            dataToUpdate["age"] = newData.age
+        }
         val snapshot = query.get().await()
         if (snapshot.exists()) {
             for (childSnapshot in snapshot.children) {

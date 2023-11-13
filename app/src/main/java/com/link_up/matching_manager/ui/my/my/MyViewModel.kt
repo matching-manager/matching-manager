@@ -13,8 +13,7 @@ import com.link_up.matching_manager.domain.usecase.team.TeamAutoGetApplicationLi
 import com.link_up.matching_manager.domain.usecase.team.TeamAutoGetRecruitListUseCase
 import com.link_up.matching_manager.domain.usecase.team.TeamDeleteApplicationDataUseCase
 import com.link_up.matching_manager.domain.usecase.team.TeamDeleteRecruitDataUseCase
-import com.link_up.matching_manager.domain.usecase.team.TeamEditApplicationDataUseCase
-import com.link_up.matching_manager.domain.usecase.team.TeamEditRecruitDataUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamEditDataUseCase
 import com.link_up.matching_manager.ui.match.MatchDataModel
 import com.link_up.matching_manager.ui.team.TeamItem
 import com.link_up.matching_manager.util.UserInformation
@@ -28,8 +27,7 @@ class MyViewModel(
     val autoGetApplicationList: TeamAutoGetApplicationListUseCase,
     val deleteRecruitData: TeamDeleteRecruitDataUseCase,
     val deleteApplicationData: TeamDeleteApplicationDataUseCase,
-    val editRecruitData: TeamEditRecruitDataUseCase,
-    val editApplicationData: TeamEditApplicationDataUseCase
+    val editTeamData: TeamEditDataUseCase
 ) : ViewModel() {
 
     private val _matchList: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
@@ -103,9 +101,9 @@ class MyViewModel(
         }
     }
 
-    fun editRecruit(data: TeamItem.RecruitmentItem, newData: TeamItem.RecruitmentItem) {
+    fun editTeam(data: TeamItem, newData: TeamItem) {
         viewModelScope.launch {
-            editRecruitData(teamRef, data, newData)
+            editTeamData(teamRef, data, newData)
             _event.postValue(MyEvent.Finish)
         }
     }
@@ -123,7 +121,7 @@ class MyViewModel(
 
     fun editApplication(data: TeamItem.ApplicationItem, newData: TeamItem.ApplicationItem) {
         viewModelScope.launch {
-            editApplicationData(teamRef, data, newData)
+            editTeamData(teamRef, data, newData)
             _event.postValue(MyEvent.Finish)
         }
     }
