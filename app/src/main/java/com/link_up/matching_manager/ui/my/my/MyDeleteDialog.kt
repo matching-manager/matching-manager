@@ -16,7 +16,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.link_up.matching_manager.databinding.MyDeleteDialogBinding
 import com.link_up.matching_manager.ui.match.MatchDataModel
-import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
@@ -25,7 +24,7 @@ class MyDeleteDialog(private val item: MatchDataModel) : DialogFragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+        MyViewModelFactory()
     }
 
     private var dismissListener: OnDialogDismissListener? = null

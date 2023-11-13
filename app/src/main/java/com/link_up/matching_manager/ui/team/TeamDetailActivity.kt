@@ -18,7 +18,7 @@ import com.link_up.matching_manager.ui.my.bookmark.BookmarkApplicationDataModel
 import com.link_up.matching_manager.ui.my.bookmark.BookmarkRecruitDataModel
 import com.link_up.matching_manager.ui.my.bookmark.MyBookmarkApplicationFragment
 import com.link_up.matching_manager.ui.my.bookmark.MyBookmarkRecruitFragment
-import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
+import com.link_up.matching_manager.ui.my.my.MyViewModelFactory
 import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.util.UserInformation
 import java.text.DecimalFormat
@@ -31,7 +31,7 @@ class TeamDetailActivity : AppCompatActivity() {
     private lateinit var binding: TeamDetailActivityBinding
 
     private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+        MyViewModelFactory()
     }
 
     private var isLiked = false

@@ -20,7 +20,7 @@ import com.link_up.matching_manager.databinding.MyTeamRecruitEditActivityBinding
 import com.link_up.matching_manager.ui.my.my.MyEvent
 import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.ui.my.match.MyMatchMenuBottomSheet
-import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
+import com.link_up.matching_manager.ui.my.my.MyViewModelFactory
 import com.link_up.matching_manager.ui.team.TeamItem
 import com.link_up.matching_manager.ui.team.TeamWritingActivity
 import com.link_up.matching_manager.ui.team.bottomsheet.TeamCalenderBottomSheet
@@ -37,7 +37,7 @@ class MyTeamRecruitEditActivity : AppCompatActivity() {
     private val sharedViewModel: TeamSharedViewModel by viewModels()
 
     private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+        MyViewModelFactory()
     }
 
     private val reference: StorageReference = FirebaseStorage.getInstance().reference

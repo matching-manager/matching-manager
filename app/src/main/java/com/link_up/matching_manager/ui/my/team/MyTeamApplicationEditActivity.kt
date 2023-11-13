@@ -20,7 +20,7 @@ import com.link_up.matching_manager.databinding.MyTeamApplicationEditActivityBin
 import com.link_up.matching_manager.ui.my.my.MyEvent
 import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.ui.my.match.MyMatchMenuBottomSheet
-import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
+import com.link_up.matching_manager.ui.my.my.MyViewModelFactory
 import com.link_up.matching_manager.ui.team.TeamItem
 import com.link_up.matching_manager.ui.team.TeamWritingActivity
 import com.link_up.matching_manager.ui.team.bottomsheet.TeamAgeBottomSheet
@@ -28,7 +28,6 @@ import com.link_up.matching_manager.ui.team.bottomsheet.TeamNumberBottomSheet
 import com.link_up.matching_manager.ui.team.view_model.TeamSharedViewModel
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.link_up.matching_manager.ui.team.TeamAddType
 import com.link_up.matching_manager.util.Spinners
 
 class MyTeamApplicationEditActivity : AppCompatActivity() {
@@ -45,7 +44,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
     private val sharedViewModel: TeamSharedViewModel by viewModels()
 
     private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+        MyViewModelFactory()
     }
 
     private val reference: StorageReference = FirebaseStorage.getInstance().reference

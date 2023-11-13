@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.link_up.matching_manager.databinding.MyTeamApplicationFragmentBinding
 import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.ui.my.team.MyTeamApplicationDetailActivity.Companion.detailIntent
-import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
+import com.link_up.matching_manager.ui.my.my.MyViewModelFactory
 import com.link_up.matching_manager.util.UserInformation
 
 class MyTeamApplicationFragment : Fragment() {
@@ -20,7 +20,7 @@ class MyTeamApplicationFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+        MyViewModelFactory()
     }
 
     private val adapter by lazy {
