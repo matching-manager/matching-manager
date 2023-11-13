@@ -13,9 +13,20 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.link_up.matching_manager.domain.usecase.team.TeamAddApplicationDataUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamAddRecruitmentDataUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamAutoGetListUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamEditChatCountUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamEditViewCountUseCase
 import kotlinx.coroutines.launch
 
-class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
+class TeamViewModel(
+    val autoGetList: TeamAutoGetListUseCase,
+    val addApplicationData: TeamAddApplicationDataUseCase,
+    val addRecruitmentData: TeamAddRecruitmentDataUseCase,
+    val editChatCount: TeamEditChatCountUseCase,
+    val editViewCount: TeamEditViewCountUseCase
+) : ViewModel() {
 
     private val _list: MutableLiveData<List<TeamItem>> = MutableLiveData()
     val list: MutableLiveData<List<TeamItem>> get() = _list
@@ -39,24 +50,6 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
         game: String?,
         area: String?,
     ) {
-//        viewModelScope.launch {
-//            val currentList = repository.getList(database)
-//            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
-//
-//            originalList.clear()
-//            originalList.addAll(currentList)
-//            Log.d("MatchViewModel", "game : ${game}" + " area : ${area}")
-//            if (game == null && area == null) {
-//                when {
-//                    isRecruitmentChecked -> filterRecruitmentItems()
-//                    isApplicationChecked -> filterApplicationItems()
-//                    else -> _list.value = currentList
-//                }
-//            } else {
-//                filterItems(area, game, isRecruitmentChecked, isApplicationChecked)
-//
-//            }
-//        }
         teamRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataList = mutableListOf<TeamItem>()
@@ -64,14 +57,15 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
                 for (childSnapshot in dataSnapshot.children) {
                     val type = childSnapshot.child("type").getValue(String::class.java)
                     if (type == "용병모집") {
-                        childSnapshot.getValue(TeamItem.RecruitmentItem::class.java)?.let { teamData ->
-                            dataList.add(teamData)
-                        }
-                    }
-                    else {
-                        childSnapshot.getValue(TeamItem.ApplicationItem::class.java)?.let { teamData ->
-                            dataList.add(teamData)
-                        }
+                        childSnapshot.getValue(TeamItem.RecruitmentItem::class.java)
+                            ?.let { teamData ->
+                                dataList.add(teamData)
+                            }
+                    } else {
+                        childSnapshot.getValue(TeamItem.ApplicationItem::class.java)
+                            ?.let { teamData ->
+                                dataList.add(teamData)
+                            }
                     }
                 }
                 val currentList = dataList
@@ -96,59 +90,38 @@ class TeamViewModel(private val repository: TeamRepository) : ViewModel() {
     }
 
     fun autoFetchData() {
-        teamRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val dataList = mutableListOf<TeamItem>()
-
-                for (childSnapshot in dataSnapshot.children) {
-                    val type = childSnapshot.child("type").getValue(String::class.java)
-                    if (type == "용병모집") {
-                        childSnapshot.getValue(TeamItem.RecruitmentItem::class.java)
-                            ?.let { teamData ->
-                                dataList.add(teamData)
-                            }
-                    } else {
-                        childSnapshot.getValue(TeamItem.ApplicationItem::class.java)
-                            ?.let { teamData ->
-                                dataList.add(teamData)
-                            }
-                    }
-                }
-                _realTimeList.value = dataList
-                Log.d("autoFetchData", "${_realTimeList.value}")
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // 오류 처리
-            }
-        })
+        autoGetList(database, _realTimeList)
     }
 
     fun addRecruitment(data: TeamItem.RecruitmentItem) {
         viewModelScope.launch {
-            repository.addRecruitmentData(data, database)
+            addRecruitmentData(data, database)
             _event.postValue(TeamEvent.Finish)
+        }
+    }
+
+    fun addApplication(data: TeamItem.ApplicationItem) {
+        viewModelScope.launch {
+            addApplicationData(data, database)
+            _event.postValue(TeamEvent.Finish)
+
         }
     }
 
     //조회수를 업데이트하는 함수
     fun plusViewCount(data: TeamItem) {
-        if(data.userId != UserInformation.userInfo.uid) {
+        if (data.userId != UserInformation.userInfo.uid) {
             viewModelScope.launch {
-                repository.editViewCount(data, database)
+                editViewCount(data, database)
             }
         }
     }
-    fun plusChatCount(data: TeamItem) {
-        viewModelScope.launch {
-            repository.editViewCount(data, database)
-        }
-    }
-    fun addApplication(data: TeamItem.ApplicationItem) {
-        viewModelScope.launch {
-            repository.addApplicationData(data, database)
-            _event.postValue(TeamEvent.Finish)
 
+    fun plusChatCount(data: TeamItem) {
+        if (data.userId != UserInformation.userInfo.uid) {
+            viewModelScope.launch {
+                editChatCount(data, database)
+            }
         }
     }
 
