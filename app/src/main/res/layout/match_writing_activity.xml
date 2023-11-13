@@ -6,31 +6,19 @@
     android:layout_height="match_parent"
     android:background="@drawable/common_gradient_background">
 
-    <androidx.appcompat.widget.AppCompatImageButton
+
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/btn_cancel"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
         android:background="@color/common_transparent"
-        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back" />
+        app:navigationIcon="@drawable/ic_back"
+        app:title="@string/match_detail_add"
+        app:titleTextAppearance="@style/ToolbarTitleText" />
 
-
-    <TextView
-        android:id="@+id/tv_dialog_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:fontFamily="@font/pretendardbold"
-        android:text="@string/match_writing_activity_tv_dialog_info"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
-        app:layout_constraintStart_toEndOf="@+id/btn_cancel"
-        app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -68,16 +56,17 @@
                 tools:layout_editor_absoluteX="10dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="402dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginTop="8dp"
                         android:text="팀명"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -116,8 +105,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:text="종목"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -150,8 +140,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:text="일정"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -159,7 +150,7 @@
                         android:id="@+id/tv_month_date"
                         android:layout_width="150dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:gravity="center"
                         android:hint="10월 10일 (화)"
                         android:textSize="18sp" />
@@ -197,8 +188,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:text="인원"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -206,7 +198,7 @@
                         android:id="@+id/tv_team_number1"
                         android:layout_width="70dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:gravity="center"
                         android:hint="0"
                         android:textSize="18sp" />
@@ -249,9 +241,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="23dp"
+                        android:layout_marginStart="23dp"
                         android:layout_marginTop="15dp"
                         android:text="위치"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -314,8 +307,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:text="성별"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -349,8 +343,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:text="실력"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -383,9 +378,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginTop="8dp"
                         android:text="회비"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -426,9 +422,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginTop="7dp"
                         android:text="내용"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -468,6 +465,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="사진"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"

@@ -42,9 +42,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="0dp"
             android:fontFamily="@font/pretendardbold"
             android:text="@string/my_match_menu_bottom_sheet_tv_edit"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
         <TextView
@@ -56,6 +57,7 @@
             android:layout_marginBottom="30dp"
             android:fontFamily="@font/pretendardbold"
             android:text="@string/my_match_menu_bottom_sheet_tv_remove"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
 

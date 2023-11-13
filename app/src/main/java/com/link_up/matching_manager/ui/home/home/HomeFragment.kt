@@ -3,12 +3,17 @@ package com.link_up.matching_manager.ui.home.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.HomeFragmentBinding
 import com.link_up.matching_manager.ui.home.alarm.AlarmActivity
 import com.link_up.matching_manager.ui.home.arena.ArenaActivity
@@ -29,7 +34,7 @@ class HomeFragment : Fragment() {
 
     private val announcementListAdapter: HomeAnnouncementListAdapter by lazy {
         HomeAnnouncementListAdapter(
-            onClick = {item ->
+            onClick = { item ->
                 val bundle = Bundle()
                 bundle.putParcelable(OBJECT_DATA, item)
 
@@ -43,7 +48,7 @@ class HomeFragment : Fragment() {
 
     private val matchListAdapter: HomeMatchListAdapter by lazy {
         HomeMatchListAdapter(
-            onClick = {item ->
+            onClick = { item ->
                 startActivity(MatchDetailActivity.detailIntent(requireContext(), item))
             }
         )
@@ -51,7 +56,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -59,7 +64,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initView()
         initViewModel()
     }
@@ -77,6 +81,25 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
+        toolBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.btn_arena -> {
+                    val intent = Intent(requireContext(), ArenaActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.btn_home_noti -> {
+                    val intent = Intent(requireContext(), AlarmActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                else -> false
+            }
+        }
+
+
         rvAnnouncement.adapter = announcementListAdapter
         rvMatch.adapter = matchListAdapter
 
@@ -96,14 +119,6 @@ class HomeFragment : Fragment() {
 
         btnMoreInformation.setOnClickListener {
             (activity as? MainActivity)?.navigateToMatch()
-        }
-        btnArena.setOnClickListener {
-            val intent = Intent(requireContext(), ArenaActivity::class.java)
-            startActivity(intent)
-        }
-        btnHomeNoti.setOnClickListener {
-            val intent = Intent(requireContext(), AlarmActivity::class.java)
-            startActivity(intent)
         }
         tvMoreAnnouncement.setOnClickListener {
             val intent = Intent(requireContext(), AnnouncementActivity::class.java)

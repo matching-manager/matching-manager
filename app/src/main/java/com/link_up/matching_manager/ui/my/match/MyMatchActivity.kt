@@ -64,7 +64,7 @@ class MyMatchActivity : AppCompatActivity() {
         manager.stackFromEnd = true
         rv.layoutManager = manager
 
-        btnCancel.setOnClickListener {
+        btnBack.setOnClickListener {
             finish()
         }
     }

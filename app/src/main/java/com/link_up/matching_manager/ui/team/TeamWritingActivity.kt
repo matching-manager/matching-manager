@@ -325,20 +325,12 @@ class TeamWritingActivity : AppCompatActivity() {
         }
 
         //인포 이름 변경
-        tvDialogInfo.setText(
-            when (entryType) {
-                TeamAddType.RECRUIT -> {
-                    R.string.team_add_activity_recruit
-                }
+//        btnCancel.title = set
 
-                else -> R.string.team_add_activity_application
+                //back button
+            btnCancel.setOnClickListener {
+                finish() // 현재 Activity 종료
             }
-        )
-
-        //back button
-        btnCancel.setOnClickListener {
-            finish() // 현재 Activity 종료
-        }
 
 
         tvAddImage.setOnClickListener {
@@ -374,9 +366,11 @@ class TeamWritingActivity : AppCompatActivity() {
             val tvTimeText = tvTime.text?.toString()
             val teamNumberText = teamNumber.text?.toString()
             val teamAgeText = teamAge.text?.toString()
+
             when (entryType) {
 
                 TeamAddType.RECRUIT -> {
+                    btnCancel.title= R.string.team_add_activity_recruit.toString()
                     when {
                         selectedGame.contains("선택") -> {
                             showToast("경기 종목을 선택해 주세요")
@@ -456,6 +450,7 @@ class TeamWritingActivity : AppCompatActivity() {
                 }
 
                 TeamAddType.APPLICATION -> {
+                    btnCancel.title= R.string.team_add_activity_application.toString()
                     when {
                         selectedGame.contains("선택") -> {
                             showToast("종목을 선택해 주세요")

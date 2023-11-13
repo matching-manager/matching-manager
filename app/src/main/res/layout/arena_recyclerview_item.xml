@@ -38,6 +38,7 @@
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/pretendardbold"
                 android:text="@string/arena_name"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@id/tv_arena_address"
                 app:layout_constraintStart_toEndOf="@id/iv_arena"

@@ -75,7 +75,7 @@ class TeamDetailActivity : AppCompatActivity() {
                 "상(Lv7-10)" -> ivLevel.setImageResource(R.drawable.ic_level1)
             }
             tvType.text = item.type
-            tvDialogInfo.text = item.type
+            btnCancel.title = item.type
             tvTitle.text = "[${item.game}] ${item.schedule}"
             tvTitle2.text = item.area
             ivProfile.load(item.userImg)
@@ -110,7 +110,7 @@ class TeamDetailActivity : AppCompatActivity() {
                 "상(Lv7-10)" -> ivLevel.setImageResource(R.drawable.ic_level1)
             }
             tvType.text = item.type
-            tvDialogInfo.text = item.type
+            btnCancel.title = item.type
             tvTitle.text = "[${item.game}] ${item.schedule}"
             tvTitle2.text = item.area
             ivProfile.load(item.userImg)

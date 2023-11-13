@@ -28,7 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="명"
-            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/picker_number"
             app:layout_constraintStart_toEndOf="@+id/picker_number"
             app:layout_constraintTop_toTopOf="@+id/picker_number" />
@@ -43,7 +44,7 @@
             android:fontFamily="@font/pretendardbold"
             android:text="@string/my_number_btn_cancel"
             android:textColor="@color/common_point_green"
-            android:textSize="15dp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/picker_number" />

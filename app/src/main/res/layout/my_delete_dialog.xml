@@ -19,6 +19,7 @@
             android:layout_marginTop="24dp"
             android:fontFamily="@font/pretendardbold"
             android:text="@string/my_delete_dialog_dial_tv_text"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"

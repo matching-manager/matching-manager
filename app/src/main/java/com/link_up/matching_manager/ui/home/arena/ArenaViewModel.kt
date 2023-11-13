@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.link_up.matching_manager.domain.model.ArenaEntity
-import com.link_up.matching_manager.domain.usecase.GetArenaInfoUseCase
+import com.link_up.matching_manager.domain.usecase.api.GetArenaInfoUseCase
 import com.link_up.matching_manager.domain.usecase.geo.GetGeoLocationUseCase
 import kotlinx.coroutines.launch
 
