@@ -35,14 +35,15 @@ class MatchViewModel(
 
     private val database =
         Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
+    val matchRef = database.getReference("Match")
 
     fun fetchData() {
-        getList(database, originalList, _list)
+        getList(matchRef, originalList, _list)
     }
 
     fun addMatch(data: MatchDataModel) {
         viewModelScope.launch {
-            addData(data, database)
+            addData(matchRef, data)
             _event.postValue(MatchEvent.Finish)
         }
     }
@@ -76,14 +77,14 @@ class MatchViewModel(
     }
 
     fun autoFetchData() {
-        autoGetList(database, _realTimeList)
+        autoGetList(matchRef, _realTimeList)
     }
 
     fun plusViewCount(data: MatchDataModel) {
         //게시물에 담긴 유저ID와 로그인한 유저의 UID가 달라야 countUp
         if(data.userId != UserInformation.userInfo.uid) {
             viewModelScope.launch {
-                editViewCount(data, database)
+                editViewCount(matchRef, data)
             }
         }
     }
@@ -92,7 +93,7 @@ class MatchViewModel(
         //게시물에 담긴 유저ID와 로그인한 유저의 UID가 달라야 countUp
         if(data.userId != UserInformation.userInfo.uid) {
             viewModelScope.launch {
-                editChatCount(data, database)
+                editChatCount(matchRef, data)
             }
         }
     }
