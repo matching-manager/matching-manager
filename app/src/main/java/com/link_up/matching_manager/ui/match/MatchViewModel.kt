@@ -77,7 +77,7 @@ class MatchViewModel(
     }
 
     fun autoFetchData() {
-        autoGetList(matchRef, _realTimeList)
+        autoGetList(matchRef, null,  _realTimeList)
     }
 
     fun plusViewCount(data: MatchDataModel) {

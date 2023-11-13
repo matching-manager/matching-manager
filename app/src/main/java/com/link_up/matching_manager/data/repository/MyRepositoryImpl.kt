@@ -12,64 +12,6 @@ import com.link_up.matching_manager.util.UserInformation
 import kotlinx.coroutines.tasks.await
 
 class MyRepositoryImpl() : MyRepository {
-
-    override fun getMatchList(database: FirebaseDatabase, list : MutableLiveData<List<MatchDataModel>>) {
-        val matchRef = database.getReference("Match")
-        val query = matchRef.orderByChild("userId").equalTo(UserInformation.userInfo.uid)
-        query.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val dataList = mutableListOf<MatchDataModel>()
-
-                for (childSnapshot in dataSnapshot.children) {
-                    val matchData = childSnapshot.getValue(MatchDataModel::class.java)
-                    if (matchData != null) {
-                        dataList.add(matchData)
-                    }
-                }
-                list.value = dataList
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // 오류 처리
-            }
-        })
-    }
-
-    override suspend fun deleteMatchData(data: MatchDataModel, database: FirebaseDatabase) {
-        val matchRef = database.getReference("Match")
-        val query = matchRef.orderByChild("matchId").equalTo(data.matchId)
-        val snapshot = query.get().await()
-        if (snapshot.exists()) {
-            for (childSnapshot in snapshot.children) {
-                childSnapshot.ref.removeValue()
-            }
-        }
-    }
-
-    override suspend fun editMatchData(data: MatchDataModel, newData: MatchDataModel, database: FirebaseDatabase) {
-        val matchRef = database.getReference("Match")
-        val query = matchRef.orderByChild("matchId").equalTo(data.matchId)
-
-        val dataToUpdate = hashMapOf(
-            "teamName" to newData.teamName,
-            "game" to newData.game,
-            "schedule" to newData.schedule,
-            "playerNum" to newData.playerNum,
-            "matchPlace" to newData.matchPlace,
-            "gender" to newData.gender,
-            "level" to newData.level,
-            "entryFee" to newData.entryFee,
-            "description" to newData.description,
-            "postImg" to newData.postImg
-        )
-        val snapshot = query.get().await()
-        if (snapshot.exists()) {
-            for (childSnapshot in snapshot.children) {
-                childSnapshot.ref.updateChildren(dataToUpdate as Map<String, Any>)
-            }
-        }
-    }
-
     override fun getRecruitList(database: FirebaseDatabase, list: MutableLiveData<List<TeamItem.RecruitmentItem>>) {
         val teamRef = database.getReference("Team")
         val query = teamRef.orderByChild("type").equalTo("용병모집")

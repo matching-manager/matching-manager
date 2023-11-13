@@ -7,6 +7,7 @@ import com.google.firebase.database.DatabaseReference
 import com.link_up.matching_manager.ui.match.MatchDataModel
 import com.link_up.matching_manager.domain.repository.MatchRepository
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
 import com.google.firebase.database.ServerValue
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.tasks.await
@@ -37,10 +38,12 @@ class MatchRepositoryImpl() : MatchRepository {
     }
 
     override fun autoGetList(
-        databaseRef : DatabaseReference,
+        databaseRef : DatabaseReference?,
+        query : Query?,
         list: MutableLiveData<List<MatchDataModel>>
     ) {
-        databaseRef.addValueEventListener(object : ValueEventListener {
+        val actualQuery = query ?: databaseRef
+        actualQuery?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataList = mutableListOf<MatchDataModel>()
 
@@ -61,6 +64,43 @@ class MatchRepositoryImpl() : MatchRepository {
 
     override suspend fun addData(databaseRef : DatabaseReference, data: MatchDataModel) {
         databaseRef.push().setValue(data).await()
+    }
+
+    override suspend fun deleteData(databaseRef: DatabaseReference, data: MatchDataModel) {
+        val query = databaseRef.orderByChild("matchId").equalTo(data.matchId)
+        val snapshot = query.get().await()
+        if (snapshot.exists()) {
+            for (childSnapshot in snapshot.children) {
+                childSnapshot.ref.removeValue()
+            }
+        }
+    }
+
+    override suspend fun editMatchData(
+        databaseRef: DatabaseReference,
+        data: MatchDataModel,
+        newData: MatchDataModel
+    ) {
+        val query = databaseRef.orderByChild("matchId").equalTo(data.matchId)
+
+        val dataToUpdate = hashMapOf(
+            "teamName" to newData.teamName,
+            "game" to newData.game,
+            "schedule" to newData.schedule,
+            "playerNum" to newData.playerNum,
+            "matchPlace" to newData.matchPlace,
+            "gender" to newData.gender,
+            "level" to newData.level,
+            "entryFee" to newData.entryFee,
+            "description" to newData.description,
+            "postImg" to newData.postImg
+        )
+        val snapshot = query.get().await()
+        if (snapshot.exists()) {
+            for (childSnapshot in snapshot.children) {
+                childSnapshot.ref.updateChildren(dataToUpdate as Map<String, Any>)
+            }
+        }
     }
 
     override suspend fun editViewCount(databaseRef : DatabaseReference, data: MatchDataModel) {
