@@ -3,7 +3,6 @@ package com.link_up.matching_manager.ui.my.my
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.link_up.matching_manager.data.repository.MatchRepositoryImpl
-import com.link_up.matching_manager.data.repository.MyRepositoryImpl
 import com.link_up.matching_manager.data.repository.TeamRepositoryImpl
 import com.link_up.matching_manager.domain.usecase.match.MatchAutoGetListUseCase
 import com.link_up.matching_manager.domain.usecase.match.MatchDeleteDataUseCase

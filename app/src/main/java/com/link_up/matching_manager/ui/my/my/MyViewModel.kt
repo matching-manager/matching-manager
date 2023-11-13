@@ -4,10 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.link_up.matching_manager.domain.repository.MyRepository
 import com.link_up.matching_manager.domain.usecase.match.MatchAutoGetListUseCase
 import com.link_up.matching_manager.domain.usecase.match.MatchDeleteDataUseCase
 import com.link_up.matching_manager.domain.usecase.match.MatchEditDataUseCase
