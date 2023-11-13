@@ -1,27 +1,25 @@
 package com.link_up.matching_manager.ui.match
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.link_up.matching_manager.domain.usecase.match.MatchAddDataUseCase
+import com.link_up.matching_manager.domain.usecase.match.MatchAutoGetListUseCase
 import com.link_up.matching_manager.domain.usecase.match.MatchEditChatCountUseCase
 import com.link_up.matching_manager.domain.usecase.match.MatchEditViewCountUseCase
 import com.link_up.matching_manager.domain.usecase.match.MatchGetListUseCase
 import com.link_up.matching_manager.util.UserInformation
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 class MatchViewModel(
     val addData: MatchAddDataUseCase,
     val getList: MatchGetListUseCase,
     val editChatCount: MatchEditChatCountUseCase,
-    val editViewCount: MatchEditViewCountUseCase
+    val editViewCount: MatchEditViewCountUseCase,
+    val autoGetList : MatchAutoGetListUseCase
 ) : ViewModel() {
 
     private var originalList: MutableList<MatchDataModel> = mutableListOf() // 원본 데이터를 보관할 리스트
@@ -37,37 +35,9 @@ class MatchViewModel(
 
     private val database =
         Firebase.database("https://matching-manager-default-rtdb.asia-southeast1.firebasedatabase.app/")
-    private val matchRef = database.getReference("Match")
+
     fun fetchData() {
-//        viewModelScope.launch {
-//            val currentList = repository.getList(database)
-//            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
-//            originalList = currentList.toMutableList()
-//            _list.postValue(currentList)
-//            originalList.clear()
-//            originalList.addAll(currentList)
-//            _list.value = originalList
-//        }
-        matchRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val dataList = mutableListOf<MatchDataModel>()
-
-                for (childSnapshot in dataSnapshot.children) {
-                    val matchData = childSnapshot.getValue(MatchDataModel::class.java)
-                    if (matchData != null) {
-                        dataList.add(matchData)
-                    }
-                }
-                val currentList = dataList
-                originalList.clear()
-                originalList.addAll(dataList)
-                _list.value = currentList
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // 오류 처리
-            }
-        })
+        getList(database, originalList, _list)
     }
 
     fun addMatch(data: MatchDataModel) {
@@ -106,25 +76,7 @@ class MatchViewModel(
     }
 
     fun autoFetchData() {
-        Log.d("autoFetchData", "abcd")
-        matchRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val dataList = mutableListOf<MatchDataModel>()
-
-                for (childSnapshot in dataSnapshot.children) {
-                    val matchData = childSnapshot.getValue(MatchDataModel::class.java)
-                    if (matchData != null) {
-                        dataList.add(matchData)
-                    }
-                }
-                _realTimeList.value = dataList
-                Log.d("autoFetchData", "${_realTimeList.value}")
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // 오류 처리
-            }
-        })
+        autoGetList(database, _realTimeList)
     }
 
     fun plusViewCount(data: MatchDataModel) {
@@ -137,8 +89,11 @@ class MatchViewModel(
     }
 
     fun plusChatCount(data: MatchDataModel) {
-        viewModelScope.launch {
-            editViewCount(data, database)
+        //게시물에 담긴 유저ID와 로그인한 유저의 UID가 달라야 countUp
+        if(data.userId != UserInformation.userInfo.uid) {
+            viewModelScope.launch {
+                editChatCount(data, database)
+            }
         }
     }
 
