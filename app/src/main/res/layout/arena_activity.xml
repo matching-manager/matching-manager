@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:text="전체 지역"
+        android:text="@string/announcement_activity_tv_filter"
         android:textColor="@color/common_point_green"
         android:textSize="15sp"
         android:textStyle="bold"

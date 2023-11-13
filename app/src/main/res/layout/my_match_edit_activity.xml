@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="매치 글쓰기"
+        android:text="@string/my_match_edit_activity_tv_dialog_info"
         android:fontFamily="@font/pretendardbold"
         android:textSize="20sp"
         android:textStyle="bold"
