@@ -236,6 +236,17 @@
     <string name="calendar_add_dialog_fragment_btn_cancel">CANCEL</string>
     <string name="calendar_add_dialog_fragment_btn_save">SAVE</string>
 
+
+    <string name="toolbar_area">area</string>
+    <string name="toolbar_alarm">alarm</string>
+    <string name="toolbar_team">용병 모집하기 / 용병 신청하기</string>
+    <string name="toolbar_my_page">내 페이지</string>
+    <string name="toolbar_match">경기 매칭</string>
+    <string name="toolbar_calendar">일정 관리</string>
+
+
+
+
     <!-- [calendar_common_month_label] -->
     <string-array name="custom_month_labels">
         <item>1월</item>

@@ -34,11 +34,10 @@ class MatchFragment : Fragment() {
     private val listadapter by lazy {
         MatchListAdapter { item ->
             val matchList = viewModel.realTimeList.value ?: emptyList()
-            if(matchList.any { it.matchId == item.matchId }) {
+            if (matchList.any { it.matchId == item.matchId }) {
                 viewModel.plusViewCount(item)
                 startActivity(detailIntent(requireContext(), item))
-            }
-            else {
+            } else {
                 val dialog = MatchDeletedAlertDialog()
                 dialog.show(childFragmentManager, "matchDeletedAlertDialog")
             }
@@ -69,7 +68,7 @@ class MatchFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
-
+        toolBar.title = R.string.toolbar_match.toString()
         progressBar.visibility = View.VISIBLE
         viewModel.fetchData()
         rv.adapter = listadapter
@@ -108,7 +107,7 @@ class MatchFragment : Fragment() {
                 val game = bundle.getString(TeamFilterCategoryBottomSheet.SELECTED_GAME)
 
                 //선택한 게임과 지역에 따라 아이템을 필터링합니다.
-                viewModel.filterItems(area = area,game = game)
+                viewModel.filterItems(area = area, game = game)
             }
         }
     }
@@ -154,6 +153,7 @@ class MatchFragment : Fragment() {
             })
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
