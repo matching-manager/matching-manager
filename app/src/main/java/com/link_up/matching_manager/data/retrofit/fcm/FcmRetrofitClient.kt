@@ -1,4 +1,4 @@
-package com.link_up.matching_manager.retrofit.fcm
+package com.link_up.matching_manager.data.retrofit.fcm
 
 import com.link_up.matching_manager.data.remote.FcmRemoteDataSource
 import okhttp3.OkHttpClient

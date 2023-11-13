@@ -7,16 +7,23 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import com.link_up.matching_manager.data.di.ArenaApplication
 import com.link_up.matching_manager.databinding.ArenaActivityBinding
 import com.link_up.matching_manager.ui.home.arena.bottomsheet.ArenaFilterCategoryBottomSheet
 import com.link_up.matching_manager.ui.home.arena.detail_dialog.ArenaDetailFragment
+import javax.inject.Inject
 
 class ArenaActivity : AppCompatActivity() {
 
     private val binding by lazy { ArenaActivityBinding.inflate(layoutInflater) }
 
-    private val viewModel: ArenaViewModel by viewModels { ArenaViewModelFactory() }
+//    private val viewModel: ArenaViewModel by viewModels { ArenaViewModelFactory() }
+    lateinit var viewModel : ArenaViewModel
+
+    @Inject
+    lateinit var viewModelFactory: ArenaViewModelFactory
 
     private val listAdapter: ArenaListAdapter by lazy {
         ArenaListAdapter(
@@ -44,7 +51,6 @@ class ArenaActivity : AppCompatActivity() {
             }
         }
 
-    private
 
     companion object {
         const val ARENA_FILTER = "arena_filter"
@@ -57,6 +63,11 @@ class ArenaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        (application as ArenaApplication).applicationComponent.injectArena(this)
+
+        viewModel = ViewModelProvider(this,viewModelFactory)[ArenaViewModel::class.java]
+
         initView()
         initModel()
     }

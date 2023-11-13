@@ -1,9 +1,10 @@
-package com.link_up.matching_manager.domain.usecase
+package com.link_up.matching_manager.domain.usecase.api
 
 import com.link_up.matching_manager.domain.model.ArenaEntity
 import com.link_up.matching_manager.domain.repository.ArenaRepository
+import javax.inject.Inject
 
-class GetArenaInfoUseCase(
+class GetArenaInfoUseCase @Inject constructor(
     private val repository: ArenaRepository
 ) {
     suspend operator fun invoke(
