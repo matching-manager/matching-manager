@@ -1,8 +1,8 @@
 package com.link_up.matching_manager.data.remote
 
 import com.link_up.matching_manager.ui.fcm.send.Payload
-import com.link_up.matching_manager.retrofit.fcm.FcmRetrofitClient.SENDER_ID
-import com.link_up.matching_manager.retrofit.fcm.FcmRetrofitClient.SERVER_KEY
+import com.link_up.matching_manager.data.retrofit.fcm.FcmRetrofitClient.SENDER_ID
+import com.link_up.matching_manager.data.retrofit.fcm.FcmRetrofitClient.SERVER_KEY
 import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.HeaderMap

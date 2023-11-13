@@ -2,19 +2,26 @@ package com.link_up.matching_manager.ui.home.arena
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.link_up.matching_manager.data.repository.ArenaRepositoryImpl
 import com.link_up.matching_manager.data.repository.GeoRepositoryImpl
 import com.link_up.matching_manager.domain.repository.ArenaRepository
 import com.link_up.matching_manager.domain.repository.GeoRepository
-import com.link_up.matching_manager.domain.usecase.GetArenaInfoUseCase
+import com.link_up.matching_manager.domain.usecase.api.GetArenaInfoUseCase
 import com.link_up.matching_manager.domain.usecase.geo.GetGeoLocationUseCase
-import com.link_up.matching_manager.retrofit.RetrofitClient
+import javax.inject.Inject
 
-class ArenaViewModelFactory : ViewModelProvider.Factory {
+// 1
+// viewModelFactory inject용 코드
+// viewModelFactory를 DI화
+// 구글에 검색 @ViewModelKey -> 생성자가 사라짐 inject사용
 
-    private val arenaRepository: ArenaRepository = ArenaRepositoryImpl(
-        RetrofitClient.search
-    )
+// 2
+
+class ArenaViewModelFactory @Inject constructor(private val arenaRepository : ArenaRepository) : ViewModelProvider.Factory {
+
+//    private val arenaRepository: ArenaRepository = ArenaRepositoryImpl(
+//        RetrofitClient.search
+//    )
+
     private val geoRepository : GeoRepository = GeoRepositoryImpl()
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

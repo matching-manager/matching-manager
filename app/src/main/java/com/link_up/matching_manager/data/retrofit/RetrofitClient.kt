@@ -1,9 +1,7 @@
-package com.link_up.matching_manager.retrofit
+package com.link_up.matching_manager.data.retrofit
 
 import com.link_up.matching_manager.data.remote.ArenaRemoteDataSource
-import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -11,14 +9,9 @@ object RetrofitClient {
 
     private const val  BASE_URL = "https://dapi.kakao.com"
 
-//    private val loggingInterceptor = HttpLoggingInterceptor().apply {
-//        level = HttpLoggingInterceptor.Level.HEADERS
-//    }
-
     private val okHttpClient by lazy {
         OkHttpClient.Builder()
             .addInterceptor(AuthorizationInterceptor())
-//            .addInterceptor(loggingInterceptor)
             .build()
     }
 
@@ -30,8 +23,8 @@ object RetrofitClient {
             .build()
     }
 
-    val search: com.link_up.matching_manager.data.remote.ArenaRemoteDataSource by lazy {
-        retrofit.create(com.link_up.matching_manager.data.remote.ArenaRemoteDataSource::class.java)
+    val search: ArenaRemoteDataSource by lazy {
+        retrofit.create(ArenaRemoteDataSource::class.java)
     }
 
 }
