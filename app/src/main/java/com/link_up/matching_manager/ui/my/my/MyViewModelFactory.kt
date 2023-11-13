@@ -9,8 +9,7 @@ import com.link_up.matching_manager.domain.usecase.match.MatchDeleteDataUseCase
 import com.link_up.matching_manager.domain.usecase.match.MatchEditDataUseCase
 import com.link_up.matching_manager.domain.usecase.team.TeamAutoGetApplicationListUseCase
 import com.link_up.matching_manager.domain.usecase.team.TeamAutoGetRecruitListUseCase
-import com.link_up.matching_manager.domain.usecase.team.TeamDeleteApplicationDataUseCase
-import com.link_up.matching_manager.domain.usecase.team.TeamDeleteRecruitDataUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamDeleteDataUseCase
 import com.link_up.matching_manager.domain.usecase.team.TeamEditDataUseCase
 
 class MyViewModelFactory() : ViewModelProvider.Factory{
@@ -25,8 +24,7 @@ class MyViewModelFactory() : ViewModelProvider.Factory{
                 MatchEditDataUseCase(matchRepository),
                 TeamAutoGetRecruitListUseCase(teamRepository),
                 TeamAutoGetApplicationListUseCase(teamRepository),
-                TeamDeleteRecruitDataUseCase(teamRepository),
-                TeamDeleteApplicationDataUseCase(teamRepository),
+                TeamDeleteDataUseCase(teamRepository),
                 TeamEditDataUseCase(teamRepository)
             ) as T
         } else {

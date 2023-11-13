@@ -477,7 +477,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         } else {
             if (data.postImg == "") {
                 binding.progressBar.visibility = View.VISIBLE
-                viewModel.editApplication(data, newData)
+                viewModel.editTeam(data, newData)
                 binding.progressBar.visibility = View.INVISIBLE
                 Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
 
@@ -486,7 +486,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
 
                 fileRef.delete()
                     .addOnSuccessListener {
-                        viewModel.editApplication(data, newData)
+                        viewModel.editTeam(data, newData)
                         binding.progressBar.visibility = View.INVISIBLE
                         Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
                     }

@@ -16,9 +16,7 @@ interface TeamRepository {
 
     suspend fun addApplicationData(databaseRef : DatabaseReference, data: TeamItem.ApplicationItem)
 
-    suspend fun deleteRecruitData(databaseRef : DatabaseReference, data: TeamItem.RecruitmentItem)
-
-    suspend fun deleteApplicationData(databaseRef : DatabaseReference, data: TeamItem.ApplicationItem)
+    suspend fun deleteTeamData(databaseRef : DatabaseReference, data: TeamItem)
 
     suspend fun editTeamData(databaseRef : DatabaseReference, data : TeamItem, newData: TeamItem)
 

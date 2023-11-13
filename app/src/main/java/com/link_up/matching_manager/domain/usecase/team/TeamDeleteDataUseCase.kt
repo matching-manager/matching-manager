@@ -4,6 +4,6 @@ import com.google.firebase.database.DatabaseReference
 import com.link_up.matching_manager.domain.repository.TeamRepository
 import com.link_up.matching_manager.ui.team.TeamItem
 
-class TeamDeleteApplicationDataUseCase(val repository: TeamRepository) {
-    suspend operator fun invoke(databaseRef: DatabaseReference, data: TeamItem.ApplicationItem) = repository.deleteApplicationData(databaseRef, data)
+class TeamDeleteDataUseCase(val repository: TeamRepository) {
+    suspend operator fun invoke(databaseRef: DatabaseReference, data: TeamItem) = repository.deleteTeamData(databaseRef, data)
 }

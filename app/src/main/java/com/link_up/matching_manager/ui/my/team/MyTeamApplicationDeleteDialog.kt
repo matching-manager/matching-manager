@@ -79,14 +79,14 @@ class MyTeamApplicationDeleteDialog(private val item: TeamItem.ApplicationItem) 
         val fileRef = reference.child("Team/${item.teamId}")
 
         if(item.postImg == "") {
-            viewModel.deleteApplication(item)
+            viewModel.deleteTeam(item)
         }
         else {
             binding.progressBar.visibility = View.VISIBLE
 
             fileRef.delete()
                 .addOnSuccessListener {
-                    viewModel.deleteApplication(item)
+                    viewModel.deleteTeam(item)
                     binding.progressBar.visibility = View.INVISIBLE
                     Toast.makeText(requireContext(), "게시글이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                 }

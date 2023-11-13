@@ -11,8 +11,7 @@ import com.link_up.matching_manager.domain.usecase.match.MatchDeleteDataUseCase
 import com.link_up.matching_manager.domain.usecase.match.MatchEditDataUseCase
 import com.link_up.matching_manager.domain.usecase.team.TeamAutoGetApplicationListUseCase
 import com.link_up.matching_manager.domain.usecase.team.TeamAutoGetRecruitListUseCase
-import com.link_up.matching_manager.domain.usecase.team.TeamDeleteApplicationDataUseCase
-import com.link_up.matching_manager.domain.usecase.team.TeamDeleteRecruitDataUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamDeleteDataUseCase
 import com.link_up.matching_manager.domain.usecase.team.TeamEditDataUseCase
 import com.link_up.matching_manager.ui.match.MatchDataModel
 import com.link_up.matching_manager.ui.team.TeamItem
@@ -25,8 +24,7 @@ class MyViewModel(
     val editMatchData : MatchEditDataUseCase,
     val autoGetRecruitList: TeamAutoGetRecruitListUseCase,
     val autoGetApplicationList: TeamAutoGetApplicationListUseCase,
-    val deleteRecruitData: TeamDeleteRecruitDataUseCase,
-    val deleteApplicationData: TeamDeleteApplicationDataUseCase,
+    val deleteTeamData: TeamDeleteDataUseCase,
     val editTeamData: TeamEditDataUseCase
 ) : ViewModel() {
 
@@ -94,9 +92,9 @@ class MyViewModel(
         autoGetRecruitList(teamRef, _recruitList)
     }
 
-    fun deleteRecruit(data: TeamItem.RecruitmentItem) {
+    fun deleteTeam(data: TeamItem) {
         viewModelScope.launch {
-            deleteRecruitData(teamRef, data)
+            deleteTeamData(teamRef, data)
             _event.postValue(MyEvent.Dismiss)
         }
     }
@@ -110,20 +108,6 @@ class MyViewModel(
 
     fun autoFetchApplicationData() {
         autoGetApplicationList(teamRef, _applicationList)
-    }
-
-    fun deleteApplication(data: TeamItem.ApplicationItem) {
-        viewModelScope.launch {
-            deleteApplicationData(teamRef, data)
-            _event.postValue(MyEvent.Dismiss)
-        }
-    }
-
-    fun editApplication(data: TeamItem.ApplicationItem, newData: TeamItem.ApplicationItem) {
-        viewModelScope.launch {
-            editTeamData(teamRef, data, newData)
-            _event.postValue(MyEvent.Finish)
-        }
     }
 }
 

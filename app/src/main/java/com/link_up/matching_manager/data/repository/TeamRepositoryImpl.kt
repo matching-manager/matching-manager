@@ -97,22 +97,9 @@ class TeamRepositoryImpl() : TeamRepository {
         databaseRef.push().setValue(data).await()
     }
 
-    override suspend fun deleteRecruitData(
+    override suspend fun deleteTeamData(
         databaseRef: DatabaseReference,
-        data: TeamItem.RecruitmentItem
-    ) {
-        val query = databaseRef.orderByChild("teamId").equalTo(data.teamId)
-        val snapshot = query.get().await()
-        if (snapshot.exists()) {
-            for (childSnapshot in snapshot.children) {
-                childSnapshot.ref.removeValue()
-            }
-        }
-    }
-
-    override suspend fun deleteApplicationData(
-        databaseRef: DatabaseReference,
-        data: TeamItem.ApplicationItem
+        data: TeamItem
     ) {
         val query = databaseRef.orderByChild("teamId").equalTo(data.teamId)
         val snapshot = query.get().await()
