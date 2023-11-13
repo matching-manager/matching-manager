@@ -54,13 +54,8 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
         _bookmarkApplicationList.value = dataList
     }
 
-    fun fetchMatchData(userId : String) {
-        viewModelScope.launch {
-            val currentList = repository.getMatchList(userId, database)
-            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
-
-            _matchList.postValue(currentList)
-        }
+    fun autoFetchMatchData() {
+        repository.getMatchList(database, _matchList)
     }
 
     fun deleteMatch(data: MatchDataModel) {
@@ -76,34 +71,9 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
             _event.postValue(MyEvent.Finish)
         }
     }
-    fun autoFetchMatchData() {
-        val query = matchRef.orderByChild("userId").equalTo(UserInformation.userInfo.uid)
-        query.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val dataList = mutableListOf<MatchDataModel>()
 
-                for (childSnapshot in dataSnapshot.children) {
-                    val matchData = childSnapshot.getValue(MatchDataModel::class.java)
-                    if (matchData != null) {
-                        dataList.add(matchData)
-                    }
-                }
-                _matchList.value = dataList
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // 오류 처리
-            }
-        })
-    }
-
-    fun fetchRecruitData(userId : String) {
-        viewModelScope.launch {
-            val currentList = repository.getRecruitList(userId, database)
-            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
-
-            _recruitList.postValue(currentList)
-        }
+    fun autoFetchRecruitData() {
+        repository.getRecruitList(database, _recruitList)
     }
 
     fun deleteRecruit(data: TeamItem.RecruitmentItem) {
@@ -120,34 +90,8 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
         }
     }
 
-    fun autoFetchRecruitData() {
-        val query = teamRef.orderByChild("type").equalTo("용병모집")
-        query.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val dataList = mutableListOf<TeamItem.RecruitmentItem>()
-
-                for (childSnapshot in dataSnapshot.children) {
-                    val recruitData = childSnapshot.getValue(TeamItem.RecruitmentItem::class.java)
-                    if (recruitData != null && recruitData.userId == UserInformation.userInfo.uid) {
-                        dataList.add(recruitData)
-                    }
-                }
-                _recruitList.value = dataList
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // 오류 처리
-            }
-        })
-    }
-
-    fun fetchApplicationData(userId : String) {
-        viewModelScope.launch {
-            val currentList = repository.getApplicationList(userId, database)
-            Log.d("MatchViewModel", "fetchData() = currentList : ${currentList.size}")
-
-            _applicationList.postValue(currentList)
-        }
+    fun autoFetchApplicationData() {
+        repository.getApplicationList(database, _applicationList)
     }
 
     fun deleteApplication(data: TeamItem.ApplicationItem) {
@@ -163,28 +107,6 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
             _event.postValue(MyEvent.Finish)
         }
     }
-
-    fun autoFetchApplicationData() {
-        val query = teamRef.orderByChild("type").equalTo("용병신청")
-        query.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val dataList = mutableListOf<TeamItem.ApplicationItem>()
-
-                for (childSnapshot in dataSnapshot.children) {
-                    val applicationData = childSnapshot.getValue(TeamItem.ApplicationItem::class.java)
-                    if (applicationData != null && applicationData.userId == UserInformation.userInfo.uid) {
-                        dataList.add(applicationData)
-                    }
-                }
-                _applicationList.value = dataList
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // 오류 처리
-            }
-        })
-    }
-
 }
 sealed interface MyEvent {
     object Dismiss : MyEvent

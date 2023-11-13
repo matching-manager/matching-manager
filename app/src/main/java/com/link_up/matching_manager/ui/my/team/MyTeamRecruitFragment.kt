@@ -53,7 +53,7 @@ class MyTeamRecruitFragment : Fragment() {
 
     private fun initView() = with(binding){
         progressBar.visibility = View.VISIBLE
-        viewModel.fetchRecruitData(UserInformation.userInfo.uid!!)
+        viewModel.autoFetchRecruitData()
 
         rv.adapter = adapter
         val manager = LinearLayoutManager(requireContext())
@@ -63,8 +63,6 @@ class MyTeamRecruitFragment : Fragment() {
     }
 
     private fun initViewModel() = with(viewModel) {
-        autoFetchRecruitData()
-
         recruitList.observe(viewLifecycleOwner, Observer {
             var smoothList = 0
             adapter.submitList(it.toList())

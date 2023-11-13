@@ -1,26 +1,38 @@
 package com.link_up.matching_manager.data.repository
 
+import androidx.lifecycle.MutableLiveData
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.link_up.matching_manager.ui.match.MatchDataModel
 import com.link_up.matching_manager.domain.repository.MyRepository
 import com.link_up.matching_manager.ui.team.TeamItem
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.link_up.matching_manager.util.UserInformation
 import kotlinx.coroutines.tasks.await
 
 class MyRepositoryImpl() : MyRepository {
 
-    override suspend fun getMatchList(userId : String, database: FirebaseDatabase): List<MatchDataModel> {
+    override fun getMatchList(database: FirebaseDatabase, list : MutableLiveData<List<MatchDataModel>>) {
         val matchRef = database.getReference("Match")
-        val items = arrayListOf<MatchDataModel>()
-        val query = matchRef.orderByChild("userId").equalTo(userId)
-        val snapshot = query.get().await()
-        if (snapshot.exists()) {
-            for (childSnapshot in snapshot.children) {
-                childSnapshot.getValue(MatchDataModel::class.java)?.let { matchData ->
-                    items.add(matchData)
+        val query = matchRef.orderByChild("userId").equalTo(UserInformation.userInfo.uid)
+        query.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dataList = mutableListOf<MatchDataModel>()
+
+                for (childSnapshot in dataSnapshot.children) {
+                    val matchData = childSnapshot.getValue(MatchDataModel::class.java)
+                    if (matchData != null) {
+                        dataList.add(matchData)
+                    }
                 }
+                list.value = dataList
             }
-        }
-        return items
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // 오류 처리
+            }
+        })
     }
 
     override suspend fun deleteMatchData(data: MatchDataModel, database: FirebaseDatabase) {
@@ -58,19 +70,26 @@ class MyRepositoryImpl() : MyRepository {
         }
     }
 
-    override suspend fun getRecruitList(userId: String, database: FirebaseDatabase): List<TeamItem.RecruitmentItem> {
+    override fun getRecruitList(database: FirebaseDatabase, list: MutableLiveData<List<TeamItem.RecruitmentItem>>) {
         val teamRef = database.getReference("Team")
-        val items = arrayListOf<TeamItem.RecruitmentItem>()
-        val snapshot = teamRef.get().await()
-        if (snapshot.exists()) {
-            for (childSnapshot in snapshot.children) {
-                val recruitData = childSnapshot.getValue(TeamItem.RecruitmentItem::class.java)
-                if (recruitData != null && recruitData.userId == userId && recruitData.type == "용병모집") {
-                    items.add(recruitData)
+        val query = teamRef.orderByChild("type").equalTo("용병모집")
+        query.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dataList = mutableListOf<TeamItem.RecruitmentItem>()
+
+                for (childSnapshot in dataSnapshot.children) {
+                    val recruitData = childSnapshot.getValue(TeamItem.RecruitmentItem::class.java)
+                    if (recruitData != null && recruitData.userId == UserInformation.userInfo.uid) {
+                        dataList.add(recruitData)
+                    }
                 }
+                list.value = dataList
             }
-        }
-        return items
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // 오류 처리
+            }
+        })
     }
 
     override suspend fun deleteRecruitData(data: TeamItem.RecruitmentItem, database: FirebaseDatabase) {
@@ -108,19 +127,26 @@ class MyRepositoryImpl() : MyRepository {
         }
     }
 
-    override suspend fun getApplicationList(userId: String, database: FirebaseDatabase): List<TeamItem.ApplicationItem> {
+    override fun getApplicationList(database: FirebaseDatabase, list: MutableLiveData<List<TeamItem.ApplicationItem>>) {
         val teamRef = database.getReference("Team")
-        val items = arrayListOf<TeamItem.ApplicationItem>()
-        val snapshot = teamRef.get().await()
-        if (snapshot.exists()) {
-            for (childSnapshot in snapshot.children) {
-                val applicationData = childSnapshot.getValue(TeamItem.ApplicationItem::class.java)
-                if (applicationData != null && applicationData.userId == userId && applicationData.type == "용병신청") {
-                    items.add(applicationData)
+        val query = teamRef.orderByChild("type").equalTo("용병신청")
+        query.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dataList = mutableListOf<TeamItem.ApplicationItem>()
+
+                for (childSnapshot in dataSnapshot.children) {
+                    val applicationData = childSnapshot.getValue(TeamItem.ApplicationItem::class.java)
+                    if (applicationData != null && applicationData.userId == UserInformation.userInfo.uid) {
+                        dataList.add(applicationData)
+                    }
                 }
+                list.value = dataList
             }
-        }
-        return items
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // 오류 처리
+            }
+        })
     }
 
     override suspend fun deleteApplicationData(data: TeamItem.ApplicationItem, database: FirebaseDatabase) {

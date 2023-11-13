@@ -53,7 +53,7 @@ class MyTeamApplicationFragment : Fragment() {
 
     private fun initView() = with(binding){
         progressBar.visibility = View.VISIBLE
-        viewModel.fetchApplicationData(UserInformation.userInfo.uid!!)
+        viewModel.autoFetchApplicationData()
 
         rv.adapter = adapter
         val manager = LinearLayoutManager(requireContext())
@@ -63,8 +63,6 @@ class MyTeamApplicationFragment : Fragment() {
     }
 
     private fun initViewModel() = with(viewModel) {
-        autoFetchApplicationData()
-
         applicationList.observe(viewLifecycleOwner, Observer {
             var smoothList = 0
             adapter.submitList(it.toList())
