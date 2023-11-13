@@ -11,16 +11,27 @@ import com.link_up.matching_manager.domain.repository.MyRepository
 import com.link_up.matching_manager.domain.usecase.match.MatchAutoGetListUseCase
 import com.link_up.matching_manager.domain.usecase.match.MatchDeleteDataUseCase
 import com.link_up.matching_manager.domain.usecase.match.MatchEditDataUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamAutoGetApplicationListUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamAutoGetRecruitListUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamDeleteApplicationDataUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamDeleteRecruitDataUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamEditApplicationDataUseCase
+import com.link_up.matching_manager.domain.usecase.team.TeamEditRecruitDataUseCase
 import com.link_up.matching_manager.ui.match.MatchDataModel
 import com.link_up.matching_manager.ui.team.TeamItem
 import com.link_up.matching_manager.util.UserInformation
 import kotlinx.coroutines.launch
 
 class MyViewModel(
-    private val repository: MyRepository,
     val autoGetMatchList: MatchAutoGetListUseCase,
-    val deleteData: MatchDeleteDataUseCase,
-    val editData : MatchEditDataUseCase
+    val deleteMatchData: MatchDeleteDataUseCase,
+    val editMatchData : MatchEditDataUseCase,
+    val autoGetRecruitList: TeamAutoGetRecruitListUseCase,
+    val autoGetApplicationList: TeamAutoGetApplicationListUseCase,
+    val deleteRecruitData: TeamDeleteRecruitDataUseCase,
+    val deleteApplicationData: TeamDeleteApplicationDataUseCase,
+    val editRecruitData: TeamEditRecruitDataUseCase,
+    val editApplicationData: TeamEditApplicationDataUseCase
 ) : ViewModel() {
 
     private val _matchList: MutableLiveData<List<MatchDataModel>> = MutableLiveData()
@@ -71,50 +82,50 @@ class MyViewModel(
 
     fun deleteMatch(data: MatchDataModel) {
         viewModelScope.launch {
-            deleteData(matchRef, data)
+            deleteMatchData(matchRef, data)
             _event.postValue(MyEvent.Dismiss)
         }
     }
 
     fun editMatch(data: MatchDataModel, newData: MatchDataModel) {
         viewModelScope.launch {
-            editData(matchRef, data, newData)
+            editMatchData(matchRef, data, newData)
             _event.postValue(MyEvent.Finish)
         }
     }
 
     fun autoFetchRecruitData() {
-        repository.getRecruitList(database, _recruitList)
+        autoGetRecruitList(teamRef, _recruitList)
     }
 
     fun deleteRecruit(data: TeamItem.RecruitmentItem) {
         viewModelScope.launch {
-            repository.deleteRecruitData(data, database)
+            deleteRecruitData(teamRef, data)
             _event.postValue(MyEvent.Dismiss)
         }
     }
 
     fun editRecruit(data: TeamItem.RecruitmentItem, newData: TeamItem.RecruitmentItem) {
         viewModelScope.launch {
-            repository.editRecruitData(data, newData, database)
+            editRecruitData(teamRef, data, newData)
             _event.postValue(MyEvent.Finish)
         }
     }
 
     fun autoFetchApplicationData() {
-        repository.getApplicationList(database, _applicationList)
+        autoGetApplicationList(teamRef, _applicationList)
     }
 
     fun deleteApplication(data: TeamItem.ApplicationItem) {
         viewModelScope.launch {
-            repository.deleteApplicationData(data, database)
+            deleteApplicationData(teamRef, data)
             _event.postValue(MyEvent.Dismiss)
         }
     }
 
     fun editApplication(data: TeamItem.ApplicationItem, newData: TeamItem.ApplicationItem) {
         viewModelScope.launch {
-            repository.editApplicationData(data, newData, database)
+            editApplicationData(teamRef, data, newData)
             _event.postValue(MyEvent.Finish)
         }
     }
