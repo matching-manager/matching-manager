@@ -68,7 +68,6 @@ class MatchFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
-        toolBar.title = R.string.toolbar_match.toString()
         progressBar.visibility = View.VISIBLE
         viewModel.fetchData()
         rv.adapter = listadapter

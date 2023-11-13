@@ -91,8 +91,6 @@ class TeamFragment : Fragment() {
 
 
     private fun initView() = with(binding) {
-        toolBar.title = R.string.toolbar_team.toString()
-
         progressBar.visibility = View.VISIBLE
 
         viewModel.fetchData(btnRecruitment.isChecked, btnApplication.isChecked, game, area)

@@ -65,6 +65,8 @@
     <!-- match_detail.xml -->
     <string name="match_detail_dialog_info">매치</string>
     <string name="match_detail_title">매치 제목</string>
+    <string name="match_detail_add">매치 글쓰기</string>
+    <string name="match_writing">매치 게시글</string>
     <string name="match_detail_nickName">작성자</string>
     <string name="match_detail_time">5시간 전</string>
     <string name="match_detail_slash">/</string>
@@ -90,6 +92,7 @@
 
     <!-- team_item.xml -->
     <string name="team_item_type">용병모집</string>
+    <string name="team_writing">용병 모집/신청 게시글</string>
     <string name="team_item_number">2명</string>
     <string name="team_item_gender">남성</string>
     <string name="team_item_view_count">1</string>
@@ -205,6 +208,7 @@
     <string name="my_profile">프로필</string>
     <string name="my_btn_Sign_Out">SIGN OUT</string>
     <string name="my_test_username">봉선동손흥민</string>
+    <string name="my_bookmark">관심목록</string>
     <string name="my_test_real_name">추민수</string>
     <string name="my_test_phone_number">01028179282</string>
     <string name="my_test_email">sonny@gmail.com</string>
@@ -239,10 +243,11 @@
 
     <string name="toolbar_area">area</string>
     <string name="toolbar_alarm">alarm</string>
-    <string name="toolbar_team">용병 모집하기 / 용병 신청하기</string>
-    <string name="toolbar_my_page">내 페이지</string>
+    <string name="toolbar_team">용병 모집/신청</string>
+    <string name="toolbar_my_page">마이 페이지</string>
     <string name="toolbar_match">경기 매칭</string>
     <string name="toolbar_calendar">일정 관리</string>
+    <string name="toolbar_notification">공지사항</string>
 
 
 

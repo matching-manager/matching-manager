@@ -77,7 +77,6 @@ class CalendarFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
-        toolBar.title = R.string.toolbar_calendar.toString()
         materialCalendarView = materialCalendar // 초기화 코드를 추가
         //리사이클러뷰 어댑터 설정
         rvCalendar.adapter = listAdapter

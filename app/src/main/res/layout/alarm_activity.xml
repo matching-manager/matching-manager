@@ -7,40 +7,27 @@
     android:background="@drawable/common_gradient_background"
     tools:context=".ui.home.alarm.AlarmActivity">
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/common_transparent"
-        android:src="@drawable/ic_back"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:fontFamily="@font/pretendardbold"
-        android:text="@string/alarm"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/btn_back"
-        app:layout_constraintStart_toEndOf="@id/btn_back"
-        app:layout_constraintTop_toTopOf="@id/btn_back" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back"
+        android:background="@color/common_transparent"
+        app:titleTextAppearance="@style/ToolbarTitleText"
+        app:title="@string/alarm"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_alarm"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_back"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back"
         tools:listitem="@layout/alarm_recyclerview_item" />
 
     <TextView

@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/app_name"
+                android:textColor="@color/black"
                 android:fontFamily="@font/pretendardbold"
                 android:textSize="18sp"/>
 

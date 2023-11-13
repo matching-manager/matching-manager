@@ -45,7 +45,6 @@ class MyFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
-        toolBar.title = R.string.toolbar_my_page.toString()
         val userData = UserInformation.userInfo
         ivPhoto.load(userData.photoUrl)
         tvUsername.text = userData.username

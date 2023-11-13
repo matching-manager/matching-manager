@@ -37,6 +37,7 @@
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/pretendardbold"
             android:text="@string/home_tv_announcement"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/cv_announcement"
             app:layout_constraintStart_toStartOf="parent" />
@@ -82,6 +83,7 @@
             android:layout_marginTop="15dp"
             android:fontFamily="@font/pretendardbold"
             android:text="@string/home_tv_title_match"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/cv_match"
             app:layout_constraintStart_toStartOf="parent"

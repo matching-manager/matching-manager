@@ -21,7 +21,7 @@
                 android:layout_height="0dp"
                 android:background="@color/common_transparent"
                 app:titleTextAppearance="@style/CustomToolbarTitleText"
-                app:titleTextColor="@color/common_point_green"
+                app:title="@string/toolbar_calendar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
