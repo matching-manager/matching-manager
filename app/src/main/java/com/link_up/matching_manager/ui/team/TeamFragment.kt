@@ -91,7 +91,6 @@ class TeamFragment : Fragment() {
 
 
     private fun initView() = with(binding) {
-
         progressBar.visibility = View.VISIBLE
 
         viewModel.fetchData(btnRecruitment.isChecked, btnApplication.isChecked, game, area)

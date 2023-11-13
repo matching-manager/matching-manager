@@ -26,14 +26,13 @@ class MyFragment : Fragment() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
 
-
     companion object {
         fun newInstance() = MyFragment()
         const val OBJECT_DATA = "item_object"
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
         _binding = MyFragmentBinding.inflate(inflater, container, false)
         return binding.root

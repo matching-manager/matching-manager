@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.CalendarFragmentBinding
 import com.link_up.matching_manager.databinding.CalendarRecyclerviewItemBinding
 import com.prolificinteractive.materialcalendarview.CalendarDay

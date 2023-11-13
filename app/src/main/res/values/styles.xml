@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">@font/pretendardbold</item> <!-- 여기서 custom_font는 사용하고자 하는 폰트 파일입니다. -->
+        <item name="android:textSize">23sp</item> <!-- 글씨 크기 조절 -->
+        <item name="android:textColor">@color/black</item> <!-- 글씨 색상 조절 -->
+    </style>
+    <style name="ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">@font/pretendardbold</item> <!-- 여기서 custom_font는 사용하고자 하는 폰트 파일입니다. -->
+        <item name="android:textSize">23sp</item> <!-- 글씨 크기 조절 -->
+        <item name="android:textColor">@color/black</item> <!-- 글씨 색상 조절 -->
+    </style>
+</resources>

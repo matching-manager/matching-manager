@@ -19,6 +19,7 @@
             android:layout_marginTop="24dp"
             android:textSize="18sp"
             android:text="삭제된 게시물입니다"
+            android:textColor="@color/black"
             android:fontFamily="@font/pretendardbold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
