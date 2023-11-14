@@ -14,7 +14,7 @@ interface MatchRepository {
 
     suspend fun deleteData(databaseRef : DatabaseReference, data : MatchDataModel)
     suspend fun editMatchData(databaseRef: DatabaseReference, data : MatchDataModel, newData: MatchDataModel)
-    suspend fun editViewCount(databaseRef : DatabaseReference, data : MatchDataModel)
-    suspend fun editChatCount(databaseRef : DatabaseReference, data : MatchDataModel)
+    suspend fun editViewCount(query: Query, data : MatchDataModel)
+    suspend fun editChatCount(query: Query, data : MatchDataModel)
 
 }

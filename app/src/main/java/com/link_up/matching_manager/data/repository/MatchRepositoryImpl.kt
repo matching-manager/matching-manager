@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.google.firebase.database.ServerValue
 import com.google.firebase.database.ValueEventListener
+import com.link_up.matching_manager.ui.team.TeamItem
 import kotlinx.coroutines.tasks.await
 
 class MatchRepositoryImpl() : MatchRepository {
@@ -103,9 +104,7 @@ class MatchRepositoryImpl() : MatchRepository {
         }
     }
 
-    override suspend fun editViewCount(databaseRef : DatabaseReference, data: MatchDataModel) {
-        val query = databaseRef.orderByChild("matchId").equalTo(data.matchId)
-
+    override suspend fun editViewCount(query: Query, data: MatchDataModel) {
         val updateValue = ServerValue.increment(1)
 
         val dataToUpdate = hashMapOf(
@@ -119,9 +118,7 @@ class MatchRepositoryImpl() : MatchRepository {
         }
     }
 
-    override suspend fun editChatCount(databaseRef : DatabaseReference, data: MatchDataModel) {
-        val query = databaseRef.orderByChild("matchId").equalTo(data.matchId)
-
+    override suspend fun editChatCount(query: Query,data: MatchDataModel) {
         val updateValue = ServerValue.increment(1)
 
         val dataToUpdate = hashMapOf(

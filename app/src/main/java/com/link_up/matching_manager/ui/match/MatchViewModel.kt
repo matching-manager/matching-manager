@@ -81,19 +81,21 @@ class MatchViewModel(
     }
 
     fun plusViewCount(data: MatchDataModel) {
+        val query = matchRef.orderByChild("matchId").equalTo(data.matchId)
         //게시물에 담긴 유저ID와 로그인한 유저의 UID가 달라야 countUp
         if(data.userId != UserInformation.userInfo.uid) {
             viewModelScope.launch {
-                editViewCount(matchRef, data)
+                editViewCount(query, data)
             }
         }
     }
 
     fun plusChatCount(data: MatchDataModel) {
+        val query = matchRef.orderByChild("matchId").equalTo(data.matchId)
         //게시물에 담긴 유저ID와 로그인한 유저의 UID가 달라야 countUp
         if(data.userId != UserInformation.userInfo.uid) {
             viewModelScope.launch {
-                editChatCount(matchRef, data)
+                editChatCount(query, data)
             }
         }
     }
