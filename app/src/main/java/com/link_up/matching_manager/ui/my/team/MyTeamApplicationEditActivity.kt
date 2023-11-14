@@ -13,14 +13,15 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.net.toUri
 import androidx.lifecycle.Observer
 import coil.load
 import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.MyTeamApplicationEditActivityBinding
 import com.link_up.matching_manager.ui.my.my.MyEvent
-import com.link_up.matching_manager.ui.my.my.MyViewModel
+import com.link_up.matching_manager.ui.my.my.MyPostViewModel
 import com.link_up.matching_manager.ui.my.match.MyMatchMenuBottomSheet
-import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
+import com.link_up.matching_manager.ui.my.my.MyPostViewModelFactory
 import com.link_up.matching_manager.ui.team.TeamItem
 import com.link_up.matching_manager.ui.team.TeamWritingActivity
 import com.link_up.matching_manager.ui.team.bottomsheet.TeamAgeBottomSheet
@@ -28,7 +29,6 @@ import com.link_up.matching_manager.ui.team.bottomsheet.TeamNumberBottomSheet
 import com.link_up.matching_manager.ui.team.view_model.TeamSharedViewModel
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.link_up.matching_manager.ui.team.TeamAddType
 import com.link_up.matching_manager.util.Spinners
 
 class MyTeamApplicationEditActivity : AppCompatActivity() {
@@ -44,8 +44,8 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
 
     private val sharedViewModel: TeamSharedViewModel by viewModels()
 
-    private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+    private val viewModel: MyPostViewModel by viewModels {
+        MyPostViewModelFactory()
     }
 
     private val reference: StorageReference = FirebaseStorage.getInstance().reference
@@ -95,11 +95,12 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
-        tvDialogInfo.setText(R.string.team_add_activity_application)
+        btnCancel.title = resources.getString(R.string.team_add_activity_application)
         etContent.setText(data!!.description)
 
         if (data!!.postImg != "") {
             ivImage.load(data!!.postImg)
+            imageUri = data!!.postImg.toUri()
             btnCancelImage.visibility = View.VISIBLE
         }
 
@@ -455,47 +456,56 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         val fileRef = reference.child("Team/${data.teamId}")
 
         if (uri != null) {
-            fileRef.putFile(uri)
-                .addOnSuccessListener {
-                    fileRef.downloadUrl
-                        .addOnSuccessListener { uri ->
-                            newData.postImg = uri.toString()
-                            viewModel.editApplication(data, newData)
+            if(imageUri == data.postImg.toUri()) {
+                newData.postImg = imageUri.toString()
+                binding.progressBar.visibility = View.VISIBLE
+                viewModel.editTeam(data, newData)
+                binding.progressBar.visibility = View.INVISIBLE
+                Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                fileRef.putFile(uri)
+                    .addOnSuccessListener {
+                        fileRef.downloadUrl
+                            .addOnSuccessListener { uri ->
+                                newData.postImg = uri.toString()
+                                viewModel.editTeam(data, newData)
 
-                            binding.progressBar.visibility = View.INVISIBLE
+                                binding.progressBar.visibility = View.INVISIBLE
 
-                            Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
 
-                        }
-                }
-                .addOnProgressListener { snapshot ->
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                .addOnFailureListener { e ->
-                    binding.progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-                }
-        }
-        else {
+                            }
+                    }
+                    .addOnProgressListener { snapshot ->
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                    .addOnFailureListener { e ->
+                        binding.progressBar.visibility = View.INVISIBLE
+                        Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+            }
+        } else {
             if (data.postImg == "") {
                 binding.progressBar.visibility = View.VISIBLE
-                viewModel.editApplication(data, newData)
+                viewModel.editTeam(data, newData)
                 binding.progressBar.visibility = View.INVISIBLE
                 Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
 
-            }
-            else {
+            } else {
                 binding.progressBar.visibility = View.VISIBLE
 
                 fileRef.delete()
                     .addOnSuccessListener {
-                        viewModel.editApplication(data, newData)
+                        viewModel.editTeam(data, newData)
                         binding.progressBar.visibility = View.INVISIBLE
                         Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener { exception ->
                         binding.progressBar.visibility = View.INVISIBLE
-                        Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT)
+                            .show()
                     }
             }
         }

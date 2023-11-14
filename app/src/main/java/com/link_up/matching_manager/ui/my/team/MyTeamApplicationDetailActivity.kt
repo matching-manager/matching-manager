@@ -62,7 +62,7 @@ class MyTeamApplicationDetailActivity : AppCompatActivity() {
             "상(Lv7-10)" -> ivLevel.setImageResource(R.drawable.ic_level1)
         }
         tvType.text = data!!.type
-        tvDialogInfo.text = data!!.type
+        btnCancel.title = data!!.type
         tvTitle.text = "[${data!!.game}] ${data!!.schedule}"
         tvTitle2.text = data!!.area
         ivProfile.load(data!!.userImg)
@@ -84,6 +84,8 @@ class MyTeamApplicationDetailActivity : AppCompatActivity() {
         btnCancel.setOnClickListener {
             finish()
         }
+
+        bottomSheetLayout.visibility = View.GONE
     }
 
     @SuppressLint("SimpleDateFormat")

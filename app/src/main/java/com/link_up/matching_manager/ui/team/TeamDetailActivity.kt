@@ -18,8 +18,8 @@ import com.link_up.matching_manager.ui.my.bookmark.BookmarkApplicationDataModel
 import com.link_up.matching_manager.ui.my.bookmark.BookmarkRecruitDataModel
 import com.link_up.matching_manager.ui.my.bookmark.MyBookmarkApplicationFragment
 import com.link_up.matching_manager.ui.my.bookmark.MyBookmarkRecruitFragment
-import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
-import com.link_up.matching_manager.ui.my.my.MyViewModel
+import com.link_up.matching_manager.ui.my.my.MyPostViewModelFactory
+import com.link_up.matching_manager.ui.my.my.MyPostViewModel
 import com.link_up.matching_manager.util.UserInformation
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -30,8 +30,8 @@ import java.util.concurrent.TimeUnit
 class TeamDetailActivity : AppCompatActivity() {
     private lateinit var binding: TeamDetailActivityBinding
 
-    private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+    private val viewModel: MyPostViewModel by viewModels {
+        MyPostViewModelFactory()
     }
 
     private var isLiked = false
@@ -75,7 +75,7 @@ class TeamDetailActivity : AppCompatActivity() {
                 "상(Lv7-10)" -> ivLevel.setImageResource(R.drawable.ic_level1)
             }
             tvType.text = item.type
-            tvDialogInfo.text = item.type
+            btnCancel.title = item.type
             tvTitle.text = "[${item.game}] ${item.schedule}"
             tvTitle2.text = item.area
             ivProfile.load(item.userImg)
@@ -110,7 +110,7 @@ class TeamDetailActivity : AppCompatActivity() {
                 "상(Lv7-10)" -> ivLevel.setImageResource(R.drawable.ic_level1)
             }
             tvType.text = item.type
-            tvDialogInfo.text = item.type
+            btnCancel.title = item.type
             tvTitle.text = "[${item.game}] ${item.schedule}"
             tvTitle2.text = item.area
             ivProfile.load(item.userImg)

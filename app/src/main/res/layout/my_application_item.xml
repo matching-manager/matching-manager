@@ -54,7 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/pretendardbold"
-                        android:text="용병신청"
+                        android:text="@string/my_application_item_tv_type"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -103,6 +103,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/pretendardbold"
                 android:text="@string/team_item_schedule"
+                android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="@+id/cv_type"
                 app:layout_constraintTop_toBottomOf="@+id/cv_type" />
@@ -115,6 +116,7 @@
                 android:fontFamily="@font/pretendardbold"
                 android:text="@string/team_item_place"
                 android:textSize="15sp"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/tv_schedule"
                 app:layout_constraintTop_toBottomOf="@+id/tv_schedule" />
 

@@ -13,7 +13,8 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bottomsheet_background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,7 +24,7 @@
                 android:id="@+id/divider2"
                 android:layout_width="80dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="30dp"
                 android:background="@color/common_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,9 +55,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="지역"
-                android:textSize="17dp"
-                android:textStyle="bold"
+                android:fontFamily="@font/pretendardbold"
+                android:text="@string/match_filter_category_tv_area"
+                android:textColor="@color/black"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -112,9 +114,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="경기 종목"
-                android:textSize="17dp"
-                android:textStyle="bold"
+                android:text="@string/match_filter_category_tv_game"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:fontFamily="@font/pretendardbold"
                 app:layout_constraintStart_toStartOf="@+id/tv_area"
                 app:layout_constraintTop_toBottomOf="@+id/cardView4" />
 
@@ -124,7 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/common_point_green"
                 app:cardCornerRadius="10dp"
@@ -146,37 +149,46 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout1"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout1"
         app:layout_constraintTop_toBottomOf="@id/linearLayout1">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_height="60dp"
-            android:textSize="15dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/btn_background_green_stroke"
+            android:fontFamily="@font/pretendardbold"
+            android:text="@string/match_filter_category_btn_cancel"
             android:textAlignment="center"
-            android:backgroundTint="@color/common_grey"
-            android:text="모두 취소"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:textColor="@color/common_point_green"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-        <Button
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/tab_btn_green"
-            android:text="결과보기"
-            android:textColor="@color/white"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/btn_background_green_fill"
+            android:fontFamily="@font/pretendardbold"
+            android:text="@string/match_filter_category_btn_search"
             android:textAlignment="center"
-            android:textStyle="bold"
+            android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     </LinearLayout>

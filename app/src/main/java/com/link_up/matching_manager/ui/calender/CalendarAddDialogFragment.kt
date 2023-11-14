@@ -51,28 +51,28 @@ class CalendarAddDialogFragment : BottomSheetDialogFragment() {
         btnSave.setOnClickListener {
             val memoText = edtCalendarAddDialogMemo.text.toString()
             val memoPlace = edtCalendarAddDialogPlace.text.toString()
-            val memoYear = materialCalendarCalendarAddView.selectedDate.year
-            val memoMonth = materialCalendarCalendarAddView.selectedDate.month
-            val memoDay = materialCalendarCalendarAddView.selectedDate.day
 
-                if (memoText.isNotBlank() && memoPlace.isNotBlank()) {
-                    // 메모 데이터를 부모 Fragment로 전달합니다.
-                    setFragmentResult(
-                        ADD_REQUEST_KEY,
-                        bundleOf(
-                            ADD_RESULT_KEY_TEXT to memoText,
-                            ADD_RESULT_KEY_PLACE to memoPlace,
-                            ADD_RESULT_KEY_YEAR to memoYear,
-                            ADD_RESULT_KEY_MONTH to memoMonth,
-                            ADD_RESULT_KEY_DAY to memoDay,
-                        )
+            if (materialCalendarCalendarAddView.selectedDate != null && memoText.isNotBlank() && memoPlace.isNotBlank()) {
+                val memoYear = materialCalendarCalendarAddView.selectedDate.year
+                val memoMonth = materialCalendarCalendarAddView.selectedDate.month
+                val memoDay = materialCalendarCalendarAddView.selectedDate.day
+
+                // 메모 데이터를 부모 Fragment로 전달합니다.
+                setFragmentResult(
+                    ADD_REQUEST_KEY,
+                    bundleOf(
+                        ADD_RESULT_KEY_TEXT to memoText,
+                        ADD_RESULT_KEY_PLACE to memoPlace,
+                        ADD_RESULT_KEY_YEAR to memoYear,
+                        ADD_RESULT_KEY_MONTH to memoMonth,
+                        ADD_RESULT_KEY_DAY to memoDay,
                     )
-                    dismiss() // 다이얼로그 닫기
-                } else {
-                    // `memoText`와 `memoPlace` 중 하나라도 입력되지 않았을 때 클릭 비활성화
-                    Toast.makeText(requireContext(), "메모, 장소를 꼭 입력하세요", Toast.LENGTH_SHORT).show()
-                    btnSave.isEnabled = true
-                }
+                )
+                dismiss() // 다이얼로그 닫기
+            } else {
+                Toast.makeText(requireContext(), "날짜와 빈칸을 모두 채워주세요!", Toast.LENGTH_SHORT).show()
+                btnSave.isEnabled = true
+            }
         }
         btnCancel.setOnClickListener {
             dismiss() // 다이얼로그 닫기

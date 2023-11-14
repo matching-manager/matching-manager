@@ -8,11 +8,11 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.lifecycle.Observer
 import coil.load
 import com.google.firebase.storage.FirebaseStorage
@@ -25,16 +25,16 @@ import com.link_up.matching_manager.ui.my.bottomsheet.MyNumberBottomSheet
 import com.link_up.matching_manager.ui.my.bottomsheet.MyTimeBottomSheet
 import com.link_up.matching_manager.ui.my.my.MyEvent
 import com.link_up.matching_manager.ui.my.my.MySharedViewModel
-import com.link_up.matching_manager.ui.my.my.MyViewModel
+import com.link_up.matching_manager.ui.my.my.MyPostViewModel
+import com.link_up.matching_manager.ui.my.my.MyPostViewModelFactory
 import com.link_up.matching_manager.util.Spinners
-import java.util.UUID
 
 
 class MyMatchEditActivity : AppCompatActivity() {
     private lateinit var binding: MyMatchEditActivityBinding
 
-    private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+    private val viewModel: MyPostViewModel by viewModels {
+        MyPostViewModelFactory()
     }
     private val sharedViewModel: MySharedViewModel by viewModels()
 
@@ -326,6 +326,7 @@ class MyMatchEditActivity : AppCompatActivity() {
 
         if (data!!.postImg != "") {
             ivTeam.load(data!!.postImg)
+            imageUri = data!!.postImg.toUri()
             btnCancelImage.visibility = View.VISIBLE
         }
 
@@ -472,26 +473,36 @@ class MyMatchEditActivity : AppCompatActivity() {
         val fileRef = reference.child("Match/${data.matchId}")
 
         if (uri != null) {
-            fileRef.putFile(uri)
-                .addOnSuccessListener {
-                    fileRef.downloadUrl
-                        .addOnSuccessListener { uri ->
-                            newData.postImg = uri.toString()
-                            viewModel.editMatch(data, newData)
+            if(imageUri == data.postImg.toUri()) {
+                newData.postImg = imageUri.toString()
+                binding.progressBar.visibility = View.VISIBLE
+                viewModel.editMatch(data, newData)
+                binding.progressBar.visibility = View.INVISIBLE
+                Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                fileRef.putFile(uri)
+                    .addOnSuccessListener {
+                        fileRef.downloadUrl
+                            .addOnSuccessListener { uri ->
+                                newData.postImg = uri.toString()
+                                viewModel.editMatch(data, newData)
 
-                            binding.progressBar.visibility = View.INVISIBLE
+                                binding.progressBar.visibility = View.INVISIBLE
 
-                            Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
 
-                        }
-                }
-                .addOnProgressListener { snapshot ->
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                .addOnFailureListener { e ->
-                    binding.progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-                }
+                            }
+                    }
+                    .addOnProgressListener { snapshot ->
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                    .addOnFailureListener { e ->
+                        binding.progressBar.visibility = View.INVISIBLE
+                        Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+            }
         } else {
             if (data.postImg == "") {
                 binding.progressBar.visibility = View.VISIBLE

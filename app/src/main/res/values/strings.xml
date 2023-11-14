@@ -11,7 +11,7 @@
     <string name="sign_up_tv_phone_number">Phone number</string>
     <string name="sign_up_tv_Username_description">Username은 최소 2자리 최대 8자리로 구성됩니다.</string>
     <string name="sign_up_tv_phone_number_description">매칭에 사용될 핸드폰 번호를 입력해주세요.</string>
-    <string name="sign_up_description">Matching Manager를 즐기기 위해\n추가정보를 입력해주세요.</string>
+    <string name="sign_up_description">Matching Manager를 사용 하기 위해\n추가정보를 입력해주세요.</string>
     <string name="sign_up_btn">SIGN UP</string>
     <string name="cancel_btn">CANCEL</string>
 
@@ -26,6 +26,7 @@
     <!-- announcement -->
     <string name="announcement_tv_title">공지사항</string>
     <string name="announcement_btn_close">CLOSE</string>
+
 
     <!-- signin -->
     <string name="sign_in_continue_with_google">Continue With Google</string>
@@ -65,6 +66,8 @@
     <!-- match_detail.xml -->
     <string name="match_detail_dialog_info">매치</string>
     <string name="match_detail_title">매치 제목</string>
+    <string name="match_detail_add">매치 글쓰기</string>
+    <string name="match_writing">매치 게시글</string>
     <string name="match_detail_nickName">작성자</string>
     <string name="match_detail_time">5시간 전</string>
     <string name="match_detail_slash">/</string>
@@ -90,6 +93,7 @@
 
     <!-- team_item.xml -->
     <string name="team_item_type">용병모집</string>
+    <string name="team_writing">용병 모집/신청 게시글</string>
     <string name="team_item_number">2명</string>
     <string name="team_item_gender">남성</string>
     <string name="team_item_view_count">1</string>
@@ -102,6 +106,7 @@
     <string name="team_fragment_application">용병신청</string>
     <string name="team_fragment_recruitment">용병모집</string>
     <string name="team_fragment_filter">필터</string>
+    <string name="team_fragment_tv_empty">선택된 정보가 없습니다!</string>
 
     <!-- team_detail.xml -->
     <string name="team_detail_recruitment">용병 신청하기</string>
@@ -200,11 +205,13 @@
     <string name="calendar_item_schedule">23 Nov - 24 Nov</string>
     <string name="calendar_item_schedule_divison">Online Remote</string>
     <string name="common_sign_out_button_text">SIGN OUT</string>
-
+    <string name="calendar_item_tv_schedule_year">년도</string>
+    <string name="calendar_item__tv_schedule_memo">memo</string>
     <!-- [my] -->
     <string name="my_profile">프로필</string>
     <string name="my_btn_Sign_Out">SIGN OUT</string>
     <string name="my_test_username">봉선동손흥민</string>
+    <string name="my_bookmark">관심목록</string>
     <string name="my_test_real_name">추민수</string>
     <string name="my_test_phone_number">01028179282</string>
     <string name="my_test_email">sonny@gmail.com</string>
@@ -223,6 +230,8 @@
     <string name="calendar_edit_dialog_fragment_memo">메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.메모입니다.</string>
     <string name="calendar_edit_dialog_fragment_memo_btn_cancel">취소</string>
     <string name="calendar_edit_dialog_fragment_memo_btn_save">저장</string>
+    <string name="calendar_edit_dialog_fragment_memo_">메모 할 내용을 입력해주세요.</string>
+
 
 
     <!-- [calendar_add_dialog_fragment.xml] -->
@@ -235,6 +244,15 @@
     <string name="calendar_add_dialog_fragment_memo_invisible_day">일</string>
     <string name="calendar_add_dialog_fragment_btn_cancel">CANCEL</string>
     <string name="calendar_add_dialog_fragment_btn_save">SAVE</string>
+
+
+    <string name="toolbar_area">area</string>
+    <string name="toolbar_alarm">alarm</string>
+    <string name="toolbar_team">용병 모집/신청</string>
+    <string name="toolbar_my_page">마이 페이지</string>
+    <string name="toolbar_match">경기 매칭</string>
+    <string name="toolbar_calendar">일정 관리</string>
+    <string name="toolbar_notification">공지사항</string>
 
     <!-- [calendar_common_month_label] -->
     <string-array name="custom_month_labels">
@@ -252,5 +270,233 @@
         <item>12월</item>
         <!-- 다른 월 추가 -->
     </string-array>
+
+    <!-- announcement_activity -->
+    <string name="announcement_activity_tv_dialog_info">공지사항</string>
+    <string name="announcement_detail_activity_tv_dialog_">공지사항</string>
+    <string name="announcement_detail_activity_tv_title">공지사항 어쩌구 저쩌구</string>
+    <string name="announcement_detail_activity_tv_date">2023-11-08</string>
+    <string name="announcement_detail_activity_tv_content">내용 어쩌구 저쩌구</string>
+    <string name="announcement_fragment_tv_title">제목 어쩌구 저쩌구</string>2023-11-08
+    <string name="announcement_fragment_tv_date">2023-11-08</string>
+    <string name="announcement_fragment_tv_content">내용 어쩌구 저쩌구</string>
+    <string name="announcement_item_tv_title">제목</string>날짜
+    <string name="announcement_item_tv_date">날짜</string>
+
+    <!-- arena_activity -->
+    <string name="announcement_activity_tv_filter">전체 지역</string>
+    <string name="area_filter_category_tv_area">지역</string>
+    <string name="area_filter_category_btn_cancel">모두 취소</string>
+    <string name="area_filter_category_result">결과보기</string>
+
+    <!-- calendar_fragment -->
+    <string name="calendar_fragment_tv_my_page">일정 관리</string>
+
+    <!-- match_activity -->
+    <string name="match_activity_btn_cancel">취소</string>
+    <string name="match_activity_btn_select">선택하기</string>
+    <string name="match_deleted_alert_dialog_tv_text">삭제된 게시물입니다</string>
+    <string name="match_deleted_alert_dialog_btn_confirm">확인</string>
+    <string name="match_detail_bottom_sheet_btn_call_match">매치 신청하기</string>
+    <string name="match_filter_category_tv_area">지역</string>
+    <string name="match_filter_category_tv_game">경기 종목</string>
+    <string name="match_filter_category_btn_cancel">모두 취소</string>
+    <string name="match_filter_category_btn_search">결과보기</string>
+    <string name="match_fragment_tv_filter">전체 글</string>
+    <string name="match_fragment_btn_filter">필터</string>
+    <string name="match_fragment_tv_empty">선택된 정보가 없습니다!</string>
+
+    <string name="match_number_btn_cancel">취소</string>
+    <string name="match_number_btn_save">확인</string>
+    <string name="match_number_person">명</string>
+    <string name="match_sort_bottom_sheet_textView2">최근 등록순</string>
+    <string name="match_sort_bottom_sheet_textView3">가까운 거리순</string>
+    <string name="match_time_btn_cancel">취소</string>
+    <string name="match_time_btn_save">확인</string>
+    <string name="match_writing_activity_tv_dialog_info">매치 글쓰기</string>
+    <string name="match_detail_tv_arena_title">[종목] 일정</string>
+    <string name="match_detail_tv_arena_title2">장소</string>
+    <string name="match_detail_tv_view_count">10</string>
+    <string name="match_detail_btn_call_match">매치 신청하기</string>
+    <string name="match_writing_activity_team_title">팀명</string>
+    <string name="match_writing_activity_et_team_name">팀명을 입력해주세요.</string>종목
+    <string name="match_writing_activity_sports">종목</string>
+    <string name="match_writing_activity_schedule">일정</string>
+    <string name="match_writing_activity_tv_month_date">10월 10일 (화)</string>
+    <string name="match_writing_activity_tv_time">오전 10:00</string>
+    <string name="match_writing_activity_personnel">인원</string>
+    <string name="match_writing_activity_tv_team_number1">0</string>
+    <string name="match_writing_activity_vs">VS</string>
+    <string name="match_writing_activity_location">위치</string>
+    <string name="match_writing_activity_gender">성별</string>
+    <string name="match_writing_activity_skill">실력</string>
+    <string name="match_writing_activity_dues">회비</string>
+    <string name="match_writing_activity_et_entry_fee">5000</string>
+    <string name="match_writing_activity_detail">내용</string>
+    <string name="match_writing_et_content">내용을 입력해 주세요.</string>
+    <string name="match_writing_textView4">사진</string>
+    <string name="match_writing_tv_add_image">사진등록</string>
+    <string name="match_writing_btn_submit">등록하기</string>
+
+    <!-- my_application_item, my_bookmark_activity, my_calender, my_delete_dialog -->
+    <string name="my_application_item_tv_type">용병신청</string>
+    <string name="my_bookmark_activity_tv_dialog_info">관심 목록</string>
+    <string name="my_calender_btn_cancel">취소</string>
+    <string name="my_calender_btn_select">선택하기</string>
+    <string name="my_delete_dialog_dial_tv_text">게시글을 삭제하시겠습니까?</string>
+    <string name="my_delete_dialog_dial_btn_2">취소</string>
+    <string name="my_delete_dialog_dial_btn_1">확인</string>
+
+    <!-- my_fragment -->
+    <string name="my_fragment_tv_my_page_post">내 게시글</string>
+    <string name="my_fragment_textView7">매치</string>
+    <string name="my_fragment_textView8">용병 모집/신청</string>
+    <string name="my_fragment_textView9">관심 목록</string>
+
+    <!-- my_match_activity, my_match_detail_activity, my_match_edit_activity, my_match_menu_bottom_sheet -->
+    <string name="my_match_activity_tv_dialog_info">매치 게시글</string>
+    <string name="my_match_activity_tv_filter">전체 지역</string>
+    <string name="my_match_detail_activity_tv_arena_title">[종목] 일정</string>
+    <string name="my_match_detail_activity_tv_arena_title2">장소</string>
+    <string name="my_match_detail_activity_btn_call_match">매치 신청하기</string>
+    <string name="my_match_detail_activity_tv_view_count">10</string>
+    <string name="my_match_edit_activity_tv_dialog_info">매치 글쓰기</string>
+    <string name="my_match_menu_bottom_sheet_tv_edit">수정하기</string>
+    <string name="my_match_menu_bottom_sheet_tv_remove">삭제하기</string>
+
+    <!-- my_number my_team_activity my_bookmark_activity my_match_edit_activity -->
+    <string name="my_number_btn_cancel">취소</string>
+    <string name="my_number_btn_save">확인</string>
+    <string name="my_number_number">명</string>
+    <string name="my_team_activity_dialog_info">용병 모집/신청 게시글</string>
+    <string name="my_team_activity_recruit">모집</string>
+    <string name="my_team_activity_application">신청</string>
+    <string name="my_bookmark_activity_match">매치</string>
+    <string name="my_bookmark_activity_recruit">용병모집</string>
+    <string name="my_bookmark_activity_apply_recruit">모집</string>
+    <string name="my_match_edit_activity_team">팀명</string>
+    <string name="my_match_edit_activity_et_team_name">팀명을 입력해주세요.</string>
+    <string name="my_match_edit_activity_sports">종목</string>
+    <string name="my_match_edit_activity_schedule">일정</string>
+    <string name="my_match_edit_activity_tv_month_date">10월 10일 (화)</string>
+    <string name="my_match_edit_activity_tv_time">오전 10:00</string>
+    <string name="my_match_edit_activity_personnel">인원</string>
+    <string name="my_match_edit_activity_tv_team_number1">0</string>
+    <string name="my_match_edit_activity_vs">VS</string>
+    <string name="my_match_edit_activity_location">위치</string>
+    <string name="my_match_edit_activity_gender">성별</string>
+    <string name="my_match_edit_activity_skill">실력</string>
+    <string name="my_match_edit_activity_dues">회비</string>
+    <string name="my_match_edit_activity_et_entry_fee">5000</string>
+    <string name="my_match_edit_activity_detail">내용</string>
+    <string name="my_match_edit_activity_et_content">내용을 입력해 주세요.</string>
+    <string name="my_match_edit_activity_textView4">사진</string>
+    <string name="my_match_edit_activity_tv_add_image">사진등록</string>
+    <string name="my_match_edit_activity_btn_submit">등록하기</string>
+
+    <!-- my_team_application_delete_dialog my_team_application_detail_activity my_team_application_edit_activity-->
+    <string name="my_team_application_delete_dialog_dial_tv_text">게시글을 삭제하시겠습니까?</string>
+    <string name="my_team_application_delete_dial_btn_2">취소</string>
+    <string name="my_team_application_delete_dial_btn_1">확인</string>
+    <string name="my_team_application_detail_activity_tv_title">[종목] 일정</string>
+    <string name="my_team_application_detail_activity_tv_title2">장소</string>
+    <string name="my_team_application_detail_tv_view_count">10</string>
+    <string name="my_team_application_detail_btn_submit">신청하기</string>
+    <string name="my_team_application_edit_activity_sports">종목</string>
+    <string name="my_team_application_edit_activity_location">위치</string>
+    <string name="my_team_application_edit_activity_schedule">일정</string>
+    <string name="my_team_application_edit_activity_personnel">인원</string>
+    <string name="my_team_application_edit_activity_age1">나이</string>
+    <string name="my_team_application_edit_activity_gender">성별</string>
+    <string name="my_team_application_edit_activity_number1">0</string>
+    <string name="my_team_application_edit_activity_age2">살</string>
+    <string name="my_team_application_edit_activity_skill">실력</string>
+    <string name="my_team_application_edit_activity_detail">내용</string>
+    <string name="my_team_application_edit_activity_et_content">내용을 입력해 주세요.</string>
+    <string name="my_team_application_edit_activity_textView4">사진</string>
+    <string name="my_team_application_edit_activity_tv_add_image">사진등록</string>
+    <string name="my_team_application_edit_activity_btn_submit">등록하기</string>
+
+    <!-- my_team_recruit_edit_activity my_team_recruit_detail_activity my_team_recruit_delete_dialog my_team_application_menu_bottom_sheet my_team_recruit_menu_bottom_sheet-->
+    <string name="my_team_recruit_edit_activity_team">팀명</string>
+    <string name="my_team_recruit_edit_activity_et_team_name">팀명을 입력해주세요.</string>
+    <string name="my_team_recruit_edit_activity_sports">종목</string>
+    <string name="my_team_recruit_edit_activity_schedule">일정</string>
+    <string name="my_team_recruit_edit_activity_month_date">10월 10일 (화)</string>
+    <string name="my_team_recruit_edit_activity_tv_time">오전 10:00</string>
+    <string name="my_team_recruit_edit_activity_personnel">인원</string>
+    <string name="my_team_recruit_edit_activity_tv_team_number1">0</string>
+    <string name="my_team_recruit_edit_activity_tv_view_count">10</string>
+    <string name="my_team_recruit_edit_activity_vs">VS</string>
+    <string name="my_team_recruit_edit_activity_location">위치</string>
+    <string name="my_team_recruit_edit_activity_gender">성별</string>
+    <string name="my_team_recruit_edit_activity_skill">실력</string>
+    <string name="my_team_recruit_edit_activity_dues">회비</string>
+    <string name="my_team_recruit_edit_activity_et_entry_fee">5000</string>
+    <string name="my_team_recruit_edit_activity_detail">내용</string>
+    <string name="my_team_recruit_edit_activity_et_content">내용을 입력해 주세요.</string>
+    <string name="my_team_recruit_edit_activity_textView4">사진</string>
+    <string name="my_team_recruit_edit_activity_tv_add_image">사진등록</string>
+    <string name="my_team_recruit_edit_activity_btn_submit">등록하기</string>
+    <string name="my_team_recruit_edit_activity_tv_personnel">명</string>
+    <string name="my_team_recruit_detail_activity_tv_title">[종목] 일정</string>
+    <string name="my_team_recruit_detail_activity_tv_title2">장소</string>
+    <string name="my_team_recruit_detail_activity_btn_submit">신청하기</string>
+    <string name="my_team_recruit_delete_dialog_dial_tv_text">게시글을 삭제하시겠습니까?</string>
+    <string name="my_team_recruit_delete_dialog_dial_btn_2">취소</string>
+    <string name="my_team_recruit_delete_dialog_dial_btn_1">확인</string>
+    <string name="my_team_application_menu_bottom_sheet_tv_edit">수정하기</string>
+    <string name="my_team_application_menu_bottom_sheet_tv_remove">삭제하기</string>
+    <string name="my_team_recruit_menu_bottom_sheet_tv_edit">수정하기</string>
+    <string name="my_team_recruit_menu_bottom_sheet_tv_remove">삭제하기</string>
+
+    <!-- my_time -->
+    <string name="my_time_btn_cancel">취소</string>
+    <string name="my_time_btn_save">확인</string>
+
+    <!-- team_age team_calendar team_detail_activity team_filter_category team_fragment team_number team_time team_writing_activity-->
+    <string name="team_age_btn_cancel">취소</string>
+    <string name="team_age_btn_save">확인</string>
+    <string name="team_age_tv_age">살</string>
+    <string name="team_calender_btn_cancel">취소</string>
+    <string name="team_calender_btn_select">선택하기</string>
+    <string name="team_calender_activity_tv_title">[종목] 일정</string>
+    <string name="team_calender_activity_tv_title2">장소</string>
+    <string name="team_calender_activity_btn_submit">신청하기</string>
+    <string name="team_calender_activity_tv_view_count">10</string>
+    <string name="team_filter_category_tv_area">지역</string>
+    <string name="team_filter_category_tv_game">경기 종목</string>
+    <string name="team_filter_category_btn_cancel">모두 취소</string>
+    <string name="team_filter_category_btn_search">결과보기</string>
+    <string name="team_fragment_tv_filter">전체 글</string>
+    <string name="team_fragment_btn_filter">필터</string>
+    <string name="team_number_btn_cancel">취소</string>
+    <string name="team_number_btn_save">확인</string>
+    <string name="team_number_tv_personnel">명</string>
+    <string name="team_time_btn_cancel">취소</string>
+    <string name="team_time_btn_save">확인</string>
+    <string name="team_writing_activity_">확인</string>
+    <string name="team_writing_activity_sports">종목</string>
+    <string name="team_writing_activity_schedule">일정</string>
+    <string name="team_writing_activity_tv_month_date">10월 10일 (화)</string>
+    <string name="team_writing_activity_tv_time">오전 10:00</string>
+    <string name="team_writing_activity_personnel">인원</string>
+    <string name="team_writing_activity_tv_team_number1">0</string>
+    <string name="team_writing_activity_tv_age">살</string>
+    <string name="team_writing_activity_age1">나이</string>
+    <string name="team_writing_activity_vs">VS</string>
+    <string name="team_writing_activity_location">위치</string>
+    <string name="team_writing_activity_gender">성별</string>
+    <string name="team_writing_activity_skill">실력</string>
+    <string name="team_writing_activity_dues">회비</string>
+    <string name="team_writing_activity_et_entry_fee">5000</string>
+    <string name="team_writing_activity_detail">내용</string>
+    <string name="team_writing_activity_et_content">내용을 입력해 주세요.</string>
+    <string name="team_writing_activity_textView4">사진</string>
+    <string name="team_writing_activity_tv_add_image">사진등록</string>
+    <string name="team_writing_activity_btn_submit">등록하기</string>
+    <string name="team_writing_activity_team_name">팀명</string>
+    <string name="team_writing_activity_et_team_name">팀 이름을 입력 해 주세요.</string>
+    <string name="team_writing_activity_tv_application_time">일정</string>
 
 </resources>

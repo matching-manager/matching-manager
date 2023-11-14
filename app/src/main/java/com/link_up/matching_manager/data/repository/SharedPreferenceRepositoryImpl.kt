@@ -53,6 +53,18 @@ class SharedPreferenceRepositoryImpl : SharedPreferenceRepository {
         return prefs.getBoolean(PREFERENCE_USER_TYPE_KEY, false) // 기본값으로 false를 반환
     }
 
+    // 사용자 키 삭제
+    override fun deleteUserType(context: Context) {
+        val prefs = context.getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.remove(PREFERENCE_USER_TYPE_KEY)
+        editor.apply()
+//        val prefs = context.getSharedPreferences("SETTINGS", Context.MODE_PRIVATE)
+//        val editor = prefs.edit()
+//        editor.putBoolean(PREFERENCE_USER_TYPE_KEY, false)
+//        editor.apply()
+    }
+
     override fun saveCalendarData(context: Context, values: List<CalendarModel>) {
         val gson = Gson()
         val json = gson.toJson(values)

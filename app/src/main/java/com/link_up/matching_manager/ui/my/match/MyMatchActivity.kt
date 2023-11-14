@@ -10,16 +10,17 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.link_up.matching_manager.databinding.MyMatchActivityBinding
 import com.link_up.matching_manager.ui.match.MatchDataModel
+import com.link_up.matching_manager.ui.match.MatchDetailActivity.Companion.detailIntent
 import com.link_up.matching_manager.ui.my.my.MyFragment
-import com.link_up.matching_manager.ui.my.my.MyViewModel
-import com.link_up.matching_manager.util.UserInformation
+import com.link_up.matching_manager.ui.my.my.MyPostViewModel
+import com.link_up.matching_manager.ui.my.my.MyPostViewModelFactory
 
 class MyMatchActivity : AppCompatActivity() {
 
     private lateinit var binding : MyMatchActivityBinding
 
-    private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+    private val viewModel: MyPostViewModel by viewModels {
+        MyPostViewModelFactory()
     }
 
     private val adapter by lazy {
@@ -35,16 +36,6 @@ class MyMatchActivity : AppCompatActivity() {
         )
     }
 
-    companion object {
-        fun detailIntent(
-            context: Context, item: MatchDataModel
-        ): Intent {
-            val intent = Intent(context, MyMatchDetailActivity::class.java)
-            intent.putExtra(MyFragment.OBJECT_DATA, item)
-            return intent
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MyMatchActivityBinding.inflate(layoutInflater)
@@ -56,7 +47,7 @@ class MyMatchActivity : AppCompatActivity() {
 
     private fun initView() = with(binding) {
         progressBar.visibility = View.VISIBLE
-        viewModel.fetchMatchData(UserInformation.userInfo.uid!!)
+        viewModel.autoFetchMatchData()
 
         rv.adapter = adapter
         val manager = LinearLayoutManager(this@MyMatchActivity)
@@ -64,14 +55,12 @@ class MyMatchActivity : AppCompatActivity() {
         manager.stackFromEnd = true
         rv.layoutManager = manager
 
-        btnCancel.setOnClickListener {
+        btnBack.setOnClickListener {
             finish()
         }
     }
 
     private fun initViewModel() = with(viewModel) {
-        autoFetchMatchData()
-
         matchList.observe(this@MyMatchActivity, Observer {
             var smoothList = 0
             adapter.submitList(it.toList())

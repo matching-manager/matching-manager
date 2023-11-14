@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tv_text"
@@ -17,8 +18,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:textSize="18sp"
-            android:text="삭제된 게시물입니다"
-            android:fontFamily="@font/pretendardregular"
+            android:text="@string/match_deleted_alert_dialog_tv_text"
+            android:textColor="@color/black"
+            android:fontFamily="@font/pretendardbold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,9 +33,12 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/match_detail_persistent_bottom_sheet_confirm_button"
-            android:text="확인"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/btn_background_green_fill"
+            android:fontFamily="@font/pretendardbold"
+            android:text="@string/match_deleted_alert_dialog_btn_confirm"
             android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_text" />

@@ -6,36 +6,22 @@
     android:layout_height="match_parent"
     android:background="@drawable/common_gradient_background">
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/btn_cancel"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/common_transparent"
-        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back" />
-
-    <TextView
-        android:id="@+id/tv_dialog_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="@string/match_detail_dialog_info"
-        android:fontFamily="@font/pretendardbold"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
-        app:layout_constraintStart_toEndOf="@+id/btn_cancel"
-        app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
+        app:navigationIcon="@drawable/ic_back"
+        android:background="@color/common_transparent"
+        app:titleTextAppearance="@style/ToolbarTitleText"
+        app:title="@string/match_detail_dialog_info"/>
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@id/bottom_sheet_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,9 +49,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textSize="18sp"
                 android:fontFamily="@font/pretendardbold"
                 android:text="@string/match_detail_nickName"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
                 app:layout_constraintStart_toEndOf="@+id/iv_profile"
                 app:layout_constraintTop_toTopOf="@+id/iv_profile" />
@@ -76,9 +63,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
+                android:text="@string/match_detail_time"
+
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:text="@string/match_detail_time"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/iv_profile" />
 
@@ -87,8 +75,8 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginEnd="5dp"
-                android:src="@drawable/ic_chat"
                 android:alpha="0.6"
+                android:src="@drawable/ic_chat"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_chat_count"
                 app:layout_constraintEnd_toStartOf="@+id/tv_chat_count"
                 app:layout_constraintTop_toTopOf="@+id/tv_chat_count" />
@@ -99,9 +87,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
+                android:text="@string/team_detail_view_count"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:text="@string/team_detail_view_count"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -138,8 +126,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/match_detail_match_title"
                         android:fontFamily="@font/pretendardbold"
+                        android:text="@string/match_detail_match_title"
+                        android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -180,8 +169,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/team_detail_people_number_title"
                         android:fontFamily="@font/pretendardbold"
+                        android:text="@string/team_detail_people_number_title"
+                        android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -191,9 +181,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/match_detail_people_number"
-                        android:textSize="18sp"
                         android:fontFamily="@font/pretendardbold"
+                        android:text="@string/match_detail_people_number"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="@+id/textView12"
                         app:layout_constraintStart_toStartOf="@+id/textView12"
                         app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -224,8 +215,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/team_detail_gender_title"
                         android:fontFamily="@font/pretendardbold"
+                        android:text="@string/team_detail_gender_title"
+                        android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -266,6 +258,7 @@
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/pretendardbold"
                         android:text="@string/team_detail_skill_title"
+                        android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -273,9 +266,11 @@
                     <ImageView
                         android:id="@+id/iv_level"
                         android:layout_width="50dp"
+
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
                         android:src="@drawable/ic_level2"
+                        android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="@+id/tv_level"
                         app:layout_constraintStart_toStartOf="@+id/tv_level"
                         app:layout_constraintTop_toBottomOf="@+id/tv_level" />
@@ -305,8 +300,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/team_detail_pay"
                         android:fontFamily="@font/pretendardbold"
+                        android:text="@string/team_detail_pay"
+                        android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -318,10 +314,11 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="5dp"
+                        android:fontFamily="@font/pretendardbold"
                         android:gravity="center"
                         android:text="@string/team_detail_price"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:fontFamily="@font/pretendardbold"
                         app:layout_constraintEnd_toEndOf="@+id/tv_fee"
                         app:layout_constraintStart_toStartOf="@+id/tv_fee"
                         app:layout_constraintTop_toBottomOf="@+id/tv_fee" />
@@ -352,6 +349,7 @@
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/pretendardbold"
                         android:text="@string/team_detail_team_name_title"
+                        android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -359,15 +357,17 @@
                     <TextView
                         android:id="@+id/tv_team_name"
                         android:layout_width="match_parent"
+
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="5dp"
+                        android:fontFamily="@font/pretendardbold"
                         android:gravity="center"
                         android:text="@string/team_detail_team_name"
                         android:textAlignment="center"
+                        android:textColor="@color/black"
                         android:textSize="17sp"
-                        android:fontFamily="@font/pretendardbold"
                         app:layout_constraintEnd_toEndOf="@+id/tv_team"
                         app:layout_constraintStart_toStartOf="@+id/tv_team"
                         app:layout_constraintTop_toBottomOf="@+id/tv_team" />
@@ -383,8 +383,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/pretendardbold"
+                android:fontFamily="@font/pretendardregular"
                 android:text="@string/match_detail_description"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardview4" />
@@ -403,17 +404,17 @@
                     android:id="@+id/iv_team"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:background="@color/common_gray"/>
+                    android:background="@color/common_gray"
+                    android:scaleType="centerCrop" />
             </androidx.cardview.widget.CardView>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:background="@android:color/transparent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_photo1"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/cv_photo1" />
 
 
             <TextView
@@ -422,9 +423,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:text="[종목] 일정"
-                android:textSize="20sp"
                 android:fontFamily="@font/pretendardbold"
+                android:text="@string/match_detail_tv_arena_title"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -435,9 +437,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:text="장소"
-                android:textSize="20sp"
                 android:fontFamily="@font/pretendardbold"
+                android:text="@string/match_detail_tv_arena_title2"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_arena_title"
                 app:layout_constraintStart_toStartOf="@+id/tv_arena_title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_arena_title" />
@@ -447,18 +450,18 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="5dp"
+                android:alpha="0.6"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_view_count"
                 app:layout_constraintEnd_toStartOf="@+id/tv_view_count"
                 app:layout_constraintTop_toTopOf="@+id/tv_view_count"
-                app:srcCompat="@drawable/ic_eye"
-                android:alpha="0.6"/>
+                app:srcCompat="@drawable/ic_eye" />
 
             <TextView
                 android:id="@+id/tv_view_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:text="10"
+                android:text="@string/match_detail_tv_view_count"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textView5"
@@ -503,11 +506,11 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/match_detail_persistent_bottom_sheet_confirm_button"
-                android:text="매치 신청하기"
+                android:background="@drawable/btn_background_green_fill"
+                android:text="@string/match_detail_btn_call_match"
                 android:textColor="@color/white"
                 android:textSize="17sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/pretendardbold"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_bookmark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_bookmark"

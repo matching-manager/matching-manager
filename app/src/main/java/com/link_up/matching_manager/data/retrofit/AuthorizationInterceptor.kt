@@ -1,4 +1,4 @@
-package com.link_up.matching_manager.retrofit
+package com.link_up.matching_manager.data.retrofit
 
 import com.link_up.matching_manager.R
 import okhttp3.Interceptor

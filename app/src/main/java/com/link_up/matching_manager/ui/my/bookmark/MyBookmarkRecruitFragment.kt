@@ -12,8 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.link_up.matching_manager.databinding.MyBookmarkRecruitFragmentBinding
-import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
-import com.link_up.matching_manager.ui.my.my.MyViewModel
+import com.link_up.matching_manager.ui.my.my.MyPostViewModelFactory
+import com.link_up.matching_manager.ui.my.my.MyPostViewModel
 import com.link_up.matching_manager.ui.team.TeamDetailActivity
 import com.link_up.matching_manager.ui.team.TeamItem
 import com.google.gson.Gson
@@ -23,8 +23,8 @@ class MyBookmarkRecruitFragment : Fragment() {
     private var _binding: MyBookmarkRecruitFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+    private val viewModel: MyPostViewModel by viewModels {
+        MyPostViewModelFactory()
     }
 
     private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

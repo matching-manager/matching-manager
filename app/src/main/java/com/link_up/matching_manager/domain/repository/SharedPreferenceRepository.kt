@@ -9,6 +9,7 @@ interface SharedPreferenceRepository {
     fun loadFcmData(context: Context): List<AlarmModel>
     fun saveUserType(context: Context, check: Boolean)
     fun checkUserType(context: Context): Boolean
+    fun deleteUserType(context: Context)
     fun saveCalendarData(context: Context, values: List<CalendarModel>)
     fun loadCalendarData(context: Context): List<CalendarModel>
 }
