@@ -14,7 +14,7 @@ import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.MatchDetailActivityBinding
 import com.link_up.matching_manager.ui.fcm.send.SendFcmFragment
 import com.link_up.matching_manager.ui.fcm.send.SendType
-import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
+import com.link_up.matching_manager.ui.my.my.MyViewModelFactory
 import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.ui.my.bookmark.MyBookmarkMatchFragment
 import com.google.gson.Gson
@@ -29,7 +29,7 @@ class MatchDetailActivity : AppCompatActivity() {
     private lateinit var binding: MatchDetailActivityBinding
 
     private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+        MyViewModelFactory()
     }
 
     private var isLiked = false

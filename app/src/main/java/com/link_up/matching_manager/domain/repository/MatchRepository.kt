@@ -1,12 +1,20 @@
 package com.link_up.matching_manager.domain.repository
 
-import com.link_up.matching_manager.ui.match.MatchDataModel
+import androidx.lifecycle.MutableLiveData
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
+import com.link_up.matching_manager.ui.match.MatchDataModel
 
 interface MatchRepository {
-    suspend fun getList(database : FirebaseDatabase): List<MatchDataModel>
-    suspend fun addData(data: MatchDataModel, database: FirebaseDatabase)
-    suspend fun editViewCount(data : MatchDataModel, database: FirebaseDatabase)
-    suspend fun editChatCount(data : MatchDataModel, database: FirebaseDatabase)
+    fun getList(databaseRef : DatabaseReference, originalList : MutableList<MatchDataModel>, list : MutableLiveData<List<MatchDataModel>>)
+
+    fun autoGetList(databaseRef : DatabaseReference? = null, query: Query? = null,  list : MutableLiveData<List<MatchDataModel>>)
+    suspend fun addData(databaseRef : DatabaseReference, data: MatchDataModel)
+
+    suspend fun deleteData(databaseRef : DatabaseReference, data : MatchDataModel)
+    suspend fun editMatchData(databaseRef: DatabaseReference, data : MatchDataModel, newData: MatchDataModel)
+    suspend fun editViewCount(query: Query, data : MatchDataModel)
+    suspend fun editChatCount(query: Query, data : MatchDataModel)
 
 }

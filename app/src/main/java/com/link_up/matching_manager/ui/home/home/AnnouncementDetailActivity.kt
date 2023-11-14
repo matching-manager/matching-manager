@@ -3,6 +3,7 @@ package com.link_up.matching_manager.ui.home.home
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.AnnouncementDetailActivityBinding
 import com.link_up.matching_manager.ui.match.MatchDataModel
@@ -34,7 +35,7 @@ class AnnouncementDetailActivity : AppCompatActivity() {
     private fun initView() = with(binding) {
         tvTitle.text = data!!.title
         tvDate.text = data!!.uploadDate
-        tvContent.text = data!!.content
+        tvContent.text = data!!.content.replace("\\n", System.getProperty("line.separator"))
 
         btnCancel.setOnClickListener {
             finish()

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.link_up.matching_manager.databinding.MyBookmarkMatchFragmentBinding
 import com.link_up.matching_manager.ui.match.MatchDataModel
 import com.link_up.matching_manager.ui.match.MatchDetailActivity.Companion.detailIntent
-import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
+import com.link_up.matching_manager.ui.my.my.MyViewModelFactory
 import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.google.gson.Gson
 
@@ -24,7 +24,7 @@ class MyBookmarkMatchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+        MyViewModelFactory()
     }
 
     private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

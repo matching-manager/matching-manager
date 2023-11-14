@@ -12,6 +12,7 @@ import com.link_up.matching_manager.databinding.MyMatchActivityBinding
 import com.link_up.matching_manager.ui.match.MatchDataModel
 import com.link_up.matching_manager.ui.my.my.MyFragment
 import com.link_up.matching_manager.ui.my.my.MyViewModel
+import com.link_up.matching_manager.ui.my.my.MyViewModelFactory
 import com.link_up.matching_manager.util.UserInformation
 
 class MyMatchActivity : AppCompatActivity() {
@@ -19,7 +20,7 @@ class MyMatchActivity : AppCompatActivity() {
     private lateinit var binding : MyMatchActivityBinding
 
     private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+        MyViewModelFactory()
     }
 
     private val adapter by lazy {
@@ -56,7 +57,7 @@ class MyMatchActivity : AppCompatActivity() {
 
     private fun initView() = with(binding) {
         progressBar.visibility = View.VISIBLE
-        viewModel.fetchMatchData(UserInformation.userInfo.uid!!)
+        viewModel.autoFetchMatchData()
 
         rv.adapter = adapter
         val manager = LinearLayoutManager(this@MyMatchActivity)
@@ -70,8 +71,6 @@ class MyMatchActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() = with(viewModel) {
-        autoFetchMatchData()
-
         matchList.observe(this@MyMatchActivity, Observer {
             var smoothList = 0
             adapter.submitList(it.toList())

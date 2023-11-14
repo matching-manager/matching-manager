@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.link_up.matching_manager.databinding.MyTeamRecruitFragmentBinding
 import com.link_up.matching_manager.ui.my.my.MyViewModel
 import com.link_up.matching_manager.ui.my.team.MyTeamRecruitDetailActivity.Companion.detailIntent
-import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
+import com.link_up.matching_manager.ui.my.my.MyViewModelFactory
 import com.link_up.matching_manager.util.UserInformation
 
 class MyTeamRecruitFragment : Fragment() {
@@ -20,7 +20,7 @@ class MyTeamRecruitFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+        MyViewModelFactory()
     }
 
     private val adapter by lazy {
@@ -53,7 +53,7 @@ class MyTeamRecruitFragment : Fragment() {
 
     private fun initView() = with(binding){
         progressBar.visibility = View.VISIBLE
-        viewModel.fetchRecruitData(UserInformation.userInfo.uid!!)
+        viewModel.autoFetchRecruitData()
 
         rv.adapter = adapter
         val manager = LinearLayoutManager(requireContext())
@@ -63,8 +63,6 @@ class MyTeamRecruitFragment : Fragment() {
     }
 
     private fun initViewModel() = with(viewModel) {
-        autoFetchRecruitData()
-
         recruitList.observe(viewLifecycleOwner, Observer {
             var smoothList = 0
             adapter.submitList(it.toList())

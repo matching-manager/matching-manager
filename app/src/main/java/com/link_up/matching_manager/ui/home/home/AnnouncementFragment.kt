@@ -40,13 +40,13 @@ class AnnouncementFragment : DialogFragment() {
     }
 
     private fun initView() = with(binding) {
-        val receivedData = arguments?.getParcelable<AnnouncementDataModel>(OBJECT_DATA)
+        val data = arguments?.getParcelable<AnnouncementDataModel>(OBJECT_DATA)
         // Dialog의 배경을 투명으로 설정
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        tvTitle.text = receivedData?.title
-        tvDate.text = receivedData?.uploadDate
-        tvContent.text = receivedData?.content
+        tvTitle.text = data?.title
+        tvDate.text = data?.uploadDate
+        tvContent.text = data?.content?.replace("\\n", System.getProperty("line.separator"))
 
         btnCancel.setOnClickListener {
             onDestroyView()

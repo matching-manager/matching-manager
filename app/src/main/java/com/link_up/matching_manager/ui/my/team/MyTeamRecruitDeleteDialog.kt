@@ -17,7 +17,7 @@ import androidx.fragment.app.viewModels
 import com.link_up.matching_manager.databinding.MyTeamRecruitDeleteDialogBinding
 import com.link_up.matching_manager.ui.my.my.MyEvent
 import com.link_up.matching_manager.ui.my.my.MyViewModel
-import com.link_up.matching_manager.ui.my.match.MyMatchViewModelFactory
+import com.link_up.matching_manager.ui.my.my.MyViewModelFactory
 import com.link_up.matching_manager.ui.team.TeamItem
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -27,7 +27,7 @@ class MyTeamRecruitDeleteDialog(private val item: TeamItem.RecruitmentItem) : Di
     private val binding get() = _binding!!
 
     private val viewModel: MyViewModel by viewModels {
-        MyMatchViewModelFactory()
+        MyViewModelFactory()
     }
 
     private var dismissListener: OnDialogDismissListener? = null
@@ -78,13 +78,13 @@ class MyTeamRecruitDeleteDialog(private val item: TeamItem.RecruitmentItem) : Di
         val fileRef = reference.child("Team/${item.teamId}")
 
         if(item.postImg == "") {
-            viewModel.deleteRecruit(item)        }
+            viewModel.deleteTeam(item)        }
         else {
             binding.progressBar.visibility = View.VISIBLE
 
             fileRef.delete()
                 .addOnSuccessListener {
-                    viewModel.deleteRecruit(item)
+                    viewModel.deleteTeam(item)
                     binding.progressBar.visibility = View.INVISIBLE
                     Toast.makeText(requireContext(), "게시글이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                 }
