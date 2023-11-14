@@ -31,7 +31,6 @@ class SendFcmFragment : DialogFragment() {
 
     private val viewModel: SendFcmViewModel by viewModels { SendFcmViewModelFactory() }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -95,7 +94,6 @@ class SendFcmFragment : DialogFragment() {
     }
 
     private fun pushNotification(payload: Payload) = CoroutineScope(Dispatchers.IO).launch {
-
         viewModel.sendData(payload)
     }
 
