@@ -48,16 +48,15 @@ class CalendarAddDialogFragment : BottomSheetDialogFragment() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun initView() = with(binding) {
-        val selectedDate: CalendarDay? = materialCalendarCalendarAddView.selectedDate
 
         btnSave.setOnClickListener {
             val memoText = edtCalendarAddDialogMemo.text.toString()
             val memoPlace = edtCalendarAddDialogPlace.text.toString()
 
-            if (selectedDate != null && memoText.isNotBlank() && memoPlace.isNotBlank()) {
-                val memoYear = selectedDate.year
-                val memoMonth = selectedDate.month
-                val memoDay = selectedDate.day
+            if (materialCalendarCalendarAddView.selectedDate != null && memoText.isNotBlank() && memoPlace.isNotBlank()) {
+                val memoYear = materialCalendarCalendarAddView.selectedDate.year
+                val memoMonth = materialCalendarCalendarAddView.selectedDate.month
+                val memoDay = materialCalendarCalendarAddView.selectedDate.day
 
                 // 메모 데이터를 부모 Fragment로 전달합니다.
                 setFragmentResult(
