@@ -48,21 +48,6 @@ class MyTeamRecruitDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
-//        tvTitle.text = "[${data!!.game}] ${data!!.schedule}"
-//        tvTitle2.text = data!!.area
-//        ivProfile.load(data!!.userImg)
-//        tvPlayerNum.text = "${data!!.playerNum}명"
-//        tvPay.text = decimalFormat(data!!.pay)
-//        tvTeamName.text = data!!.teamName
-//        tvGender.text = data!!.gender
-//        tvChatCount.text = data!!.chatCount.toString()
-//        tvViewCount.text = data!!.viewCount.toString()
-//        tvNicname.text = data!!.nickname
-//        tvContent.text = data!!.description
-//        tvTime.text = calculationTime(dateTimeToMillSec(data!!.uploadTime))
-//        tvLevel.text = data!!.level
-//        if(data!!.postImg != "") ivImage.load(data!!.postImg.toUri())
-//        else cvPhoto1.visibility = View.INVISIBLE
         // 용병모집 아이템인 경우
         ivType.setImageResource(R.drawable.ic_recruitment)
         when (data!!.gender) {
@@ -99,6 +84,7 @@ class MyTeamRecruitDetailActivity : AppCompatActivity() {
         btnCancel.setOnClickListener {
             finish()
         }
+        bottomSheetLayout.visibility = View.GONE
     }
 
     private fun decimalFormat(entryFee : Int) : String {

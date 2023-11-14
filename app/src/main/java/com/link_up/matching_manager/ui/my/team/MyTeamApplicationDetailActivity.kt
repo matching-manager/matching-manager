@@ -84,6 +84,8 @@ class MyTeamApplicationDetailActivity : AppCompatActivity() {
         btnCancel.setOnClickListener {
             finish()
         }
+
+        bottomSheetLayout.visibility = View.GONE
     }
 
     @SuppressLint("SimpleDateFormat")
