@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="명"
+            android:text="@string/match_number_person"
             android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="@+id/picker_number"
             app:layout_constraintStart_toEndOf="@+id/picker_number"

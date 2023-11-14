@@ -33,12 +33,12 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="모집" />
+            android:text="@string/my_team_activity_recruit" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="신청" />
+            android:text="@string/my_team_activity_application" />
 
     </com.google.android.material.tabs.TabLayout>
 
