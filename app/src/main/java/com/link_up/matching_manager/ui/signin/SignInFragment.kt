@@ -237,7 +237,6 @@ class SignInFragment : Fragment() {
         ivGoogle.startAnimation(startAnimation)
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

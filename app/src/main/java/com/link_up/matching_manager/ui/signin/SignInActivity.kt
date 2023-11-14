@@ -23,6 +23,9 @@ class SignInActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+    override fun onBackPressed() {
+//        super.onBackPressed()
+    }
 }
 
 
