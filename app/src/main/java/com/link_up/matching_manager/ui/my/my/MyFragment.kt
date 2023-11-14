@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import coil.load
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.MyFragmentBinding
 import com.link_up.matching_manager.ui.my.bookmark.MyBookmarkActivity
@@ -18,18 +20,21 @@ import com.link_up.matching_manager.ui.my.team.MyTeamActivity
 import com.link_up.matching_manager.ui.signin.SignInActivity
 import com.link_up.matching_manager.util.UserInformation
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 class MyFragment : Fragment() {
     private var _binding: MyFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     companion object {
         fun newInstance() = MyFragment()
         const val OBJECT_DATA = "item_object"
     }
+
+    private val viewModel : MyViewModel by viewModels {MyViewModelFactory(requireContext())}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
@@ -45,6 +50,15 @@ class MyFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
+
+        // GoogleSignInOptions를 설정합니다.
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id)) // 이거를 꼭 넣어야됨!!
+            .requestEmail().build()
+
+        // GoogleSignInClient를 초기화합니다.
+        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+
         val userData = UserInformation.userInfo
         ivPhoto.load(userData.photoUrl)
         tvUsername.text = userData.username
@@ -73,20 +87,20 @@ class MyFragment : Fragment() {
 
     private fun createLogoutDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("구글 로그아웃")
-        builder.setMessage("로그 아웃 하시겠습니까?")
+        builder.setTitle("로그아웃 하시겠습니까?")
+//        builder.setMessage("로그아웃 하시겠습니까?")
         builder.setIcon(R.mipmap.ic_launcher)
 
         val listener = DialogInterface.OnClickListener { _, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
+                    viewModel.deleteUserData()
                     logOut()
                     FirebaseAuth.getInstance().signOut()
                     mGoogleSignInClient.signOut()
 
                     val currentContext = requireContext()
                     Toast.makeText(currentContext, "로그아웃", Toast.LENGTH_SHORT).show()
-
                     val intent = Intent(requireContext(), SignInActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
@@ -97,7 +111,7 @@ class MyFragment : Fragment() {
                 }
             }
         }
-        builder.setPositiveButton("Logout", listener)
+        builder.setPositiveButton("SIGNOUT", listener)
         builder.setNegativeButton("Cancel", listener)
 
         logoutDialog = builder.create()

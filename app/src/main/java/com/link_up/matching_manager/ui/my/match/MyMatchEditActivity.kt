@@ -24,16 +24,16 @@ import com.link_up.matching_manager.ui.my.bottomsheet.MyNumberBottomSheet
 import com.link_up.matching_manager.ui.my.bottomsheet.MyTimeBottomSheet
 import com.link_up.matching_manager.ui.my.my.MyEvent
 import com.link_up.matching_manager.ui.my.my.MySharedViewModel
-import com.link_up.matching_manager.ui.my.my.MyViewModel
-import com.link_up.matching_manager.ui.my.my.MyViewModelFactory
+import com.link_up.matching_manager.ui.my.my.MyPostViewModel
+import com.link_up.matching_manager.ui.my.my.MyPostViewModelFactory
 import com.link_up.matching_manager.util.Spinners
 
 
 class MyMatchEditActivity : AppCompatActivity() {
     private lateinit var binding: MyMatchEditActivityBinding
 
-    private val viewModel: MyViewModel by viewModels {
-        MyViewModelFactory()
+    private val viewModel: MyPostViewModel by viewModels {
+        MyPostViewModelFactory()
     }
     private val sharedViewModel: MySharedViewModel by viewModels()
 

@@ -11,16 +11,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.link_up.matching_manager.databinding.MyMatchActivityBinding
 import com.link_up.matching_manager.ui.match.MatchDataModel
 import com.link_up.matching_manager.ui.my.my.MyFragment
-import com.link_up.matching_manager.ui.my.my.MyViewModel
-import com.link_up.matching_manager.ui.my.my.MyViewModelFactory
-import com.link_up.matching_manager.util.UserInformation
+import com.link_up.matching_manager.ui.my.my.MyPostViewModel
+import com.link_up.matching_manager.ui.my.my.MyPostViewModelFactory
 
 class MyMatchActivity : AppCompatActivity() {
 
     private lateinit var binding : MyMatchActivityBinding
 
-    private val viewModel: MyViewModel by viewModels {
-        MyViewModelFactory()
+    private val viewModel: MyPostViewModel by viewModels {
+        MyPostViewModelFactory()
     }
 
     private val adapter by lazy {

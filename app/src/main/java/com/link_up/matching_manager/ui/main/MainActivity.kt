@@ -36,21 +36,12 @@ class MainActivity : AppCompatActivity() {
         tabLayout.getTabAt(4)?.setIcon(R.drawable.ic_my_grey)
 
     }
+    override fun onBackPressed() {
+//        super.onBackPressed()
+    }
+
 
     fun navigateToMatch() = with(binding) {
         viewPager.currentItem = 1
     }
-
-//    override fun onNewIntent(intent: Intent?) {
-//        super.onNewIntent(intent)
-//        Log.d("MainActivity","intent")
-//        intent?.let {
-//            Log.d("MainActivity","${intent.extras}")
-//
-//            val userId = intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_ID)
-//            val userPhoneNumber = intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_USER_PHONE_NUMBER)
-//            val body = intent.getStringExtra(MyFirebaseMessagingService.RECEIVED_BODY)
-//            Log.d("MainActivity","value $userId $userPhoneNumber $body")
-//        }
-//    }
 }
