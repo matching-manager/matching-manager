@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.link_up.matching_manager.databinding.MyMatchActivityBinding
 import com.link_up.matching_manager.ui.match.MatchDataModel
+import com.link_up.matching_manager.ui.match.MatchDetailActivity.Companion.detailIntent
 import com.link_up.matching_manager.ui.my.my.MyFragment
 import com.link_up.matching_manager.ui.my.my.MyPostViewModel
 import com.link_up.matching_manager.ui.my.my.MyPostViewModelFactory
@@ -33,16 +34,6 @@ class MyMatchActivity : AppCompatActivity() {
                 myMatchMenuBottomSheet.show(supportFragmentManager, myMatchMenuBottomSheet.tag)
             }
         )
-    }
-
-    companion object {
-        fun detailIntent(
-            context: Context, item: MatchDataModel
-        ): Intent {
-            val intent = Intent(context, MyMatchDetailActivity::class.java)
-            intent.putExtra(MyFragment.OBJECT_DATA, item)
-            return intent
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
