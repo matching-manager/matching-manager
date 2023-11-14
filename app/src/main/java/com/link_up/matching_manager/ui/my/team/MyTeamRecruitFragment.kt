@@ -9,18 +9,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.link_up.matching_manager.databinding.MyTeamRecruitFragmentBinding
-import com.link_up.matching_manager.ui.my.my.MyViewModel
+import com.link_up.matching_manager.ui.my.my.MyPostViewModel
 import com.link_up.matching_manager.ui.my.team.MyTeamRecruitDetailActivity.Companion.detailIntent
-import com.link_up.matching_manager.ui.my.my.MyViewModelFactory
-import com.link_up.matching_manager.util.UserInformation
+import com.link_up.matching_manager.ui.my.my.MyPostViewModelFactory
 
 class MyTeamRecruitFragment : Fragment() {
 
     private var _binding: MyTeamRecruitFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MyViewModel by viewModels {
-        MyViewModelFactory()
+    private val viewModel: MyPostViewModel by viewModels {
+        MyPostViewModelFactory()
     }
 
     private val adapter by lazy {

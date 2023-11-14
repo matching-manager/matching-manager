@@ -16,8 +16,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.link_up.matching_manager.databinding.MyTeamRecruitDeleteDialogBinding
 import com.link_up.matching_manager.ui.my.my.MyEvent
-import com.link_up.matching_manager.ui.my.my.MyViewModel
-import com.link_up.matching_manager.ui.my.my.MyViewModelFactory
+import com.link_up.matching_manager.ui.my.my.MyPostViewModel
+import com.link_up.matching_manager.ui.my.my.MyPostViewModelFactory
 import com.link_up.matching_manager.ui.team.TeamItem
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -26,8 +26,8 @@ class MyTeamRecruitDeleteDialog(private val item: TeamItem.RecruitmentItem) : Di
     private var _binding: MyTeamRecruitDeleteDialogBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MyViewModel by viewModels {
-        MyViewModelFactory()
+    private val viewModel: MyPostViewModel by viewModels {
+        MyPostViewModelFactory()
     }
 
     private var dismissListener: OnDialogDismissListener? = null

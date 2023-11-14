@@ -1,31 +1,20 @@
 package com.link_up.matching_manager.ui.my.my
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.link_up.matching_manager.data.repository.MatchRepositoryImpl
-import com.link_up.matching_manager.data.repository.TeamRepositoryImpl
-import com.link_up.matching_manager.domain.usecase.match.MatchAutoGetListUseCase
-import com.link_up.matching_manager.domain.usecase.match.MatchDeleteDataUseCase
-import com.link_up.matching_manager.domain.usecase.match.MatchEditDataUseCase
-import com.link_up.matching_manager.domain.usecase.team.TeamAutoGetApplicationListUseCase
-import com.link_up.matching_manager.domain.usecase.team.TeamAutoGetRecruitListUseCase
-import com.link_up.matching_manager.domain.usecase.team.TeamDeleteDataUseCase
-import com.link_up.matching_manager.domain.usecase.team.TeamEditDataUseCase
+import com.link_up.matching_manager.data.repository.SharedPreferenceRepositoryImpl
+import com.link_up.matching_manager.domain.repository.SharedPreferenceRepository
+import com.link_up.matching_manager.domain.usecase.sharedpreference.DeleteUserTypeUseCase
 
-class MyViewModelFactory() : ViewModelProvider.Factory{
-    private val matchRepository = MatchRepositoryImpl()
-    private val teamRepository = TeamRepositoryImpl()
+class MyViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
+    val repository : SharedPreferenceRepository = SharedPreferenceRepositoryImpl()
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MyViewModel::class.java)) {
             return MyViewModel(
-                MatchAutoGetListUseCase(matchRepository),
-                MatchDeleteDataUseCase(matchRepository),
-                MatchEditDataUseCase(matchRepository),
-                TeamAutoGetRecruitListUseCase(teamRepository),
-                TeamAutoGetApplicationListUseCase(teamRepository),
-                TeamDeleteDataUseCase(teamRepository),
-                TeamEditDataUseCase(teamRepository)
+                DeleteUserTypeUseCase(repository),
+                context
             ) as T
         } else {
             throw IllegalArgumentException("Not found ViewModel class.")
