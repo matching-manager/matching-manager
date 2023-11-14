@@ -23,8 +23,8 @@ class MyDeleteDialog(private val item: MatchDataModel) : DialogFragment() {
     private var _binding: MyDeleteDialogBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MyViewModel by viewModels {
-        MyViewModelFactory()
+    private val viewModel: MyPostViewModel by viewModels {
+        MyPostViewModelFactory()
     }
 
     private var dismissListener: OnDialogDismissListener? = null
