@@ -87,8 +87,8 @@ class MyFragment : Fragment() {
 
     private fun createLogoutDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("구글 로그아웃")
-        builder.setMessage("로그 아웃 하시겠습니까?")
+        builder.setTitle("로그아웃 하시겠습니까?")
+//        builder.setMessage("로그아웃 하시겠습니까?")
         builder.setIcon(R.mipmap.ic_launcher)
 
         val listener = DialogInterface.OnClickListener { _, which ->
@@ -111,7 +111,7 @@ class MyFragment : Fragment() {
                 }
             }
         }
-        builder.setPositiveButton("Logout", listener)
+        builder.setPositiveButton("SIGNOUT", listener)
         builder.setNegativeButton("Cancel", listener)
 
         logoutDialog = builder.create()
