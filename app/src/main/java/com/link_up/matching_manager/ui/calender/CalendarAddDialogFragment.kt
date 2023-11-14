@@ -48,7 +48,6 @@ class CalendarAddDialogFragment : BottomSheetDialogFragment() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun initView() = with(binding) {
-
         btnSave.setOnClickListener {
             val memoText = edtCalendarAddDialogMemo.text.toString()
             val memoPlace = edtCalendarAddDialogPlace.text.toString()
