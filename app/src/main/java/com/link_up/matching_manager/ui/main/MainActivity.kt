@@ -2,6 +2,9 @@ package com.link_up.matching_manager.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.RelativeSizeSpan
 import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.MainActivityBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -22,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private fun initView() = with(binding) {
         //view pager adapter
         binding.viewPager.adapter = viewPagerAdapter
+        viewPager.offscreenPageLimit = 4
 
         // TabLayout x ViewPager2
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
