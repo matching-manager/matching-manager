@@ -39,6 +39,17 @@ class MainActivity : AppCompatActivity() {
         tabLayout.getTabAt(3)?.setIcon(R.drawable.ic_team_grey)
         tabLayout.getTabAt(4)?.setIcon(R.drawable.ic_my_grey)
 
+        val tabTitle = "CALENDAR"
+        val spannableString = SpannableString(tabTitle)
+        spannableString.setSpan(
+            RelativeSizeSpan(0.8F), // 크기 조절
+            0, // 시작 인덱스
+            tabTitle.length, // 끝 인덱스
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        tabLayout.getTabAt(2)?.text = spannableString
+
     }
 
     fun navigateToMatch() = with(binding) {
