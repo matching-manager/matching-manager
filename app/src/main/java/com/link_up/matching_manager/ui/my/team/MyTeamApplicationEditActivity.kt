@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.net.toUri
 import androidx.lifecycle.Observer
 import coil.load
 import com.link_up.matching_manager.R
@@ -99,6 +100,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
 
         if (data!!.postImg != "") {
             ivImage.load(data!!.postImg)
+            imageUri = data!!.postImg.toUri()
             btnCancelImage.visibility = View.VISIBLE
         }
 
@@ -454,26 +456,36 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
         val fileRef = reference.child("Team/${data.teamId}")
 
         if (uri != null) {
-            fileRef.putFile(uri)
-                .addOnSuccessListener {
-                    fileRef.downloadUrl
-                        .addOnSuccessListener { uri ->
-                            newData.postImg = uri.toString()
-                            viewModel.editTeam(data, newData)
+            if(imageUri == data.postImg.toUri()) {
+                newData.postImg = imageUri.toString()
+                binding.progressBar.visibility = View.VISIBLE
+                viewModel.editTeam(data, newData)
+                binding.progressBar.visibility = View.INVISIBLE
+                Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                fileRef.putFile(uri)
+                    .addOnSuccessListener {
+                        fileRef.downloadUrl
+                            .addOnSuccessListener { uri ->
+                                newData.postImg = uri.toString()
+                                viewModel.editTeam(data, newData)
 
-                            binding.progressBar.visibility = View.INVISIBLE
+                                binding.progressBar.visibility = View.INVISIBLE
 
-                            Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show()
 
-                        }
-                }
-                .addOnProgressListener { snapshot ->
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                .addOnFailureListener { e ->
-                    binding.progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-                }
+                            }
+                    }
+                    .addOnProgressListener { snapshot ->
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                    .addOnFailureListener { e ->
+                        binding.progressBar.visibility = View.INVISIBLE
+                        Toast.makeText(this, "게시글 수정을 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+            }
         } else {
             if (data.postImg == "") {
                 binding.progressBar.visibility = View.VISIBLE
