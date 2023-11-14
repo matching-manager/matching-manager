@@ -51,12 +51,12 @@ class SendFcmFragment : DialogFragment() {
 
         when (arguments?.getString(INPUT_TYPE)) {
             SendType.MERCENARY.name -> {
-                sendBody = R.string.send_fcm_body_recruit.toString()
+                sendBody = resources.getString(R.string.send_fcm_body_recruit)
                 tvTitle.setText(R.string.send_message_recruit)
             }
 
             SendType.MATCH.name -> {
-                sendBody = R.string.send_fcm_body_matching.toString()
+                sendBody = resources.getString(R.string.send_fcm_body_matching)
                 tvTitle.setText(R.string.send_message_matching)
             }
         }
@@ -70,7 +70,11 @@ class SendFcmFragment : DialogFragment() {
         btnSubmit.setOnClickListener {
             runCatching {
                 if (userName == null || phoneNumber == null) {
-                    Toast.makeText(context, R.string.send_missing_user_information.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        R.string.send_missing_user_information.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     val fcmData = Payload(
                         fcmToken,
