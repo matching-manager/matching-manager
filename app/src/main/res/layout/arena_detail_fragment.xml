@@ -117,7 +117,7 @@
         app:layout_constraintStart_toEndOf="@id/tv_call_text"
         app:layout_constraintTop_toTopOf="@id/tv_call_text" />
 
-    ㅎ<androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_call"
         android:layout_width="0dp"
         android:layout_height="50dp"

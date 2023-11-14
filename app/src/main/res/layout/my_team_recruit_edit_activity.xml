@@ -64,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="18dp"
-                        android:text="종목"
+                        android:text="@string/my_team_recruit_edit_activity_sports"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="23dp"
                         android:layout_marginTop="17dp"
-                        android:text="위치"
+                        android:text="@string/my_team_recruit_edit_activity_location"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -169,7 +169,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="17dp"
-                        android:text="일정"
+                        android:text="@string/my_team_recruit_edit_activity_schedule"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -180,7 +180,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="20dp"
                         android:gravity="center"
-                        android:hint="10월 10일 (화)"
+                        android:hint="@string/my_team_recruit_edit_activity_month_date"
                         android:textSize="18sp" />
 
                     <TextView
@@ -188,7 +188,7 @@
                         android:layout_width="120dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:hint="오전 10:00"
+                        android:hint="@string/my_team_recruit_edit_activity_tv_time"
                         android:textSize="18sp" />
 
 
@@ -219,7 +219,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="인원"
+                        android:text="@string/my_team_recruit_edit_activity_personnel"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -230,14 +230,14 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
                         android:gravity="center"
-                        android:hint="0"
+                        android:hint="@string/my_team_recruit_edit_activity_tv_team_number1"
                         android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
-                        android:text="명"
+                        android:text="@string/my_number_number"
                         android:textSize="18sp" />
 
                 </LinearLayout>
@@ -269,7 +269,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="3dp"
-                        android:text="팀명"
+                        android:text="@string/my_match_edit_activity_team"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -282,7 +282,7 @@
                         android:layout_marginTop="3dp"
                         android:layout_marginRight="20dp"
                         android:backgroundTint="@android:color/transparent"
-                        android:hint="팀 이름을 입력 해 주세요."
+                        android:hint="@string/my_team_recruit_edit_activity_et_team_name"
                         android:maxLength="10"
                         android:maxLines="1" />
 
@@ -316,7 +316,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
-                        android:text="회비"
+                        android:text="@string/my_team_recruit_edit_activity_dues"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -329,7 +329,7 @@
                         android:layout_marginTop="4dp"
                         android:layout_marginRight="20dp"
                         android:backgroundTint="@android:color/transparent"
-                        android:hint="5000"
+                        android:hint="@string/my_team_recruit_edit_activity_et_entry_fee"
                         android:inputType="number"
                         android:maxLength="10"
                         android:maxLines="1" />
@@ -361,7 +361,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="성별"
+                        android:text="@string/my_team_recruit_edit_activity_gender"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -399,7 +399,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="실력"
+                        android:text="@string/my_team_recruit_edit_activity_skill"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -435,7 +435,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
                         android:layout_marginTop="7dp"
-                        android:text="내용"
+                        android:text="@string/my_team_recruit_edit_activity_detail"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -449,7 +449,7 @@
                         android:layout_marginRight="20dp"
                         android:layout_marginBottom="5dp"
                         android:backgroundTint="@android:color/transparent"
-                        android:hint="내용을 입력해 주세요." />
+                        android:hint="@string/my_team_recruit_edit_activity_et_content" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -474,7 +474,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
                         android:layout_marginTop="20dp"
-                        android:text="사진"
+                        android:text="@string/my_team_recruit_edit_activity_textView4"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -520,7 +520,7 @@
                         android:id="@+id/tv_add_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="사진 등록"
+                        android:text="@string/my_team_recruit_edit_activity_tv_add_image"
                         android:textColor="@color/common_point_green"
                         android:textSize="15sp"
                         android:textStyle="bold"
@@ -541,7 +541,7 @@
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/btn_background_green_fill"
                 android:fontFamily="@font/pretendardbold"
-                android:text="등록하기"
+                android:text="@string/my_team_recruit_edit_activity_btn_submit"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

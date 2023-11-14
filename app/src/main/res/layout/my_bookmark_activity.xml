@@ -34,17 +34,17 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="매치" />
+            android:text="@string/my_bookmark_activity_match" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="용병모집" />
+            android:text="@string/my_bookmark_activity_recruit" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="용병신청" />
+            android:text="@string/my_bookmark_activity_apply_recruit" />
 
     </com.google.android.material.tabs.TabLayout>
 

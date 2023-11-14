@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="10dp"
-            android:text="전체 지역"
+            android:text="@string/my_match_activity_tv_filter"
             app:layout_constraintTop_toBottomOf="@id/btn_back"
             android:textColor="@color/common_point_green"
             app:layout_constraintStart_toStartOf="parent"

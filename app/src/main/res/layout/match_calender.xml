@@ -81,7 +81,7 @@
             android:layout_marginStart="5dp"
             android:background="@drawable/btn_background_green_stroke"
             android:fontFamily="@font/pretendardbold"
-            android:text="취소"
+            android:text="@string/match_activity_btn_cancel"
             android:textAlignment="center"
             android:textColor="@color/common_point_green"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
@@ -94,7 +94,7 @@
             android:layout_marginRight="5dp"
             android:background="@drawable/btn_background_green_fill"
             android:fontFamily="@font/pretendardbold"
-            android:text="선택하기"
+            android:text="@string/match_activity_btn_select"
             android:textAlignment="center"
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />

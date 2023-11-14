@@ -132,7 +132,7 @@
                     android:layout_marginTop="10dp"
                     android:textColor="@color/black"
                     android:background="@drawable/et_common_background_grey"
-                    android:hint="메모 할 내용을 입력해주세요."
+                    android:hint="@string/calendar_edit_dialog_fragment_memo_"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/iv_calendar_edit_menu"
