@@ -94,7 +94,7 @@ class MyTeamApplicationEditActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
-        btnCancel.title = R.string.team_add_activity_application.toString()
+        btnCancel.title = resources.getString(R.string.team_add_activity_application)
         etContent.setText(data!!.description)
 
         if (data!!.postImg != "") {
