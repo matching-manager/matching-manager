@@ -38,4 +38,6 @@
 
     <!--myPage -->
     <color name="common_gray">#BDBDBD</color>
+    <color name="my_background">#F1F6FF</color>
+
 </resources>
