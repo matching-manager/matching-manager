@@ -1,4 +1,4 @@
-package com.link_up.matching_manager.domain.repository
+package com.link_up.matching_manager.domain.repository.api
 
 import com.link_up.matching_manager.domain.model.ArenaEntity
 import retrofit2.http.Query

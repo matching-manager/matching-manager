@@ -1,7 +1,7 @@
 package com.link_up.matching_manager.domain.usecase.api
 
 import com.link_up.matching_manager.domain.model.ArenaEntity
-import com.link_up.matching_manager.domain.repository.ArenaRepository
+import com.link_up.matching_manager.domain.repository.api.ArenaRepository
 import javax.inject.Inject
 
 class GetArenaInfoUseCase @Inject constructor(

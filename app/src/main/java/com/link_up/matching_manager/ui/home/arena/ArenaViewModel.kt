@@ -10,8 +10,9 @@ import com.link_up.matching_manager.domain.model.ArenaEntity
 import com.link_up.matching_manager.domain.usecase.api.GetArenaInfoUseCase
 import com.link_up.matching_manager.domain.usecase.geo.GetGeoLocationUseCase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ArenaViewModel(
+class ArenaViewModel @Inject constructor(
     private val arenaInfo: GetArenaInfoUseCase,
     private val getGeoLocation: GetGeoLocationUseCase
 ) : ViewModel() {

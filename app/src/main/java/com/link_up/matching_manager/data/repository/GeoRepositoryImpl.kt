@@ -5,8 +5,9 @@ import android.location.Geocoder
 import android.location.Location
 import com.link_up.matching_manager.domain.repository.GeoRepository
 import java.util.Locale
+import javax.inject.Inject
 
-class GeoRepositoryImpl : GeoRepository {
+class GeoRepositoryImpl @Inject constructor(): GeoRepository {
 
 
     // 주소로 위도,경도 구하는 GeoCoding

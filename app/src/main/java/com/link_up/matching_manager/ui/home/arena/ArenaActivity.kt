@@ -9,10 +9,10 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.link_up.matching_manager.data.di.ArenaApplication
 import com.link_up.matching_manager.databinding.ArenaActivityBinding
 import com.link_up.matching_manager.ui.home.arena.bottomsheet.ArenaFilterCategoryBottomSheet
 import com.link_up.matching_manager.ui.home.arena.detail_dialog.ArenaDetailFragment
+import com.link_up.matching_manager.ui.home.arena.di.DaggerArenaComponent
 import javax.inject.Inject
 
 class ArenaActivity : AppCompatActivity() {
@@ -20,10 +20,10 @@ class ArenaActivity : AppCompatActivity() {
     private val binding by lazy { ArenaActivityBinding.inflate(layoutInflater) }
 
 //    private val viewModel: ArenaViewModel by viewModels { ArenaViewModelFactory() }
-    lateinit var viewModel : ArenaViewModel
 
     @Inject
-    lateinit var viewModelFactory: ArenaViewModelFactory
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val viewModel: ArenaViewModel by viewModels { viewModelFactory }
 
     private val listAdapter: ArenaListAdapter by lazy {
         ArenaListAdapter(
@@ -64,9 +64,9 @@ class ArenaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        (application as ArenaApplication).applicationComponent.injectArena(this)
-
-        viewModel = ViewModelProvider(this,viewModelFactory)[ArenaViewModel::class.java]
+        val daggerComponent = DaggerArenaComponent.factory().create()
+        // Dagger 컴포넌트에 주입
+        daggerComponent.injectArena(this)
 
         initView()
         initModel()
@@ -151,7 +151,7 @@ class ArenaActivity : AppCompatActivity() {
                 listAdapter.submitList(it)
             } else {
                 binding.tvEmpty.visibility = (View.INVISIBLE)
-                listAdapter.submitList(it){
+                listAdapter.submitList(it) {
                     //{}아이템을 다 그리고 난후 콜백! 실행
                     //리스트가 모든걸 생성후 최상단으로 스크롤
                     scrollTop()
@@ -197,6 +197,7 @@ class ArenaActivity : AppCompatActivity() {
             rvArena.scrollToPosition(0)
         }// 최상단으로 스크롤
     }
+
     private fun smoothScrollTop() = with(binding) {
         //약간 딜레이를 주는것
         rvArena.post {
