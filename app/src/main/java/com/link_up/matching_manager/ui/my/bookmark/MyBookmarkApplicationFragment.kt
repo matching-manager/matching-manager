@@ -17,34 +17,27 @@ import com.link_up.matching_manager.ui.my.my.MyPostViewModel
 import com.link_up.matching_manager.ui.team.TeamDetailActivity
 import com.link_up.matching_manager.ui.team.TeamItem
 import com.google.gson.Gson
+import com.link_up.matching_manager.ui.my.my.MyBookmarkViewModel
+import com.link_up.matching_manager.ui.my.my.MyBookmarkViewModelFactory
+import com.link_up.matching_manager.ui.team.TeamDetailActivity.Companion.newIntent
+import com.link_up.matching_manager.util.Utils.toApplication
 
 class MyBookmarkApplicationFragment : Fragment() {
 
     private var _binding: MyBookmarkApplicationFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MyPostViewModel by viewModels {
-        MyPostViewModelFactory()
-    }
-
-    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            getApplicationBookmark()
-        }
+    private val viewModel: MyBookmarkViewModel by viewModels {
+        MyBookmarkViewModelFactory(requireActivity().application)
     }
 
     private val adapter by lazy {
         MyBookmarkApplicationListAdapter(
             onItemClick = {item ->
-                resultLauncher.launch(TeamDetailActivity.newIntent(item, requireContext()))
+                startActivity(newIntent(item, requireContext()))
             },
             onDeleteClick = {item ->
-                val bookmarkPref = requireActivity().getSharedPreferences("Bookmark", Context.MODE_PRIVATE)
-                val editor = bookmarkPref.edit()
-                editor.remove("Application_${item.teamId}")
-                editor.apply()
-
-                getApplicationBookmark()
+                viewModel.deleteBookmarkApplicationData(item)
             }
         )
     }
@@ -65,8 +58,6 @@ class MyBookmarkApplicationFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
-        getApplicationBookmark()
-
         rv.adapter = adapter
         val manager = LinearLayoutManager(requireContext())
         manager.reverseLayout = true
@@ -74,52 +65,14 @@ class MyBookmarkApplicationFragment : Fragment() {
         rv.layoutManager = manager
     }
 
-    private fun getApplicationBookmark() {
-        val bookmarkPref = requireActivity().getSharedPreferences("Bookmark", Context.MODE_PRIVATE)
-        val gson = Gson()
-        val keys = bookmarkPref.all.keys
-        val dataList = mutableListOf<TeamItem.ApplicationItem>()
-        for (key in keys) {
-            if (key.startsWith("Application_")) {
-                val json = bookmarkPref.getString(key, null)
-                if (!json.isNullOrBlank()) {
-                    val data = gson.fromJson(json, BookmarkApplicationDataModel::class.java)
-                    dataList.add(bookmarkApplicationToTeamItem(data))
-                }
-            }
-        }
-        viewModel.addBookmarkApplicationLiveData(dataList)
-    }
-
     private fun initViewModel() = with(viewModel) {
         bookmarkApplicationList.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
+            val tempList = mutableListOf<TeamItem.ApplicationItem>()
+            for(application in it) {
+                tempList.add(application.toApplication())
+            }
+            adapter.submitList(tempList)
         })
-    }
-
-    private fun bookmarkApplicationToTeamItem(item : BookmarkApplicationDataModel) : TeamItem.ApplicationItem {
-        return TeamItem.ApplicationItem(
-            type = item.type,
-            teamId = item.teamId,
-            userId = item.userId,
-            nickname = item.nickname,
-            userImg = item.userImg,
-            userEmail = item.userEmail,
-            phoneNum = item.phoneNum,
-            fcmToken = item.fcmToken,
-            description = item.description,
-            gender = item.gender,
-            chatCount = item.chatCount,
-            level = item.level,
-            playerNum = item.playerNum,
-            postImg = item.postImg,
-            schedule = item.schedule,
-            uploadTime = item.uploadTime,
-            viewCount = item.viewCount,
-            game = item.game,
-            area = item.area,
-            age = item.age
-        )
     }
 
     override fun onDestroy() {
