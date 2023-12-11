@@ -9,6 +9,8 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import coil.load
 import com.link_up.matching_manager.R
 import com.link_up.matching_manager.databinding.MatchDetailActivityBinding
@@ -18,6 +20,8 @@ import com.link_up.matching_manager.ui.my.my.MyPostViewModelFactory
 import com.link_up.matching_manager.ui.my.my.MyPostViewModel
 import com.link_up.matching_manager.ui.my.bookmark.MyBookmarkMatchFragment
 import com.google.gson.Gson
+import com.link_up.matching_manager.ui.my.my.MyBookmarkViewModel
+import com.link_up.matching_manager.ui.my.my.MyBookmarkViewModelFactory
 import com.link_up.matching_manager.util.UserInformation
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -28,8 +32,8 @@ class MatchDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: MatchDetailActivityBinding
 
-    private val viewModel: MyPostViewModel by viewModels {
-        MyPostViewModelFactory()
+    private val viewModel : MyBookmarkViewModel by viewModels {
+        MyBookmarkViewModelFactory(application)
     }
 
     private var isLiked = false
@@ -56,6 +60,7 @@ class MatchDetailActivity : AppCompatActivity() {
         binding = MatchDetailActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initViewModel()
         initView()
     }
 
@@ -112,65 +117,30 @@ class MatchDetailActivity : AppCompatActivity() {
         }
         ivBookmark.setOnClickListener {
             if (!isLiked) {
-                addMatchBookmark()
-                getMatchBookmark()
+                viewModel.insertBookmarkMatchData(data!!)
                 ivBookmark.setImageResource(R.drawable.ic_heart_filled)
                 isLiked = true
             } else {
-                deleteMatchBookmark()
-                getMatchBookmark()
+                viewModel.deleteBookmarkMatchData(data!!)
                 ivBookmark.setImageResource(R.drawable.ic_heart)
                 isLiked = false
             }
 
         }
-        val bookmarkPref = getSharedPreferences("Bookmark", Context.MODE_PRIVATE)
-        val keys = bookmarkPref.all.keys
-
-        for (key in keys) {
-            if (key == "Match_${data!!.matchId}") {
-                ivBookmark.setImageResource(R.drawable.ic_heart_filled)
-                isLiked = true
-            }
-        }
-
-        val intent = Intent(this@MatchDetailActivity, MyBookmarkMatchFragment::class.java)
-        setResult(RESULT_OK, intent)
     }
 
-    private fun addMatchBookmark() {
-        val bookmarkPref = getSharedPreferences("Bookmark", Context.MODE_PRIVATE)
-        val editor = bookmarkPref.edit()
-
-        val gson = Gson()
-        val matchDataJson = gson.toJson(data)
-
-        editor.putString("Match_${data!!.matchId}", matchDataJson)
-        editor.apply()
-    }
-
-    private fun deleteMatchBookmark() {
-        val bookmarkPref = getSharedPreferences("Bookmark", Context.MODE_PRIVATE)
-        val editor = bookmarkPref.edit()
-        editor.remove("Match_${data!!.matchId}")
-        editor.apply()
-    }
-
-    private fun getMatchBookmark() {
-        val bookmarkPref = getSharedPreferences("Bookmark", Context.MODE_PRIVATE)
-        val gson = Gson()
-        val keys = bookmarkPref.all.keys
-        val dataList = mutableListOf<MatchDataModel>()
-        for (key in keys) {
-            if (key.startsWith("Match_")) {
-                val json = bookmarkPref.getString(key, null)
-                if (!json.isNullOrBlank()) {
-                    val data = gson.fromJson(json, MatchDataModel::class.java)
-                    dataList.add(data)
+    private fun initViewModel() = with(viewModel) {
+        bookmarkMatchList.observe(this@MatchDetailActivity, Observer { it ->
+            if( it != null) {
+                for(bookmark in it) {
+                    if(bookmark.matchId == data!!.matchId) {
+                        isLiked = true
+                        binding.ivBookmark.setImageResource(R.drawable.ic_heart_filled)
+                        break
+                    }
                 }
             }
-        }
-        viewModel.addBookmarkMatchLiveData(dataList)
+        })
     }
 
     private fun decimalFormat(entryFee: Int): String {

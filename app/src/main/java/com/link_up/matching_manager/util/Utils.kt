@@ -9,6 +9,11 @@ import android.net.Uri
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.link_up.matching_manager.data.room.ApplicationEntity
+import com.link_up.matching_manager.data.room.MatchEntity
+import com.link_up.matching_manager.data.room.RecruitmentEntity
+import com.link_up.matching_manager.ui.match.MatchDataModel
+import com.link_up.matching_manager.ui.team.TeamItem
 
 object Utils {
 
@@ -56,4 +61,155 @@ object Utils {
         activity.startActivity(intent)
     }
 
+    fun MatchEntity.toMatchDataModel(): MatchDataModel {
+        return MatchDataModel(
+            matchId,
+            userId,
+            userNickname,
+            userImg,
+            userEmail,
+            fcmToken,
+            phoneNum,
+            teamName,
+            game,
+            schedule,
+            matchPlace,
+            playerNum,
+            entryFee,
+            description,
+            gender,
+            level,
+            postImg,
+            viewCount,
+            chatCount,
+            uploadTime
+        )
+    }
+
+    fun MatchDataModel.toMatchEntity(): MatchEntity {
+        return MatchEntity(
+            matchId,
+            userId,
+            userNickname,
+            userImg,
+            userEmail,
+            fcmToken,
+            phoneNum,
+            teamName,
+            game,
+            schedule,
+            matchPlace,
+            playerNum,
+            entryFee,
+            description,
+            gender,
+            level,
+            postImg,
+            viewCount,
+            chatCount,
+            uploadTime
+        )
+    }
+
+    fun TeamItem.RecruitmentItem.toRecruitmentEntity(): RecruitmentEntity {
+        return RecruitmentEntity(
+            type,
+            teamId,
+            userId,
+            nickname,
+            userImg,
+            userEmail,
+            phoneNum,
+            fcmToken,
+            description,
+            gender,
+            chatCount,
+            level,
+            playerNum,
+            postImg,
+            schedule,
+            uploadTime,
+            viewCount,
+            game,
+            area,
+            pay,
+            teamName
+        )
+    }
+
+    fun TeamItem.ApplicationItem.toApplicationEntity(): ApplicationEntity {
+        return ApplicationEntity(
+            type,
+            teamId,
+            userId,
+            nickname,
+            userImg,
+            userEmail,
+            phoneNum,
+            fcmToken,
+            description,
+            gender,
+            chatCount,
+            level,
+            playerNum,
+            postImg,
+            schedule,
+            uploadTime,
+            viewCount,
+            game,
+            area,
+            age
+        )
+    }
+
+    fun RecruitmentEntity.toRecruitment(): TeamItem.RecruitmentItem {
+        return TeamItem.RecruitmentItem(
+            type,
+            teamId,
+            userId,
+            nickname,
+            userImg,
+            userEmail,
+            phoneNum,
+            fcmToken,
+            description,
+            gender,
+            chatCount,
+            level,
+            playerNum,
+            postImg,
+            schedule,
+            uploadTime,
+            viewCount,
+            game,
+            area,
+            pay,
+            teamName
+        )
+    }
+
+    fun ApplicationEntity.toApplication(): TeamItem.ApplicationItem {
+        return TeamItem.ApplicationItem(
+            type,
+            teamId,
+            userId,
+            nickname,
+            userImg,
+            userEmail,
+            phoneNum,
+            fcmToken,
+            description,
+            gender,
+            chatCount,
+            level,
+            playerNum,
+            postImg,
+            schedule,
+            uploadTime,
+            viewCount,
+            game,
+            area,
+            age
+        )
+    }
 }
