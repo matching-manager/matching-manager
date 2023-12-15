@@ -55,10 +55,12 @@ class AlarmActivity : AppCompatActivity() {
         Log.d(TAG, "$TAG 진입 ")
         viewModel.loadAlarm()
 
+        btnEdit.setOnClickListener {
+            
+        }
+
         btnBack.setOnClickListener {
             onBackPressed()
         }
-
-
     }
 }

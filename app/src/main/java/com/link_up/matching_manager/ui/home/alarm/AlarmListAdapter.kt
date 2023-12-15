@@ -10,7 +10,8 @@ import com.link_up.matching_manager.databinding.AlarmRecyclerviewItemBinding
 
 
 class AlarmListAdapter(
-    private val onCallClick: (AlarmModel) -> Unit
+    private val onCallClick: (AlarmModel) -> Unit,
+    private val onCheckBoxChecked: (AlarmModel) -> Unit,
 ) : ListAdapter<AlarmModel, AlarmListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<AlarmModel>() {
         override fun areItemsTheSame(
@@ -64,6 +65,18 @@ class AlarmListAdapter(
             }
             btnCall.setOnClickListener {
                 onCallClick(item)
+            }
+
+            checkbox.isChecked
+
+            // checkbox 클릭
+            checkbox.setOnClickListener {
+                onCheckBoxChecked(
+                    adapterPosition,
+                    item.copy(
+                        isBookmark = bookmark.isChecked
+                    )
+                )
             }
         }
     }
